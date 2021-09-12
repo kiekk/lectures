@@ -1,4 +1,4 @@
-import { BoardStatus } from '../enum/boardStatus';
+import { BoardStatus } from './enum/boardStatus';
 
 export interface Board {
   id: string;
