@@ -1,4 +1,4 @@
-import { Injectable, Post } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { Board } from './board.model';
 import { BoardStatus } from '../enum/boardStatus';
 import { v1 as uuid } from 'uuid';
@@ -25,5 +25,9 @@ export class BoardsService {
     this.boards.push(board);
 
     return board;
+  }
+
+  getBoardById(id: string) {
+    return this.boards.find((board) => board.id === id);
   }
 }
