@@ -1,5 +1,7 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Post } from '@nestjs/common';
 import { Board } from './board.model';
+import { BoardStatus } from '../enum/boardStatus';
+import { v1 as uuid } from 'uuid';
 
 @Injectable()
 export class BoardsService {
@@ -8,5 +10,18 @@ export class BoardsService {
   // 타입 추론이 되기 때문에 타입을 지정하지 않아도 Board[]로 인식
   getAllBoards() /*: Board[] */ {
     return this.boards;
+  }
+
+  createBoard(title: string, description: string) {
+    const board: Board = {
+      id: uuid(),
+      title,
+      description,
+      status: BoardStatus.PUBLIC,
+    };
+
+    this.boards.push(board);
+
+    return board;
   }
 }
