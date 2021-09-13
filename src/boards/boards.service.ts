@@ -23,11 +23,10 @@ export class BoardsService {
     return this.boardRepository.getBoardById(id);
   }
 
-  // deleteBoard(id: string) {
-  //   const found = this.getBoardById(id);
-  //   this.boards = this.boards.filter((board) => board.id !== found.id);
-  // }
-  //
+  async deleteBoard(id: number): Promise<void> {
+    await this.boardRepository.deleteBoard(id);
+  }
+
   // updateBoardStatus(id: string, status: BoardStatus) {
   //   const board = this.getBoardById(id);
   //   board.status = status;

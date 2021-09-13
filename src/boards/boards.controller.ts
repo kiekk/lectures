@@ -35,11 +35,11 @@ export class BoardsController {
     return this.boardsService.getBoardById(id);
   }
 
-  // @Delete('/:id')
-  // deleteBoard(@Param('id') id: string) {
-  //   this.boardsService.deleteBoard(id);
-  // }
-  //
+  @Delete('/:id')
+  deleteBoard(@Param('id') id: number): Promise<void> {
+    return this.boardsService.deleteBoard(id);
+  }
+
   // @Patch('/:id/status')
   // updateBoardStatus(
   //   @Param('id') id: string,
