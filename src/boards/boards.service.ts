@@ -16,26 +16,11 @@ export class BoardsService {
   // }
 
   async createBoard(createBoardDto: CreateBoardDto): Promise<Board> {
-    const { title, description } = createBoardDto;
-
-    const board = this.boardRepository.create({
-      title,
-      description,
-      status: BoardStatus.PUBLIC,
-    });
-
-    await this.boardRepository.save(board);
-    return board;
+    return this.boardRepository.createBoard(createBoardDto);
   }
 
   async getBoardById(id: number): Promise<Board> {
-    const found = await this.boardRepository.findOne(id);
-
-    if (!found) {
-      throw new NotFoundException(`Can't find Board with id {${id}}`);
-    }
-
-    return found;
+    return this.boardRepository.getBoardById(id);
   }
 
   // deleteBoard(id: string) {
