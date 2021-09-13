@@ -10,10 +10,10 @@ export class BoardsService {
   constructor(
     @InjectRepository(BoardRepository) private boardRepository: BoardRepository,
   ) {}
-  // // 타입 추론이 되기 때문에 타입을 지정하지 않아도 Board[]로 인식
-  // getAllBoards() /*: Board[] */ {
-  //   return this.boards;
-  // }
+
+  async getAllBoards(): Promise<Board[]> {
+    return this.boardRepository.getAllBoards();
+  }
 
   async createBoard(createBoardDto: CreateBoardDto): Promise<Board> {
     return this.boardRepository.createBoard(createBoardDto);

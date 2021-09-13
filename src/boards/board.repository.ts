@@ -6,6 +6,10 @@ import { NotFoundException } from '@nestjs/common';
 
 @EntityRepository(Board)
 export class BoardRepository extends Repository<Board> {
+  async getAllBoards(): Promise<Board[]> {
+    return this.find();
+  }
+
   async createBoard(createBoardDto: CreateBoardDto): Promise<Board> {
     const { title, description } = createBoardDto;
 
