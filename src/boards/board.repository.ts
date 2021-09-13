@@ -7,8 +7,13 @@ import { User } from '../auth/user.entity';
 
 @EntityRepository(Board)
 export class BoardRepository extends Repository<Board> {
-  async getAllBoards(): Promise<Board[]> {
-    return this.find();
+  async getAllBoards(user: User): Promise<Board[]> {
+    const query = this.createQueryBuilder('board');
+
+    query.where('board.userId = :userId', { userId: user.id });
+
+    const boards = await query.getMany();
+    return boards;
   }
 
   async createBoard(

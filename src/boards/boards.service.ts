@@ -12,8 +12,8 @@ export class BoardsService {
     @InjectRepository(BoardRepository) private boardRepository: BoardRepository,
   ) {}
 
-  async getAllBoards(): Promise<Board[]> {
-    return this.boardRepository.getAllBoards();
+  async getAllBoards(user: User): Promise<Board[]> {
+    return this.boardRepository.getAllBoards(user);
   }
 
   async createBoard(
