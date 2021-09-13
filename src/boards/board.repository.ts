@@ -41,7 +41,7 @@ export class BoardRepository extends Repository<Board> {
     }
   }
 
-  updateBoardStatus(board: Board): Promise<Board> {
+  async updateBoardStatus(board: Board): Promise<Board> {
     return this.save(board);
   }
 }
