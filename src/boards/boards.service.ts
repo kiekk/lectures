@@ -27,9 +27,10 @@ export class BoardsService {
     await this.boardRepository.deleteBoard(id);
   }
 
-  // updateBoardStatus(id: string, status: BoardStatus) {
-  //   const board = this.getBoardById(id);
-  //   board.status = status;
-  //   return board;
-  // }
+  async updateBoardStatus(id: number, status: BoardStatus): Promise<Board> {
+    const board = await this.getBoardById(id);
+    board.status = status;
+    await this.boardRepository.updateBoardStatus(board);
+    return board;
+  }
 }

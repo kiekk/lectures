@@ -36,4 +36,8 @@ export class BoardRepository extends Repository<Board> {
       throw new NotFoundException(`Can't find Board with id {${id}}`);
     }
   }
+
+  updateBoardStatus(board: Board): Promise<Board> {
+    return this.save(board);
+  }
 }
