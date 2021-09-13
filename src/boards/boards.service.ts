@@ -27,8 +27,8 @@ export class BoardsService {
     return this.boardRepository.getBoardById(id);
   }
 
-  async deleteBoard(id: number): Promise<void> {
-    await this.boardRepository.deleteBoard(id);
+  async deleteBoard(id: number, user: User): Promise<void> {
+    await this.boardRepository.deleteBoard(id, user);
   }
 
   async updateBoardStatus(id: number, status: BoardStatus): Promise<Board> {
