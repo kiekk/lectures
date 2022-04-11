@@ -24,6 +24,7 @@ dependencies {
     implementation "org.apache.logging.log4j:log4j-to-slf4j:${log4j2Version}"
     compileOnly "org.projectlombok:lombok"
     annotationProcessor "org.projectlombok:lombok"
+    annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
 }
 
 tasks.named('test') {
