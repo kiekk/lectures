@@ -6,6 +6,8 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import sun.misc.Contended;
 
+import javax.servlet.http.HttpSession;
+
 @Slf4j
 @Contended
 @EnableWebSecurity
@@ -33,5 +35,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     response.sendRedirect("/");
                 })
                 .permitAll();
+        http
+                .logout()
+                .logoutUrl("/logout")
+                .logoutSuccessUrl("/login")
+                .addLogoutHandler((request, response, authentication) -> {
+                    HttpSession session = request.getSession();
+                    session.invalidate();
+                })
+                .logoutSuccessHandler((request, response, authentication) -> response.sendRedirect("/login"))
+                .deleteCookies("remember-me");
     }
 }
