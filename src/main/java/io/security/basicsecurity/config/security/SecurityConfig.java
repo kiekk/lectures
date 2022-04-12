@@ -59,8 +59,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //                .userDetailsService(userDetailsService);
         http
                 .sessionManagement()
-                .maximumSessions(1)
-                .maxSessionsPreventsLogin(false);   // true: 동시 로그인 차단, false: 이전 세션 만료
+                .sessionFixation()
+                .changeSessionId();
+//                .maximumSessions(1)
+//                .maxSessionsPreventsLogin(false);   // true: 동시 로그인 차단, false: 이전 세션 만료
 
     }
 }
