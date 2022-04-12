@@ -1,16 +1,16 @@
 package io.security.basicsecurity.config.security;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import sun.misc.Contended;
 
 import javax.servlet.http.HttpSession;
 
 @Slf4j
-@Contended
+@Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
@@ -59,10 +59,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //                .userDetailsService(userDetailsService);
         http
                 .sessionManagement()
-                .sessionFixation()
-                .changeSessionId();
-//                .maximumSessions(1)
-//                .maxSessionsPreventsLogin(false);   // true: 동시 로그인 차단, false: 이전 세션 만료
+                .maximumSessions(1)
+                .maxSessionsPreventsLogin(true);   // true: 동시 로그인 차단, false: 이전 세션 만료
 
     }
 }
