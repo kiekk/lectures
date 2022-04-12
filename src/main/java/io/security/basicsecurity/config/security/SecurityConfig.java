@@ -42,20 +42,25 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //                    response.sendRedirect("/");
 //                })
 //                .permitAll();
+//        http
+//                .logout()
+//                .logoutUrl("/logout")
+//                .logoutSuccessUrl("/login")
+//                .addLogoutHandler((request, response, authentication) -> {
+//                    HttpSession session = request.getSession();
+//                    session.invalidate();
+//                })
+//                .logoutSuccessHandler((request, response, authentication) -> response.sendRedirect("/login"))
+//                .deleteCookies("remember-me");
+//        http
+//                .rememberMe()
+//                .rememberMeParameter("remember")
+//                .tokenValiditySeconds(60 * 60)
+//                .userDetailsService(userDetailsService);
         http
-                .logout()
-                .logoutUrl("/logout")
-                .logoutSuccessUrl("/login")
-                .addLogoutHandler((request, response, authentication) -> {
-                    HttpSession session = request.getSession();
-                    session.invalidate();
-                })
-                .logoutSuccessHandler((request, response, authentication) -> response.sendRedirect("/login"))
-                .deleteCookies("remember-me");
-        http
-                .rememberMe()
-                .rememberMeParameter("remember")
-                .tokenValiditySeconds(60 * 60)
-                .userDetailsService(userDetailsService);
+                .sessionManagement()
+                .maximumSessions(1)
+                .maxSessionsPreventsLogin(false);   // true: 동시 로그인 차단, false: 이전 세션 만료
+
     }
 }
