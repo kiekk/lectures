@@ -8,8 +8,6 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
-import javax.servlet.http.HttpSession;
-
 @Slf4j
 @Configuration
 @EnableWebSecurity
@@ -69,10 +67,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //                .rememberMeParameter("remember")
 //                .tokenValiditySeconds(60 * 60)
 //                .userDetailsService(userDetailsService);
+//        http
+//                .sessionManagement()
+//                .maximumSessions(1)
+//                .maxSessionsPreventsLogin(true);   // true: 동시 로그인 차단, false: 이전 세션 만료
         http
-                .sessionManagement()
-                .maximumSessions(1)
-                .maxSessionsPreventsLogin(true);   // true: 동시 로그인 차단, false: 이전 세션 만료
+                .exceptionHandling()
+                .authenticationEntryPoint(((request, response, authException) -> {
+                    log.debug("authenticationEntryPoint");
+                    response.sendRedirect("/login");
+                }))
+                .accessDeniedHandler((request, response, accessDeniedException) -> {
+                    log.debug("accessDeniedHandler");
+                    response.sendRedirect("/denied");
+                });
 
     }
 }
