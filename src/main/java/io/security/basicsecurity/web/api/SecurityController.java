@@ -15,4 +15,20 @@ public class SecurityController {
     public String login() {
         return "login";
     }
+
+    @GetMapping("user")
+    public String user() {
+        return "user";
+    }
+
+    @GetMapping("admin/pay")
+    public String adminPay() {
+        return "adminPay";
+    }
+
+    @GetMapping("admin/**")
+    public String admin() {
+        return "admin";
+    }
+
 }
