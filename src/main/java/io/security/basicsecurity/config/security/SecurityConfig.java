@@ -29,11 +29,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     }
 
-
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
+                .antMatchers("/user/**").hasAnyRole("USER")
+                .antMatchers("/admin/pay").hasAnyRole("ADMIN")
+                .antMatchers("/admin/**").access("hasRole('ADMIN') or hasRole('SYS')")
                 .anyRequest().authenticated();
         http
                 .formLogin();
