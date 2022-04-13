@@ -21,6 +21,13 @@ spring:
       enabled: true
     restart:
       enabled: true
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    open-in-view: true
+    show-sql: true
+    properties:
+      hibernate.format_sql: true
 
 # Jasypt Setting
 # ADD VM Option : -Djasypt.encryptor.password=
