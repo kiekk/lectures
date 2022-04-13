@@ -14,6 +14,13 @@ spring:
       test-while-idle: true
       remove-abandoned: true
       remove-abandoned-timeout: 300
+  thymeleaf:
+    cache: false
+  devtools:
+    livereload:
+      enabled: true
+    restart:
+      enabled: true
 
 # Jasypt Setting
 # ADD VM Option : -Djasypt.encryptor.password=
