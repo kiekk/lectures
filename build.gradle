@@ -20,6 +20,7 @@ repositories {
 
 ext {
     jasyptVersion = "3.0.3"
+    modelMapperVersion = "1.1.0"
 }
 
 dependencies {
@@ -36,6 +37,7 @@ dependencies {
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.springframework.security:spring-security-test'
     implementation "com.github.ulisesbocchio:jasypt-spring-boot-starter:${jasyptVersion}"
+    implementation "org.modelmapper.extensions:modelmapper-spring:${modelMapperVersion}"
 }
 
 tasks.named('test') {
