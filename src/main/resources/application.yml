@@ -1,0 +1,23 @@
+spring:
+  datasource:
+    name: SPRINGSECURITY
+    username: ENC(ewcaoKEV7scdZFSaOx60Vw==)
+    password: ENC(aKgSOvyW3wdyFKNjhskFkw==)
+    url: ENC(fjYSHyYOzkmb8mbMr6qelX8FiZYI5MtEfphOb/7PkhseiptkWYLz+x8Nk5rwltKngbtqv7G4wzg=)
+    driver-class-name: org.mariadb.jdbc.Driver
+    tomcat:
+      max-active: 100
+      max-idle: 10
+      max-wait: 10000
+      initial-size: 10
+      validation-query: "SELECT 'TEST' AS col"
+      test-while-idle: true
+      remove-abandoned: true
+      remove-abandoned-timeout: 300
+
+# Jasypt Setting
+# ADD VM Option : -Djasypt.encryptor.password=
+jasypt:
+  encryptor:
+    algorithm: PBEWithMD5AndDES
+    iv-generator-classname: org.jasypt.iv.NoIvGenerator
