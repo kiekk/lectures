@@ -9,7 +9,6 @@ import org.springframework.security.web.savedrequest.RequestCache;
 import org.springframework.security.web.savedrequest.SavedRequest;
 import org.springframework.stereotype.Component;
 
-import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -23,7 +22,7 @@ public class CustomAuthenticationSuccessHandler extends SimpleUrlAuthenticationS
     private final RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
 
     @Override
-    public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authentication) throws IOException, ServletException {
+    public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
         SavedRequest savedRequest = requestCache.getRequest(request, response);
 
         setDefaultTargetUrl("/");
@@ -35,4 +34,5 @@ public class CustomAuthenticationSuccessHandler extends SimpleUrlAuthenticationS
             redirectStrategy.sendRedirect(request, response, getDefaultTargetUrl());
         }
     }
+
 }
