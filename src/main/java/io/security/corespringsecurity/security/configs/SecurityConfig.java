@@ -1,5 +1,6 @@
 package io.security.corespringsecurity.security.configs;
 
+import io.security.corespringsecurity.security.common.FormAuthenticationDetailsSource;
 import io.security.corespringsecurity.security.provider.CustomAuthenticationProvider;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
@@ -20,8 +21,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final UserDetailsService userDetailsService;
 
-    public SecurityConfig(UserDetailsService userDetailsService) {
+    private final FormAuthenticationDetailsSource formAuthenticationDetailsSource;
+
+    public SecurityConfig(UserDetailsService userDetailsService, FormAuthenticationDetailsSource formAuthenticationDetailsSource) {
         this.userDetailsService = userDetailsService;
+        this.formAuthenticationDetailsSource = formAuthenticationDetailsSource;
     }
 
     @Override
@@ -57,6 +61,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .formLogin()
                 .loginPage("/login")
                 .loginProcessingUrl("/login_proc")
+                .authenticationDetailsSource(formAuthenticationDetailsSource)
                 .defaultSuccessUrl("/")
                 .permitAll();
     }
