@@ -14,6 +14,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 @Configuration
 @EnableWebSecurity
@@ -23,9 +24,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final FormAuthenticationDetailsSource formAuthenticationDetailsSource;
 
-    public SecurityConfig(UserDetailsService userDetailsService, FormAuthenticationDetailsSource formAuthenticationDetailsSource) {
+    private final AuthenticationSuccessHandler customAuthenticationSuccessHandler;
+
+    public SecurityConfig(UserDetailsService userDetailsService, FormAuthenticationDetailsSource formAuthenticationDetailsSource, AuthenticationSuccessHandler customAuthenticationSuccessHandler) {
         this.userDetailsService = userDetailsService;
         this.formAuthenticationDetailsSource = formAuthenticationDetailsSource;
+        this.customAuthenticationSuccessHandler = customAuthenticationSuccessHandler;
     }
 
     @Override
@@ -61,8 +65,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .formLogin()
                 .loginPage("/login")
                 .loginProcessingUrl("/login_proc")
-                .authenticationDetailsSource(formAuthenticationDetailsSource)
                 .defaultSuccessUrl("/")
+                .authenticationDetailsSource(formAuthenticationDetailsSource)
+                .successHandler(customAuthenticationSuccessHandler)
                 .permitAll();
     }
 }
