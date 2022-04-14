@@ -38,7 +38,7 @@ public class LoginController {
         return "redirect:/login";
     }
 
-    @GetMapping("/denied")
+    @GetMapping(value = {"/denied", "api/denied"})
     public String accessDenied(@RequestParam(value = "exception", required = false) String exception,
                                Model model) {
 
