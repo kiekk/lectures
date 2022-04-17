@@ -39,6 +39,6 @@ public class Resources implements Serializable {
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "role_resources", joinColumns = {
             @JoinColumn(name = "resource_id") }, inverseJoinColumns = { @JoinColumn(name = "role_id") })
-    private final Set<Role> roleSet = new HashSet<>();
+    private Set<Role> roleSet;
 
 }
