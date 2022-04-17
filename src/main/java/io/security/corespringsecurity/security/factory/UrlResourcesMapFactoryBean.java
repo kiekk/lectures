@@ -21,7 +21,7 @@ public class UrlResourcesMapFactoryBean implements FactoryBean<LinkedHashMap<Req
     @Override
     public LinkedHashMap<RequestMatcher, List<ConfigAttribute>> getObject() throws Exception {
 
-        if (null == resourceMap) {
+        if (resourceMap.isEmpty()) {
             init();
         }
 
