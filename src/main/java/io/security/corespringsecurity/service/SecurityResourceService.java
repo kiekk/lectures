@@ -1,6 +1,8 @@
 package io.security.corespringsecurity.service;
 
+import io.security.corespringsecurity.domain.entity.AccessIp;
 import io.security.corespringsecurity.domain.entity.Resources;
+import io.security.corespringsecurity.repository.AccessIpRepository;
 import io.security.corespringsecurity.repository.ResourcesRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.access.ConfigAttribute;
@@ -11,14 +13,18 @@ import org.springframework.security.web.util.matcher.RequestMatcher;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Slf4j
 public class SecurityResourceService {
 
     private final ResourcesRepository resourcesRepository;
 
-    public SecurityResourceService(ResourcesRepository resourcesRepository) {
+    private final AccessIpRepository accessIpRepository;
+
+    public SecurityResourceService(ResourcesRepository resourcesRepository, AccessIpRepository accessIpRepository) {
         this.resourcesRepository = resourcesRepository;
+        this.accessIpRepository = accessIpRepository;
     }
 
     public LinkedHashMap<RequestMatcher, List<ConfigAttribute>> getResourceList() {
@@ -37,5 +43,9 @@ public class SecurityResourceService {
         );
         log.debug("cache test");
         return result;
+    }
+
+    public List<String> getAccessIpList() {
+        return accessIpRepository.findAll().stream().map(AccessIp::getIpAddress).collect(Collectors.toList());
     }
 }

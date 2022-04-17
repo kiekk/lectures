@@ -9,6 +9,7 @@ import io.security.corespringsecurity.security.handler.CustomAccessDeniedHandler
 import io.security.corespringsecurity.security.metadatasource.UrlFilterInvocationSecurityMetadataSource;
 import io.security.corespringsecurity.security.provider.AjaxAuthenticationProvider;
 import io.security.corespringsecurity.security.provider.CustomAuthenticationProvider;
+import io.security.corespringsecurity.security.voter.IpAddressVoter;
 import io.security.corespringsecurity.service.SecurityResourceService;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
@@ -158,9 +159,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public List<AccessDecisionVoter<?>> getAccessDecisionVoters() {
 
         List<AccessDecisionVoter<?>> accessDecisionVoters = new ArrayList<>();
+        accessDecisionVoters.add(ipAddressVoter());
         accessDecisionVoters.add(roleVoter());
 
         return accessDecisionVoters;
+    }
+
+    @Bean
+    public IpAddressVoter ipAddressVoter() {
+        return new IpAddressVoter(securityResourceService);
     }
 
     @Bean
