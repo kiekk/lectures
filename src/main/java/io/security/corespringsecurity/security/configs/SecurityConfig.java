@@ -2,8 +2,12 @@ package io.security.corespringsecurity.security.configs;
 
 import io.security.corespringsecurity.security.common.FormAuthenticationDetailsSource;
 import io.security.corespringsecurity.security.factory.UrlResourcesMapFactoryBean;
+import io.security.corespringsecurity.security.filter.PermitAllFilter;
+import io.security.corespringsecurity.security.handler.AjaxAuthenticationFailureHandler;
+import io.security.corespringsecurity.security.handler.AjaxAuthenticationSuccessHandler;
 import io.security.corespringsecurity.security.handler.CustomAccessDeniedHandler;
 import io.security.corespringsecurity.security.metadatasource.UrlFilterInvocationSecurityMetadataSource;
+import io.security.corespringsecurity.security.provider.AjaxAuthenticationProvider;
 import io.security.corespringsecurity.security.provider.CustomAuthenticationProvider;
 import io.security.corespringsecurity.service.SecurityResourceService;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
@@ -33,7 +37,6 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 import java.util.Collections;
 import java.util.List;
 
-@Order(1)
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
@@ -48,6 +51,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final SecurityResourceService securityResourceService;
 
+    private final String[] permitAllResources = {"/", "/user/login/**"};
+
     public SecurityConfig(UserDetailsService userDetailsService, FormAuthenticationDetailsSource formAuthenticationDetailsSource, AuthenticationSuccessHandler customAuthenticationSuccessHandler, AuthenticationFailureHandler customAuthenticationFailureHandler, SecurityResourceService securityResourceService) {
         this.userDetailsService = userDetailsService;
         this.formAuthenticationDetailsSource = formAuthenticationDetailsSource;
@@ -59,6 +64,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.authenticationProvider(authenticationProvider());
+        auth.authenticationProvider(ajaxAuthenticationProvider());
     }
 
     @Override
@@ -84,7 +90,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .exceptionHandling()
                 .accessDeniedHandler(accessDeniedHandler())
                 .and()
-                .addFilterBefore(customFilterSecurityInterceptor(), FilterSecurityInterceptor.class);
+                .addFilterAt(customFilterSecurityInterceptor(), FilterSecurityInterceptor.class);
+
+        http.csrf().disable();
+
+        customConfigurer(http);
+    }
+
+    private void customConfigurer(HttpSecurity http) throws Exception {
+        http
+                .apply(new AjaxLoginConfigurer<>())
+                .successHandlerAjax(ajaxAuthenticationSuccessHandler())
+                .failureHandlerAjax(ajaxAuthenticationFailureHandler())
+                .loginProcessingUrl("/api/login")
+                .authenticationManager(authenticationManagerBean());
     }
 
     @Override
@@ -110,12 +129,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Bean
-    public FilterSecurityInterceptor customFilterSecurityInterceptor() throws Exception {
-        FilterSecurityInterceptor filterSecurityInterceptor = new FilterSecurityInterceptor();
-        filterSecurityInterceptor.setSecurityMetadataSource(urlFilterInvocationSecurityMetadataSource());
-        filterSecurityInterceptor.setAccessDecisionManager(affirmativeBased());
-        filterSecurityInterceptor.setAuthenticationManager(authenticationManager());
-        return filterSecurityInterceptor;
+    public PermitAllFilter customFilterSecurityInterceptor() throws Exception {
+        PermitAllFilter PermitAllFilter = new PermitAllFilter(permitAllResources);
+        PermitAllFilter.setSecurityMetadataSource(urlFilterInvocationSecurityMetadataSource());
+        PermitAllFilter.setAccessDecisionManager(affirmativeBased());
+        PermitAllFilter.setAuthenticationManager(authenticationManager());
+        return PermitAllFilter;
     }
 
     @Bean
@@ -137,5 +156,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     public List<AccessDecisionVoter<?>> getAccessDecisionVoters() {
         return Collections.singletonList(new RoleVoter());
+    }
+
+    @Bean
+    public AuthenticationProvider ajaxAuthenticationProvider() {
+        return new AjaxAuthenticationProvider();
+    }
+
+    @Bean
+    public AjaxAuthenticationSuccessHandler ajaxAuthenticationSuccessHandler() {
+        return new AjaxAuthenticationSuccessHandler();
+    }
+
+    @Bean
+    public AjaxAuthenticationFailureHandler ajaxAuthenticationFailureHandler() {
+        return new AjaxAuthenticationFailureHandler();
     }
 }
