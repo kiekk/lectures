@@ -1,6 +1,6 @@
 package io.security.corespringsecurity.service;
 
-import io.security.corespringsecurity.domain.Resources;
+import io.security.corespringsecurity.domain.entity.Resources;
 import io.security.corespringsecurity.repository.ResourcesRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.access.ConfigAttribute;
