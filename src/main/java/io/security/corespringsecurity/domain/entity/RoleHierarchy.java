@@ -7,6 +7,7 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
+@Builder
 @Entity
 @Table(name="ROLE_HIERARCHY")
 @AllArgsConstructor
