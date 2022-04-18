@@ -1,6 +1,7 @@
 package io.security.corespringsecurity.security.configs;
 
 import io.security.corespringsecurity.security.factory.MethodResourceFactoryBean;
+import io.security.corespringsecurity.security.processor.ProtectPointcutPostProcessor;
 import io.security.corespringsecurity.service.SecurityResourceService;
 import org.springframework.beans.factory.config.BeanPostProcessor;
 import org.springframework.context.annotation.Bean;
@@ -54,16 +55,24 @@ public class MethodSecurityConfig extends GlobalMethodSecurityConfiguration {
 
     @Bean
     @Profile("pointcut")
-    BeanPostProcessor protectPointcutPostProcessor() throws Exception {
-
-        Class<?> clazz = Class.forName("org.springframework.security.config.method.ProtectPointcutPostProcessor");
-        Constructor<?> declaredConstructor = clazz.getDeclaredConstructor(MapBasedMethodSecurityMetadataSource.class);
-        declaredConstructor.setAccessible(true);
-        Object instance = declaredConstructor.newInstance(mapBasedMethodSecurityMetadataSource());
-        Method setPointcutMap = instance.getClass().getMethod("setPointcutMap", Map.class);
-        setPointcutMap.setAccessible(true);
-        setPointcutMap.invoke(instance, pointcutResourcesMapFactoryBean().getObject());
-
-        return (BeanPostProcessor) instance;
+    public ProtectPointcutPostProcessor protectPointcutPostProcessor(){
+        ProtectPointcutPostProcessor protectPointcutPostProcessor = new ProtectPointcutPostProcessor(mapBasedMethodSecurityMetadataSource());
+        protectPointcutPostProcessor.setPointcutMap(pointcutResourcesMapFactoryBean().getObject());
+        return protectPointcutPostProcessor;
     }
+
+//    @Bean
+//    @Profile("pointcut")
+//    public BeanPostProcessor protectPointcutPostProcessor() throws Exception {
+//
+//        Class<?> clazz = Class.forName("org.springframework.security.config.method.ProtectPointcutPostProcessor");
+//        Constructor<?> declaredConstructor = clazz.getDeclaredConstructor(MapBasedMethodSecurityMetadataSource.class);
+//        declaredConstructor.setAccessible(true);
+//        Object instance = declaredConstructor.newInstance(mapBasedMethodSecurityMetadataSource());
+//        Method setPointcutMap = instance.getClass().getMethod("setPointcutMap", Map.class);
+//        setPointcutMap.setAccessible(true);
+//        setPointcutMap.invoke(instance, pointcutResourcesMapFactoryBean().getObject());
+//
+//        return (BeanPostProcessor) instance;
+//    }
 }
