@@ -13,8 +13,11 @@ public class AopSecurityController {
 
     private final AopMethodService aopMethodService;
 
-    public AopSecurityController(AopMethodService aopMethodService) {
+    private final AopPointcutService aopPointcutService;
+
+    public AopSecurityController(AopMethodService aopMethodService, AopPointcutService aopPointcutService) {
         this.aopMethodService = aopMethodService;
+        this.aopPointcutService = aopPointcutService;
     }
 
     @GetMapping("/pre-authorize")
@@ -30,6 +33,16 @@ public class AopSecurityController {
         aopMethodService.methodSecured();
 
         model.addAttribute("method", "Success MethodSecured");
+
+        return "aop/method";
+    }
+
+    @GetMapping("/pointcut-secured")
+    public String pointcutSecured(Model model){
+
+        aopPointcutService.notSecured();
+        aopPointcutService.pointcutSecured();
+        model.addAttribute("method", "Success PointcutSecured");
 
         return "aop/method";
     }
