@@ -11,11 +11,25 @@ import java.security.Principal;
 @Controller
 public class AopSecurityController {
 
+    private final AopMethodService aopMethodService;
+
+    public AopSecurityController(AopMethodService aopMethodService) {
+        this.aopMethodService = aopMethodService;
+    }
+
     @GetMapping("/pre-authorize")
     @PreAuthorize("hasRole('ROLE_USER') and #account.username == principal.username")
     public String preAuthorize(AccountDto account, Model model, Principal principal) {
 
         model.addAttribute("method", "Success @PreAuthorize");
+
+        return "aop/method";
+    }
+    @GetMapping("/method-secured")
+    public String methodSecured(Model model) {
+        aopMethodService.methodSecured();
+
+        model.addAttribute("method", "Success MethodSecured");
 
         return "aop/method";
     }
