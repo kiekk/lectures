@@ -18,7 +18,7 @@ public class MethodResourceFactoryBean implements FactoryBean<LinkedHashMap<Stri
     }
 
     @Override
-    public LinkedHashMap<String, List<ConfigAttribute>> getObject() throws Exception {
+    public LinkedHashMap<String, List<ConfigAttribute>> getObject() {
 
         if (resourceMap.isEmpty()) {
             init();
