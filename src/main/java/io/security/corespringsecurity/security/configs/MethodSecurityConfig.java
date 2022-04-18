@@ -34,6 +34,15 @@ public class MethodSecurityConfig extends GlobalMethodSecurityConfiguration {
     public MethodResourceFactoryBean methodResourcesMapFactoryBean() {
         MethodResourceFactoryBean methodResourceFactoryBean = new MethodResourceFactoryBean();
         methodResourceFactoryBean.setSecurityResourceService(securityResourceService);
+        methodResourceFactoryBean.setResourceType("method");
+        return methodResourceFactoryBean;
+    }
+
+    @Bean
+    public MethodResourceFactoryBean pointcutResourcesMapFactoryBean() {
+        MethodResourceFactoryBean methodResourceFactoryBean = new MethodResourceFactoryBean();
+        methodResourceFactoryBean.setSecurityResourceService(securityResourceService);
+        methodResourceFactoryBean.setResourceType("pointcut");
         return methodResourceFactoryBean;
     }
 }

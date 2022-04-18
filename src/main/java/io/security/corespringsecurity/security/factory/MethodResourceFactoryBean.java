@@ -34,9 +34,15 @@ public class MethodResourceFactoryBean implements FactoryBean<LinkedHashMap<Stri
     }
 
     private void init() {
-        resourceMap = securityResourceService.getMethodResourceList();
+        switch (resourceType) {
+            case "method":
+                resourceMap = securityResourceService.getMethodResourceList();
+                break;
+            case "pointcut":
+                resourceMap = securityResourceService.getPointcutResourceList();
+                break;
+        }
     }
-
 
     @Override
     public Class<?> getObjectType() {
