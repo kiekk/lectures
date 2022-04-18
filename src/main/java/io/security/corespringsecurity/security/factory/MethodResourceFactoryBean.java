@@ -13,6 +13,12 @@ public class MethodResourceFactoryBean implements FactoryBean<LinkedHashMap<Stri
 
     private LinkedHashMap<String, List<ConfigAttribute>> resourceMap = new LinkedHashMap<>();
 
+    private String resourceType;
+
+    public void setResourceType(String resourceType) {
+        this.resourceType = resourceType;
+    }
+
     public void setSecurityResourceService(SecurityResourceService securityResourceService) {
         this.securityResourceService = securityResourceService;
     }
