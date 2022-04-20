@@ -55,6 +55,7 @@ public class AopSecurityController {
     public String liveMethodSecured(Model model) {
 
         aopLiveMethodService.liveMethodSecured();
+        model.addAttribute("method", "Success LiveMethodSecured");
         return "aop/method";
     }
 }
