@@ -5,6 +5,7 @@ import io.security.corespringsecurity.domain.entity.Resources;
 import io.security.corespringsecurity.domain.entity.Role;
 import io.security.corespringsecurity.repository.RoleRepository;
 import io.security.corespringsecurity.security.metadatasource.UrlFilterInvocationSecurityMetadataSource;
+import io.security.corespringsecurity.service.MethodSecurityService;
 import io.security.corespringsecurity.service.ResourcesService;
 import io.security.corespringsecurity.service.RoleService;
 import org.modelmapper.ModelMapper;
@@ -31,14 +32,18 @@ public class ResourcesController {
 
     private final UrlFilterInvocationSecurityMetadataSource urlFilterInvocationSecurityMetadataSource;
 
+    private final MethodSecurityService methodSecurityService;
+
     public ResourcesController(ResourcesService resourcesService,
                                RoleRepository roleRepository,
                                RoleService roleService,
-                               UrlFilterInvocationSecurityMetadataSource urlFilterInvocationSecurityMetadataSource) {
+                               UrlFilterInvocationSecurityMetadataSource urlFilterInvocationSecurityMetadataSource,
+                               MethodSecurityService methodSecurityService) {
         this.resourcesService = resourcesService;
         this.roleRepository = roleRepository;
         this.roleService = roleService;
         this.urlFilterInvocationSecurityMetadataSource = urlFilterInvocationSecurityMetadataSource;
+        this.methodSecurityService = methodSecurityService;
     }
 
     @GetMapping("")
@@ -64,6 +69,8 @@ public class ResourcesController {
 
         if ("url".equals(resourcesDto.getResourceType())) {
             urlFilterInvocationSecurityMetadataSource.reload();
+        } else {
+            methodSecurityService.addMethodSecured(resourcesDto.getResourceName(), resourcesDto.getRoleName());
         }
 
         return "redirect:/admin/resources";
@@ -106,6 +113,8 @@ public class ResourcesController {
 
         if ("url".equals(resources.getResourceType())) {
             urlFilterInvocationSecurityMetadataSource.reload();
+        } else {
+            methodSecurityService.removeMethodSecured(resources.getResourceName());
         }
 
         return "redirect:/admin/resources";
