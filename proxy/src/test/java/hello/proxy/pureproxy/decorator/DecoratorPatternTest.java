@@ -34,4 +34,13 @@ public class DecoratorPatternTest {
 
         client.execute();
     }
+
+    @Test
+    void decorator3() {
+        Decorator messageDecorator = new MessageDecorator(new RealComponent());
+        messageDecorator.operation();
+
+        Decorator timeMsgDecorator = new TimeDecorator(new MessageDecorator(new RealComponent()));
+        timeMsgDecorator.operation();
+    }
 }
