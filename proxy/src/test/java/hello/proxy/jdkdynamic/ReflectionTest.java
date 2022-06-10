@@ -45,6 +45,28 @@ public class ReflectionTest {
 
     }
 
+    @Test
+    void reflection2() throws Exception {
+        // 리플렉션을 사용해 클래스 정보 획득
+        Class classHello = Class.forName("hello.proxy.jdkdynamic.ReflectionTest$Hello");
+
+        Hello target = new Hello();
+
+        // callA 메소드 정보 획득
+        Method methodCallA = classHello.getMethod("callA");
+        dynamicCall(methodCallA, target);
+
+        // callB 메소드 정보 획득
+        Method methodCallB = classHello.getMethod("callB");
+        dynamicCall(methodCallB, target);
+    }
+
+    private void dynamicCall(Method method, Object target) throws InvocationTargetException, IllegalAccessException {
+        log.info("start");
+        Object result = method.invoke(target);
+        log.info("result={}", result);
+    }
+
     @Slf4j
     static class Hello {
 
