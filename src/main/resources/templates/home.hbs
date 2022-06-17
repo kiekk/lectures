@@ -12,9 +12,15 @@ home page
 {{ hello }}
 
 <h5>user</h5>
-{{ user.id }} <br />
-{{ user.name }} <br />
-{{ user.age }} <br />
+{{ user.id }} <br/>
+{{ user.name }} <br/>
+{{ user.age }} <br/>
 
+<h5>user - with 사용</h5>
+{{#with user }}
+    {{id}} <br/>
+    {{name}} <br/>
+    {{age}} <br/>
+{{/with}}
 </body>
 </html>
