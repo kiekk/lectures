@@ -42,7 +42,14 @@ public class RootController {
         detail.setMobile("전화번호_1");
 
         user.setDetail(detail);
+
+        User user2 = new User();
+        user2.setId("id_2");
+        user2.setName("name_2");
+        user2.setAge(20);
+
         model.addAttribute("user", user);
+        model.addAttribute("user2", user2);
         return "with";
     }
 }
