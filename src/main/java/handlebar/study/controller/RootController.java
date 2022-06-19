@@ -160,4 +160,11 @@ public class RootController {
         model.addAttribute("userList", userList);
         return "white-space";
     }
+
+    @RequestMapping("escaping-handlebars-expression")
+    public String escapingHandlebarsExpression(Model model) {
+
+        model.addAttribute("messages", "hello handlebars");
+        return "escaping-handlebars-expression";
+    }
 }
