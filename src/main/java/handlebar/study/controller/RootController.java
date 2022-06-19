@@ -21,4 +21,11 @@ public class RootController {
         model.addAttribute("name", "root name");
         return "home";
     }
+
+    @RequestMapping("comment")
+    public String comment(Model model) {
+        model.addAttribute("messages", "hello handlebars");
+        return "comment";
+    }
+    
 }
