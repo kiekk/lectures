@@ -9,16 +9,22 @@
 </head>
 <body>
 {{#each userList}}
+    {{#if @first}}
+        <bold>First Element!!!!!</bold> <br/>
+    {{/if}}
+    {{#if @last}}
+        <bold>Last Element!!!!!</bold> <br/>
+    {{/if}}
     @index: {{@index}} <br />
     @key: {{@key}} <br />
     id: {{this.id}} <br/>
     name: {{this.name}} <br/>
     age: {{this.age}} <br/>
     active: {{this.active}} <br/>
-    {{#if this.detail as | detail |}}
-        address: {{detail.address}} <br/>
-        mobile: {{detail.mobile}} <br/>
-        email: {{detail.email}}
+    {{#if this.detail}}
+        address: {{this.detail.address}} <br/>
+        mobile: {{this.detail.mobile}} <br/>
+        email: {{this.detail.email}}
     {{/if}}
     <br/>
     <br/>
