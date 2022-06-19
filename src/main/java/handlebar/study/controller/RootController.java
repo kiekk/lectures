@@ -130,4 +130,11 @@ public class RootController {
         model.addAttribute("userList", userList);
         return "each";
     }
+
+    @RequestMapping("escape")
+    public String escape(Model model) {
+        model.addAttribute("escape", "& < > \\\" ' ` =");
+        model.addAttribute("escape2", "&amp; &lt; &gt; &quot; &#x27; &#x60; &#x3D;");
+        return "escape";
+    }
 }
