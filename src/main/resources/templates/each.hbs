@@ -9,6 +9,8 @@
 </head>
 <body>
 {{#each userList}}
+    @index: {{@index}} <br />
+    @key: {{@key}} <br />
     id: {{this.id}} <br/>
     name: {{this.name}} <br/>
     age: {{this.age}} <br/>
@@ -20,6 +22,15 @@
     {{/if}}
     <br/>
     <br/>
+    <h5>object - index</h5>
+    {{#each this.detail}}
+        @index: {{@index}} <br />
+    {{/each}}
+    <h5>object - key</h5>
+    {{#each this.detail}}
+        @key: {{@key}} <br />
+    {{/each}}
+    <br />
 {{/each}}
 
 {{#each userList2}}
