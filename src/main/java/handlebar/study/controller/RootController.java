@@ -167,4 +167,14 @@ public class RootController {
         model.addAttribute("messages", "hello handlebars");
         return "escaping-handlebars-expression";
     }
+
+    @RequestMapping("custom-helper")
+    public String customHelper() {
+        return "custom-helper";
+    }
+
+    @RequestMapping("custom-helper-html")
+    public String customHelperHtml() {
+        return "custom-helper-html";
+    }
 }
