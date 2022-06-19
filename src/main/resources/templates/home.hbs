@@ -16,11 +16,15 @@ home page
 {{ user.name }} <br/>
 {{ user.age }} <br/>
 
+<h5>root name</h5>
+{{ name }} <br />
 <h5>user - with 사용</h5>
 {{#with user }}
     {{id}} <br/>
     {{name}} <br/>
     {{age}} <br/>
+    {{ hello }} <br/>
+    {{ hello2 }} <br/>
 {{/with}}
 </body>
 </html>

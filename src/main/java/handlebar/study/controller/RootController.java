@@ -18,6 +18,7 @@ public class RootController {
 
         model.addAttribute("hello", "hello handlebars");
         model.addAttribute("user", user);
+        model.addAttribute("name", "root name");
         return "home";
     }
 }
