@@ -137,4 +137,27 @@ public class RootController {
         model.addAttribute("escape2", "&amp; &lt; &gt; &quot; &#x27; &#x60; &#x3D;");
         return "escape";
     }
+
+    @RequestMapping("white-space")
+    public String whiteSpace(Model model) {
+        List<User> userList = new ArrayList<>();
+        for (int i = 1; i <= 10; i++) {
+            User user = new User();
+            user.setId(i + "");
+            user.setName("name_" + i);
+            user.setActive(i % 2 == 0);
+            user.setAge(i);
+
+            UserDetail userDetail = new UserDetail();
+            userDetail.setMobile("mobile_" + i);
+            userDetail.setAddress("address_" + i);
+            userDetail.setEmail("email_" + i);
+
+            user.setDetail(userDetail);
+            userList.add(user);
+        }
+
+        model.addAttribute("userList", userList);
+        return "white-space";
+    }
 }
