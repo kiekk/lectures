@@ -14,9 +14,13 @@
     name: {{user.name}} <br/>
     {{#if user.age}}
         age: {{user.age}} <br/>
+    {{else}}
+        age is empty <br />
     {{/if}}
     {{#if user.active}}
         active: {{user.active}} <br/>
+    {{else}}
+        active is false <br />
     {{/if}}
     {{#if user.detail}}
         address: {{user.detail.address}} <br/>
@@ -31,14 +35,20 @@
     name: {{user2.name}} <br/>
     {{#if user2.age}}
         age: {{user2.age}} <br/>
+    {{else}}
+        age is empty <br />
     {{/if}}
     {{#if user2.active}}
         active: {{user2.active}} <br/>
+    {{else}}
+        active is false <br />
     {{/if}}
     {{#if user2.detail}}
         address: {{user2.detail.address}} <br/>
         mobile: {{user2.detail.mobile}} <br/>
         email: {{user2.detail.email}} <br/>
+    {{else}}
+        user2.detail is empty <br />
     {{/if}}
 {{/if}}
 </body>
