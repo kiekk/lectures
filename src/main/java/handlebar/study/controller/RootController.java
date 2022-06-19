@@ -52,4 +52,30 @@ public class RootController {
         model.addAttribute("user2", user2);
         return "with";
     }
+
+    @RequestMapping("if")
+    public String buildInHelpersIf(Model model) {
+        User user = new User();
+        user.setId("id_1");
+        user.setName("name_1");
+        user.setAge(0);
+        user.setActive(false);
+
+        UserDetail detail = new UserDetail();
+        detail.setAddress("주소_1");
+        detail.setEmail("이메일_1");
+        detail.setMobile("전화번호_1");
+
+        user.setDetail(detail);
+
+        User user2 = new User();
+        user2.setId("id_2");
+        user2.setName("name_2");
+        user2.setAge(20);
+        user2.setActive(true);
+
+        model.addAttribute("user", user);
+        model.addAttribute("user2", user2);
+        return "if";
+    }
 }

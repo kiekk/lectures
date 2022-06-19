@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<h5>user - #if </h5>
+{{#if user}}
+    id: {{user.id}} <br/>
+    name: {{user.name}} <br/>
+    {{#if user.age}}
+        age: {{user.age}} <br/>
+    {{/if}}
+    {{#if user.active}}
+        active: {{user.active}} <br/>
+    {{/if}}
+    {{#if user.detail}}
+        address: {{user.detail.address}} <br/>
+        mobile: {{user.detail.mobile}} <br/>
+        email: {{user.detail.email}} <br/>
+    {{/if}}
+{{/if}}
+
+<h5>user2 - #if </h5>
+{{#if user2}}
+    id: {{user2.id}} <br/>
+    name: {{user2.name}} <br/>
+    {{#if user2.age}}
+        age: {{user2.age}} <br/>
+    {{/if}}
+    {{#if user2.active}}
+        active: {{user2.active}} <br/>
+    {{/if}}
+    {{#if user2.detail}}
+        address: {{user2.detail.address}} <br/>
+        mobile: {{user2.detail.mobile}} <br/>
+        email: {{user2.detail.email}} <br/>
+    {{/if}}
+{{/if}}
+</body>
+</html>
