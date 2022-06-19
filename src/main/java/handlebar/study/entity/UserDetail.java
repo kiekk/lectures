@@ -7,11 +7,10 @@ import lombok.*;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-public class User {
+public class UserDetail {
 
-    private String id;
-    private String name;
-    private int age;
-    private UserDetail detail;
+    private String address;
+    private String mobile;
+    private String email;
 
 }
