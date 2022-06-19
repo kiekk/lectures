@@ -9,7 +9,7 @@
 </head>
 <body>
 {{#each userList ~}}
-    <span>
+    <span id="{{this.id}}">
         {{~#if this.active}}
             {{~this.name}}
         {{~^~}}
@@ -17,5 +17,15 @@
         {{~/if~}}
     </span>
 {{/each}}
+
+{{#each userList}}
+    <span id="{{this.id}}">
+        {{#if this.active}}
+            {{this.name}}
+        {{^}}
+            Empty
+        {{/if}}
+    </span>
+{{~/each}}
 </body>
 </html>
