@@ -8,21 +8,18 @@
     <title>Document</title>
 </head>
 <body>
-main page
 
-[[${message}]]
 
-<div th:text="${message}"></div>
+<div th:if="${user.name eq 'test'}">
+    <span th:text="${user.id}"></span> <br/>
+    <span th:text="${user.name}"></span> <br/>
+    <span th:text="${user.mobile}"></span> <br/>
+</div>
 
-<br />
-user : [[${user}]] <br />
-user.id : [[${user.id}]] <br />
-user.name : [[${user.name}]] <br />
-user.mobile : [[${user.mobile}]] <br />
-
-<span th:text="${user}"></span> <br/>
-<span th:text="${user.id}"></span> <br/>
-<span th:text="${user.name}"></span> <br/>
-<span th:text="${user.mobile}"></span> <br/>
+<div th:if="${user2.name eq 'test'}">
+    <span th:text="${user2.id}"></span> <br/>
+    <span th:text="${user2.name}"></span> <br/>
+    <span th:text="${user2.mobile}"></span> <br/>
+</div>
 </body>
 </html>
