@@ -5,6 +5,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import thymeleaf.study.entity.User;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Controller
 @RequestMapping("")
 public class RootController {
@@ -25,5 +28,21 @@ public class RootController {
         model.addAttribute("user", user);
         model.addAttribute("user2", user2);
         return "main";
+    }
+
+    @RequestMapping("each")
+    public String each(Model model) {
+        List<User> userList = new ArrayList<>();
+
+        for(int i=0;i<10;i++) {
+            User user = new User();
+            user.setId(i + "");
+            user.setName("name_" + i);
+            user.setMobile("010-1111-1234");
+            userList.add(user);
+        }
+
+        model.addAttribute("userList", userList);
+        return "each";
     }
 }
