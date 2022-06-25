@@ -15,5 +15,9 @@
     name: <span th:text="${user.name}"></span><br />
     mobile: <span th:text="${user.mobile}"></span>
 </div>
+
+<div th:each="user, status : ${userList}">
+    status : <span th:text="${status}"></span><br />
+</div>
 </body>
 </html>
