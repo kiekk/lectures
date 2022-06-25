@@ -15,11 +15,17 @@
     <span th:text="${user.name}"></span> <br/>
     <span th:text="${user.mobile}"></span> <br/>
 </div>
+<div th:unless="${user.name eq 'test'}">
+    <span>user name is not test</span>
+</div>
 
 <div th:if="${user2.name eq 'test'}">
     <span th:text="${user2.id}"></span> <br/>
     <span th:text="${user2.name}"></span> <br/>
     <span th:text="${user2.mobile}"></span> <br/>
+</div>
+<div th:unless="${user2.name eq 'test'}">
+    <span>user2 name is not test</span>
 </div>
 </body>
 </html>
