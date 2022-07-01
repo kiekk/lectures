@@ -71,4 +71,14 @@ public class RootController {
         model.addAttribute("user", user);
         return "object";
     }
+
+    @RequestMapping("value")
+    public String value(Model model) {
+        User user = new User();
+        user.setId("id_1");
+        user.setName("홍길동");
+        user.setMobile("010-1234-5678");
+        model.addAttribute("user", user);
+        return "value";
+    }
 }
