@@ -81,4 +81,12 @@ public class RootController {
         model.addAttribute("user", user);
         return "value";
     }
+
+    @RequestMapping("text")
+    public String text(Model model) {
+        String html = "<div><span>html tag</span></div>";
+
+        model.addAttribute("html", html);
+        return "text";
+    }
 }
