@@ -89,4 +89,10 @@ public class RootController {
         model.addAttribute("html", html);
         return "text";
     }
+
+    @RequestMapping("url")
+    public String url(Model model) {
+        model.addAttribute("textUrl", "text");
+        return "url";
+    }
 }
