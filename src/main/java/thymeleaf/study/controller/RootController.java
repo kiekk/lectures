@@ -95,4 +95,10 @@ public class RootController {
         model.addAttribute("textUrl", "text");
         return "url";
     }
+
+    @RequestMapping("case")
+    public String switchCase(Model model) {
+        model.addAttribute("case", "a");
+        return "case";
+    }
 }
