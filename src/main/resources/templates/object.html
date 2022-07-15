@@ -13,5 +13,11 @@
         name: <input type="text" th:value="*{name}">
         mobile : <input type="text" th:value="*{mobile}">
     </form>
+
+    <form th:object="${user}">
+        id: <input type="text" th:field="*{id}">
+        name: <input type="text" th:field="*{name}">
+        mobile : <input type="text" th:field="*{mobile}">
+    </form>
 </body>
 </html>
