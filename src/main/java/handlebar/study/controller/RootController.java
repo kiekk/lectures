@@ -177,4 +177,10 @@ public class RootController {
     public String customHelperHtml() {
         return "custom-helper-html";
     }
+
+    @RequestMapping("nested-helper")
+    public String nestedHelper() {
+        return "nested-helper";
+    }
+
 }

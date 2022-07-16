@@ -11,6 +11,10 @@ public class CustomHelper {
         return param1 + ", " + param2 + " 중 더 큰 수는 " + Math.max(param1, param2) + " 입니다.";
     }
 
+    public boolean compareBoolean(int param1, int param2) {
+        return param1 > param2;
+    }
+
     public String html() {
         return "<div><a href=\"naver.com\">naver</a></div>";
     }
