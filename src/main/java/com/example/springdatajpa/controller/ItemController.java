@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -50,6 +51,23 @@ public class ItemController {
 
         itemService.saveItem(book);
         return "redirect:/";
+    }
+
+    @GetMapping("{itemId}/edit")
+    public String updateItemForm(@PathVariable Long itemId,
+                                 Model model) {
+        Book item = (Book) itemService.findItem(itemId);
+
+        BookForm form = new BookForm();
+        form.setId(item.getId());
+        form.setName(item.getName());
+        form.setPrice(item.getPrice());
+        form.setStockQuantity(item.getStockQuantity());
+        form.setAuthor(item.getAuthor());
+        form.setIsbn(item.getIsbn());
+
+        model.addAttribute("form", form);
+        return "items/updateItemForm";
     }
 
 }
