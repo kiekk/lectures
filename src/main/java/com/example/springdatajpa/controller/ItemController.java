@@ -4,6 +4,7 @@ import com.example.springdatajpa.domain.item.Book;
 import com.example.springdatajpa.domain.item.Item;
 import com.example.springdatajpa.service.ItemService;
 import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -38,14 +39,8 @@ public class ItemController {
         if (bindingResult.hasErrors()) {
             return "items/createItemForm";
         }
-
-        Book book = new Book();
-        book.setName(bookForm.getName());
-        book.setPrice(bookForm.getPrice());
-        book.setStockQuantity(bookForm.getStockQuantity());
-        book.setAuthor(bookForm.getAuthor());
-        book.setIsbn(bookForm.getIsbn());
-
+        ModelMapper modelMapper = new ModelMapper();
+        Book book = modelMapper.map(bookForm, Book.class);
         itemService.saveItem(book);
         return "redirect:/";
     }
@@ -54,15 +49,8 @@ public class ItemController {
     public String updateItemForm(@PathVariable Long itemId,
                                  Model model) {
         Book item = (Book) itemService.findItem(itemId);
-
-        BookForm form = new BookForm();
-        form.setId(item.getId());
-        form.setName(item.getName());
-        form.setPrice(item.getPrice());
-        form.setStockQuantity(item.getStockQuantity());
-        form.setAuthor(item.getAuthor());
-        form.setIsbn(item.getIsbn());
-
+        ModelMapper modelMapper = new ModelMapper();
+        BookForm form = modelMapper.map(item, BookForm.class);
         model.addAttribute("form", form);
         return "items/updateItemForm";
     }
@@ -70,14 +58,9 @@ public class ItemController {
     @PostMapping("{itemId}/edit")
     public String updateItem(@PathVariable Long itemId,
                              @ModelAttribute("form") BookForm form) {
-        Book book = new Book();
-        book.setId(itemId);
-        book.setName(form.getName());
-        book.setPrice(form.getPrice());
-        book.setStockQuantity(form.getStockQuantity());
-        book.setAuthor(form.getAuthor());
-        book.setIsbn(form.getIsbn());
-
+        form.setId(itemId);
+        ModelMapper modelMapper = new ModelMapper();
+        Book book = modelMapper.map(form, Book.class);
         itemService.saveItem(book);
         return "redirect:/items";
     }
