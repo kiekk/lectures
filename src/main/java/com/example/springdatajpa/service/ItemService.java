@@ -21,7 +21,7 @@ public class ItemService {
     }
 
     public List<Item> findItems() {
-        return itemRepository.findALl();
+        return itemRepository.findAll();
     }
 
     public Item findItem(Long itemId) {
