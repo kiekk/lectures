@@ -1,6 +1,7 @@
 package com.example.springdatajpa.controller;
 
 import com.example.springdatajpa.domain.item.Book;
+import com.example.springdatajpa.domain.item.Item;
 import com.example.springdatajpa.service.ItemService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
@@ -18,6 +20,13 @@ import javax.validation.Valid;
 public class ItemController {
 
     private final ItemService itemService;
+
+    @GetMapping("")
+    public String itemList(Model model) {
+        List<Item> items = itemService.findItems();
+        model.addAttribute("items", items);
+        return "items/itemList";
+    }
 
     @GetMapping("new")
     public String createForm(Model model) {
