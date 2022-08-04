@@ -31,6 +31,17 @@ public class MemberRepositoryTest {
         // then
         Assertions.assertThat(findMember.getId()).isEqualTo(savedId);
         Assertions.assertThat(findMember.getName()).isEqualTo(member.getName());
+        Assertions.assertThat(findMember).isEqualTo(member);
+        System.out.println("findMember : " + findMember);
+        System.out.println("member : " + member);
+
+        /*
+            같은 영속성 컨텍스트안에서는 id가 같으면 동일 객체
+            두 객체를 출력해보면 hashcode가 동일한 것을 확인
+
+            findMember : com.example.springdatajpa.Member@19542115
+            member : com.example.springdatajpa.Member@19542115
+         */
     }
 
 }
