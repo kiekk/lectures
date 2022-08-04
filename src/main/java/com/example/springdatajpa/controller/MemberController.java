@@ -42,11 +42,9 @@ public class MemberController {
             return "members/createMemberForm";
         }
 
-        Address address = new Address(memberForm.getCity(), memberForm.getStreet(), memberForm.getZipcode());
-
         Member member = new Member();
         member.setName(memberForm.getName());
-        member.setAddress(address);
+        member.setAddress(memberForm.getAddress());
 
         memberService.join(member);
         return "redirect:/";
