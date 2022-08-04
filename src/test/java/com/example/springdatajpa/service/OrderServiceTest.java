@@ -4,7 +4,9 @@ import com.example.springdatajpa.domain.Address;
 import com.example.springdatajpa.domain.Member;
 import com.example.springdatajpa.domain.Order;
 import com.example.springdatajpa.domain.item.Book;
+import com.example.springdatajpa.domain.item.Item;
 import com.example.springdatajpa.enums.OrderStatus;
+import com.example.springdatajpa.exception.NotEnoughStockException;
 import com.example.springdatajpa.repository.OrderRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -16,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityManager;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -65,4 +68,18 @@ public class OrderServiceTest {
         return member;
     }
 
+    @Test(expected = NotEnoughStockException.class)
+    public void 상품주문_재고수량초과() throws Exception {
+        // given
+        Member member = createMember();
+        Item item = createBook("JPA", 10_000, 10);
+
+        int orderCount = 11;
+
+        // when
+        orderService.order(member.getId(), item.getId(), orderCount);
+
+        // then
+        fail("재고 수량 부족 에외가 발생해야 한다.");
+   }
 }
