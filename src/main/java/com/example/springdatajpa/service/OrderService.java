@@ -8,6 +8,7 @@ import com.example.springdatajpa.domain.item.Item;
 import com.example.springdatajpa.repository.ItemRepository;
 import com.example.springdatajpa.repository.MemberRepository;
 import com.example.springdatajpa.repository.OrderRepository;
+import com.example.springdatajpa.repository.OrderSearch;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -57,6 +58,13 @@ public class OrderService {
 
         // 주문 취소
         order.cancel();
+    }
+
+    /**
+     * 주문 조회
+     */
+    public List<Order> findOrders(OrderSearch orderSearch) {
+        return orderRepository.findAllByCriteria(orderSearch);
     }
 
 }
