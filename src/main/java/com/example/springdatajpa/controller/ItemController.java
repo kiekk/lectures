@@ -19,6 +19,7 @@ import java.util.List;
 public class ItemController {
 
     private final ItemService itemService;
+    private final ModelMapper modelMapper;
 
     @GetMapping("")
     public String itemList(Model model) {
@@ -39,7 +40,6 @@ public class ItemController {
         if (bindingResult.hasErrors()) {
             return "items/createItemForm";
         }
-        ModelMapper modelMapper = new ModelMapper();
         Book book = modelMapper.map(bookForm, Book.class);
         itemService.saveItem(book);
         return "redirect:/";
@@ -49,7 +49,6 @@ public class ItemController {
     public String updateItemForm(@PathVariable Long itemId,
                                  Model model) {
         Book item = (Book) itemService.findItem(itemId);
-        ModelMapper modelMapper = new ModelMapper();
         BookForm form = modelMapper.map(item, BookForm.class);
         model.addAttribute("form", form);
         return "items/updateItemForm";
@@ -59,7 +58,6 @@ public class ItemController {
     public String updateItem(@PathVariable Long itemId,
                              @ModelAttribute("form") BookForm form) {
         form.setId(itemId);
-        ModelMapper modelMapper = new ModelMapper();
         Book book = modelMapper.map(form, Book.class);
         itemService.saveItem(book);
         return "redirect:/items";

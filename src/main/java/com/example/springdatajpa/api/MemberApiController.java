@@ -16,6 +16,7 @@ import javax.validation.Valid;
 public class MemberApiController {
 
     private final MemberService memberService;
+    private final ModelMapper modelMapper;
 
     @PostMapping("/api/v1/members")
     public CreateMemberResponse saveMemberV1(@RequestBody @Valid Member member) {
@@ -26,8 +27,6 @@ public class MemberApiController {
 
     @PostMapping("/api/v2/members")
     public CreateMemberResponse saveMemberV2(@RequestBody @Valid CreateMemberRequest request) {
-
-        ModelMapper modelMapper = new ModelMapper();
         Member member = modelMapper.map(request, Member.class);
         Long id = memberService.join(member);
         return new CreateMemberResponse(id);
