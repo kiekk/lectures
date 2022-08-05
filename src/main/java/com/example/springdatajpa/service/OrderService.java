@@ -32,7 +32,7 @@ public class OrderService {
 
         // entity 조회
         Member member = memberRepository.findById(memberId).get();
-        Item item = itemRepository.find(itemId);
+        Item item = itemRepository.findById(itemId).get();
 
         // 배송 정보 생성
         Delivery delivery = new Delivery();
