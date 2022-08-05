@@ -29,7 +29,7 @@ public class MemberApiController {
         List<MemberDto> collect = memberService.findMembers().stream().map(m -> new MemberDto(m.getName()))
                 .collect(Collectors.toList());
 
-        return new Result<>(collect);
+        return new Result<>(collect.size(), collect);
     }
 
     @PostMapping("/api/v1/members")
@@ -57,7 +57,7 @@ public class MemberApiController {
     @Data
     @AllArgsConstructor
     static class Result<T> {
-
+        private int count;
         private T data;
 
     }
