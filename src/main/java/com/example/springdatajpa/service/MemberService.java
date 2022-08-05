@@ -37,12 +37,12 @@ public class MemberService {
 
     // 회원 상세 조회
     public Member findMember(Long id) {
-        return memberRepository.find(id);
+        return memberRepository.findById(id).get();
     }
 
     @Transactional
     public void update(Long id, String name) {
-        Member member = memberRepository.find(id);
+        Member member = memberRepository.findById(id).get();
         member.setName(name);
     }
 }
