@@ -3,7 +3,6 @@ package com.example.springdatajpa.repository;
 import com.example.springdatajpa.domain.Member;
 import com.example.springdatajpa.domain.Order;
 import lombok.RequiredArgsConstructor;
-import net.bytebuddy.agent.builder.AgentBuilder;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.StringUtils;
 
@@ -107,4 +106,15 @@ public class OrderRepository {
                         " join fetch o.delivery d", Order.class
         ).getResultList();
     }
+
+    public List<OrderSimpleQueryDto> findOrderDtos() {
+        return em.createQuery(
+                "select new com.example.springdatajpa.repository.OrderSimpleQueryDto(o.id, m.name, o.orderDate, o.status, d.address)" +
+                        " from Order o" +
+                        " join o.member m" +
+                        " join o.delivery d", OrderSimpleQueryDto.class
+        ).getResultList();
+    }
+
+
 }
