@@ -521,4 +521,18 @@ public class QueryDslBasicTest {
         }
     }
 
+    @Test
+    public void findDtoByFields() {
+        List<MemberDto> result = queryFactory
+                .select(Projections.fields(MemberDto.class,
+                        member.username,
+                        member.age))
+                .from(member)
+                .fetch();
+
+        for (MemberDto memberDto : result) {
+            System.out.println("memberDto = " + memberDto);
+        }
+    }
+
 }
