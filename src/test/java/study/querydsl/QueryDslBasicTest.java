@@ -14,6 +14,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.Commit;
 import study.querydsl.dto.MemberDto;
 import study.querydsl.dto.QMemberDto;
 import study.querydsl.dto.UserDto;
@@ -634,6 +635,40 @@ public class QueryDslBasicTest {
     // allEq 에서 null 체크를 해야 하는 이유는  userNameEq() 가 null 일 경우 and() 에서 NullPointerException 이 발생하기 때문
     private BooleanExpression allEq(String usernameCond, Integer ageCond) {
         return usernameEq(usernameCond).and(ageEq(ageCond));
+    }
+
+    @Test
+    @Commit
+    public void bulkUpdate() {
+
+        // member1 = 10 -> 비회원
+        // member2 = 20 -> 비회원
+        // member3 = 30 -> 유지
+        // member4 = 40 -> 유지
+        long count = queryFactory
+                .update(member)
+                .set(member.username, "비회원")
+                .where(member.age.lt(28))
+                .execute();
+
+        List<Member> result = queryFactory
+                .selectFrom(member)
+                .fetch();
+
+        for (Member member1 : result) {
+            System.out.println("member1 = " + member1);
+        }
+        /*
+            member1 = Member(id=3, username=member1, age=10)
+            member1 = Member(id=4, username=member2, age=20)
+            member1 = Member(id=5, username=member3, age=30)
+            member1 = Member(id=6, username=member4, age=40)
+
+            update 는 아직 영속성 컨텍스트에 반영되지 않았기 때문에,
+            조회 시 이전 데이터들이 조회됨.
+            이 때 영속성 컨텍스트가 우선 순위를 갖기 때문에
+            영속성 컨텍스트의 데이터가 적용되며, update 한 데이터들은 무시됨
+         */
     }
 
 }
