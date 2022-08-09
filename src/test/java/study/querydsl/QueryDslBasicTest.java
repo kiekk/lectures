@@ -651,6 +651,10 @@ public class QueryDslBasicTest {
                 .where(member.age.lt(28))
                 .execute();
 
+        // em.flush, em.clear 를 해줘야 영속성 컨텍스트에 반영되어 이후 조회 시 update 한 데이터들이 조회됨
+        em.flush();
+        em.clear();
+
         List<Member> result = queryFactory
                 .selectFrom(member)
                 .fetch();
