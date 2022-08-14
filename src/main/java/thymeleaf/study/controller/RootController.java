@@ -101,4 +101,14 @@ public class RootController {
         model.addAttribute("case", "a");
         return "case";
     }
+
+    @RequestMapping("string-concat")
+    public String stringConcat(Model model) {
+        model.addAttribute("one", 1);
+        model.addAttribute("two", 2);
+        model.addAttribute("three", 3);
+
+        model.addAttribute("username", "홍길동");
+        return "string-concat";
+    }
 }
