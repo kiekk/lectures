@@ -9,6 +9,6 @@ spring:
   thymeleaf:
     prefix: file:///C:/study/thymeleaf/src/main/resources/templates/
     cache: false
-  web:
-    resources:
-      static-locations: file:///C:/study/thymeleaf/src/main/resources/static/
+#  web:
+#    resources:
+#      static-locations: file:///C:/study/thymeleaf/src/main/resources/static/
