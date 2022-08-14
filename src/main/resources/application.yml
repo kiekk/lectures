@@ -1,3 +1,14 @@
 server:
   servlet:
     context-path: /thymeleaf
+
+spring:
+  devtools:
+    livereload:
+      enabled: true
+  thymeleaf:
+    prefix: file:///C:/study/thymeleaf/src/main/resources/templates/
+    cache: false
+  web:
+    resources:
+      static-locations: file:///C:/study/thymeleaf/src/main/resources/static/
