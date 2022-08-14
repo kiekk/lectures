@@ -24,9 +24,15 @@ public class RootController {
         user2.setName("test");
         user2.setMobile("010-1234-5678");
 
+        User user3 = new User();
+        user3.setId("id_3");
+        user3.setName("test3");
+        user3.setMobile(null);
+
         model.addAttribute("message", "hello thymeleaf");
         model.addAttribute("user", user);
         model.addAttribute("user2", user2);
+        model.addAttribute("user3", user3);
         return "main";
     }
 

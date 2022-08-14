@@ -27,5 +27,14 @@
 <div th:unless="${user2.name eq 'test'}">
     <span>user2 name is not test</span>
 </div>
+
+<h5>if 문 default 표현식, no-operation 사용</h5>
+<div>
+    <span th:text="${user3.id}"></span> <br/>
+    <span th:text="${user3.name}"></span> <br/>
+    <span th:text="${user3.mobile}"></span> <br/>
+    <span th:text="${user3.mobile ?: 'user3 mobile is null'}">null data</span> <br/>
+    <span th:text="${user3.mobile ?: '_'}">null data</span> <br/>
+</div>
 </body>
 </html>
