@@ -111,4 +111,11 @@ public class RootController {
         model.addAttribute("username", "홍길동");
         return "string-concat";
     }
+
+    @RequestMapping("messages")
+    public String messages(Model model) {
+
+        model.addAttribute("name", "foo");
+        return "messages";
+    }
 }
