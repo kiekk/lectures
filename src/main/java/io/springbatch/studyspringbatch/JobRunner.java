@@ -25,9 +25,11 @@ public class JobRunner implements ApplicationRunner {
         JobParameters jobParameters = new JobParametersBuilder()
                 .addString("name", "user1")
                 .addLong("seq", 2L)
-                .addDate("date", new Date())
+//                .addDate("date", new Date())
                 .addDouble("age", 16.5)
                 .toJobParameters();
+                // new Date 로 인해 date 파라미터 값이 매번 달라져
+                // 다른 job instance 로 인식함.
 
         jobLauncher.run(job, jobParameters);
     }
