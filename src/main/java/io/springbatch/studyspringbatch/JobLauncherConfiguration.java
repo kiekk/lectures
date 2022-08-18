@@ -11,7 +11,7 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 @RequiredArgsConstructor
-public class DbJobConfiguration {
+public class JobLauncherConfiguration {
 
     private final JobBuilderFactory jobBuilderFactory;
     private final StepBuilderFactory stepBuilderFactory;
@@ -29,6 +29,7 @@ public class DbJobConfiguration {
         return stepBuilderFactory.get("step1")
                 .tasklet((contribution, chunkContext) -> {
                     System.out.println("step1 was executed");
+                    Thread.sleep(3000);
                     return RepeatStatus.FINISHED;
                 })
                 .build();
@@ -43,5 +44,6 @@ public class DbJobConfiguration {
                 })
                 .build();
     }
+
 
 }
