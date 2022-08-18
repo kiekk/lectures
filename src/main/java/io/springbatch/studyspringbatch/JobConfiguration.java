@@ -57,13 +57,7 @@ public class JobConfiguration {
     @Bean
     public Step step2() {
         return stepBuilderFactory.get("step2")
-                .tasklet((contribution, chunkContext) -> {
-                    System.out.println("step2 was executed");
-                    // 실패한 job instance 는 여러 번 실행 가능
-                    // 단, 성공한 이후에는 동일한 job instance 는 실행 불가능
-                    throw new RuntimeException("step2 has failed");
-//                    return RepeatStatus.FINISHED;
-                })
+                .tasklet(new CustomTasklet())
                 .build();
     }
 
