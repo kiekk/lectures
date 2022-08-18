@@ -18,46 +18,46 @@ public class JobConfiguration {
 
     private final JobBuilderFactory jobBuilderFactory;
     private final StepBuilderFactory stepBuilderFactory;
+    private final ExecutionContextTasklet1 executionContextTasklet1;
+    private final ExecutionContextTasklet2 executionContextTasklet2;
+    private final ExecutionContextTasklet3 executionContextTasklet3;
+    private final ExecutionContextTasklet4 executionContextTasklet4;
 
     @Bean
     public Job job() {
         return jobBuilderFactory.get("job")
                 .start(step1())
                 .next(step2())
+                .next(step3())
+                .next(step4())
                 .build();
     }
 
     @Bean
     public Step step1() {
         return stepBuilderFactory.get("step1")
-                .tasklet((contribution, chunkContext) -> {
-
-                    JobParameters jobParameters = contribution.getStepExecution().getJobExecution().getJobParameters();
-
-                    System.out.println(jobParameters.getString("name"));
-                    System.out.println(jobParameters.getLong("seq"));
-                    System.out.println(jobParameters.getDate("date"));
-                    System.out.println(jobParameters.getDouble("age"));
-
-                    Map<String, Object> jobParameters1 = chunkContext.getStepContext().getJobParameters();
-
-                    System.out.println(jobParameters1.get("name"));
-                    System.out.println(jobParameters1.get("seq"));
-                    System.out.println(jobParameters1.get("date"));
-                    System.out.println(jobParameters1.get("age"));
-                    
-                    // jobParameters 와 jobParameters1 은 return type 이 다름
-
-                    System.out.println("step1 was executed");
-                    return RepeatStatus.FINISHED;
-                })
+                .tasklet(executionContextTasklet1)
                 .build();
     }
 
     @Bean
     public Step step2() {
         return stepBuilderFactory.get("step2")
-                .tasklet(new CustomTasklet())
+                .tasklet(executionContextTasklet2)
+                .build();
+    }
+
+    @Bean
+    public Step step3() {
+        return stepBuilderFactory.get("step3")
+                .tasklet(executionContextTasklet3)
+                .build();
+    }
+
+    @Bean
+    public Step step4() {
+        return stepBuilderFactory.get("step4")
+                .tasklet(executionContextTasklet4)
                 .build();
     }
 
