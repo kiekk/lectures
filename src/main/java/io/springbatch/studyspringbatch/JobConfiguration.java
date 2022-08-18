@@ -2,12 +2,15 @@ package io.springbatch.studyspringbatch;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.core.Job;
+import org.springframework.batch.core.JobParameters;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
 import org.springframework.batch.repeat.RepeatStatus;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
+import java.util.Map;
 
 @Configuration
 @RequiredArgsConstructor
@@ -28,6 +31,23 @@ public class JobConfiguration {
     public Step step1() {
         return stepBuilderFactory.get("step1")
                 .tasklet((contribution, chunkContext) -> {
+
+                    JobParameters jobParameters = contribution.getStepExecution().getJobExecution().getJobParameters();
+
+                    System.out.println(jobParameters.getString("name"));
+                    System.out.println(jobParameters.getLong("seq"));
+                    System.out.println(jobParameters.getDate("date"));
+                    System.out.println(jobParameters.getDouble("age"));
+
+                    Map<String, Object> jobParameters1 = chunkContext.getStepContext().getJobParameters();
+
+                    System.out.println(jobParameters1.get("name"));
+                    System.out.println(jobParameters1.get("seq"));
+                    System.out.println(jobParameters1.get("date"));
+                    System.out.println(jobParameters1.get("age"));
+                    
+                    // jobParameters 와 jobParameters1 은 return type 이 다름
+
                     System.out.println("step1 was executed");
                     return RepeatStatus.FINISHED;
                 })
