@@ -42,7 +42,7 @@ public class JobLauncherController {
         simpleJobLauncher.setTaskExecutor(new SimpleAsyncTaskExecutor());
         jobLauncher.run(job, jobParameters);
 
-        return "batch complted";
+        return "batch completed";
     }
 
 }
