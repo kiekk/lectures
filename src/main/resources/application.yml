@@ -28,9 +28,5 @@ spring:
   batch:
     jdbc:
       initialize-schema: always
-      # never 는 자동으로 schema 를 생성하지 않음
-      # 개발자가 수동으로 schema 를 직접 생성하지도 않을 경우
-      # batch 실행 시 오류 발생
     job:
-      enabled: false
-      # 자동 실행 X
+      names: ${job.name:NONE}
