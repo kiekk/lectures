@@ -37,3 +37,6 @@ spring:
       names: ${job.name:NONE}
     # job name 하드 코딩
       #names: job
+      enabled: false
+    # spring 초기화 시 batch 자동 실행 여부
+    # default: true
