@@ -22,7 +22,7 @@ public class JobConfiguration {
         return jobBuilderFactory.get("job")
                 .start(step1())
                 .next(step2())
-                .incrementer(new CustomJobParametersIncrement())
+                .incrementer(new RunIdIncrementer())
                 .build();
     }
 
@@ -41,8 +41,7 @@ public class JobConfiguration {
         return stepBuilderFactory.get("step2")
                 .tasklet((contribution, chunkContext) -> {
                     System.out.println("step2 was executed");
-                    throw new RuntimeException("step2 was failed");
-//                    return RepeatStatus.FINISHED;
+                    return RepeatStatus.FINISHED;
                 })
                 .build();
     }
