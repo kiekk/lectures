@@ -32,7 +32,10 @@ public class JobConfiguration {
                     System.out.println("step1 was executed");
                     return RepeatStatus.FINISHED;
                 })
+                .allowStartIfComplete(true)
                 .build();
+                // allowStartIfComplete: true -> 성공 여부에 관계 없이 매번 실행
+                // allowStartIfComplete: false -> 성공한 step 은 실행하지 않음 (default)
     }
 
     @Bean
@@ -43,10 +46,7 @@ public class JobConfiguration {
                     throw new RuntimeException("step2 was failed");
 //                    return RepeatStatus.FINISHED;
                 })
-                .startLimit(3)
                 .build();
-                // 3번 까지 실행, 그 이후는 에러
-                // StartLimitExceededException: Maximum start limit exceeded for step: step2StartMax: 3
     }
 
 
