@@ -22,7 +22,6 @@ public class JobConfiguration {
         return jobBuilderFactory.get("job")
                 .start(step1())
                 .next(step2())
-                .incrementer(new RunIdIncrementer())
                 .build();
     }
 
@@ -39,8 +38,15 @@ public class JobConfiguration {
     @Bean
     public Step step2() {
         return stepBuilderFactory.get("step2")
-                .tasklet(new CustomTasklet())
+                .tasklet((contribution, chunkContext) -> {
+                    System.out.println("step2 was executed");
+                    throw new RuntimeException("step2 was failed");
+//                    return RepeatStatus.FINISHED;
+                })
+                .startLimit(3)
                 .build();
+                // 3번 까지 실행, 그 이후는 에러
+                // StartLimitExceededException: Maximum start limit exceeded for step: step2StartMax: 3
     }
 
 
