@@ -1,12 +1,10 @@
 package io.springbatch.studyspringbatch;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.batch.core.*;
+import org.springframework.batch.core.Job;
+import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
-import org.springframework.batch.core.launch.JobLauncher;
-import org.springframework.batch.core.step.job.DefaultJobParametersExtractor;
-import org.springframework.batch.core.step.job.JobParametersExtractor;
 import org.springframework.batch.repeat.RepeatStatus;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -20,43 +18,14 @@ public class JobConfiguration {
 
     @Bean
     public Job job() {
-        return jobBuilderFactory.get("parentJob")
-                .start(jobStep(null))
-                .next(step2())
-                .build();
-    }
-
-
-    @Bean
-    public Step jobStep(JobLauncher jobLauncher) {
-        return stepBuilderFactory.get("jobStep")
-                .job(childJob())
-                .launcher(jobLauncher)
-                .parametersExtractor(jobParametersExtractor())
-                .listener(new StepExecutionListener() {
-                    @Override
-                    public void beforeStep(StepExecution stepExecution) {
-                        stepExecution.getExecutionContext().putString("name", "user1");
-                    }
-
-                    @Override
-                    public ExitStatus afterStep(StepExecution stepExecution) {
-                        return null;
-                    }
-                })
-                .build();
-    }
-
-    private JobParametersExtractor jobParametersExtractor() {
-        DefaultJobParametersExtractor extractor = new DefaultJobParametersExtractor();
-        extractor.setKeys(new String[]{"name"});
-        return extractor;
-    }
-
-    @Bean
-    public Job childJob() {
-        return jobBuilderFactory.get("childJob")
+        return jobBuilderFactory.get("batchJob")
                 .start(step1())
+                .on("COMPLETED")
+                .to(step3())
+                .from(step1())
+                .on("FAILED")
+                .to(step2())
+                .end()
                 .build();
     }
 
@@ -80,5 +49,14 @@ public class JobConfiguration {
                 .build();
     }
 
+    @Bean
+    public Step step3() {
+        return stepBuilderFactory.get("step3")
+                .tasklet((contribution, chunkContext) -> {
+                    System.out.println("step3 was executed");
+                    return RepeatStatus.FINISHED;
+                })
+                .build();
+    }
 
 }
