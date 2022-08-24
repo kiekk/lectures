@@ -59,6 +59,7 @@ public class JobConfiguration {
                 .targetType(Customer.class)
                 .linesToSkip(1)
                 .fixedLength()
+                .strict(false)
                 .addColumns(new Range(1, 5))
                 .addColumns(new Range(6, 9))
                 .addColumns(new Range(10, 11))
