@@ -7,6 +7,7 @@ import org.springframework.batch.core.configuration.annotation.JobBuilderFactory
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
 import org.springframework.batch.item.ItemReader;
 import org.springframework.batch.item.file.builder.FlatFileItemReaderBuilder;
+import org.springframework.batch.item.file.mapping.BeanWrapperFieldSetMapper;
 import org.springframework.batch.repeat.RepeatStatus;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -53,7 +54,8 @@ public class JobConfiguration {
         return new FlatFileItemReaderBuilder<Customer>()
                 .name("flatFile")
                 .resource(new ClassPathResource("/customer.csv"))
-                .fieldSetMapper(new CustomerFieldSetMapper())
+                .fieldSetMapper(new BeanWrapperFieldSetMapper<>())
+                .targetType(Customer.class)
                 .linesToSkip(1)
                 .delimited()
                 .delimiter(",")
