@@ -5,13 +5,13 @@ import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
-import org.springframework.batch.item.ItemWriter;
+import org.springframework.batch.item.ItemReader;
+import org.springframework.batch.item.file.FlatFileItemReader;
+import org.springframework.batch.item.file.transform.DelimitedLineTokenizer;
 import org.springframework.batch.repeat.RepeatStatus;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-
-import java.util.ArrayList;
-import java.util.List;
+import org.springframework.core.io.ClassPathResource;
 
 @Configuration
 @RequiredArgsConstructor
@@ -31,14 +31,12 @@ public class JobConfiguration {
     @Bean
     public Step step1() {
         return stepBuilderFactory.get("step1")
-                .<String, String>chunk(3)
+                .<Customer, String>chunk(3)
                 .reader(itemReader())
-                .writer(itemWriter())
+                .writer(items -> {
+                    System.out.println("items : " + items);
+                })
                 .build();
-    }
-
-    private ItemWriter<String> itemWriter() {
-        return new CustomItemWriter();
     }
 
     @Bean
@@ -51,14 +49,19 @@ public class JobConfiguration {
                 .build();
     }
 
-    public CustomItemStreamReader itemReader() {
-        List<String> items = new ArrayList<>();
+    @Bean
+    public ItemReader<Customer> itemReader() {
+        FlatFileItemReader<Customer> itemReader = new FlatFileItemReader<>();
+        itemReader.setResource(new ClassPathResource("/customer.csv"));
 
-        for (int i = 0; i < 10; i++) {
-            items.add(String.valueOf(i));
-        }
+        DefaultLineMapper<Customer> lineMapper = new DefaultLineMapper<>();
+        lineMapper.setLineTokenizer(new DelimitedLineTokenizer());
+        lineMapper.setFieldSetMapper(new CustomerFieldSetMapper());
 
-        return new CustomItemStreamReader(items);
+        itemReader.setLineMapper(lineMapper);
+        itemReader.setLinesToSkip(1);
+
+        return itemReader;
     }
 
 }
