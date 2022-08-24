@@ -21,8 +21,6 @@ dependencies {
     annotationProcessor 'org.projectlombok:lombok'
     runtimeOnly 'org.mariadb.jdbc:mariadb-java-client'
     implementation 'org.springframework.boot:spring-boot-starter-web'
-    implementation 'org.springframework:spring-oxm:5.3.7'
-    implementation 'com.thoughtworks.xstream:xstream:1.4.16'
 }
 
 tasks.named('test') {
