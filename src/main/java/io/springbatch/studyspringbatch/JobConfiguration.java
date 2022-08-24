@@ -5,15 +5,13 @@ import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
-import org.springframework.batch.item.ItemProcessor;
-import org.springframework.batch.item.ItemReader;
 import org.springframework.batch.item.ItemWriter;
-import org.springframework.batch.item.support.ListItemReader;
 import org.springframework.batch.repeat.RepeatStatus;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.List;
 
 @Configuration
 @RequiredArgsConstructor
@@ -33,11 +31,14 @@ public class JobConfiguration {
     @Bean
     public Step step1() {
         return stepBuilderFactory.get("step1")
-                .<Customer, Customer>chunk(3)
+                .<String, String>chunk(3)
                 .reader(itemReader())
-                .processor(itemProcessor())
                 .writer(itemWriter())
                 .build();
+    }
+
+    private ItemWriter<String> itemWriter() {
+        return new CustomItemWriter();
     }
 
     @Bean
@@ -50,21 +51,14 @@ public class JobConfiguration {
                 .build();
     }
 
-    public ItemReader<Customer> itemReader() {
-        return new CustomItemReader(Arrays.asList(
-                new Customer("user1"),
-                new Customer("user2"),
-                new Customer("user3"),
-                new Customer("user4")
-        ));
-    }
+    public CustomItemStreamReader itemReader() {
+        List<String> items = new ArrayList<>();
 
-    public ItemProcessor<Customer, Customer> itemProcessor() {
-        return new CustomItemProcessor();
-    }
+        for (int i = 0; i < 10; i++) {
+            items.add(String.valueOf(i));
+        }
 
-    public ItemWriter<Customer> itemWriter() {
-        return new CustomItemWriter();
+        return new CustomItemStreamReader(items);
     }
 
 }
