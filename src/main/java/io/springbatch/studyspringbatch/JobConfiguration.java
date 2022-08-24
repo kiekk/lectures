@@ -6,6 +6,8 @@ import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
 import org.springframework.batch.item.ItemProcessor;
+import org.springframework.batch.item.ItemReader;
+import org.springframework.batch.item.ItemWriter;
 import org.springframework.batch.item.support.ListItemReader;
 import org.springframework.batch.repeat.RepeatStatus;
 import org.springframework.context.annotation.Bean;
@@ -31,17 +33,10 @@ public class JobConfiguration {
     @Bean
     public Step step1() {
         return stepBuilderFactory.get("step1")
-                .<String, String>chunk(5)
-                .reader(new ListItemReader<>(Arrays.asList("item1", "item2", "item3", "item4", "item5", "item6", "item7")))
-                .processor((ItemProcessor<String, String>) item -> {
-                    Thread.sleep(300);
-                    System.out.println("item : " + item);
-                    return "my" + item;
-                })
-                .writer(items -> {
-                    Thread.sleep(300);
-                    System.out.println("items : " + items);
-                })
+                .<Customer, Customer>chunk(3)
+                .reader(itemReader())
+                .processor(itemProcessor())
+                .writer(itemWriter())
                 .build();
     }
 
@@ -55,5 +50,21 @@ public class JobConfiguration {
                 .build();
     }
 
+    public ItemReader<Customer> itemReader() {
+        return new CustomItemReader(Arrays.asList(
+                new Customer("user1"),
+                new Customer("user2"),
+                new Customer("user3"),
+                new Customer("user4")
+        ));
+    }
+
+    public ItemProcessor<Customer, Customer> itemProcessor() {
+        return new CustomItemProcessor();
+    }
+
+    public ItemWriter<Customer> itemWriter() {
+        return new CustomItemWriter();
+    }
 
 }
