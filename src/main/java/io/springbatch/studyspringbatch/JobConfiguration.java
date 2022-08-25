@@ -7,7 +7,7 @@ import org.springframework.batch.core.configuration.annotation.JobBuilderFactory
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
 import org.springframework.batch.core.launch.support.RunIdIncrementer;
 import org.springframework.batch.item.ItemReader;
-import org.springframework.batch.item.ItemWriter;
+import org.springframework.batch.item.database.JdbcBatchItemWriter;
 import org.springframework.batch.item.database.JdbcPagingItemReader;
 import org.springframework.batch.item.database.Order;
 import org.springframework.batch.item.database.builder.JdbcBatchItemWriterBuilder;
@@ -37,15 +37,15 @@ public class JobConfiguration {
     @Bean
     public Step step1() throws Exception {
         return stepBuilderFactory.get("step1")
-                .<Customer, Customer>chunk(10)
+                .<Map<String, Object>, Map<String, Object>>chunk(10)
                 .reader(customItemReader())
                 .writer(customItemWriter())
                 .build();
     }
 
     @Bean
-    public ItemReader<Customer> customItemReader() {
-        JdbcPagingItemReader<Customer> reader = new JdbcPagingItemReader<>();
+    public ItemReader<Map<String, Object>> customItemReader() {
+        JdbcPagingItemReader<Map<String, Object>> reader = new JdbcPagingItemReader<>();
 
         reader.setDataSource(dataSource);
         reader.setFetchSize(10);
@@ -71,11 +71,11 @@ public class JobConfiguration {
     }
 
     @Bean
-    public ItemWriter<Customer> customItemWriter() {
-        return new JdbcBatchItemWriterBuilder<Customer>()
+    public JdbcBatchItemWriter<Map<String, Object>> customItemWriter() {
+        return new JdbcBatchItemWriterBuilder<Map<String, Object>>()
                 .dataSource(dataSource)
                 .sql("insert into customer2 values (:id, :firstname, :lastname, :birthdate)")
-                .beanMapped()
+                .columnMapped()
                 .build();
     }
 
