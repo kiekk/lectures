@@ -6,11 +6,14 @@ import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
 import org.springframework.batch.core.launch.support.RunIdIncrementer;
+import org.springframework.batch.item.ItemProcessor;
 import org.springframework.batch.item.ItemReader;
-import org.springframework.batch.item.ItemWriter;
-import org.springframework.batch.item.adapter.ItemWriterAdapter;
+import org.springframework.batch.item.support.builder.CompositeItemProcessorBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Configuration
 @RequiredArgsConstructor
@@ -37,25 +40,23 @@ public class JobConfiguration {
                     @Override
                     public String read() {
                         i++;
-                        return i > 10 ? null : "item" + i;
+                        return i > 10 ? null : "item";
                     }
                 })
-                .writer(customItemWriter())
+                .processor(customItemProcessor())
+                .writer(System.out::println)
                 .build();
     }
 
     @Bean
-    public ItemWriter<String> customItemWriter() {
-        ItemWriterAdapter<String> adapter = new ItemWriterAdapter<>();
-        adapter.setTargetObject(customService());
-        adapter.setTargetMethod("customWrite");
+    public ItemProcessor<String, String> customItemProcessor() {
+        List<ItemProcessor<String, String>> itemProcessor = new ArrayList<>();
+        itemProcessor.add(new CustomItemProcessor());
+        itemProcessor.add(new CustomItemProcessor2());
 
-        return adapter;
-    }
-
-    @Bean
-    public CustomService<String> customService() {
-        return new CustomService<>();
+        return new CompositeItemProcessorBuilder<String, String>()
+                .delegates(itemProcessor)
+                .build();
     }
 
 }
