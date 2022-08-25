@@ -5,67 +5,62 @@ import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
+import org.springframework.batch.core.launch.support.RunIdIncrementer;
 import org.springframework.batch.item.ItemReader;
-import org.springframework.batch.item.database.builder.JdbcCursorItemReaderBuilder;
-import org.springframework.batch.repeat.RepeatStatus;
+import org.springframework.batch.item.ItemWriter;
+import org.springframework.batch.item.database.builder.JpaCursorItemReaderBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import javax.sql.DataSource;
+import javax.persistence.EntityManagerFactory;
+import java.util.HashMap;
+import java.util.Map;
 
 @Configuration
 @RequiredArgsConstructor
 public class JobConfiguration {
-
     private final JobBuilderFactory jobBuilderFactory;
     private final StepBuilderFactory stepBuilderFactory;
-    private final int chunkSize = 10;
-    private final DataSource dataSource;
+    private final EntityManagerFactory entityManagerFactory;
 
     @Bean
     public Job job() {
         return jobBuilderFactory.get("batchJob")
+                .incrementer(new RunIdIncrementer())
                 .start(step1())
-                .next(step2())
                 .build();
     }
 
     @Bean
     public Step step1() {
         return stepBuilderFactory.get("step1")
-                .<Customer, String>chunk(chunkSize)
-                .reader(customerItemReader())
-                .writer(items -> {
-                    System.out.println("items : " + items);
-                })
+                .<Customer, Customer>chunk(2)
+                .reader(customItemReader())
+                .writer(customItemWriter())
                 .build();
     }
 
     @Bean
-    public Step step2() {
-        return stepBuilderFactory.get("step2")
-                .tasklet((contribution, chunkContext) -> {
-                    System.out.println("step2 has executed");
-                    return RepeatStatus.FINISHED;
-                })
+    public ItemReader<Customer> customItemReader() {
+
+        Map<String, Object> parameters = new HashMap<>();
+        parameters.put("firstname", "A%");
+
+        return new JpaCursorItemReaderBuilder<Customer>()
+                .name("jpaCursorItemReader")
+                .queryString("select c from Customer c where firstname like :firstname")
+                .entityManagerFactory(entityManagerFactory)
+                .parameterValues(parameters)
                 .build();
     }
 
     @Bean
-    public ItemReader<Customer> customerItemReader() {
-        return new JdbcCursorItemReaderBuilder<Customer>()
-                .name("jdbcCursorItemReader")
-//                .fetchSize(chunkSize)
-                .sql("select id, firstName, lastName, birthdate from customer where firstName like ? order by lastName, firstName")
-                .beanRowMapper(Customer.class)
-                .queryArguments("A%")
-                .dataSource(dataSource)
-                .build();
-        /*
-        mariadb 사용시 fetchSize 옵션을 사용하면 에러가 발생한다.
-        org.springframework.dao.InvalidDataAccessResourceUsageException: Unexpected cursor position change.
-        찾아보니 mariadb 에는 useCursorFetch 옵션이 없다고 하며, 자체 driver 에서 최적화 하는 것으로 유추된다고 한다.
-         */
+    public ItemWriter<Customer> customItemWriter() {
+        return items -> {
+            for (Customer item : items) {
+                System.out.println(item.toString());
+            }
+        };
     }
 
 }
