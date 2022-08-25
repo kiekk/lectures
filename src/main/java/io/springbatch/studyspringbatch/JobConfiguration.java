@@ -7,7 +7,8 @@ import org.springframework.batch.core.configuration.annotation.JobBuilderFactory
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
 import org.springframework.batch.core.launch.support.RunIdIncrementer;
 import org.springframework.batch.item.ItemReader;
-import org.springframework.batch.item.adapter.ItemReaderAdapter;
+import org.springframework.batch.item.ItemWriter;
+import org.springframework.batch.item.adapter.ItemWriterAdapter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -29,26 +30,32 @@ public class JobConfiguration {
     public Step step1() throws Exception {
         return stepBuilderFactory.get("step1")
                 .<String, String>chunk(10)
-                .reader(customItemReader())
-                .writer(items -> {
-                    items.forEach(System.out::println);
+                .reader(new ItemReader<>() {
+
+                    int i = 0;
+
+                    @Override
+                    public String read() {
+                        i++;
+                        return i > 10 ? null : "item" + i;
+                    }
                 })
+                .writer(customItemWriter())
                 .build();
     }
 
     @Bean
-    public ItemReader<String> customItemReader() {
-        ItemReaderAdapter<String> reader = new ItemReaderAdapter<>();
-        reader.setTargetObject(customService());
-        reader.setTargetMethod("customRead");
+    public ItemWriter<String> customItemWriter() {
+        ItemWriterAdapter<String> adapter = new ItemWriterAdapter<>();
+        adapter.setTargetObject(customService());
+        adapter.setTargetMethod("customWrite");
 
-        return reader;
+        return adapter;
     }
 
     @Bean
     public CustomService<String> customService() {
         return new CustomService<>();
     }
-
 
 }
