@@ -10,18 +10,12 @@ import org.springframework.batch.item.ItemReader;
 import org.springframework.batch.item.ItemWriter;
 import org.springframework.batch.item.database.JdbcPagingItemReader;
 import org.springframework.batch.item.database.Order;
+import org.springframework.batch.item.database.builder.JdbcBatchItemWriterBuilder;
 import org.springframework.batch.item.database.support.MySqlPagingQueryProvider;
-import org.springframework.batch.item.json.JacksonJsonObjectMarshaller;
-import org.springframework.batch.item.json.JsonFileItemWriter;
-import org.springframework.batch.item.json.builder.JsonFileItemWriterBuilder;
-import org.springframework.batch.item.xml.builder.StaxEventItemWriterBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.io.FileSystemResource;
-import org.springframework.oxm.xstream.XStreamMarshaller;
 
 import javax.sql.DataSource;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -78,10 +72,10 @@ public class JobConfiguration {
 
     @Bean
     public ItemWriter<Customer> customItemWriter() {
-        return new JsonFileItemWriterBuilder<Customer>()
-                .name("jsonFileWriter")
-                .jsonObjectMarshaller(new JacksonJsonObjectMarshaller<>())
-                .resource(new FileSystemResource("C:\\study\\springbatch\\src\\main\\resources\\customer.json"))
+        return new JdbcBatchItemWriterBuilder<Customer>()
+                .dataSource(dataSource)
+                .sql("insert into customer2 values (:id, :firstname, :lastname, :birthdate)")
+                .beanMapped()
                 .build();
     }
 
