@@ -4,16 +4,13 @@ import org.springframework.jdbc.core.RowMapper;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Map;
 
-public class CustomerRowMapper implements RowMapper<Map<String, Object>> {
+public class CustomerRowMapper implements RowMapper<Customer> {
     @Override
-    public Map<String, Object> mapRow(ResultSet rs, int i) throws SQLException {
-        return Map.of(
-                "id", rs.getLong("id"),
-                "firstname", rs.getString("firstName"),
-                "lastname", rs.getString("lastName"),
-                "birthdate", rs.getString("birthdate")
-        );
+    public Customer mapRow(ResultSet rs, int i) throws SQLException {
+        return new Customer(rs.getLong("id"),
+                rs.getString("firstName"),
+                rs.getString("lastName"),
+                rs.getString("birthdate"));
     }
 }

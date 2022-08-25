@@ -6,15 +6,17 @@ import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
 import org.springframework.batch.core.launch.support.RunIdIncrementer;
+import org.springframework.batch.item.ItemProcessor;
 import org.springframework.batch.item.ItemReader;
-import org.springframework.batch.item.database.JdbcBatchItemWriter;
+import org.springframework.batch.item.ItemWriter;
 import org.springframework.batch.item.database.JdbcPagingItemReader;
 import org.springframework.batch.item.database.Order;
-import org.springframework.batch.item.database.builder.JdbcBatchItemWriterBuilder;
+import org.springframework.batch.item.database.builder.JpaItemWriterBuilder;
 import org.springframework.batch.item.database.support.MySqlPagingQueryProvider;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 import java.util.HashMap;
 import java.util.Map;
@@ -25,6 +27,7 @@ public class JobConfiguration {
     private final JobBuilderFactory jobBuilderFactory;
     private final StepBuilderFactory stepBuilderFactory;
     private final DataSource dataSource;
+    private final EntityManagerFactory entityManagerFactory;
 
     @Bean
     public Job job() throws Exception {
@@ -37,15 +40,16 @@ public class JobConfiguration {
     @Bean
     public Step step1() throws Exception {
         return stepBuilderFactory.get("step1")
-                .<Map<String, Object>, Map<String, Object>>chunk(10)
+                .<Customer, Customer2>chunk(10)
                 .reader(customItemReader())
+                .processor(customItemProcessor())
                 .writer(customItemWriter())
                 .build();
     }
 
     @Bean
-    public ItemReader<Map<String, Object>> customItemReader() {
-        JdbcPagingItemReader<Map<String, Object>> reader = new JdbcPagingItemReader<>();
+    public ItemReader<Customer> customItemReader() {
+        JdbcPagingItemReader<Customer> reader = new JdbcPagingItemReader<>();
 
         reader.setDataSource(dataSource);
         reader.setFetchSize(10);
@@ -71,11 +75,15 @@ public class JobConfiguration {
     }
 
     @Bean
-    public JdbcBatchItemWriter<Map<String, Object>> customItemWriter() {
-        return new JdbcBatchItemWriterBuilder<Map<String, Object>>()
-                .dataSource(dataSource)
-                .sql("insert into customer2 values (:id, :firstname, :lastname, :birthdate)")
-                .columnMapped()
+    public ItemProcessor<Customer, Customer2> customItemProcessor() {
+        return new CustomItemProcessor();
+    }
+
+    @Bean
+    public ItemWriter<Customer2> customItemWriter() {
+        return new JpaItemWriterBuilder<Customer2>()
+                .usePersist(true) // default - true
+                .entityManagerFactory(entityManagerFactory)
                 .build();
     }
 
