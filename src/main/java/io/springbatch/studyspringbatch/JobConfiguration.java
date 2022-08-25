@@ -57,16 +57,10 @@ public class JobConfiguration {
         return new FlatFileItemWriterBuilder<Customer>()
                 .name("flatFileWriter")
                 .resource(new FileSystemResource("C:\\study\\springbatch\\src\\main\\resources\\customer.txt"))
-//                .append(true)
-                .delimited()
-                .delimiter("|")
+                .formatted()
+                .format("%-2d%-15s%-2d")
                 .names(new String[]{"id", "name", "age"})
                 .build();
-        /*
-        append: false (default)
-        true 일 경우 저장된 내용에 이어서 추가
-        false 는 매번 새로 내용 생성
-         */
     }
 
 }
