@@ -8,20 +8,26 @@ import org.springframework.batch.core.configuration.annotation.StepBuilderFactor
 import org.springframework.batch.core.launch.support.RunIdIncrementer;
 import org.springframework.batch.item.ItemReader;
 import org.springframework.batch.item.ItemWriter;
-import org.springframework.batch.item.file.builder.FlatFileItemWriterBuilder;
-import org.springframework.batch.item.support.ListItemReader;
+import org.springframework.batch.item.database.JdbcPagingItemReader;
+import org.springframework.batch.item.database.Order;
+import org.springframework.batch.item.database.support.MySqlPagingQueryProvider;
+import org.springframework.batch.item.xml.builder.StaxEventItemWriterBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.FileSystemResource;
+import org.springframework.oxm.xstream.XStreamMarshaller;
 
-import java.util.Arrays;
-import java.util.List;
+import javax.sql.DataSource;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 @Configuration
 @RequiredArgsConstructor
 public class JobConfiguration {
     private final JobBuilderFactory jobBuilderFactory;
     private final StepBuilderFactory stepBuilderFactory;
+    private final DataSource dataSource;
 
     @Bean
     public Job job() throws Exception {
@@ -40,27 +46,55 @@ public class JobConfiguration {
                 .build();
     }
 
-    private ItemReader<Customer> customItemReader() {
-        List<Customer> customers = Arrays.asList(
-                new Customer(1, "hong gil dong1", 41),
-                new Customer(2, "hong gil dong2", 42),
-                new Customer(3, "hong gil dong3", 43),
-                new Customer(4, "hong gil dong4", 44),
-                new Customer(5, "hong gil dong5", 45),
-                new Customer(6, "hong gil dong6", 46)
-        );
+    @Bean
+    public ItemReader<Customer> customItemReader() {
+        JdbcPagingItemReader<Customer> reader = new JdbcPagingItemReader<>();
 
-        return new ListItemReader<>(customers);
+        reader.setDataSource(dataSource);
+        reader.setFetchSize(10);
+        reader.setRowMapper(new CustomerRowMapper());
+
+        MySqlPagingQueryProvider queryProvider = new MySqlPagingQueryProvider();
+        queryProvider.setSelectClause("id, firstName, lastName, birthdate");
+        queryProvider.setFromClause("from customer");
+        queryProvider.setWhereClause("where firstname like :firstname");
+
+        Map<String, Order> sortKeys = new HashMap<>(1);
+
+        sortKeys.put("id", Order.ASCENDING);
+        queryProvider.setSortKeys(sortKeys);
+        reader.setQueryProvider(queryProvider);
+
+        HashMap<String, Object> parameters = new HashMap<>();
+        parameters.put("firstname", "A%");
+
+        reader.setParameterValues(parameters);
+
+        return reader;
     }
 
-    private ItemWriter<Customer> customItemWriter() {
-        return new FlatFileItemWriterBuilder<Customer>()
-                .name("flatFileWriter")
-                .resource(new FileSystemResource("C:\\study\\springbatch\\src\\main\\resources\\customer.txt"))
-                .formatted()
-                .format("%-2d%-15s%-2d")
-                .names(new String[]{"id", "name", "age"})
+    @Bean
+    public ItemWriter<Customer> customItemWriter() {
+        return new StaxEventItemWriterBuilder<Customer>()
+                .name("staxEventItemWriter")
+                .marshaller(itemMarshaller())
+                .resource(new FileSystemResource("C:\\study\\springbatch\\src\\main\\resources\\customer.xml"))
+                .rootTagName("customer")
                 .build();
     }
+
+    @Bean
+    public XStreamMarshaller itemMarshaller() {
+        Map<String, Class<?>> aliases = new HashMap<>();
+        aliases.put("customer", Customer.class);
+        aliases.put("id", Long.class);
+        aliases.put("firstName", String.class);
+        aliases.put("lastName", String.class);
+        aliases.put("birthdate", Date.class);
+        XStreamMarshaller xStreamMarshaller = new XStreamMarshaller();
+        xStreamMarshaller.setAliases(aliases);
+        return xStreamMarshaller;
+    }
+
 
 }
