@@ -9,16 +9,16 @@ import javax.persistence.*;
 @Getter
 @Setter
 @Entity
-@ToString
-public class Customer {
+@ToString(exclude = "customer")
+public class Address {
 
     @Id
     @GeneratedValue
     private Long id;
-    private String username;
-    private int age;
+    private String location;
 
-    @OneToOne(mappedBy = "customer")
-    private Address address;
+    @OneToOne
+    @JoinColumn(name = "customer_id")
+    private Customer customer;
 
 }

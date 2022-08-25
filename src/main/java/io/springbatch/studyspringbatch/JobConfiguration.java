@@ -8,13 +8,11 @@ import org.springframework.batch.core.configuration.annotation.StepBuilderFactor
 import org.springframework.batch.core.launch.support.RunIdIncrementer;
 import org.springframework.batch.item.ItemReader;
 import org.springframework.batch.item.ItemWriter;
-import org.springframework.batch.item.database.builder.JpaCursorItemReaderBuilder;
+import org.springframework.batch.item.database.builder.JpaPagingItemReaderBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import javax.persistence.EntityManagerFactory;
-import java.util.HashMap;
-import java.util.Map;
 
 @Configuration
 @RequiredArgsConstructor
@@ -24,7 +22,7 @@ public class JobConfiguration {
     private final EntityManagerFactory entityManagerFactory;
 
     @Bean
-    public Job job() {
+    public Job job() throws Exception {
         return jobBuilderFactory.get("batchJob")
                 .incrementer(new RunIdIncrementer())
                 .start(step1())
@@ -32,25 +30,21 @@ public class JobConfiguration {
     }
 
     @Bean
-    public Step step1() {
+    public Step step1() throws Exception {
         return stepBuilderFactory.get("step1")
-                .<Customer, Customer>chunk(2)
+                .<Customer, Customer>chunk(10)
                 .reader(customItemReader())
                 .writer(customItemWriter())
                 .build();
     }
 
     @Bean
-    public ItemReader<Customer> customItemReader() {
-
-        Map<String, Object> parameters = new HashMap<>();
-        parameters.put("firstname", "A%");
-
-        return new JpaCursorItemReaderBuilder<Customer>()
-                .name("jpaCursorItemReader")
-                .queryString("select c from Customer c where firstname like :firstname")
+    public ItemReader<Customer> customItemReader() throws Exception {
+        return new JpaPagingItemReaderBuilder<Customer>()
+                .name("jpaPagingItemReader")
                 .entityManagerFactory(entityManagerFactory)
-                .parameterValues(parameters)
+                .pageSize(10)
+                .queryString("select c from Customer c")
                 .build();
     }
 
