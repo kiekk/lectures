@@ -7,19 +7,15 @@ import org.springframework.batch.core.configuration.annotation.JobBuilderFactory
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
 import org.springframework.batch.core.launch.support.RunIdIncrementer;
 import org.springframework.batch.item.ItemReader;
-import org.springframework.batch.item.ItemWriter;
-import org.springframework.batch.item.database.builder.JpaPagingItemReaderBuilder;
+import org.springframework.batch.item.adapter.ItemReaderAdapter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-
-import javax.persistence.EntityManagerFactory;
 
 @Configuration
 @RequiredArgsConstructor
 public class JobConfiguration {
     private final JobBuilderFactory jobBuilderFactory;
     private final StepBuilderFactory stepBuilderFactory;
-    private final EntityManagerFactory entityManagerFactory;
 
     @Bean
     public Job job() throws Exception {
@@ -32,29 +28,27 @@ public class JobConfiguration {
     @Bean
     public Step step1() throws Exception {
         return stepBuilderFactory.get("step1")
-                .<Customer, Customer>chunk(10)
+                .<String, String>chunk(10)
                 .reader(customItemReader())
-                .writer(customItemWriter())
+                .writer(items -> {
+                    items.forEach(System.out::println);
+                })
                 .build();
     }
 
     @Bean
-    public ItemReader<Customer> customItemReader() throws Exception {
-        return new JpaPagingItemReaderBuilder<Customer>()
-                .name("jpaPagingItemReader")
-                .entityManagerFactory(entityManagerFactory)
-                .pageSize(10)
-                .queryString("select c from Customer c join fetch c.address")
-                .build();
+    public ItemReader<String> customItemReader() {
+        ItemReaderAdapter<String> reader = new ItemReaderAdapter<>();
+        reader.setTargetObject(customService());
+        reader.setTargetMethod("customRead");
+
+        return reader;
     }
 
     @Bean
-    public ItemWriter<Customer> customItemWriter() {
-        return items -> {
-            for (Customer item : items) {
-                System.out.println(item.toString());
-            }
-        };
+    public CustomService<String> customService() {
+        return new CustomService<>();
     }
+
 
 }
