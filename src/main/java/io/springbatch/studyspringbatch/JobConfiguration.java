@@ -8,11 +8,8 @@ import org.springframework.batch.core.configuration.annotation.StepBuilderFactor
 import org.springframework.batch.core.launch.support.RunIdIncrementer;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.batch.item.ItemReader;
-import org.springframework.batch.repeat.CompletionPolicy;
-import org.springframework.batch.repeat.RepeatStatus;
-import org.springframework.batch.repeat.policy.CompositeCompletionPolicy;
-import org.springframework.batch.repeat.policy.SimpleCompletionPolicy;
-import org.springframework.batch.repeat.policy.TimeoutTerminationPolicy;
+import org.springframework.batch.repeat.exception.ExceptionHandler;
+import org.springframework.batch.repeat.exception.SimpleLimitExceptionHandler;
 import org.springframework.batch.repeat.support.RepeatTemplate;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -51,28 +48,26 @@ public class JobConfiguration {
 
                     @Override
                     public String process(String item) throws Exception {
-//                        repeatTemplate.setCompletionPolicy(new SimpleCompletionPolicy(3));
-//                        repeatTemplate.setCompletionPolicy(new TimeoutTerminationPolicy(3000));
 
-                        CompositeCompletionPolicy completionPolicy = new CompositeCompletionPolicy();
-                        CompletionPolicy[] completionPolicies = new CompletionPolicy[] {
-                                new SimpleCompletionPolicy(3),
-                                new TimeoutTerminationPolicy(3000)
-                        };
-
-                        completionPolicy.setPolicies(completionPolicies);
-                        repeatTemplate.setCompletionPolicy(completionPolicy);
+                        repeatTemplate.setExceptionHandler(simpleLimitExceptionHandler());
 
                         repeatTemplate.iterate(context -> {
                             System.out.println("repeatTemplate is testing");
-
-                            return RepeatStatus.CONTINUABLE;
+                            throw new RuntimeException("Exception is accrued");
                         });
                         return item;
                     }
+
                 })
                 .writer(System.out::println)
                 .build();
+    }
+
+    @Bean
+    public ExceptionHandler simpleLimitExceptionHandler() {
+        return new SimpleLimitExceptionHandler(3);
+        // bean 으로 생성하지 않을 경우 매번 객체가 생성됨.
+        // 그러므로 afterPropertiesSet 이 실행되지 않아 limit 이 초기화됨.
     }
 
 }
