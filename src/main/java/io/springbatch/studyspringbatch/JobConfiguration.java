@@ -8,15 +8,14 @@ import org.springframework.batch.core.configuration.annotation.StepBuilderFactor
 import org.springframework.batch.core.launch.support.RunIdIncrementer;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.batch.item.ItemReader;
-import org.springframework.batch.item.support.ClassifierCompositeItemProcessor;
-import org.springframework.batch.item.support.builder.CompositeItemProcessorBuilder;
+import org.springframework.batch.repeat.CompletionPolicy;
+import org.springframework.batch.repeat.RepeatStatus;
+import org.springframework.batch.repeat.policy.CompositeCompletionPolicy;
+import org.springframework.batch.repeat.policy.SimpleCompletionPolicy;
+import org.springframework.batch.repeat.policy.TimeoutTerminationPolicy;
+import org.springframework.batch.repeat.support.RepeatTemplate;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 @Configuration
 @RequiredArgsConstructor
@@ -35,37 +34,35 @@ public class JobConfiguration {
     @Bean
     public Step step1() throws Exception {
         return stepBuilderFactory.get("step1")
-                .<ProcessorInfo, ProcessorInfo>chunk(10)
+                .<String, String>chunk(3)
                 .reader(new ItemReader<>() {
 
                     int i = 0;
 
                     @Override
-                    public ProcessorInfo read() {
+                    public String read() {
                         i++;
-                        ProcessorInfo processorInfo = ProcessorInfo.builder().id(i).build();
-                        return i > 3 ? null : processorInfo;
+                        return i > 3 ? null : "item" + i;
                     }
                 })
-                .processor(customItemProcessor())
+                .processor(new ItemProcessor<>() {
+
+                    final RepeatTemplate repeatTemplate = new RepeatTemplate();
+
+                    @Override
+                    public String process(String item) throws Exception {
+                        repeatTemplate.setCompletionPolicy(new SimpleCompletionPolicy(3));
+
+                        repeatTemplate.iterate(context -> {
+                            System.out.println("repeatTemplate is testing");
+
+                            return RepeatStatus.CONTINUABLE;
+                        });
+                        return item;
+                    }
+                })
                 .writer(System.out::println)
                 .build();
-    }
-
-    @Bean
-    public ItemProcessor<ProcessorInfo, ProcessorInfo> customItemProcessor() {
-        ClassifierCompositeItemProcessor<ProcessorInfo, ProcessorInfo> processor = new ClassifierCompositeItemProcessor<>();
-
-        ProcessorClassifier<ProcessorInfo, ItemProcessor<?, ? extends ProcessorInfo>> classifier = new ProcessorClassifier<>();
-        Map<Integer, ItemProcessor<ProcessorInfo, ProcessorInfo>> processorMap = new HashMap<>();
-        processorMap.put(1, new CustomItemProcessor());
-        processorMap.put(2, new CustomItemProcessor2());
-        processorMap.put(3, new CustomItemProcessor3());
-
-        classifier.setProcessMap(processorMap);
-        processor.setClassifier(classifier);
-
-        return processor;
     }
 
 }
