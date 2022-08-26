@@ -8,6 +8,7 @@ import org.springframework.batch.core.configuration.annotation.StepBuilderFactor
 import org.springframework.batch.core.launch.support.RunIdIncrementer;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.batch.item.ItemReader;
+import org.springframework.batch.item.ItemWriter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -28,32 +29,39 @@ public class JobConfiguration {
     @Bean
     public Step step1() throws Exception {
         return stepBuilderFactory.get("step1")
-                .<String, String>chunk(3)
+                .<String, String>chunk(5)
                 .reader(new ItemReader<>() {
 
                     int i = 0;
 
                     @Override
-                    public String read() {
+                    public String read() throws SkippableException {
                         i++;
 
-                        if (i == 1) {
-                            throw new IllegalArgumentException("this exception is skipped");
+                        if (i == 3) {
+                            throw new SkippableException("skip");
                         }
 
-                        return i > 3 ? null : "item" + i;
+                        System.out.printf("ItemReader : %d\n", i);
+                        return i > 20 ? null : String.valueOf(i);
                     }
                 })
-                .processor((ItemProcessor<String, String>) item -> {
-                    throw new IllegalStateException("this exception is retry");
-                })
-                .writer(System.out::println)
+                .processor(itemProcessor())
+                .writer(itemWriter())
                 .faultTolerant()
-                .skip(IllegalArgumentException.class)
-                .skipLimit(2)
-                .retry(IllegalStateException.class)
-                .retryLimit(2)
+                .skip(SkippableException.class)
+                .skipLimit(4)
                 .build();
+    }
+
+    @Bean
+    public ItemProcessor<? super String, String> itemProcessor() {
+        return new SkipItemProcessor();
+    }
+
+    @Bean
+    public ItemWriter<? super String> itemWriter() {
+        return new SkipItemWriter();
     }
 
 }
