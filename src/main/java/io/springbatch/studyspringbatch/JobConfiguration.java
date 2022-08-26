@@ -8,7 +8,10 @@ import org.springframework.batch.core.configuration.annotation.StepBuilderFactor
 import org.springframework.batch.core.launch.support.RunIdIncrementer;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.batch.item.ItemReader;
+import org.springframework.batch.repeat.CompletionPolicy;
 import org.springframework.batch.repeat.RepeatStatus;
+import org.springframework.batch.repeat.policy.CompositeCompletionPolicy;
+import org.springframework.batch.repeat.policy.SimpleCompletionPolicy;
 import org.springframework.batch.repeat.policy.TimeoutTerminationPolicy;
 import org.springframework.batch.repeat.support.RepeatTemplate;
 import org.springframework.context.annotation.Bean;
@@ -49,7 +52,16 @@ public class JobConfiguration {
                     @Override
                     public String process(String item) throws Exception {
 //                        repeatTemplate.setCompletionPolicy(new SimpleCompletionPolicy(3));
-                        repeatTemplate.setCompletionPolicy(new TimeoutTerminationPolicy(3000));
+//                        repeatTemplate.setCompletionPolicy(new TimeoutTerminationPolicy(3000));
+
+                        CompositeCompletionPolicy completionPolicy = new CompositeCompletionPolicy();
+                        CompletionPolicy[] completionPolicies = new CompletionPolicy[] {
+                                new SimpleCompletionPolicy(3),
+                                new TimeoutTerminationPolicy(3000)
+                        };
+
+                        completionPolicy.setPolicies(completionPolicies);
+                        repeatTemplate.setCompletionPolicy(completionPolicy);
 
                         repeatTemplate.iterate(context -> {
                             System.out.println("repeatTemplate is testing");
