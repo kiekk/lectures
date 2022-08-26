@@ -8,9 +8,6 @@ import org.springframework.batch.core.configuration.annotation.StepBuilderFactor
 import org.springframework.batch.core.launch.support.RunIdIncrementer;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.batch.item.ItemReader;
-import org.springframework.batch.repeat.exception.ExceptionHandler;
-import org.springframework.batch.repeat.exception.SimpleLimitExceptionHandler;
-import org.springframework.batch.repeat.support.RepeatTemplate;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -39,35 +36,24 @@ public class JobConfiguration {
                     @Override
                     public String read() {
                         i++;
+
+                        if (i == 1) {
+                            throw new IllegalArgumentException("this exception is skipped");
+                        }
+
                         return i > 3 ? null : "item" + i;
                     }
                 })
-                .processor(new ItemProcessor<>() {
-
-                    final RepeatTemplate repeatTemplate = new RepeatTemplate();
-
-                    @Override
-                    public String process(String item) throws Exception {
-
-                        repeatTemplate.setExceptionHandler(simpleLimitExceptionHandler());
-
-                        repeatTemplate.iterate(context -> {
-                            System.out.println("repeatTemplate is testing");
-                            throw new RuntimeException("Exception is accrued");
-                        });
-                        return item;
-                    }
-
+                .processor((ItemProcessor<String, String>) item -> {
+                    throw new IllegalStateException("this exception is retry");
                 })
                 .writer(System.out::println)
+                .faultTolerant()
+                .skip(IllegalArgumentException.class)
+                .skipLimit(2)
+                .retry(IllegalStateException.class)
+                .retryLimit(2)
                 .build();
-    }
-
-    @Bean
-    public ExceptionHandler simpleLimitExceptionHandler() {
-        return new SimpleLimitExceptionHandler(3);
-        // bean 으로 생성하지 않을 경우 매번 객체가 생성됨.
-        // 그러므로 afterPropertiesSet 이 실행되지 않아 limit 이 초기화됨.
     }
 
 }
