@@ -6,11 +6,16 @@ import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
 import org.springframework.batch.core.launch.support.RunIdIncrementer;
+import org.springframework.batch.core.step.skip.LimitCheckingItemSkipPolicy;
+import org.springframework.batch.core.step.skip.SkipPolicy;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.batch.item.ItemReader;
 import org.springframework.batch.item.ItemWriter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @Configuration
 @RequiredArgsConstructor
@@ -49,9 +54,16 @@ public class JobConfiguration {
                 .processor(itemProcessor())
                 .writer(itemWriter())
                 .faultTolerant()
-                .skip(SkippableException.class)
-                .skipLimit(4)
+                .skipPolicy(limitCheckingItemSkipPolicy())
                 .build();
+    }
+
+    @Bean
+    public SkipPolicy limitCheckingItemSkipPolicy() {
+        Map<Class<? extends Throwable>, Boolean> exceptionClass = new HashMap<>();
+        exceptionClass.put(SkippableException.class, true);
+
+        return new LimitCheckingItemSkipPolicy(3, exceptionClass);
     }
 
     @Bean
