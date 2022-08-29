@@ -8,18 +8,20 @@ import org.springframework.batch.repeat.RepeatStatus;
 public class CustomTasklet implements Tasklet {
 
     private long sum = 0L;
+    private final Object lock = new Object();
 
     @Override
     public RepeatStatus execute(StepContribution contribution, ChunkContext chunkContext) throws Exception {
 
-        for (int i = 0; i < 1_000_000_000; i++) {
-            sum++;
+        synchronized (lock) {
+            for (int i = 0; i < 1_000_000_000; i++) {
+                sum++;
+            }
+            System.out.printf("%s has been executed on thread %s%n"
+                    , chunkContext.getStepContext().getStepName()
+                    , Thread.currentThread().getName());
+            System.out.printf("sum : %d%n", sum);
+            return RepeatStatus.FINISHED;
         }
-
-        System.out.printf("%s has been executed on thread %s%n"
-                , chunkContext.getStepContext().getStepName()
-                , Thread.currentThread().getName());
-        System.out.printf("sum : %d%n", sum);
-        return RepeatStatus.FINISHED;
     }
 }
