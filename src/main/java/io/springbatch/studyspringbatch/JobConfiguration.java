@@ -34,8 +34,10 @@ public class JobConfiguration {
                 .<String, String>chunk(5)
                 .reader(reader())
                 .processor(processor())
-                .writer(System.out::println)
+                .writer(items -> items.forEach(System.out::println))
                 .faultTolerant()
+                .skip(RetryableException.class)
+                .skipLimit(2)
                 .retry(RetryableException.class)
                 .retryLimit(2)
                 .build();
@@ -45,9 +47,13 @@ public class JobConfiguration {
     public ListItemReader<String> reader() {
         return new ListItemReader<>(
                 IntStream
-                        .rangeClosed(0, 30)
+                        .range(0, 30)
                         .mapToObj(String::valueOf)
                         .collect(Collectors.toList()));
+        /*
+        range: start <= value < end
+        rangeClosed: start <= value <= end
+         */
     }
 
     @Bean
