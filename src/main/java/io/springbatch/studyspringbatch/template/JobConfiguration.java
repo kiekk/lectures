@@ -1,5 +1,6 @@
-package io.springbatch.studyspringbatch;
+package io.springbatch.studyspringbatch.template;
 
+import io.springbatch.studyspringbatch.RetryableException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
@@ -10,8 +11,9 @@ import org.springframework.batch.item.ItemProcessor;
 import org.springframework.batch.item.support.ListItemReader;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.retry.RetryPolicy;
+import org.springframework.retry.backoff.FixedBackOffPolicy;
 import org.springframework.retry.policy.SimpleRetryPolicy;
+import org.springframework.retry.support.RetryTemplate;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -26,7 +28,7 @@ public class JobConfiguration {
 
     @Bean
     public Job job() throws Exception {
-        return jobBuilderFactory.get("batchJob")
+        return jobBuilderFactory.get("batchJob2")
                 .incrementer(new RunIdIncrementer())
                 .start(step1())
                 .build();
@@ -35,14 +37,11 @@ public class JobConfiguration {
     @Bean
     public Step step1() throws Exception {
         return stepBuilderFactory.get("step1")
-                .<String, String>chunk(5)
+                .<String, Customer>chunk(5)
                 .reader(reader())
-                .processor(processor())
+                .processor(itemProcessor())
                 .writer(items -> items.forEach(System.out::println))
                 .faultTolerant()
-                .skip(RetryableException.class)
-                .skipLimit(2)
-                .retryPolicy(retryPolicy())
                 .build();
     }
 
@@ -60,15 +59,24 @@ public class JobConfiguration {
     }
 
     @Bean
-    public ItemProcessor<String, String> processor() {
-        return new RetryItemProcessor();
-    }
-
-    @Bean
-    public RetryPolicy retryPolicy() {
+    public RetryTemplate retryTemplate() {
         Map<Class<? extends Throwable>, Boolean> exceptionClass = new HashMap<>();
         exceptionClass.put(RetryableException.class, true);
 
-        return new SimpleRetryPolicy(2, exceptionClass);
+        FixedBackOffPolicy fixedBackOffPolicy = new FixedBackOffPolicy();
+        fixedBackOffPolicy.setBackOffPeriod(2000);
+
+        SimpleRetryPolicy simpleRetryPolicy = new SimpleRetryPolicy(2, exceptionClass);
+        RetryTemplate retryTemplate = new RetryTemplate();
+        retryTemplate.setRetryPolicy(simpleRetryPolicy);
+//        retryTemplate.setBackOffPolicy(fixedBackOffPolicy);
+
+        return retryTemplate;
     }
+
+    @Bean
+    public ItemProcessor<String, Customer> itemProcessor() {
+        return new RetryItemProcessor2();
+    }
+
 }
