@@ -69,7 +69,7 @@ public class JobConfiguration {
         SimpleRetryPolicy simpleRetryPolicy = new SimpleRetryPolicy(2, exceptionClass);
         RetryTemplate retryTemplate = new RetryTemplate();
         retryTemplate.setRetryPolicy(simpleRetryPolicy);
-//        retryTemplate.setBackOffPolicy(fixedBackOffPolicy);
+        retryTemplate.setBackOffPolicy(fixedBackOffPolicy);
 
         return retryTemplate;
     }
