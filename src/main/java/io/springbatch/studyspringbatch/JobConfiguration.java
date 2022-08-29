@@ -10,7 +10,11 @@ import org.springframework.batch.item.ItemProcessor;
 import org.springframework.batch.item.support.ListItemReader;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.retry.RetryPolicy;
+import org.springframework.retry.policy.SimpleRetryPolicy;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -38,8 +42,7 @@ public class JobConfiguration {
                 .faultTolerant()
                 .skip(RetryableException.class)
                 .skipLimit(2)
-                .retry(RetryableException.class)
-                .retryLimit(2)
+                .retryPolicy(retryPolicy())
                 .build();
     }
 
@@ -59,5 +62,13 @@ public class JobConfiguration {
     @Bean
     public ItemProcessor<String, String> processor() {
         return new RetryItemProcessor();
+    }
+
+    @Bean
+    public RetryPolicy retryPolicy() {
+        Map<Class<? extends Throwable>, Boolean> exceptionClass = new HashMap<>();
+        exceptionClass.put(RetryableException.class, true);
+
+        return new SimpleRetryPolicy(2, exceptionClass);
     }
 }
