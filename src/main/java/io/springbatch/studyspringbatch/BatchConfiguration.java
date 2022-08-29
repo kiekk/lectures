@@ -6,8 +6,6 @@ import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
 import org.springframework.batch.core.launch.support.RunIdIncrementer;
-import org.springframework.batch.integration.async.AsyncItemProcessor;
-import org.springframework.batch.integration.async.AsyncItemWriter;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.batch.item.database.BeanPropertyItemSqlParameterSourceProvider;
 import org.springframework.batch.item.database.JdbcBatchItemWriter;
@@ -16,7 +14,8 @@ import org.springframework.batch.item.database.Order;
 import org.springframework.batch.item.database.support.MySqlPagingQueryProvider;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.task.SimpleAsyncTaskExecutor;
+import org.springframework.core.task.TaskExecutor;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
 import javax.sql.DataSource;
 import java.util.HashMap;
@@ -34,8 +33,7 @@ public class BatchConfiguration {
     public Job job() throws Exception {
         return jobBuilderFactory.get("batchJob")
                 .incrementer(new RunIdIncrementer())
-//                .start(step1())
-                .start(asyncStep1())
+                .start(step1())
                 .listener(new StopWatchJobListener())
                 .build();
     }
@@ -45,36 +43,23 @@ public class BatchConfiguration {
         return stepBuilderFactory.get("step1")
                 .<Customer, Customer>chunk(100)
                 .reader(pagingItemReader())
-                .processor(customItemProcessor())
+                .listener(new CustomItemReadListener())
+                .processor((ItemProcessor<Customer, Customer>) item -> item)
+                .listener(new CustomItemProcessListener())
                 .writer(customItemWriter())
+                .listener(new CustomItemWriterListener())
+                .taskExecutor(taskExecutor())
                 .build();
     }
 
     @Bean
-    public Step asyncStep1() {
-        return stepBuilderFactory.get("asyncStep1")
-                .<Customer, Customer>chunk(100)
-                .reader(pagingItemReader())
-                .processor(asyncItemProcessor())
-                .writer(asyncItemWriter())
-                .build();
-    }
+    public TaskExecutor taskExecutor() {
+        ThreadPoolTaskExecutor taskExecutor = new ThreadPoolTaskExecutor();
+        taskExecutor.setCorePoolSize(4);
+        taskExecutor.setMaxPoolSize(8);
+        taskExecutor.setThreadNamePrefix("async-thread");
 
-    @Bean
-    public AsyncItemProcessor asyncItemProcessor() {
-        AsyncItemProcessor<Customer, Customer> asyncItemProcessor = new AsyncItemProcessor<>();
-        asyncItemProcessor.setDelegate(customItemProcessor());
-        asyncItemProcessor.setTaskExecutor(new SimpleAsyncTaskExecutor());
-
-        return asyncItemProcessor;
-    }
-
-    @Bean
-    public AsyncItemWriter<Customer> asyncItemWriter() {
-        AsyncItemWriter<Customer> asyncItemWriter = new AsyncItemWriter<>();
-        asyncItemWriter.setDelegate(customItemWriter());
-
-        return asyncItemWriter;
+        return taskExecutor;
     }
 
     @Bean
@@ -104,7 +89,7 @@ public class BatchConfiguration {
     public ItemProcessor<Customer, Customer> customItemProcessor() {
         return item -> {
 
-            Thread.sleep(10);
+            Thread.sleep(1000);
 
             return new Customer(item.getId(),
                     item.getFirstName().toUpperCase(),
