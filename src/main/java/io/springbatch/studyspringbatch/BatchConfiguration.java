@@ -12,10 +12,11 @@ import org.springframework.batch.item.database.BeanPropertyItemSqlParameterSourc
 import org.springframework.batch.item.database.JdbcBatchItemWriter;
 import org.springframework.batch.item.database.JdbcCursorItemReader;
 import org.springframework.batch.item.database.builder.JdbcCursorItemReaderBuilder;
+import org.springframework.batch.item.support.SynchronizedItemStreamReader;
+import org.springframework.batch.item.support.builder.SynchronizedItemStreamReaderBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.task.TaskExecutor;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
 import javax.sql.DataSource;
@@ -44,6 +45,7 @@ public class BatchConfiguration {
                 .listener(new ItemReadListener<>() {
                     @Override
                     public void beforeRead() {
+
                     }
 
                     @Override
@@ -53,6 +55,7 @@ public class BatchConfiguration {
 
                     @Override
                     public void onReadError(Exception ex) {
+
                     }
                 })
                 .writer(customItemWriter())
@@ -62,14 +65,18 @@ public class BatchConfiguration {
 
     @Bean
     @StepScope
-    public JdbcCursorItemReader<Customer> customItemReader() {
-        return new JdbcCursorItemReaderBuilder<Customer>()
-//                .fetchSize(100)
-                .dataSource(this.dataSource)
+    public SynchronizedItemStreamReader<Customer> customItemReader() {
+        JdbcCursorItemReader<Customer> safetyReader = new JdbcCursorItemReaderBuilder<Customer>()
+//                .fetchSize(60)
+                .dataSource(dataSource)
                 .beanRowMapper(Customer.class)
 //                .rowMapper(new BeanPropertyRowMapper<>(Customer.class))
                 .sql("select id, firstName, lastName, birthdate from customer")
-                .name("NotSafetyReader")
+                .name("SafetyReader")
+                .build();
+
+        return new SynchronizedItemStreamReaderBuilder<Customer>()
+                .delegate(safetyReader)
                 .build();
     }
 
@@ -91,7 +98,7 @@ public class BatchConfiguration {
         ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
         executor.setCorePoolSize(4);
         executor.setMaxPoolSize(8);
-        executor.setThreadNamePrefix("not-safety-thread-");
+        executor.setThreadNamePrefix("safety-thread-");
         return executor;
     }
 
