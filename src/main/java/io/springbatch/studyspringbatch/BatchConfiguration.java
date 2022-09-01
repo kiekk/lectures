@@ -34,22 +34,34 @@ public class BatchConfiguration {
     public Step step1() {
         return stepBuilderFactory.get("step1")
                 .<Integer, String>chunk(10)
-                .listener(new CustomChunkListener())
                 .reader(listItemReader())
-                .listener(new CustomItemReadListener())
-                .processor((ItemProcessor<Integer, String>) item -> "item" + item)
-                .listener(new CustomItemProcessListener())
-                .writer(items -> {
-                    System.out.println("items : " + items);
+                .processor((ItemProcessor<Integer, String>) item -> {
+
+                    if (item == 4) {
+                        throw new CustomSkipException("process skipped");
+                    }
+
+                    return "item" + item;
                 })
-                .listener(new CustomItemWriterListener())
+                .writer(items -> {
+                    for (String item : items) {
+                        if (item.equals("item5")) {
+                            throw new CustomSkipException("write skipped");
+                        }
+                        System.out.println("item : " + item);
+                    }
+                })
+                .faultTolerant()
+                .skip(CustomSkipException.class)
+                .skipLimit(2)
+                .listener(new CustomSkipListener())
                 .build();
     }
 
     @Bean
     public ItemReader<Integer> listItemReader() {
         List<Integer> list = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
-        return new ListItemReader<>(list);
+        return new LinkedListItemReader<>(list);
     }
 
 }
