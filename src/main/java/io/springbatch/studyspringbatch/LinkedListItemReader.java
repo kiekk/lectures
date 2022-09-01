@@ -2,7 +2,6 @@ package io.springbatch.studyspringbatch;
 
 import org.springframework.aop.support.AopUtils;
 import org.springframework.batch.item.ItemReader;
-import org.springframework.lang.Nullable;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -19,17 +18,11 @@ public class LinkedListItemReader<T> implements ItemReader<T> {
         }
     }
 
-    @Nullable
     @Override
-    public T read() throws CustomSkipException {
+    public T read() throws CustomRetryException {
 
         if (!list.isEmpty()) {
-            T remove = list.remove(0);
-            if ((Integer) remove == 3) {
-                throw new CustomSkipException("read skipped : " + remove);
-            }
-            System.out.println("read : " + remove);
-            return remove;
+            return list.remove(0);
         }
         return null;
     }

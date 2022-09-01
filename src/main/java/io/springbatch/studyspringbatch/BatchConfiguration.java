@@ -8,7 +8,6 @@ import org.springframework.batch.core.configuration.annotation.StepBuilderFactor
 import org.springframework.batch.core.launch.support.RunIdIncrementer;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.batch.item.ItemReader;
-import org.springframework.batch.item.support.ListItemReader;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -35,26 +34,12 @@ public class BatchConfiguration {
         return stepBuilderFactory.get("step1")
                 .<Integer, String>chunk(10)
                 .reader(listItemReader())
-                .processor((ItemProcessor<Integer, String>) item -> {
-
-                    if (item == 4) {
-                        throw new CustomSkipException("process skipped");
-                    }
-
-                    return "item" + item;
-                })
-                .writer(items -> {
-                    for (String item : items) {
-                        if (item.equals("item5")) {
-                            throw new CustomSkipException("write skipped");
-                        }
-                        System.out.println("item : " + item);
-                    }
-                })
+                .processor(new CustomItemProcessor())
+                .writer(new CustomItemWriter())
                 .faultTolerant()
-                .skip(CustomSkipException.class)
-                .skipLimit(2)
-                .listener(new CustomSkipListener())
+                .retry(CustomRetryException.class)
+                .retryLimit(2)
+                .listener(new CustomRetryListener())
                 .build();
     }
 
