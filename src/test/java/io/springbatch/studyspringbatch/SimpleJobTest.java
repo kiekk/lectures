@@ -13,6 +13,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.Date;
+import java.util.List;
 
 @RunWith(SpringRunner.class)
 @SpringBatchTest
@@ -34,11 +35,18 @@ public class SimpleJobTest {
                 .toJobParameters();
 
         // when
-        JobExecution jobExecution = jobLauncherTestUtils.launchJob(jobParameter);
+//        JobExecution jobExecution = jobLauncherTestUtils.launchJob(jobParameter);
+        JobExecution jobExecution1 = jobLauncherTestUtils.launchStep("step1");
 
         // then
-        Assert.assertEquals(jobExecution.getStatus(), BatchStatus.COMPLETED);
-        Assert.assertEquals(jobExecution.getExitStatus(), ExitStatus.COMPLETED);
+//        Assert.assertEquals(jobExecution.getStatus(), BatchStatus.COMPLETED);
+//        Assert.assertEquals(jobExecution.getExitStatus(), ExitStatus.COMPLETED);
+
+        StepExecution stepExecution = ((List<StepExecution>) jobExecution1.getStepExecutions()).get(0);
+
+        Assert.assertEquals(stepExecution.getCommitCount(), 11);
+        Assert.assertEquals(stepExecution.getReadCount(), 1000);
+        Assert.assertEquals(stepExecution.getWriteCount(), 1000);
     }
 
     @After
