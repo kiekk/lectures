@@ -38,14 +38,14 @@ public class FileSchJob extends QuartzJobBean {
         int jobInstanceCount = jobExplorer.getJobInstanceCount(fileJob.getName());
         List<JobInstance> jobInstances = jobExplorer.getJobInstances(fileJob.getName(), 0, jobInstanceCount);
 
-        if (jobInstances.size() > 0) {
+        if (!jobInstances.isEmpty()) {
             for (JobInstance jobInstance : jobInstances) {
                 List<JobExecution> jobExecutions = jobExplorer.getJobExecutions(jobInstance);
                 List<JobExecution> jobExecutionList = jobExecutions.stream()
                         .filter(jobExecution ->
                                 Objects.equals(jobExecution.getJobParameters().getString("requestDate"), requestDate))
                         .collect(Collectors.toList());
-                if (jobExecutionList.size() > 0) {
+                if (!jobExecutionList.isEmpty()) {
                     throw new JobExecutionException(requestDate + " already exists");
                 }
             }
