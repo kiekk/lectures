@@ -5,6 +5,7 @@ import com.tobyspring.studytobyspring.domain.User;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.sql.SQLException;
+import java.util.UUID;
 
 @SpringBootApplication
 public class StudyTobySpringApplication {
@@ -14,7 +15,9 @@ public class StudyTobySpringApplication {
         UserDao dao = new UserDao();
         User user = new User();
 
-        user.setId("soono");
+        // 계속 실행해도 에러가 발생하지 않도록
+        // id 를 UUID 로 설정
+        user.setId(UUID.randomUUID().toString());
         user.setName("순호");
         user.setPassword("1234");
 
