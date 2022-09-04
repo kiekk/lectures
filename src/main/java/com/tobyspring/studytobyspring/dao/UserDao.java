@@ -6,14 +6,16 @@ import java.sql.*;
 
 public class UserDao {
 
-    private final SimpleConnectionMaker simpleConnectionMaker;
+    private final ConnectionMaker connectionMaker;
 
-    public UserDao(SimpleConnectionMaker simpleConnectionMaker) {
-        this.simpleConnectionMaker = simpleConnectionMaker;
+    public UserDao() {
+        // 인터페이스 도입
+        // 아직까지 UserDao 가 ConnectionMaker 구현체 정보를 알고 있음
+        this.connectionMaker = new DConnectionMaker();
     }
 
     public void add(User user) throws ClassNotFoundException, SQLException {
-        Connection c = simpleConnectionMaker.makeConnection();
+        Connection c = connectionMaker.makeConnection();
         PreparedStatement ps = c.prepareStatement(
                 "insert into users (id, name, password) values (?, ?, ?)"
         );
@@ -29,7 +31,7 @@ public class UserDao {
     }
 
     public User get(String id) throws ClassNotFoundException, SQLException {
-        Connection c = simpleConnectionMaker.makeConnection();
+        Connection c = connectionMaker.makeConnection();
         PreparedStatement ps = c.prepareStatement(
                 "select * from users where id = ?"
         );
