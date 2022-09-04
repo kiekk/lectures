@@ -15,8 +15,6 @@ public class StudyTobySpringApplication {
         UserDao dao = new UserDao();
         User user = new User();
 
-        // 계속 실행해도 에러가 발생하지 않도록
-        // id 를 UUID 로 설정
         user.setId(UUID.randomUUID().toString());
         user.setName("순호");
         user.setPassword("1234");
@@ -29,13 +27,6 @@ public class StudyTobySpringApplication {
         System.out.println(user2.getName());
         System.out.println(user2.getPassword());
         System.out.println(user2.getId() + " 조회 성공");
-
-        /*
-        현재 UserDao 문제점:
-        첫 실행은 문제 없지만 두 번째 실행은 에러 발생
-        Duplicate entry 'soono' for key 'users.PRIMARY'
-        key를 직접 입력 받는 것이 아니라 자동 증가로 처리되도록 해야함
-         */
     }
 
 }
