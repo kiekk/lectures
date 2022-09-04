@@ -1,6 +1,7 @@
 package com.tobyspring.studytobyspring;
 
 import com.tobyspring.studytobyspring.dao.CConnectionMaker;
+import com.tobyspring.studytobyspring.dao.DConnectionMaker;
 import com.tobyspring.studytobyspring.dao.UserDao;
 import com.tobyspring.studytobyspring.domain.User;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -14,7 +15,9 @@ public class StudyTobySpringApplication {
     public static void main(String[] args) throws SQLException, ClassNotFoundException {
 //        SpringApplication.run(StudyTobySpringApplication.class, args);
 
-        UserDao dao = new UserDao();
+        // 사용하는 쪽(client)에서 구현체 정보를 전달하여 관계설정 책임 분리
+//        UserDao dao = new UserDao(new CConnectionMaker());
+        UserDao dao = new UserDao(new DConnectionMaker());
         User user = new User();
 
         user.setId(UUID.randomUUID().toString());

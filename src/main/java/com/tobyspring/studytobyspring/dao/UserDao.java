@@ -8,10 +8,9 @@ public class UserDao {
 
     private final ConnectionMaker connectionMaker;
 
-    public UserDao() {
-        // 인터페이스 도입
-        // 아직까지 UserDao 가 ConnectionMaker 구현체 정보를 알고 있음
-        this.connectionMaker = new DConnectionMaker();
+    public UserDao(ConnectionMaker connectionMaker) {
+        // 외부에서 전달 받아 UserDao 에서 실제 구현체 정보를 가지고 있지 않게 됨
+        this.connectionMaker = connectionMaker;
     }
 
     public void add(User user) throws ClassNotFoundException, SQLException {
