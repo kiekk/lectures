@@ -1,5 +1,7 @@
 package com.tobyspring.studytobyspring;
 
+import com.tobyspring.studytobyspring.dao.DUserDao;
+import com.tobyspring.studytobyspring.dao.NUserDao;
 import com.tobyspring.studytobyspring.dao.UserDao;
 import com.tobyspring.studytobyspring.domain.User;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -12,7 +14,8 @@ public class StudyTobySpringApplication {
 
     public static void main(String[] args) throws SQLException, ClassNotFoundException {
 //        SpringApplication.run(StudyTobySpringApplication.class, args);
-        UserDao dao = new UserDao();
+//        UserDao dao = new NUserDao();
+        UserDao dao = new DUserDao();
         User user = new User();
 
         user.setId(UUID.randomUUID().toString());
