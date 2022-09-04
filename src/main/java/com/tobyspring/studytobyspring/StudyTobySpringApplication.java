@@ -1,6 +1,5 @@
 package com.tobyspring.studytobyspring;
 
-import com.tobyspring.studytobyspring.dao.CountingConnectionMaker;
 import com.tobyspring.studytobyspring.dao.DaoFactory;
 import com.tobyspring.studytobyspring.dao.UserDao;
 import com.tobyspring.studytobyspring.domain.User;
@@ -33,9 +32,6 @@ public class StudyTobySpringApplication {
         System.out.println(user2.getName());
         System.out.println(user2.getPassword());
         System.out.println(user2.getId() + " 조회 성공");
-
-        CountingConnectionMaker ccm = context.getBean("connectionMaker", CountingConnectionMaker.class);
-        System.out.println("Connection Counter : " + ccm.getCounter());
 
     }
 
