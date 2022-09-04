@@ -1,5 +1,6 @@
 package com.tobyspring.studytobyspring;
 
+import com.tobyspring.studytobyspring.dao.CountingConnectionMaker;
 import com.tobyspring.studytobyspring.dao.DaoFactory;
 import com.tobyspring.studytobyspring.dao.UserDao;
 import com.tobyspring.studytobyspring.domain.User;
@@ -16,8 +17,8 @@ public class StudyTobySpringApplication {
     public static void main(String[] args) throws SQLException, ClassNotFoundException {
 //        SpringApplication.run(StudyTobySpringApplication.class, args);
 
-        // 의존관계 검색을 이용하는 UserDao
-        UserDao dao = new UserDao();
+        ApplicationContext context = new AnnotationConfigApplicationContext(DaoFactory.class);
+        UserDao dao = context.getBean("userDao", UserDao.class);
         User user = new User();
 
         user.setId(UUID.randomUUID().toString());
@@ -33,6 +34,8 @@ public class StudyTobySpringApplication {
         System.out.println(user2.getPassword());
         System.out.println(user2.getId() + " 조회 성공");
 
+        CountingConnectionMaker ccm = context.getBean("connectionMaker", CountingConnectionMaker.class);
+        System.out.println("Connection Counter : " + ccm.getCounter());
 
     }
 
