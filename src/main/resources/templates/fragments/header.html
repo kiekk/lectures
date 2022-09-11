@@ -3,13 +3,13 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="ko">
 <body>
 
-<header th:fragment="headerFragment(name)">
-    <p> Header Area</p>
+<header th:fragment="headerFragment(title)">
+    <h1 th:replace="${title}"></h1>
 </header>
 
-<header th:fragment="headerFragment2(mobile)">
-    <p> Header Area 2</p>
-    <p th:text="${mobile}"></p>
+<header th:fragment="headerFragment2(title, subTitle)">
+    <h1 th:replace="${title}"></h1>
+    <h2 th:replace="${subTitle}"></h2>
 </header>
 
 </body>

@@ -9,8 +9,8 @@
 </head>
 <body>
 
-<div th:insert="~{fragments/header :: headerFragment(${user.name})}"></div>
-<div th:insert="~{fragments/header :: headerFragment2(${user.mobile})}"></div>
+<div th:insert="~{fragments/header :: headerFragment(~{::h1})}"></div>
+<div th:insert="~{fragments/header :: headerFragment2(~{::h1}, ~{::h2})}"></div>
 
 <hr/>
 <hr/>
@@ -24,5 +24,8 @@
 
 <div th:replace="~{fragments/footer :: footerFragment(${user})}"></div>
 <div th:replace="~{fragments/footer :: footerFragment2(${user.id}, ${user.name}, ${user.mobile})}"></div>
+
+<h1>Header Title</h1>
+<h2>Header Sub Title</h2>
 </body>
 </html>
