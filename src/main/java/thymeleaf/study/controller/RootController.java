@@ -142,7 +142,12 @@ public class RootController {
     }
 
     @RequestMapping("fragment")
-    public String fragment() {
+    public String fragment(Model model) {
+        User user = new User();
+        user.setId("id_1");
+        user.setName("홍길동");
+        user.setMobile("010-1234-5678");
+        model.addAttribute("user", user);
         return "fragment";
     }
 
