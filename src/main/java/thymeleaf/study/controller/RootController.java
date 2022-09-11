@@ -141,4 +141,9 @@ public class RootController {
         return "block";
     }
 
+    @RequestMapping("fragment")
+    public String fragment() {
+        return "fragment";
+    }
+
 }
