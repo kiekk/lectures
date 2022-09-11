@@ -40,7 +40,7 @@ public class RootController {
     public String each(Model model) {
         List<User> userList = new ArrayList<>();
 
-        for(int i=0;i<10;i++) {
+        for (int i = 0; i < 10; i++) {
             User user = new User();
             user.setId(i + "");
             user.setName("name_" + i);
@@ -56,7 +56,7 @@ public class RootController {
     public String with(Model model) {
         List<User> userList = new ArrayList<>();
 
-        for(int i=0;i<10;i++) {
+        for (int i = 0; i < 10; i++) {
             User user = new User();
             user.setId(i + "");
             user.setName("name_" + i);
@@ -124,4 +124,21 @@ public class RootController {
         model.addAttribute("name", "foo");
         return "messages";
     }
+
+    @RequestMapping("block")
+    public String block(Model model) {
+        List<User> userList = new ArrayList<>();
+
+        for (int i = 0; i < 10; i++) {
+            User user = new User();
+            user.setId(i + "");
+            user.setName("name_" + i);
+            user.setMobile("010-1111-1234");
+            userList.add(user);
+        }
+
+        model.addAttribute("userList", userList);
+        return "block";
+    }
+
 }
