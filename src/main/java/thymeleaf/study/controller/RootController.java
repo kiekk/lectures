@@ -180,4 +180,9 @@ public class RootController {
         return "basic-objects";
     }
 
+    @RequestMapping("util-objects")
+    public String utilObjects() {
+        return "util-objects";
+    }
+
 }

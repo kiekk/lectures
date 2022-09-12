@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+
+<h1>execInfo</h1>
+<ul>
+    <li>templateName = <span th:text="${#execInfo.templateName}"></span></li>
+    <li>templateMode = <span th:text="${#execInfo.templateMode}"></span></li>
+    <li>processedTemplateName = <span th:text="${#execInfo.processedTemplateName}"></span></li>
+    <li>processedTemplateMode = <span th:text="${#execInfo.processedTemplateMode}"></span></li>
+    <li>templateNames = <span th:text="${#execInfo.templateNames}"></span></li>
+    <li>templateModes = <span th:text="${#execInfo.templateModes}"></span></li>
+    <li>templateStack = <span th:text="${#execInfo.templateStack}"></span></li>
+</ul>
+
+</body>
+</html>
