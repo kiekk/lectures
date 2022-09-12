@@ -181,7 +181,16 @@ public class RootController {
     }
 
     @RequestMapping("util-objects")
-    public String utilObjects() {
+    public String utilObjects(Model model) {
+        List<String> list = List.of("list1", "list2", "list3");
+        Set<String> set = Set.of("set1", "set2", "set3");
+        String[] array = {"array1", "array2", "array3"};
+        model.addAttribute("list", list);
+        model.addAttribute("set", set);
+        model.addAttribute("array", array);
+        model.addAttribute("param1", "param1");
+        model.addAttribute("param2", "param2");
+        model.addAttribute("param3", "param3");
         return "util-objects";
     }
 

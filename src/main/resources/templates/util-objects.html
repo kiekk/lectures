@@ -20,5 +20,23 @@
     <li>templateStack = <span th:text="${#execInfo.templateStack}"></span></li>
 </ul>
 
+<h1>messages</h1>
+<ul>
+    <li>msg = <span th:text="${#messages.msg('msgKey')}"></span></li>
+    <li>msg = <span th:text="${#messages.msg('msgKey', param1)}"></span></li>
+    <li>msg = <span th:text="${#messages.msg('msgKey', param1, param2)}"></span></li>
+    <li>msg = <span th:text="${#messages.msg('msgKey', param1, param2, param3)}"></span></li>
+    <li>arrayMsg = <span th:text="${#messages.arrayMsg(array)}"></span></li>
+    <li>listMsg = <span th:text="${#messages.listMsg(list)}"></span></li>
+    <li>setMsg = <span th:text="${#messages.setMsg(set)}"></span></li>
+    <li>msgOrNull = <span th:text="${#messages.msgOrNull('msgKey')}"></span></li>
+    <li>msgOrNull = <span th:text="${#messages.msgOrNull('msgKey', param1)}"></span></li>
+    <li>msgOrNull = <span th:text="${#messages.msgOrNull('msgKey', param1, param2)}"></span></li>
+    <li>msgOrNull = <span th:text="${#messages.msgOrNull('msgKey', param1, param2, param3)}"></span></li>
+    <li>arrayMsgOrNull = <span th:text="${#messages.arrayMsgOrNull(array)}"></span></li>
+    <li>listMsgOrNull = <span th:text="${#messages.listMsgOrNull(list)}"></span></li>
+    <li>setMsgOrNull = <span th:text="${#messages.setMsgOrNull(set)}"></span></li>
+</ul>
+
 </body>
 </html>
