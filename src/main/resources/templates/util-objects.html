@@ -248,5 +248,20 @@
     <li>listOr = <span th:text="${#bools.listOr(condList)}"></span></li>
     <li>setOr = <span th:text="${#bools.setOr(condSet)}"></span></li>
 </ul>
+
+<h1>arrays</h1>
+<ul>
+    <li>toArray = <span th:text="${#arrays.toArray(object2)}"></span></li>
+    <li>toStringArray = <span th:text="${#arrays.toStringArray(object3)}"></span></li>
+    <li>toIntegerArray = <span th:text="${#arrays.toIntegerArray(object4)}"></span></li>
+    <li>toLongArray = <span th:text="${#arrays.toLongArray(object5)}"></span></li>
+    <li>toDoubleArray = <span th:text="${#arrays.toDoubleArray(object6)}"></span></li>
+    <li>toFloatArray = <span th:text="${#arrays.toFloatArray(object7)}"></span></li>
+    <li>toBooleanArray = <span th:text="${#arrays.toBooleanArray(object8)}"></span></li>
+    <li>length = <span th:text="${#arrays.length(array)}"></span></li>
+    <li>isEmpty = <span th:text="${#arrays.isEmpty(array)}"></span></li>
+    <li>contains = <span th:text="${#arrays.contains(array, element)}"></span></li>
+    <li>containsAll = <span th:text="${#arrays.containsAll(array, elements)}"></span></li>
+</ul>
 </body>
 </html>

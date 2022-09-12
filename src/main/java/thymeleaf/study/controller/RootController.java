@@ -254,6 +254,13 @@ public class RootController {
         model.addAttribute("condArray", new Boolean[]{false, true});
         model.addAttribute("condList", List.of(false, true, false));
         model.addAttribute("condSet", Set.of(false, true));
+        model.addAttribute("object2", new Object[]{1, 2, 3});
+        model.addAttribute("object3", new String[]{"1, 2, 3"});
+        model.addAttribute("object4", new Integer[]{1, 2, 3});
+        model.addAttribute("object5", new Long[]{1L, 2L, 3L});
+        model.addAttribute("object6", new Double[]{1D, 2D, 3D});
+        model.addAttribute("object7", new Float[]{1f, 2f, 3f});
+        model.addAttribute("object8", new Boolean[]{false, true, false});
         return "util-objects";
     }
 
