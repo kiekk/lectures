@@ -251,6 +251,9 @@ public class RootController {
         model.addAttribute("objList", List.of(new User(), user));
         model.addAttribute("objSet", Set.of(new User(), user));
         model.addAttribute("default", "default object");
+        model.addAttribute("condArray", new Boolean[]{false, true});
+        model.addAttribute("condList", List.of(false, true, false));
+        model.addAttribute("condSet", Set.of(false, true));
         return "util-objects";
     }
 

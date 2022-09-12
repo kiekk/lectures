@@ -230,5 +230,23 @@
     <li>listNullSafe = <span th:text="${#objects.listNullSafe(objList,default)}"></span></li>
     <li>setNullSafe = <span th:text="${#objects.setNullSafe(objSet,default)}"></span></li>
 </ul>
+
+<h1>bools</h1>
+<ul>
+    <li>isTrue = <span th:text="${#bools.isTrue(obj)}"></span></li>
+    <li>arrayIsTrue = <span th:text="${#bools.arrayIsTrue(objArray)}"></span></li>
+    <li>listIsTrue = <span th:text="${#bools.listIsTrue(objList)}"></span></li>
+    <li>setIsTrue = <span th:text="${#bools.setIsTrue(objSet)}"></span></li>
+    <li>isFalse = <span th:text="${#bools.isFalse(cond)}"></span></li>
+    <li>arrayIsFalse = <span th:text="${#bools.arrayIsFalse(condArray)}"></span></li>
+    <li>listIsFalse = <span th:text="${#bools.listIsFalse(condList)}"></span></li>
+    <li>setIsFalse = <span th:text="${#bools.setIsFalse(condSet)}"></span></li>
+    <li>arrayAnd = <span th:text="${#bools.arrayAnd(condArray)}"></span></li>
+    <li>listAnd = <span th:text="${#bools.listAnd(condList)}"></span></li>
+    <li>setAnd = <span th:text="${#bools.setAnd(condSet)}"></span></li>
+    <li>arrayOr = <span th:text="${#bools.arrayOr(condArray)}"></span></li>
+    <li>listOr = <span th:text="${#bools.listOr(condList)}"></span></li>
+    <li>setOr = <span th:text="${#bools.setOr(condSet)}"></span></li>
+</ul>
 </body>
 </html>
