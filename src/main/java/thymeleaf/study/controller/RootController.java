@@ -151,4 +151,14 @@ public class RootController {
         return "fragment";
     }
 
+    @RequestMapping("layout-test-1")
+    public String layoutTest1() {
+        return "layout-test-1";
+    }
+
+    @RequestMapping("layout-test-2")
+    public String layoutTest2() {
+        return "layout-test-2";
+    }
+
 }
