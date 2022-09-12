@@ -195,7 +195,17 @@ public class RootController {
         model.addAttribute("encoding", "UTF-8");
         model.addAttribute("object", new Date().getTime());
         model.addAttribute("targetClass", java.util.Date.class);
-
+        model.addAttribute("date", new Date());
+        model.addAttribute("dateSet", Set.of(new Date(2022, Calendar.AUGUST, 11), new Date(2022, Calendar.AUGUST, 12), new Date(2022, Calendar.AUGUST, 13)));
+        model.addAttribute("dateList", List.of(new Date(), new Date(), new Date()));
+        model.addAttribute("dateArray", new Date[]{new Date(), new Date(), new Date()});
+        model.addAttribute("year", "2022");
+        model.addAttribute("month", "9");
+        model.addAttribute("day", "17");
+        model.addAttribute("hour", "10");
+        model.addAttribute("minute", "30");
+        model.addAttribute("second", "30");
+        model.addAttribute("millisecond", "20");
         return "util-objects";
     }
 

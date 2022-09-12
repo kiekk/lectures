@@ -64,5 +64,37 @@
     <li>convert = <span th:text="${#conversions.convert(object, targetClass)}"></span></li>
 </ul>
 
+<h1>dates</h1>
+<ul>
+    <li>format = <span th:text="${#dates.format(date)}"></span></li>
+    <li>arrayFormat = <span th:text="${#dates.arrayFormat(datesArray)}"></span></li>
+    <li>listFormat = <span th:text="${#dates.listFormat(datesList)}"></span></li>
+    <li>setFormat = <span th:text="${#dates.setFormat(datesSet)}"></span></li>
+    <li>formatISO = <span th:text="${#dates.formatISO(date)}"></span></li>
+    <li>arrayFormatISO = <span th:text="${#dates.arrayFormatISO(datesArray)}"></span></li>
+    <li>listFormatISO = <span th:text="${#dates.listFormatISO(datesList)}"></span></li>
+    <li>setFormatISO = <span th:text="${#dates.setFormatISO(datesSet)}"></span></li>
+    <li>format = <span th:text="${#dates.format(date, 'dd/MMM/yyyy HH:mm')}"></span></li>
+    <li>arrayFormat = <span th:text="${#dates.arrayFormat(datesArray, 'dd/MMM/yyyy HH:mm')}"></span></li>
+    <li>listFormat = <span th:text="${#dates.listFormat(datesList, 'dd/MMM/yyyy HH:mm')}"></span></li>
+    <li>setFormat = <span th:text="${#dates.setFormat(datesSet, 'dd/MMM/yyyy HH:mm')}"></span></li>
+    <li>day = <span th:text="${#dates.day(date)}"></span></li>  <!-- // also arrayDay(...), listDay(...), etc. -->
+    <li>month = <span th:text="${#dates.month(date)}"></span></li>  <!-- // also arrayMonth(...), listMonth(...), etc. -->
+    <li>monthName = <span th:text="${#dates.monthName(date)}"></span></li>  <!-- // also arrayMonthName(...), listMonthName(...), etc. -->
+    <li>monthNameShort = <span th:text="${#dates.monthNameShort(date)}"></span></li>  <!-- // also arrayMonthNameShort(...), listMonthNameShort(...), etc. -->
+    <li>year = <span th:text="${#dates.year(date)}"></span></li>  <!-- // also arrayYear(...), listYear(...), etc. -->
+    <li>dayOfWeek = <span th:text="${#dates.dayOfWeek(date)}"></span></li>  <!-- // also arrayDayOfWeek(...), listDayOfWeek(...), etc. -->
+    <li>dayOfWeekName = <span th:text="${#dates.dayOfWeekName(date)}"></span></li>  <!-- // also arrayDayOfWeekName(...), listDayOfWeekName(...), etc. -->
+    <li>dayOfWeekNameShort = <span th:text="${#dates.dayOfWeekNameShort(date)}"></span></li>  <!-- // also arrayDayOfWeekNameShort(...), listDayOfWeekNameShort(...), etc. -->
+    <li>create = <span th:text="${#dates.create(year,month,day)}"></span></li>
+    <li>create = <span th:text="${#dates.create(year,month,day,hour,minute)}"></span></li>
+    <li>create = <span th:text="${#dates.create(year,month,day,hour,minute,second)}"></span></li>
+    <li>create = <span th:text="${#dates.create(year,month,day,hour,minute,second,millisecond)}"></span></li>
+    <li>createNow = <span th:text="${#dates.createNow()}"></span></li>
+    <li>createNowForTimeZone = <span th:text="${#dates.createNowForTimeZone('Asia/Seoul')}"></span></li>
+    <li>createToday = <span th:text="${#dates.createToday()}"></span></li>
+    <li>createTodayForTimeZone = <span th:text="${#dates.createTodayForTimeZone('Asia/Seoul')}"></span></li>
+</ul>
+
 </body>
 </html>
