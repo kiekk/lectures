@@ -96,5 +96,44 @@
     <li>createTodayForTimeZone = <span th:text="${#dates.createTodayForTimeZone('Asia/Seoul')}"></span></li>
 </ul>
 
+<h1>calendars</h1>
+<ul>
+    <li>format = <span th:text="${#calendars.format(cal)}"></span></li>
+    <li>arrayFormat = <span th:text="${#calendars.arrayFormat(calArray)}"></span></li>
+    <li>listFormat = <span th:text="${#calendars.listFormat(calList)}"></span></li>
+    <li>setFormat = <span th:text="${#calendars.setFormat(calSet)}"></span></li>
+    <li>formatISO = <span th:text="${#calendars.formatISO(cal)}"></span></li>
+    <li>arrayFormatISO = <span th:text="${#calendars.arrayFormatISO(calArray)}"></span></li>
+    <li>listFormatISO = <span th:text="${#calendars.listFormatISO(calList)}"></span></li>
+    <li>setFormatISO = <span th:text="${#calendars.setFormatISO(calSet)}"></span></li>
+    <li>format = <span th:text="${#calendars.format(cal, 'dd/MMM/yyyy HH:mm')}"></span></li>
+    <li>arrayFormat = <span th:text="${#calendars.arrayFormat(calArray, 'dd/MMM/yyyy HH:mm')}"></span></li>
+    <li>listFormat = <span th:text="${#calendars.listFormat(calList, 'dd/MMM/yyyy HH:mm')}"></span></li>
+    <li>setFormat = <span th:text="${#calendars.setFormat(calSet, 'dd/MMM/yyyy HH:mm')}"></span></li>
+    <li>day = <span th:text="${#calendars.day(date)}"></span></li> <!-- // also arrayDay(...), listDay(...), etc. -->
+    <li>month = <span th:text="${#calendars.month(date)}"></span></li> <!-- // also arrayMonth(...), listMonth(...), etc. -->
+    <li>monthName = <span th:text="${#calendars.monthName(date)}"></span></li> <!-- // also arrayMonthName(...), listMonthName(...), etc. -->
+    <li>monthNameShort = <span th:text="${#calendars.monthNameShort(date)}"></span></li> <!-- // also arrayMonthNameShort(...), listMonthNameShort(...), etc. -->
+    <li>year = <span th:text="${#calendars.year(date)}"></span></li> <!-- // also arrayYear(...), listYear(...), etc. -->
+    <li>dayOfWeek = <span th:text="${#calendars.dayOfWeek(date)}"></span></li> <!-- // also arrayDayOfWeek(...), listDayOfWeek(...), etc. -->
+    <li>dayOfWeekName = <span th:text="${#calendars.dayOfWeekName(date)}"></span></li> <!-- // also arrayDayOfWeekName(...), listDayOfWeekName(...), etc. -->
+    <li>dayOfWeekNameShort = <span th:text="${#calendars.dayOfWeekNameShort(date)}"></span></li> <!-- // also arrayDayOfWeekNameShort(...), listDayOfWeekNameShort(...), etc. -->
+    <li>hour = <span th:text="${#calendars.hour(date)}"></span></li> <!-- // also arrayHour(...), listHour(...), etc. -->
+    <li>minute = <span th:text="${#calendars.minute(date)}"></span></li> <!-- // also arrayMinute(...), listMinute(...), etc. -->
+    <li>second = <span th:text="${#calendars.second(date)}"></span></li> <!-- // also arraySecond(...), listSecond(...), etc. -->
+    <li>millisecond = <span th:text="${#calendars.millisecond(date)}"></span></li> <!-- // also arrayMillisecond(...), listMillisecond(...), etc. -->
+    <li>create = <span th:text="${#calendars.create(year,month,day)}"></span></li>
+    <li>create = <span th:text="${#calendars.create(year,month,day,hour,minute)}"></span></li>
+    <li>create = <span th:text="${#calendars.create(year,month,day,hour,minute,second)}"></span></li>
+    <li>create = <span th:text="${#calendars.create(year,month,day,hour,minute,second,millisecond)}"></span></li>
+    <li>createForTimeZone = <span th:text="${#calendars.createForTimeZone(year,month,day,timeZone)}"></span></li>
+    <li>createForTimeZone = <span th:text="${#calendars.createForTimeZone(year,month,day,hour,minute,timeZone)}"></span></li>
+    <li>createForTimeZone = <span th:text="${#calendars.createForTimeZone(year,month,day,hour,minute,second,timeZone)}"></span></li>
+    <li>createForTimeZone = <span th:text="${#calendars.createForTimeZone(year,month,day,hour,minute,second,millisecond,timeZone)}"></span></li>
+    <li>createNow = <span th:text="${#calendars.createNow()}"></span></li>
+    <li>createNowForTimeZone = <span th:text="${#calendars.createNowForTimeZone('Asia/Seoul')}"></span></li>
+    <li>createToday = <span th:text="${#calendars.createToday()}"></span></li>
+    <li>createTodayForTimeZone = <span th:text="${#calendars.createTodayForTimeZone('Asia/Seoul')}"></span></li>
+</ul>
 </body>
 </html>

@@ -206,6 +206,19 @@ public class RootController {
         model.addAttribute("minute", "30");
         model.addAttribute("second", "30");
         model.addAttribute("millisecond", "20");
+        model.addAttribute("timeZone", "Asia/Seoul");
+        Calendar cal1 = Calendar.getInstance();
+        cal1.set(2022, Calendar.AUGUST, 11);
+        Calendar cal2 = Calendar.getInstance();
+        cal2.set(2022, Calendar.AUGUST, 12);
+        Calendar cal3 = Calendar.getInstance();
+        cal3.set(2022, Calendar.AUGUST, 13);
+
+        model.addAttribute("cal", cal1);
+        model.addAttribute("calArray", new Calendar[]{cal1, cal2, cal3});
+        model.addAttribute("calList", List.of(cal1, cal2, cal3));
+        model.addAttribute("calSet", Set.of(cal1, cal2, cal3));
+
         return "util-objects";
     }
 
