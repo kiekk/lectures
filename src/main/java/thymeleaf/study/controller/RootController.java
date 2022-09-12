@@ -174,6 +174,7 @@ public class RootController {
         user.setName("홍길동");
         user.setMobile("010-1234-5678");
         model.addAttribute("result", result);
+        model.addAttribute("data", "data1");
         return "pre-processing";
     }
 
