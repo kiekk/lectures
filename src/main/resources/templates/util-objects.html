@@ -38,5 +38,25 @@
     <li>setMsgOrNull = <span th:text="${#messages.setMsgOrNull(set)}"></span></li>
 </ul>
 
+<h1>URIs/URLs</h1>
+<ul>
+    <li>escapePath = <span th:text="${#uris.escapePath(uri)}"></span></li>
+    <li>escapePath = <span th:text="${#uris.escapePath(uri, encoding)}"></span></li>
+    <li>unescapePath = <span th:text="${#uris.unescapePath(uri)}"></span></li>
+    <li>unescapePath = <span th:text="${#uris.unescapePath(uri, encoding)}"></span></li>
+    <li>escapePathSegment = <span th:text="${#uris.escapePathSegment(uri)}"></span></li>
+    <li>escapePathSegment = <span th:text="${#uris.escapePathSegment(uri, encoding)}"></span></li>
+    <li>unescapePathSegment = <span th:text="${#uris.unescapePathSegment(uri)}"></span></li>
+    <li>unescapePathSegment = <span th:text="${#uris.unescapePathSegment(uri, encoding)}"></span></li>
+    <li>escapeFragmentId = <span th:text="${#uris.escapeFragmentId(uri)}"></span></li>
+    <li>escapeFragmentId = <span th:text="${#uris.escapeFragmentId(uri, encoding)}"></span></li>
+    <li>unescapeFragmentId = <span th:text="${#uris.unescapeFragmentId(uri)}"></span></li>
+    <li>unescapeFragmentId = <span th:text="${#uris.unescapeFragmentId(uri, encoding)}"></span></li>
+    <li>escapeQueryParam = <span th:text="${#uris.escapeQueryParam(uri)}"></span></li>
+    <li>escapeQueryParam = <span th:text="${#uris.escapeQueryParam(uri, encoding)}"></span></li>
+    <li>unescapeQueryParam = <span th:text="${#uris.unescapeQueryParam(uri)}"></span></li>
+    <li>unescapeQueryParam = <span th:text="${#uris.unescapeQueryParam(uri, encoding)}"></span></li>
+</ul>
+
 </body>
 </html>

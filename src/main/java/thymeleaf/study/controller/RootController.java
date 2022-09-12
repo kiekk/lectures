@@ -191,6 +191,9 @@ public class RootController {
         model.addAttribute("param1", "param1");
         model.addAttribute("param2", "param2");
         model.addAttribute("param3", "param3");
+        model.addAttribute("uri", "https://www.naver.com?param1=param2&param2=param2");
+        model.addAttribute("encoding", "UTF-8");
+
         return "util-objects";
     }
 
