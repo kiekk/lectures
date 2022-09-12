@@ -6,7 +6,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import thymeleaf.study.entity.User;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("")
@@ -159,6 +161,20 @@ public class RootController {
     @RequestMapping("layout-test-2")
     public String layoutTest2() {
         return "layout-test-2";
+    }
+
+    @RequestMapping("pre-processing")
+    public String preProcessing(Model model) {
+        Map<String, Object> result = new HashMap<>();
+        User user = new User();
+        result.put("data1", "data2");
+        result.put("data2", user);
+
+        user.setId("id_1");
+        user.setName("홍길동");
+        user.setMobile("010-1234-5678");
+        model.addAttribute("result", result);
+        return "pre-processing";
     }
 
 }
