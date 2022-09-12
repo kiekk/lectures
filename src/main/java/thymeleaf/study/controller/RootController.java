@@ -3,7 +3,6 @@ package thymeleaf.study.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.thymeleaf.expression.Numbers;
 import thymeleaf.study.entity.User;
 
 import java.util.*;
@@ -247,6 +246,11 @@ public class RootController {
         model.addAttribute("prefix", "_prefix");
         model.addAttribute("suffix", "_suffix");
         model.addAttribute("str", " str text");
+        model.addAttribute("obj", null);
+        model.addAttribute("objArray", new User[]{new User(), user});
+        model.addAttribute("objList", List.of(new User(), user));
+        model.addAttribute("objSet", Set.of(new User(), user));
+        model.addAttribute("default", "default object");
         return "util-objects";
     }
 

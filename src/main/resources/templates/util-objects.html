@@ -222,5 +222,13 @@
     <li>concatReplaceNulls = <span th:text="${#strings.concatReplaceNulls(null, 'text1', 'text2', 'text3')}"></span></li>
     <li>randomAlphanumeric = <span th:text="${#strings.randomAlphanumeric(3)}"></span></li>
 </ul>
+
+<h1>objects</h1>
+<ul>
+    <li>nullSafe = <span th:text="${#objects.nullSafe(obj,default)}"></span></li>
+    <li>arrayNullSafe = <span th:text="${#objects.arrayNullSafe(objArray,default)}"></span></li>
+    <li>listNullSafe = <span th:text="${#objects.listNullSafe(objList,default)}"></span></li>
+    <li>setNullSafe = <span th:text="${#objects.setNullSafe(objSet,default)}"></span></li>
+</ul>
 </body>
 </html>
