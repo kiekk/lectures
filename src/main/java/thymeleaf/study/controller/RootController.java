@@ -5,10 +5,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import thymeleaf.study.entity.User;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Controller
 @RequestMapping("")
@@ -176,6 +173,11 @@ public class RootController {
         model.addAttribute("result", result);
         model.addAttribute("data", "data1");
         return "pre-processing";
+    }
+
+    @RequestMapping("basic-objects")
+    public String basicObjects(Model model) {
+        return "basic-objects";
     }
 
 }
