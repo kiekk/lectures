@@ -58,5 +58,11 @@
     <li>unescapeQueryParam = <span th:text="${#uris.unescapeQueryParam(uri, encoding)}"></span></li>
 </ul>
 
+<h1>conversions</h1>
+<ul>
+    <li>convert = <span th:text="${#conversions.convert(object, 'java.util.Date')}"></span></li>
+    <li>convert = <span th:text="${#conversions.convert(object, targetClass)}"></span></li>
+</ul>
+
 </body>
 </html>

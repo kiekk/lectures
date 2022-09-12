@@ -193,6 +193,8 @@ public class RootController {
         model.addAttribute("param3", "param3");
         model.addAttribute("uri", "https://www.naver.com?param1=param2&param2=param2");
         model.addAttribute("encoding", "UTF-8");
+        model.addAttribute("object", new Date().getTime());
+        model.addAttribute("targetClass", java.util.Date.class);
 
         return "util-objects";
     }
