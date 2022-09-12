@@ -135,5 +135,43 @@
     <li>createToday = <span th:text="${#calendars.createToday()}"></span></li>
     <li>createTodayForTimeZone = <span th:text="${#calendars.createTodayForTimeZone('Asia/Seoul')}"></span></li>
 </ul>
+
+<h1>numbers</h1>
+<ul>
+    <li>formatInteger = <span th:text="${#numbers.formatInteger(num,3)}"></span></li>
+    <li>arrayFormatInteger = <span th:text="${#numbers.arrayFormatInteger(numArray,3)}"></span></li>
+    <li>listFormatInteger = <span th:text="${#numbers.listFormatInteger(numList,3)}"></span></li>
+    <li>setFormatInteger = <span th:text="${#numbers.setFormatInteger(numSet,3)}"></span></li>
+    <li>formatInteger = <span th:text="${#numbers.formatInteger(num,3,'POINT')}"></span></li>
+    <li>arrayFormatInteger = <span th:text="${#numbers.arrayFormatInteger(numArray,3,'POINT')}"></span></li>
+    <li>listFormatInteger = <span th:text="${#numbers.listFormatInteger(numList,3,'POINT')}"></span></li>
+    <li>setFormatInteger = <span th:text="${#numbers.setFormatInteger(numSet,3,'POINT')}"></span></li>
+    <li>formatInteger = <span th:text="${#numbers.formatInteger(num,3,'POINT')}"></span></li>
+    <li>arrayFormatInteger = <span th:text="${#numbers.arrayFormatInteger(numArray,3,'POINT')}"></span></li>
+    <li>listFormatInteger = <span th:text="${#numbers.listFormatInteger(numList,3,'POINT')}"></span></li>
+    <li>setFormatInteger = <span th:text="${#numbers.setFormatInteger(numSet,3,'POINT')}"></span></li>
+    <li>formatDecimal = <span th:text="${#numbers.formatDecimal(num,3,2,'COMMA')}"></span></li>
+    <li>arrayFormatDecimal = <span th:text="${#numbers.arrayFormatDecimal(numArray,3,2,'COMMA')}"></span></li>
+    <li>listFormatDecimal = <span th:text="${#numbers.listFormatDecimal(numList,3,2,'COMMA')}"></span></li>
+    <li>setFormatDecimal = <span th:text="${#numbers.setFormatDecimal(numSet,3,2,'COMMA')}"></span></li>
+    <li>formatDecimal = <span th:text="${#numbers.formatDecimal(num,3,'POINT',2,'COMMA')}"></span></li>
+    <li>arrayFormatDecimal = <span th:text="${#numbers.arrayFormatDecimal(numArray,3,'POINT',2,'COMMA')}"></span></li>
+    <li>listFormatDecimal = <span th:text="${#numbers.listFormatDecimal(numList,3,'POINT',2,'COMMA')}"></span></li>
+    <li>setFormatDecimal = <span th:text="${#numbers.setFormatDecimal(numSet,3,'POINT',2,'COMMA')}"></span></li>
+    <li>formatCurrency = <span th:text="${#numbers.formatCurrency(num)}"></span></li>
+    <li>arrayFormatCurrency = <span th:text="${#numbers.arrayFormatCurrency(numArray)}"></span></li>
+    <li>listFormatCurrency = <span th:text="${#numbers.listFormatCurrency(numList)}"></span></li>
+    <li>setFormatCurrency = <span th:text="${#numbers.setFormatCurrency(numSet)}"></span></li>
+<!--    <li>formatPercent = <span th:text="${#numbers.formatPercent(1.0)}"></span></li>-->
+<!--    <li>arrayFormatPercent = <span th:text="${#numbers.arrayFormatPercent(numArray2)}"></span></li>-->
+<!--    <li>listFormatPercent = <span th:text="${#numbers.listFormatPercent(numList2)}"></span></li>-->
+<!--    <li>setFormatPercent = <span th:text="${#numbers.setFormatPercent(numSet2)}"></span></li>-->
+<!--    <li>formatPercent = <span th:text="${#numbers.formatPercent(1.0, 3, 2)}"></span></li>-->
+<!--    <li>arrayFormatPercent = <span th:text="${#numbers.arrayFormatPercent(numArray2, 3, 2)}"></span></li>-->
+<!--    <li>listFormatPercent = <span th:text="${#numbers.listFormatPercent(numList2, 3, 2)}"></span></li>-->
+<!--    <li>setFormatPercent = <span th:text="${#numbers.setFormatPercent(numSet2, 3, 2)}"></span></li>-->
+    <li>sequence = <span th:text="${#numbers.sequence(from,to)}"></span></li>
+    <li>sequence = <span th:text="${#numbers.sequence(from,to,step)}"></span></li>
+</ul>
 </body>
 </html>

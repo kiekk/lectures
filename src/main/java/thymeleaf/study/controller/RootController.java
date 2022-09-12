@@ -3,6 +3,7 @@ package thymeleaf.study.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.thymeleaf.expression.Numbers;
 import thymeleaf.study.entity.User;
 
 import java.util.*;
@@ -219,6 +220,14 @@ public class RootController {
         model.addAttribute("calList", List.of(cal1, cal2, cal3));
         model.addAttribute("calSet", Set.of(cal1, cal2, cal3));
 
+        model.addAttribute("num", 2);
+        model.addAttribute("numArray", new Integer[]{1000, 2000, 3000});
+        model.addAttribute("numList", List.of(1000, 2000, 3000));
+        model.addAttribute("numSet", Set.of(1000, 2000, 3000));
+
+        model.addAttribute("from", 2);
+        model.addAttribute("to", 10);
+        model.addAttribute("step", 2);
         return "util-objects";
     }
 
