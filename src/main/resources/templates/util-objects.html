@@ -173,5 +173,54 @@
     <li>sequence = <span th:text="${#numbers.sequence(from,to)}"></span></li>
     <li>sequence = <span th:text="${#numbers.sequence(from,to,step)}"></span></li>
 </ul>
+
+<h1>strings</h1>
+<ul>
+    <li>toString = <span th:text="${#strings.toString(obj)}"></span></li>
+    <li>isEmpty = <span th:text="${#strings.isEmpty(name)}"></span></li>
+    <li>arrayIsEmpty = <span th:text="${#strings.arrayIsEmpty(nameArr)}"></span></li>
+    <li>listIsEmpty = <span th:text="${#strings.listIsEmpty(nameList)}"></span></li>
+    <li>setIsEmpty = <span th:text="${#strings.setIsEmpty(nameSet)}"></span></li>
+    <li>defaultString = <span th:text="${#strings.defaultString(text,default)}"></span></li>
+    <li>arrayDefaultString = <span th:text="${#strings.arrayDefaultString(textArr,default)}"></span></li>
+    <li>listDefaultString = <span th:text="${#strings.listDefaultString(textList,default)}"></span></li>
+    <li>setDefaultString = <span th:text="${#strings.setDefaultString(textSet,default)}"></span></li>
+    <li>contains = <span th:text="${#strings.contains(name,'na')}"></span></li>
+    <li>containsIgnoreCase = <span th:text="${#strings.containsIgnoreCase(name,'ez')}"></span></li>
+    <li>startsWith = <span th:text="${#strings.startsWith(name,'Na')}"></span></li>
+    <li>endsWith = <span th:text="${#strings.endsWith(name,'e1')}"></span></li>
+    <li>indexOf = <span th:text="${#strings.indexOf(name,'m')}"></span></li>
+    <li>substring = <span th:text="${#strings.substring(name,3,5)}"></span></li>
+    <li>substringAfter = <span th:text="${#strings.substringAfter(name,prefix)}"></span></li>
+    <li>substringBefore = <span th:text="${#strings.substringBefore(name,suffix)}"></span></li>
+    <li>replace = <span th:text="${#strings.replace(name,'las','ler')}"></span></li>
+    <li>prepend = <span th:text="${#strings.prepend(str,prefix)}"></span></li>
+    <li>append = <span th:text="${#strings.append(str,suffix)}"></span></li>
+    <li>toUpperCase = <span th:text="${#strings.toUpperCase(name)}"></span></li>
+    <li>toLowerCase = <span th:text="${#strings.toLowerCase(name)}"></span></li>
+    <li>arrayJoin = <span th:text="${#strings.arrayJoin(namesArray,',')}"></span></li>
+    <li>listJoin = <span th:text="${#strings.listJoin(namesList,',')}"></span></li>
+    <li>setJoin = <span th:text="${#strings.setJoin(namesSet,',')}"></span></li>
+    <li>arraySplit = <span th:text="${#strings.arraySplit(namesStr,',')}"></span></li>
+    <li>listSplit = <span th:text="${#strings.listSplit(namesStr,',')}"></span></li>
+    <li>setSplit = <span th:text="${#strings.setSplit(namesStr,',')}"></span></li>
+    <li>trim = <span th:text="${#strings.trim(str)}"></span></li>
+    <li>length = <span th:text="${#strings.length(str)}"></span></li>
+    <li>abbreviate = <span th:text="${#strings.abbreviate(str,10)}"></span></li>
+    <li>capitalize = <span th:text="${#strings.capitalize(str)}"></span></li>
+    <li>unCapitalize = <span th:text="${#strings.unCapitalize(str)}"></span></li>
+    <li>capitalizeWords = <span th:text="${#strings.capitalizeWords(str)}"></span></li>
+    <li>capitalizeWords = <span th:text="${#strings.capitalizeWords(str,delimiters)}"></span></li>
+    <li>escapeXml = <span th:text="${#strings.escapeXml(str)}"></span></li>
+    <li>escapeJava = <span th:text="${#strings.escapeJava(str)}"></span></li>
+    <li>escapeJavaScript = <span th:text="${#strings.escapeJavaScript(str)}"></span></li>
+    <li>unescapeJava = <span th:text="${#strings.unescapeJava(str)}"></span></li>
+    <li>unescapeJavaScript = <span th:text="${#strings.unescapeJavaScript(str)}"></span></li>
+    <li>equals = <span th:text="${#strings.equals(first, second)}"></span></li>
+    <li>equalsIgnoreCase = <span th:text="${#strings.equalsIgnoreCase(first, second)}"></span></li>
+    <li>concat = <span th:text="${#strings.concat('text1', 'text2', 'text3')}"></span></li>
+    <li>concatReplaceNulls = <span th:text="${#strings.concatReplaceNulls(null, 'text1', 'text2', 'text3')}"></span></li>
+    <li>randomAlphanumeric = <span th:text="${#strings.randomAlphanumeric(3)}"></span></li>
+</ul>
 </body>
 </html>

@@ -228,6 +228,25 @@ public class RootController {
         model.addAttribute("from", 2);
         model.addAttribute("to", 10);
         model.addAttribute("step", 2);
+
+        User user = new User();
+
+        user.setId("id_1");
+        user.setName("홍길동");
+        user.setMobile("010-1234-5678");
+        model.addAttribute("obj", user);
+        model.addAttribute("name", "name1");
+        model.addAttribute("nameArr", new String[]{"name1", "name2", "name3"});
+        model.addAttribute("nameList", List.of("name1", "name2", "name3"));
+        model.addAttribute("nameSet", Set.of("name1", "name2", "name3"));
+        model.addAttribute("text", "text");
+        model.addAttribute("textArr", new String[]{"text1", "text2", ""});
+        model.addAttribute("textList", List.of("text1", "text2", ""));
+        model.addAttribute("textSet", Set.of("text1", "text2", ""));
+        model.addAttribute("default", "default text");
+        model.addAttribute("prefix", "_prefix");
+        model.addAttribute("suffix", "_suffix");
+        model.addAttribute("str", " str text");
         return "util-objects";
     }
 
