@@ -10,8 +10,6 @@ import java.time.LocalDate;
 @Getter
 @ToString
 @NoArgsConstructor
-@AllArgsConstructor
-@Builder
 public class RequestSetterDto {
     private String name;
     private Long amount;
@@ -21,4 +19,18 @@ public class RequestSetterDto {
     private LocalDate date;
 
     private RequestType requestType;
+
+    @Builder
+    public RequestSetterDto(String name, Long amount) {
+        this.name = name;
+        this.amount = amount;
+    }
+
+    public RequestSetterDto(String name, Long amount, LocalDate date, RequestType requestType) {
+        this.name = name;
+        this.amount = amount;
+        this.date = date;
+        this.requestType = requestType;
+    }
+
 }
