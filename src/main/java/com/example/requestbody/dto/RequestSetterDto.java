@@ -8,6 +8,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import java.time.LocalDate;
 
 @Getter
+@Setter
 @ToString
 @NoArgsConstructor
 public class RequestSetterDto {
