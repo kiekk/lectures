@@ -20,11 +20,7 @@ public class UserDaoTest {
 
     @Test
     public void addAndGet() throws SQLException, ClassNotFoundException {
-        User user = new User();
-
-        user.setId(UUID.randomUUID().toString());
-        user.setName("soonho");
-        user.setPassword("1234");
+        User user = new User(UUID.randomUUID().toString(), "soonho", "1234");
 
         dao.add(user);
 
@@ -38,10 +34,7 @@ public class UserDaoTest {
         dao.deleteAll();
         assertThat(dao.getCount()).isEqualTo(0);
 
-        User user3 = new User();
-        user3.setId("zooni");
-        user3.setName("주니");
-        user3.setPassword("1234");
+        User user3 = new User(UUID.randomUUID().toString(), "zooni", "1234");
 
         dao.add(user3);
 
