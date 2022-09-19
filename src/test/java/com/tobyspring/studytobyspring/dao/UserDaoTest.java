@@ -4,12 +4,14 @@ import com.tobyspring.studytobyspring.domain.User;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.test.context.TestPropertySource;
 
 import java.sql.SQLException;
 import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @SpringBootTest
 @TestPropertySource(locations = "classpath:application.yml")
@@ -56,5 +58,15 @@ public class UserDaoTest {
 
         dao.add(user3);
         assertThat(dao.getCount()).isEqualTo(3);
+    }
+
+    @Test
+    public void getUserFailure() throws SQLException, ClassNotFoundException {
+        dao.deleteAll();
+        assertThat(dao.getCount()).isEqualTo(0);
+
+        assertThrows(EmptyResultDataAccessException.class, () -> {
+            dao.get("unknown_id");
+        });
     }
 }
