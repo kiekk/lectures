@@ -1,6 +1,7 @@
 package com.tobyspring.studytobyspring.dao;
 
 import com.tobyspring.studytobyspring.domain.User;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -19,12 +20,19 @@ public class UserDaoTest {
 
     @Autowired
     private UserDao dao;
+    private User user1;
+    private User user2;
+    private User user3;
+
+    @BeforeEach
+    public void setUp() {
+        this.user1 = new User(UUID.randomUUID().toString(), "soonho", "1234");
+        this.user2 = new User(UUID.randomUUID().toString(), "sooni", "1234");
+        this.user3 = new User(UUID.randomUUID().toString(), "zooni", "1234");
+    }
 
     @Test
     public void addAndGet() throws SQLException, ClassNotFoundException {
-        User user1 = new User(UUID.randomUUID().toString(), "soonho", "1234");
-        User user2 = new User(UUID.randomUUID().toString(), "zooni", "1234");
-
         dao.deleteAll();
         assertThat(dao.getCount()).isEqualTo(0);
 
@@ -43,10 +51,6 @@ public class UserDaoTest {
 
     @Test
     public void count() throws SQLException, ClassNotFoundException {
-        User user1 = new User(UUID.randomUUID().toString(), "soonho", "1234");
-        User user2 = new User(UUID.randomUUID().toString(), "sooni", "1234");
-        User user3 = new User(UUID.randomUUID().toString(), "zooni", "1234");
-
         dao.deleteAll();
         assertThat(dao.getCount()).isEqualTo(0);
 
