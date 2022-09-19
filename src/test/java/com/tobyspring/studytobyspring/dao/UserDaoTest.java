@@ -20,28 +20,23 @@ public class UserDaoTest {
 
     @Test
     public void addAndGet() throws SQLException, ClassNotFoundException {
-        User user = new User(UUID.randomUUID().toString(), "soonho", "1234");
-
-        dao.add(user);
-
-        System.out.println(user.getId() + " 등록 성공");
-
-        User user2 = dao.get(user.getId());
-
-        assertThat(user2.getName()).isEqualTo(user.getName());
-        assertThat(user2.getPassword()).isEqualTo(user.getPassword());
+        User user1 = new User(UUID.randomUUID().toString(), "soonho", "1234");
+        User user2 = new User(UUID.randomUUID().toString(), "zooni", "1234");
 
         dao.deleteAll();
         assertThat(dao.getCount()).isEqualTo(0);
 
-        User user3 = new User(UUID.randomUUID().toString(), "zooni", "1234");
+        dao.add(user1);
+        dao.add(user2);
+        assertThat(dao.getCount()).isEqualTo(2);
 
-        dao.add(user3);
+        User userget1 = dao.get(user1.getId());
+        assertThat(userget1.getName()).isEqualTo(user1.getName());
+        assertThat(userget1.getPassword()).isEqualTo(user1.getPassword());
 
-        User user4 = dao.get(user3.getId());
-
-        assertThat(user3.getName()).isEqualTo(user4.getName());
-        assertThat(user3.getPassword()).isEqualTo(user4.getPassword());
+        User userget2 = dao.get(user2.getId());
+        assertThat(userget2.getName()).isEqualTo(user2.getName());
+        assertThat(userget2.getPassword()).isEqualTo(user2.getPassword());
     }
 
     @Test
