@@ -3,9 +3,14 @@ package com.tobyspring.studytobyspring.dao;
 import com.tobyspring.studytobyspring.domain.User;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.stereotype.Component;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
+@Component
 public class UserDao {
 
     private final ConnectionMaker connectionMaker;
