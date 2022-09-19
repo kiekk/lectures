@@ -43,4 +43,23 @@ public class UserDaoTest {
         assertThat(user3.getName()).isEqualTo(user4.getName());
         assertThat(user3.getPassword()).isEqualTo(user4.getPassword());
     }
+
+    @Test
+    public void count() throws SQLException, ClassNotFoundException {
+        User user1 = new User(UUID.randomUUID().toString(), "soonho", "1234");
+        User user2 = new User(UUID.randomUUID().toString(), "sooni", "1234");
+        User user3 = new User(UUID.randomUUID().toString(), "zooni", "1234");
+
+        dao.deleteAll();
+        assertThat(dao.getCount()).isEqualTo(0);
+
+        dao.add(user1);
+        assertThat(dao.getCount()).isEqualTo(1);
+
+        dao.add(user2);
+        assertThat(dao.getCount()).isEqualTo(2);
+
+        dao.add(user3);
+        assertThat(dao.getCount()).isEqualTo(3);
+    }
 }
