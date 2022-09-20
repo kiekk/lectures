@@ -9,13 +9,13 @@ import static java.lang.Integer.parseInt;
 public class Calculator {
 
     public int calcSum(String filePath) throws IOException {
-        LineCallback callback = (line, value) -> value + Integer.parseInt(line);
+        LineCallback<Integer> callback = (line, value) -> value + Integer.parseInt(line);
 
         return lineReadTemplate(filePath, callback, 0);
     }
 
     public Integer calcMultiply(String filePath) throws IOException {
-        LineCallback callback = (line, value) -> value * Integer.parseInt(line);
+        LineCallback<Integer> callback = (line, value) -> value * Integer.parseInt(line);
 
         return lineReadTemplate(filePath, callback, 1);
     }
@@ -39,11 +39,11 @@ public class Calculator {
         }
     }
 
-    public Integer lineReadTemplate(String filePath, LineCallback callback, int initVal) throws IOException {
+    public <T> T lineReadTemplate(String filePath, LineCallback<T> callback, T initVal) throws IOException {
         BufferedReader br = null;
         try {
             br = new BufferedReader(new FileReader(filePath));
-            Integer res = initVal;
+            T res = initVal;
             String line;
 
             while ((line = br.readLine()) != null) {
