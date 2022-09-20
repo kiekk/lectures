@@ -124,7 +124,7 @@ public class UserDao {
         그리고 StatementStrategy 전략 인터페이스를 파라미터로 전달합니다.
      */
     public void deleteAll() throws SQLException, ClassNotFoundException {
-        executeSql("delete from users");
+        this.jdbcContext.executeSql("delete from users");
     }
 
     public int getCount() throws SQLException, ClassNotFoundException {
@@ -188,12 +188,6 @@ public class UserDao {
                 }
             }
         }
-    }
-
-    private void executeSql(final String query) throws SQLException {
-        this.jdbcContext.workWithStatementStrategy(c -> {
-            return c.prepareStatement(query);
-        });
     }
 
 }
