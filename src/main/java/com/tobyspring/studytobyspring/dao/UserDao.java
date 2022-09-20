@@ -4,15 +4,13 @@ import com.tobyspring.studytobyspring.domain.User;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.dao.EmptyResultDataAccessException;
-import org.springframework.stereotype.Component;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-@Component
-public class UserDao {
+public abstract class UserDao {
 
     private final ConnectionMaker connectionMaker;
 
@@ -180,14 +178,6 @@ public class UserDao {
         }
     }
 
-    /*
-    메소드 추출을 적용하는 경우는 분리시킨 메소드를 다른 곳에서 재사용이 가능해야 하는데,
-    이건 반대로 분리시키고 남은 메소드가 재사용이 필요한 부분이고, 분리된 메소드는 DAO마다
-    새로 작성해야 하는 부분입니다. 이건 메소드 추출을 잘 못 적용한 코드입니다.
-     */
-    private PreparedStatement makeStatement(Connection c) throws SQLException {
-        PreparedStatement ps = c.prepareStatement("delete from users");
-        return ps;
-    }
+    abstract protected PreparedStatement makeStatement(Connection c) throws SQLException;
 
 }
