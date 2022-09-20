@@ -116,36 +116,13 @@ public class UserDao {
     }
 
     /*
-    전략 패턴을 사용하여 그럭저럭 해결한 것 같지만
-    deleteAll() 내부에서 StatementStrategy의 구현체인 DeleteAllStatement 정보가 그대로
-    노출되어 있어 OCP 를 지킨다고 할 수 없습니다.
+        먼저 변경되는 부분이 아닌 컨텍스트 코드를 별도의
+        jdbcContextWithStatementStrategy 메소드로 분리합니다.
+        그리고 StatementStrategy 전략 인터페이스를 파라미터로 전달합니다.
      */
     public void deleteAll() throws SQLException, ClassNotFoundException {
-        Connection c = null;
-        PreparedStatement ps = null;
-        try {
-            c = connectionMaker.makeConnection();
-
-            StatementStrategy strategy = new DeleteAllStatement();
-            ps = strategy.makePreparedStatement(c);
-
-            ps.executeUpdate();
-        } catch (Exception e) {
-            throw e;
-        } finally {
-            if (ps != null) {
-                try {
-                    ps.close();
-                } catch (SQLException e) {
-                }
-            }
-            if (c != null) {
-                try {
-                    c.close();
-                } catch (SQLException e) {
-                }
-            }
-        }
+        StatementStrategy strategy = new DeleteAllStatement();
+        jdbcContextWithStatementStrategy(strategy);
     }
 
     public int getCount() throws SQLException, ClassNotFoundException {
@@ -169,6 +146,33 @@ public class UserDao {
                 } catch (SQLException e) {
                 }
             }
+            if (ps != null) {
+                try {
+                    ps.close();
+                } catch (SQLException e) {
+                }
+            }
+            if (c != null) {
+                try {
+                    c.close();
+                } catch (SQLException e) {
+                }
+            }
+        }
+    }
+
+    public void jdbcContextWithStatementStrategy(StatementStrategy stmt) throws SQLException, ClassNotFoundException {
+        Connection c = null;
+        PreparedStatement ps = null;
+        try {
+            c = connectionMaker.makeConnection();
+
+            ps = stmt.makePreparedStatement(c);
+
+            ps.executeUpdate();
+        } catch (Exception e) {
+            throw e;
+        } finally {
             if (ps != null) {
                 try {
                     ps.close();
