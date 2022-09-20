@@ -10,7 +10,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public abstract class UserDao {
+public class UserDao {
 
     private final ConnectionMaker connectionMaker;
 
@@ -115,13 +115,19 @@ public abstract class UserDao {
         return user;
     }
 
+    /*
+    전략 패턴을 사용하여 그럭저럭 해결한 것 같지만
+    deleteAll() 내부에서 StatementStrategy의 구현체인 DeleteAllStatement 정보가 그대로
+    노출되어 있어 OCP 를 지킨다고 할 수 없습니다.
+     */
     public void deleteAll() throws SQLException, ClassNotFoundException {
         Connection c = null;
         PreparedStatement ps = null;
         try {
             c = connectionMaker.makeConnection();
 
-            ps = c.prepareStatement("delete from users");
+            StatementStrategy strategy = new DeleteAllStatement();
+            ps = strategy.makePreparedStatement(c);
 
             ps.executeUpdate();
         } catch (Exception e) {
@@ -177,7 +183,5 @@ public abstract class UserDao {
             }
         }
     }
-
-    abstract protected PreparedStatement makeStatement(Connection c) throws SQLException;
 
 }
