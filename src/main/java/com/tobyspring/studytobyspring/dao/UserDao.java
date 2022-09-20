@@ -33,15 +33,14 @@ public class UserDao {
     /*
         만약 특정 메소드에서만 사용된다면 별도의 클래스로 만들 필요 없이
         내부 클래스로 만드는 것도 하나의 방법입니다.
+
+        내부 클래스 사용시 장점은 메소드의 로컬 변수를 내부 클래스에서 사용할 수 있기 때문에
+        따로 생성자를 통해 파라미터를 전달할 필요가 없습니다.
+        이 때 로컬 변수를 내부 클래스에서 사용할 경우 변경을 할 수 없도록 final로
+        선언하는 것이 좋습니다.
      */
-    public void add(User user) throws ClassNotFoundException, SQLException {
+    public void add(final User user) throws ClassNotFoundException, SQLException {
         class AddStatement implements StatementStrategy {
-
-            private final User user;
-
-            public AddStatement(User user) {
-                this.user = user;
-            }
             @Override
             public PreparedStatement makePreparedStatement(Connection c) throws SQLException {
                 PreparedStatement ps = c.prepareStatement(
@@ -58,7 +57,7 @@ public class UserDao {
             }
         }
 
-        StatementStrategy stmt = new AddStatement(user);
+        StatementStrategy stmt = new AddStatement();
         jdbcContextWithStatementStrategy(stmt);
     }
 
