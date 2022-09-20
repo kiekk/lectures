@@ -4,21 +4,29 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
+import static java.lang.Integer.*;
+
 public class Calculator {
 
     public int calcSum(String filePath) throws IOException {
-        BufferedReader br = null;
-        try {
-            br = new BufferedReader(new FileReader(filePath));
-
+        BufferedReaderCallback callback = br -> {
             int sum = 0;
             String line;
 
             while ((line = br.readLine()) != null) {
-                sum += Integer.parseInt(line);
+                sum += parseInt(line);
             }
 
             return sum;
+        };
+        return fileReaderTemplate(filePath, callback);
+    }
+
+    public Integer fileReaderTemplate(String filePath, BufferedReaderCallback callback) throws IOException {
+        BufferedReader br = null;
+        try {
+            br = new BufferedReader(new FileReader(filePath));
+            return callback.doSomethingWithReader(br);
         } catch (IOException e) {
             System.out.println(e.getMessage());
             throw e;
