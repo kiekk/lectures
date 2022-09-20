@@ -30,7 +30,34 @@ public class UserDao {
     또한 close() 시에도 예외가 발생할 수 있기 때문에 각 close() 부분을 try-catch로
     감싸줘야 합니다.
      */
+    /*
+        만약 특정 메소드에서만 사용된다면 별도의 클래스로 만들 필요 없이
+        내부 클래스로 만드는 것도 하나의 방법입니다.
+     */
     public void add(User user) throws ClassNotFoundException, SQLException {
+        class AddStatement implements StatementStrategy {
+
+            private final User user;
+
+            public AddStatement(User user) {
+                this.user = user;
+            }
+            @Override
+            public PreparedStatement makePreparedStatement(Connection c) throws SQLException {
+                PreparedStatement ps = c.prepareStatement(
+                        "insert into users (id, name, password) values (?, ?, ?)"
+                );
+
+                ps.setString(1, user.getId());
+                ps.setString(2, user.getName());
+                ps.setString(3, user.getPassword());
+
+                ps.executeUpdate();
+
+                return ps;
+            }
+        }
+
         StatementStrategy stmt = new AddStatement(user);
         jdbcContextWithStatementStrategy(stmt);
     }
