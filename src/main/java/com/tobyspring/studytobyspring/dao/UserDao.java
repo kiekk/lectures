@@ -1,6 +1,8 @@
 package com.tobyspring.studytobyspring.dao;
 
 import com.tobyspring.studytobyspring.domain.User;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -13,6 +15,9 @@ import java.sql.SQLException;
 public class UserDao {
 
     private final ConnectionMaker connectionMaker;
+
+    @Autowired
+    private JdbcContext jdbcContext;
 
     public UserDao() {
         ApplicationContext context = new AnnotationConfigApplicationContext(DaoFactory.class);
@@ -46,7 +51,7 @@ public class UserDao {
         극단적으로 간결하게 사용하려면 파라미터 자체에 람다식을 사용할 수도 있습니다.
      */
     public void add(final User user) throws ClassNotFoundException, SQLException {
-        jdbcContextWithStatementStrategy(c -> {
+        this.jdbcContext.workWithStatementStrategy(c -> {
             PreparedStatement ps = c.prepareStatement(
                     "insert into users (id, name, password) values (?, ?, ?)"
             );
