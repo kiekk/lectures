@@ -22,6 +22,20 @@ public class Calculator {
         return fileReaderTemplate(filePath, callback);
     }
 
+    public Integer calcMultiply(String filePath) throws IOException {
+        BufferedReaderCallback callback = br -> {
+            int multiply = 1;
+            String line;
+
+            while ((line = br.readLine()) != null) {
+                multiply *= parseInt(line);
+            }
+
+            return multiply;
+        };
+        return fileReaderTemplate(filePath, callback);
+    }
+
     public Integer fileReaderTemplate(String filePath, BufferedReaderCallback callback) throws IOException {
         BufferedReader br = null;
         try {
