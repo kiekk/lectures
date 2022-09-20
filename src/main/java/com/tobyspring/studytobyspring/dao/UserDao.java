@@ -41,23 +41,21 @@ public class UserDao {
 
         한번만 사용되기 때문에 굳이 다시 클래스에 이름을 줄 필요가 없을 경우는
         아래와 같이 익명 클래스로 구현합니다.
+        익명 클래스는 다시 람다로 변환이 가능합니다.
      */
     public void add(final User user) throws ClassNotFoundException, SQLException {
-        StatementStrategy stmt = new StatementStrategy() {
-            @Override
-            public PreparedStatement makePreparedStatement(Connection c) throws SQLException {
-                PreparedStatement ps = c.prepareStatement(
-                        "insert into users (id, name, password) values (?, ?, ?)"
-                );
+        StatementStrategy stmt = c -> {
+            PreparedStatement ps = c.prepareStatement(
+                    "insert into users (id, name, password) values (?, ?, ?)"
+            );
 
-                ps.setString(1, user.getId());
-                ps.setString(2, user.getName());
-                ps.setString(3, user.getPassword());
+            ps.setString(1, user.getId());
+            ps.setString(2, user.getName());
+            ps.setString(3, user.getPassword());
 
-                ps.executeUpdate();
+            ps.executeUpdate();
 
-                return ps;
-            }
+            return ps;
         };
 
         jdbcContextWithStatementStrategy(stmt);
