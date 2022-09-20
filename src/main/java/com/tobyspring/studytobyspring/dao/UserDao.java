@@ -1,7 +1,6 @@
 package com.tobyspring.studytobyspring.dao;
 
 import com.tobyspring.studytobyspring.domain.User;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
@@ -125,8 +124,7 @@ public class UserDao {
         그리고 StatementStrategy 전략 인터페이스를 파라미터로 전달합니다.
      */
     public void deleteAll() throws SQLException, ClassNotFoundException {
-        StatementStrategy strategy = new DeleteAllStatement();
-        jdbcContextWithStatementStrategy(strategy);
+        executeSql("delete from users");
     }
 
     public int getCount() throws SQLException, ClassNotFoundException {
@@ -190,6 +188,12 @@ public class UserDao {
                 }
             }
         }
+    }
+
+    private void executeSql(final String query) throws SQLException {
+        this.jdbcContext.workWithStatementStrategy(c -> {
+            return c.prepareStatement(query);
+        });
     }
 
 }
