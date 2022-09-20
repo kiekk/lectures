@@ -31,35 +31,8 @@ public class UserDao {
     감싸줘야 합니다.
      */
     public void add(User user) throws ClassNotFoundException, SQLException {
-        Connection c = null;
-        PreparedStatement ps = null;
-        try {
-            c = connectionMaker.makeConnection();
-            ps = c.prepareStatement(
-                    "insert into users (id, name, password) values (?, ?, ?)"
-            );
-
-            ps.setString(1, user.getId());
-            ps.setString(2, user.getName());
-            ps.setString(3, user.getPassword());
-
-            ps.executeUpdate();
-        } catch (Exception e) {
-            throw e;
-        } finally {
-            if (ps != null) {
-                try {
-                    ps.close();
-                } catch (SQLException e) {
-                }
-            }
-            if (c != null) {
-                try {
-                    c.close();
-                } catch (SQLException e) {
-                }
-            }
-        }
+        StatementStrategy stmt = new AddStatement(user);
+        jdbcContextWithStatementStrategy(stmt);
     }
 
     public User get(String id) throws ClassNotFoundException, SQLException {
