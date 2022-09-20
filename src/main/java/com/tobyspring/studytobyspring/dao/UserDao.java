@@ -24,7 +24,13 @@ public class UserDao {
     /*
     일반적으로 서버에서는 제한된 개수의 DB 커넥션을 만들어서 재사용 가능한
     풀로 관리하기 때문에 매번 사용한 커넥션을 명시적으로 close() 해서 돌려줘야 합니다.
-    어떤 상황에서도 커넥션이 반환될 수 있도록 try-catch-finally 구문으로 작성합니다.
+    어떤 상황에서도 커넥션이 반환될 수 있도록 try-resource-finally 구문으로 작성합니다.
+
+    DB에서 문제가 발생해 Connection, PreparedStatement, ResultSet을 가져오지 못하고
+    에러가 발생될 수 있습니다. 이 때는 finally에서 각 객체들이 전부 null이기 때문에
+    close() 호출시 NullPointerException이 발생하지 않도록 null 체크가 필요합니다.
+    또한 close() 시에도 예외가 발생할 수 있기 때문에 각 close() 부분을 try-catch로
+    감싸줘야 합니다.
      */
     public void add(User user) throws ClassNotFoundException, SQLException {
         Connection c = null;
@@ -43,8 +49,18 @@ public class UserDao {
         } catch (Exception e) {
             throw e;
         } finally {
-            ps.close();
-            c.close();
+            if (ps != null) {
+                try {
+                    ps.close();
+                } catch (SQLException e) {
+                }
+            }
+            if (c != null) {
+                try {
+                    c.close();
+                } catch (SQLException e) {
+                }
+            }
         }
     }
 
@@ -74,9 +90,24 @@ public class UserDao {
         } catch (Exception e) {
             throw e;
         } finally {
-            rs.close();
-            ps.close();
-            c.close();
+            if (rs != null) {
+                try {
+                    rs.close();
+                } catch (SQLException e) {
+                }
+            }
+            if (ps != null) {
+                try {
+                    ps.close();
+                } catch (SQLException e) {
+                }
+            }
+            if (c != null) {
+                try {
+                    c.close();
+                } catch (SQLException e) {
+                }
+            }
         }
 
         if (user == null) {
@@ -98,8 +129,18 @@ public class UserDao {
         } catch (Exception e) {
             throw e;
         } finally {
-            ps.close();
-            c.close();
+            if (ps != null) {
+                try {
+                    ps.close();
+                } catch (SQLException e) {
+                }
+            }
+            if (c != null) {
+                try {
+                    c.close();
+                } catch (SQLException e) {
+                }
+            }
         }
     }
 
@@ -118,9 +159,24 @@ public class UserDao {
         } catch (Exception e) {
             throw e;
         } finally {
-            rs.close();
-            ps.close();
-            c.close();
+            if (rs != null) {
+                try {
+                    rs.close();
+                } catch (SQLException e) {
+                }
+            }
+            if (ps != null) {
+                try {
+                    ps.close();
+                } catch (SQLException e) {
+                }
+            }
+            if (c != null) {
+                try {
+                    c.close();
+                } catch (SQLException e) {
+                }
+            }
         }
     }
 
