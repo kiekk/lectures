@@ -42,9 +42,11 @@ public class UserDao {
         한번만 사용되기 때문에 굳이 다시 클래스에 이름을 줄 필요가 없을 경우는
         아래와 같이 익명 클래스로 구현합니다.
         익명 클래스는 다시 람다로 변환이 가능합니다.
+
+        극단적으로 간결하게 사용하려면 파라미터 자체에 람다식을 사용할 수도 있습니다.
      */
     public void add(final User user) throws ClassNotFoundException, SQLException {
-        StatementStrategy stmt = c -> {
+        jdbcContextWithStatementStrategy(c -> {
             PreparedStatement ps = c.prepareStatement(
                     "insert into users (id, name, password) values (?, ?, ?)"
             );
@@ -56,9 +58,7 @@ public class UserDao {
             ps.executeUpdate();
 
             return ps;
-        };
-
-        jdbcContextWithStatementStrategy(stmt);
+        });
     }
 
     public User get(String id) throws ClassNotFoundException, SQLException {
