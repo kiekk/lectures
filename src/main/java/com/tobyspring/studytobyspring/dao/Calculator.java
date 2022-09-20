@@ -4,8 +4,6 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
-import static java.lang.Integer.parseInt;
-
 public class Calculator {
 
     public int calcSum(String filePath) throws IOException {
@@ -18,6 +16,11 @@ public class Calculator {
         LineCallback<Integer> callback = (line, value) -> value * Integer.parseInt(line);
 
         return lineReadTemplate(filePath, callback, 1);
+    }
+
+    public String concatenate(String filePath) throws IOException {
+        LineCallback<String> callback = (line, value) -> value + line;
+        return lineReadTemplate(filePath, callback, "");
     }
 
     public Integer fileReaderTemplate(String filePath, BufferedReaderCallback callback) throws IOException {
