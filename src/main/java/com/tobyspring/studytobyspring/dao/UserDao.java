@@ -31,14 +31,9 @@ public class UserDao {
         this.dataSource = dataSource;
     }
 
-    public void add(final User user) throws ClassNotFoundException, SQLException {
-        try {
-            this.jdbcTemplate.update("insert into users(id, name, password) values (?, ?, ?)",
-                    user.getId(), user.getName(), user.getPassword());
-        } catch (UncategorizedSQLException e) {
-            // 예외 블랙홀
-            // trh-catch 문으로 예외를 캐치했지만 아무 처리도 하지 않는 것은 매우 위험
-        }
+    public void add(final User user) throws UncategorizedSQLException {
+        this.jdbcTemplate.update("insert into users(id, name, password) values (?, ?, ?)",
+                user.getId(), user.getName(), user.getPassword());
     }
 
     public User get(String id) throws ClassNotFoundException, SQLException {
