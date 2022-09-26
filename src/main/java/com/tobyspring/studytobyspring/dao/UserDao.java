@@ -31,6 +31,9 @@ public class UserDao {
         this.dataSource = dataSource;
     }
 
+    // 메소드에서 무책임하게 throws 하는 것도 좋은 방법은 아니다.
+    // 개발자가 이 코드에서 해당 에러가 발생해서 throws 처리를 한 것인지,
+    // 단순히 습관적으로 throws 를 작성해놓은 것인지 알 수가 없다.
     public void add(final User user) throws UncategorizedSQLException {
         this.jdbcTemplate.update("insert into users(id, name, password) values (?, ?, ?)",
                 user.getId(), user.getName(), user.getPassword());
