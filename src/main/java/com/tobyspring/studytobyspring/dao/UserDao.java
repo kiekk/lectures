@@ -1,5 +1,6 @@
 package com.tobyspring.studytobyspring.dao;
 
+import com.mysql.cj.exceptions.MysqlErrorNumbers;
 import com.tobyspring.studytobyspring.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.UncategorizedSQLException;
@@ -33,17 +34,23 @@ public class UserDao {
         this.dataSource = dataSource;
     }
 
-    // 예외 회피
-    // throws 또는 catch 에서 로그 출력 후 해당 예외를 다시 throw 하는 방법
-    // 예외 복구 또는 예외를 회피하는 것은 모두 의도가 분명해야 합니다.
-    public void add(final User user) /*throws UncategorizedSQLException*/{
+    public void add(final User user) {
         try {
             this.jdbcTemplate.update("insert into users(id, name, password) values (?, ?, ?)",
                     user.getId(), user.getName(), user.getPassword());
-        } catch (UncategorizedSQLException e) {
+        } catch (SQLException e) {
             // 로그 출력
-            e.printStackTrace();
-            throw e;
+            // Duplicate Entry 예외일경우 직접 작성한 예외로 전환
+            if(e.getErrorCode() == MysqlErrorNumbers.ER_DUP_ENTRY) {
+                // 원본 예외 담아서 반환
+                throw new DuplicateUserIdException().initCause(e);
+            } else {
+                throw e;
+            }
+
+            // 서비스 계층에서 SQLException 을 그대로 반환하면 어떤 상황에서 예외가 발생했는지 알기 어렵다.
+            // 따라서 좀 더 구체적인 예외로 전환해주는 것이 좋다.
+            // 하지만 주로 예외처리를 강제하는 체크 예외를 언체크 예외인 런타임 예외로 바꾸는 경우에 사용한다.
         }
     }
 
