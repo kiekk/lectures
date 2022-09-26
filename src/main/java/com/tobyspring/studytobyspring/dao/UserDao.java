@@ -16,6 +16,8 @@ public class UserDao {
     private JdbcTemplate jdbcTemplate;
     private DataSource dataSource;
 
+    private final int MAX_RETRY = 3;
+
     private final RowMapper<User> userRowMapper = (rs, rowNum) -> {
         User user = new User();
         user.setId(rs.getString("id"));
@@ -31,12 +33,21 @@ public class UserDao {
         this.dataSource = dataSource;
     }
 
-    // 메소드에서 무책임하게 throws 하는 것도 좋은 방법은 아니다.
-    // 개발자가 이 코드에서 해당 에러가 발생해서 throws 처리를 한 것인지,
-    // 단순히 습관적으로 throws 를 작성해놓은 것인지 알 수가 없다.
-    public void add(final User user) throws UncategorizedSQLException {
-        this.jdbcTemplate.update("insert into users(id, name, password) values (?, ?, ?)",
-                user.getId(), user.getName(), user.getPassword());
+    // 재시도를 통해 예외 복구
+    public void add(final User user) {
+        int maxRetry = MAX_RETRY;
+        while(maxRetry-- > 0) {
+            try {
+                this.jdbcTemplate.update("insert into users(id, name, password) values (?, ?, ?)",
+                        user.getId(), user.getName(), user.getPassword());
+            } catch (UncategorizedSQLException e) {
+                // 로그 출력
+                e.printStackTrace();
+            } finally {
+                // 리소스 반납
+            }
+        }
+        throw new RetryFailedException() // 최대 재시도 횟수 초과 시 예외 발생
     }
 
     public User get(String id) throws ClassNotFoundException, SQLException {
