@@ -33,21 +33,18 @@ public class UserDao {
         this.dataSource = dataSource;
     }
 
-    // 재시도를 통해 예외 복구
-    public void add(final User user) {
-        int maxRetry = MAX_RETRY;
-        while(maxRetry-- > 0) {
-            try {
-                this.jdbcTemplate.update("insert into users(id, name, password) values (?, ?, ?)",
-                        user.getId(), user.getName(), user.getPassword());
-            } catch (UncategorizedSQLException e) {
-                // 로그 출력
-                e.printStackTrace();
-            } finally {
-                // 리소스 반납
-            }
+    // 예외 회피
+    // throws 또는 catch 에서 로그 출력 후 해당 예외를 다시 throw 하는 방법
+    // 예외 복구 또는 예외를 회피하는 것은 모두 의도가 분명해야 합니다.
+    public void add(final User user) /*throws UncategorizedSQLException*/{
+        try {
+            this.jdbcTemplate.update("insert into users(id, name, password) values (?, ?, ?)",
+                    user.getId(), user.getName(), user.getPassword());
+        } catch (UncategorizedSQLException e) {
+            // 로그 출력
+            e.printStackTrace();
+            throw e;
         }
-        throw new RetryFailedException() // 최대 재시도 횟수 초과 시 예외 발생
     }
 
     public User get(String id) throws ClassNotFoundException, SQLException {
