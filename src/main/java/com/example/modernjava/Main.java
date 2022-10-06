@@ -2,13 +2,16 @@ package com.example.modernjava;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
+
+import static java.util.stream.Collectors.joining;
 
 public class Main {
 
     public static void main(String[] args) {
         final List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
 
-        final StringBuilder builder = new StringBuilder();
+//        final StringBuilder builder = new StringBuilder();
 
         // 1. 반복문을 사용하여 numbers 사이에 : 추가하기
 //        for (Integer number : numbers) {
@@ -30,16 +33,16 @@ public class Main {
         // 2. if 문이 어떤 의도인지 파악하기 쉽지 않습니다.
 
         // 3. 1번에서 사용한 forEach 에서 : 제거
-        String separator = " : ";
-        for (Integer number : numbers) {
-            builder.append(number).append(separator);
-        }
+//        String separator = " : ";
+//        for (Integer number : numbers) {
+//            builder.append(number).append(separator);
+//        }
 
         // 마지막에 builder 를 체크하여 데이터가 있을 경우 마지막에 있는 " : " 를 제거
-        int builderLength = builder.length();
-        if (builderLength > 0) {
-            builder.delete(builderLength - separator.length(), builderLength);
-        }
+//        int builderLength = builder.length();
+//        if (builderLength > 0) {
+//            builder.delete(builderLength - separator.length(), builderLength);
+//        }
 
         // 단점
         // 1. if 문이 어떤 의도인지 파악하기 쉽지 않습니다.
@@ -50,6 +53,15 @@ public class Main {
         // 1. 반복 호출되는 builder.length() 를 변수로 추출
         // 2. " : " 를 변수로 추출한 후 " : ".length() 로 변경
 
-        System.out.println(builder);
+//        System.out.println(builder);
+
+
+        // stream 사용
+        String result = numbers
+                            .stream()
+                            .map(String::valueOf)
+                            .collect(joining(" : "));
+
+        System.out.println(result);
     }
 }
