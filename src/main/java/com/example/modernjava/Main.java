@@ -30,19 +30,25 @@ public class Main {
         // 2. if 문이 어떤 의도인지 파악하기 쉽지 않습니다.
 
         // 3. 1번에서 사용한 forEach 에서 : 제거
+        String separator = " : ";
         for (Integer number : numbers) {
-            builder.append(number).append(" : ");
+            builder.append(number).append(separator);
         }
 
         // 마지막에 builder 를 체크하여 데이터가 있을 경우 마지막에 있는 " : " 를 제거
-        if (builder.length() > 0) {
-            builder.delete(builder.length() - 3, builder.length());
+        int builderLength = builder.length();
+        if (builderLength > 0) {
+            builder.delete(builderLength - separator.length(), builderLength);
         }
 
         // 단점
         // 1. if 문이 어떤 의도인지 파악하기 쉽지 않습니다.
         // 2. builder.length() - 3 에서 3이 어떤 의도인지 파악하기 쉽지 않습니다.
         // 3. " : " 를 의미하는 3인데, " : " 이 " :  -" 과 같이 변경되면 3도 변경해줘야 합니다.
+
+        // 개선
+        // 1. 반복 호출되는 builder.length() 를 변수로 추출
+        // 2. " : " 를 변수로 추출한 후 " : ".length() 로 변경
 
         System.out.println(builder);
     }
