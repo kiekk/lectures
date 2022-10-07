@@ -38,4 +38,12 @@ class FpCalculatorServiceTest {
         assertEquals(additionResult, 1);
     }
 
+    @Test
+    public void testFpCalculateAdditionAndMultiplication() {
+        FpCalculatorService fpCalculatorService = new FpCalculatorService();
+        int additionResult = fpCalculatorService.calculate((num1, num2) -> (num1 + num2) * 2, 11, 10);
+
+        assertEquals(additionResult, 42);
+    }
+
 }
