@@ -17,6 +17,27 @@ class Addition implements Calculation {
     }
 }
 
+class Subtraction implements Calculation {
+    @Override
+    public int calculate(int num1, int num2) {
+        return num1 - num2;
+    }
+}
+
+class Multiplication implements Calculation {
+    @Override
+    public int calculate(int num1, int num2) {
+        return num1 * num2;
+    }
+}
+
+class Division implements Calculation {
+    @Override
+    public int calculate(int num1, int num2) {
+        return num1 / num2;
+    }
+}
+
 class CalculatorService {
 
     private final Calculation calculation;
