@@ -47,6 +47,10 @@ class CalculatorService {
     }
 
     public int calculate(int num1, int num2) {
-        return calculation.calculate(num1, num2);
+        if (num1 > 10 && num2 < num1) {
+            return calculation.calculate(num1, num2);
+        } else {
+            throw new IllegalArgumentException("Invalid input num1: " + num1 + ", num2: " + num2);
+        }
     }
 }
