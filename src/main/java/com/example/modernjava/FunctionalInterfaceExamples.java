@@ -29,6 +29,12 @@ public class FunctionalInterfaceExamples {
         Integer result3 = toInt3.apply("100");
         System.out.println(result3);
 
+        Function<Integer, Integer> identity = Function.identity();
+        System.out.println(identity.apply(999));
+
+        Function<Integer, Integer> identity2 = integer -> integer;
+        System.out.println(identity2.apply(999));
+
     }
 
 }
