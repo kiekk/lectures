@@ -17,7 +17,11 @@ public class FunctionalInterfaceExamples {
         Integer result = toInt.apply("100");
         System.out.println(result);
 
-        
+        // 2. 람다식
+        Function<String, Integer> toInt2 = s -> Integer.parseInt(s);
+
+        Integer result2 = toInt2.apply("100");
+        System.out.println(result2);
 
     }
 
