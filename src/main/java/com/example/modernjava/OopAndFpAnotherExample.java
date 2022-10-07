@@ -1,6 +1,6 @@
 package com.example.modernjava;
 
-public class OopAnotherExample {
+public class OopAndFpAnotherExample {
 
     public static void main(String[] args) {
     }
@@ -59,6 +59,17 @@ class CalculatorService {
     public int compute(int num1, int num2) {
         if (num1 > 10 && num2 < num1) {
             return calculation2.calculate(num1, num2);
+        } else {
+            throw new IllegalArgumentException("Invalid input num1: " + num1 + ", num2: " + num2);
+        }
+    }
+}
+
+// CalculatorService - method 에서 Calculation 을 전달받음, 의존성을 따로 주입 받을 필요 X
+class FpCalculatorService {
+    public int calculate(Calculation calculation, int num1, int num2) {
+        if (num1 > 10 && num2 < num1) {
+            return calculation.calculate(num1, num2);
         } else {
             throw new IllegalArgumentException("Invalid input num1: " + num1 + ", num2: " + num2);
         }
