@@ -23,6 +23,12 @@ public class FunctionalInterfaceExamples {
         Integer result2 = toInt2.apply("100");
         System.out.println(result2);
 
+        // 3. 메소드 참조
+        Function<String, Integer> toInt3 = Integer::parseInt;
+
+        Integer result3 = toInt3.apply("100");
+        System.out.println(result3);
+
     }
 
 }
