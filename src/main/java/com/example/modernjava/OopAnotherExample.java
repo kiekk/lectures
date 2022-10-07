@@ -4,14 +4,25 @@ public class OopAnotherExample {
 
     public static void main(String[] args) {
         CalculatorService calculatorService = new CalculatorService();
-        int result = calculatorService.calculate(1, 1);
+        int additionResult = calculatorService.calculate('+', 1, 1);
+        System.out.println(additionResult);
 
-        System.out.println(result);
+        int subtractionResult = calculatorService.calculate('-', 1, 1);
+        System.out.println(subtractionResult);
     }
 }
 
 class CalculatorService {
-    public int calculate(int num1, int num2) {
-        return num1 + num2;
+    // 요구사항 추가
+    // 1. 뺄셈 기능 추가 - calculation 추가하여 덧셈 / 뺄셈 처리
+    public int calculate(char calculation, int num1, int num2) {
+
+        if (calculation == '+') {
+            return num1 + num2;
+        } else if (calculation == '-') {
+            return num1 - num2;
+        } else {
+            throw new IllegalArgumentException("Unknown calculation : " + calculation);
+        }
     }
 }
