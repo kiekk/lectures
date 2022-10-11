@@ -21,6 +21,11 @@ public class ConsumerExamples {
         Consumer<String> print2 = s -> System.out.println(s);
 
         print2.accept("hello");
+
+        // 3. 메소드참조
+        Consumer<String> print3 = System.out::println;
+
+        print3.accept("hello");
     }
 
 }
