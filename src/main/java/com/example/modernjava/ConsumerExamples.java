@@ -16,6 +16,11 @@ public class ConsumerExamples {
         };
 
         print.accept("hello");
+
+        // 2. 람다식
+        Consumer<String> print2 = s -> System.out.println(s);
+
+        print2.accept("hello");
     }
 
 }
