@@ -38,6 +38,7 @@ public class FunctionalInterfaceExamples {
     public static void main(String[] args) {
         println(1, 2, 3, (integer, integer2, integer3) -> String.valueOf(integer + integer2 + integer3));
         println("Area is ", 12, 20, (message, length, width) -> message + (length * width));
+        println(1L, "kevin", "test@email.com", (id, name, email) -> "User info: ID=" + id + ", NAME=" + name + ", EMAIL=" + email);
     }
 
     private static <T1, T2, T3> void println(T1 t1, T2 t2, T3 t3, CustomFunction<T1, T2, T3, String> function) {
