@@ -46,6 +46,10 @@ public class FunctionalInterfaceExamples {
     }
 }
 
+@FunctionalInterface // @FunctionalInterface 어노테이션을 사용해서 컴파일 타임에 에러를 확인
 interface CustomFunction<T1, T2, T3, R> {
     R apply(T1 t1, T2 t2, T3 t3);
+
+    // 추상 메소드가 2개 이상 있을 경우 에러 발생
+//    void print(int i);
 }
