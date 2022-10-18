@@ -51,10 +51,14 @@ public class FunctionalInterfaceExamples2 {
         List<DiscountedProduct> discountedProducts2 = map(expensiveProducts, product -> new DiscountedProduct(product.getId(), product.getName(), product.getPrice().multiply(new BigDecimal("0.5"))));
         System.out.println("discounted products2 : " + discountedProducts2);
 
-        System.out.println("discounted products2 (<= $30) : " + filter(discountedProducts2, discountedProduct -> discountedProduct.getPrice().compareTo(new BigDecimal("30")) <= 0));
+        Predicate<Product> lessThanOrEqual30 = product -> product.getPrice().compareTo(new BigDecimal("30")) <= 0;
+        System.out.println("discounted products2 (<= $30) : " + filter(discountedProducts2, lessThanOrEqual30));
+        System.out.println("           products (<= $30) : " + filter(products, lessThanOrEqual30));
+
+
     }
 
-    private static <T> List<T> filter(List<T> list, Predicate<T> predicate) {
+    private static <T> List<T> filter(List<T> list, Predicate<? super T> predicate) {
         List<T> result = new ArrayList<>();
         for (T t : list) {
             if (predicate.test(t)) {
