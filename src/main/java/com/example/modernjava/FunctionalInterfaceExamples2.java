@@ -6,6 +6,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.Function;
 import java.util.function.Predicate;
 
 public class FunctionalInterfaceExamples2 {
@@ -36,6 +37,19 @@ public class FunctionalInterfaceExamples2 {
 
         System.out.println(filter(products, product -> product.getPrice().compareTo(new BigDecimal("30")) <= 0));
         // Predicate 를 사용하면 동적으로 조건을 전달할 수 있다.
+
+        // 가격이 50 이상인 상품은 할인 적용
+        List<DiscountedProduct> discountedProducts = new ArrayList<>();
+        List<Product> expensiveProducts = filter(products, product -> product.getPrice().compareTo(new BigDecimal("50")) >= 0);
+        for (Product product : expensiveProducts) {
+            discountedProducts.add(new DiscountedProduct(product.getId(), product.getName(), product.getPrice().multiply(new BigDecimal("0.5"))));
+        }
+        System.out.println("expensive products : " + expensiveProducts);
+        System.out.println("discounted products : " + discountedProducts);
+
+        // Function 을 사용하여 할인 적용
+        List<DiscountedProduct> discountedProducts2 = map(expensiveProducts, product -> new DiscountedProduct(product.getId(), product.getName(), product.getPrice().multiply(new BigDecimal("0.5"))));
+        System.out.println("discounted products2 : " + discountedProducts2);
     }
 
     private static <T> List<T> filter(List<T> list, Predicate<T> predicate) {
@@ -44,6 +58,14 @@ public class FunctionalInterfaceExamples2 {
             if (predicate.test(t)) {
                 result.add(t);
             }
+        }
+        return result;
+    }
+
+    private static <T, R> List<R> map(List<T> list, Function<T, R> function) {
+        List<R> result = new ArrayList<>();
+        for (T t : list) {
+            result.add(function.apply(t));
         }
         return result;
     }
@@ -69,5 +91,5 @@ class DiscountedProduct extends Product {
     public DiscountedProduct(Long id, String name, BigDecimal price) {
         super(id, name, price);
     }
-    
+
 }
