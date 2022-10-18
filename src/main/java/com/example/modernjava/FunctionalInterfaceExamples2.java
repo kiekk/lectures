@@ -55,7 +55,14 @@ public class FunctionalInterfaceExamples2 {
         System.out.println("discounted products2 (<= $30) : " + filter(discountedProducts2, lessThanOrEqual30));
         System.out.println("           products (<= $30) : " + filter(products, lessThanOrEqual30));
 
-
+        // product 목록의 총 가격 구하기
+        // 1. for loop
+        List<BigDecimal> prices = map(products, Product::getPrice);
+        BigDecimal total = BigDecimal.ZERO;
+        for (BigDecimal price : prices) {
+            total = total.add(price);
+        }
+        System.out.println("total prices : " + total);
     }
 
     private static <T> List<T> filter(List<T> list, Predicate<? super T> predicate) {
