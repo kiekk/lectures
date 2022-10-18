@@ -68,6 +68,14 @@ public class FunctionalInterfaceExamples2 {
         System.out.println("total prices2 : " + total(products, Product::getPrice));
 
         System.out.println("discounted total prices2 : " + total(discountedProducts, Product::getPrice));
+
+        Order order = new Order(1L, "on-1234", Arrays.asList(
+                new OrderedItem(1L, new Product(1L, "A", new BigDecimal("10.00")), 2),
+                new OrderedItem(2L, new Product(2L, "B", new BigDecimal("55.50")), 1),
+                new OrderedItem(3L, new Product(3L, "C", new BigDecimal("17.45")), 2)
+        ));
+
+        System.out.println("order total price : " + order.totalPrice());
     }
 
     private static <T> List<T> filter(List<T> list, Predicate<? super T> predicate) {
@@ -96,26 +104,54 @@ public class FunctionalInterfaceExamples2 {
         return total;
     }
 
-}
+    @NoArgsConstructor
+    @AllArgsConstructor
+    @Getter
+    @Setter
+    @ToString
+    @EqualsAndHashCode
+    static class Product {
 
-@NoArgsConstructor
-@AllArgsConstructor
-@Getter
-@Setter
-@ToString
-@EqualsAndHashCode
-class Product {
+        private Long id;
+        private String name;
+        private BigDecimal price;
 
-    private Long id;
-    private String name;
-    private BigDecimal price;
+    }
 
-}
+    @ToString(callSuper = true)
+    static class DiscountedProduct extends Product {
+        public DiscountedProduct(Long id, String name, BigDecimal price) {
+            super(id, name, price);
+        }
 
-@ToString(callSuper = true)
-class DiscountedProduct extends Product {
-    public DiscountedProduct(Long id, String name, BigDecimal price) {
-        super(id, name, price);
+    }
+
+    @Data
+    @AllArgsConstructor
+    static class Order {
+
+        private Long id;
+        private String orderNumber;
+        private List<OrderedItem> items;
+
+        public BigDecimal totalPrice() {
+            return total(items, OrderedItem::getItemTotal);
+        }
+
+    }
+
+    @Data
+    @AllArgsConstructor
+    static class OrderedItem {
+
+        private Long id;
+        private Product product;
+        private int quantity;
+
+        public BigDecimal getItemTotal() {
+            return product.getPrice().multiply(new BigDecimal(quantity));
+        }
+
     }
 
 }
