@@ -1,6 +1,7 @@
 package com.example.modernjava;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
@@ -16,6 +17,16 @@ public class FunctionalInterfaceExamples2 {
                 new Product(5L, "E", new BigDecimal("110.00")),
                 new Product(6L, "F", new BigDecimal("22.00"))
         );
+
+        // for loop 를 사용한 filter
+        List<Product> result = new ArrayList<>();
+        BigDecimal twenty = new BigDecimal("20");
+        for (Product product : products) {
+            if (product.getPrice().compareTo(twenty) >= 0) {
+                result.add(product);
+            }
+        }
+        System.out.println(result);
     }
 
 }
