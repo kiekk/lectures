@@ -32,6 +32,9 @@ public class FunctionalInterfaceExamples2 {
         // Predicate 사용한 filter
         List<Product> result2 = filter(products, product -> product.getPrice().compareTo(twenty) >= 0);
         System.out.println(result2);
+
+        System.out.println(filter(products, product -> product.getPrice().compareTo(new BigDecimal("30")) <= 0));
+        // Predicate 를 사용하면 동적으로 조건을 전달할 수 있다.
     }
 
     private static <T> List<T> filter(List<T> list, Predicate<T> predicate) {
