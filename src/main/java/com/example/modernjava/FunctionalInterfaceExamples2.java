@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
+import java.util.function.Predicate;
 
 public class FunctionalInterfaceExamples2 {
 
@@ -27,6 +28,20 @@ public class FunctionalInterfaceExamples2 {
             }
         }
         System.out.println(result);
+
+        // Predicate 사용한 filter
+        List<Product> result2 = filter(products, product -> product.getPrice().compareTo(twenty) >= 0);
+        System.out.println(result2);
+    }
+
+    private static <T> List<T> filter(List<T> list, Predicate<T> predicate) {
+        List<T> result = new ArrayList<>();
+        for (T t : list) {
+            if (predicate.test(t)) {
+                result.add(t);
+            }
+        }
+        return result;
     }
 
 }
