@@ -3,6 +3,7 @@ package com.example.modernjava;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class StreamExample1 {
     public static void main(String[] args) {
@@ -21,5 +22,13 @@ public class StreamExample1 {
             }
         }
         System.out.println("Imperative Result: " + result);
+
+        // Stream 을 사용하여 리팩토링
+        List<Integer> result2 = numbers.stream()
+                .filter(number -> number > 3)
+                .filter(number -> number < 9)
+                .map(number -> number * 2)
+                .collect(Collectors.toList());
+        System.out.println("Functional Result2: " + result2);
     }
 }
