@@ -14,7 +14,10 @@ public class StreamExample1 {
         // 일반적인 순회 / 필터
         for (Integer number : numbers) {
             if (number > 3 && number < 9) {
-                result.add(number);
+                Integer newNumber = number * 2; // 기존의 숫자에 연산을 추가
+                // 이 로직은 조건에 맞는 데이터를 찾는 필터링인데,
+                // 이 로직에 추가 연산이 들어가야 하는가?
+                result.add(newNumber);
             }
         }
         System.out.println("Imperative Result: " + result);
