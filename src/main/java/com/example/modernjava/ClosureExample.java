@@ -1,32 +1,39 @@
 package com.example.modernjava;
 
 public class ClosureExample {
+    private int number = 999;
+
     public static void main(String[] args) {
-        int number = 100; // Effectively Final = final 처럼 보이지는 않지만 final 로 동작
+        new ClosureExample().test1();
+    }
+
+    private void test1() {
+        int number = 100;
 
         System.out.println("Anonymous Class");
         testClosure("Anonymous Class", new Runnable() {
             @Override
             public void run() {
-                // number = 200;
-                // Variable 'number' is accessed from within inner class, needs to be final or effectively final
-                System.out.println(number);
+                System.out.println(number); // 100
+//                System.out.println(this.number); // Error, Anonymous Class 인 Runnable 은 number 를 가지고 있지 않다.
+                System.out.println(ClosureExample.this.number); // 999
             }
         });
 
-        // number = 200;
-        // Variable used in lambda expression should be final or effectively final
-        testClosure("Lambda Expression", () -> System.out.println(number));
+        testClosure("Lambda Expression", () -> {
+            System.out.println(number); // 100
+            System.out.println(this.number); // 999
+        });
 
-        /*
-            Anonymous Class vs Lambda Expression
+        // number = 999 를 출력하고 싶은 경우는?
+        // 1. number = 100 을 주석 처리
+        // 2. ClosureExample.this.number = class name 을 지정
+        // 이 때 lambda 에서는 this.number 가 999를 출력, class name 을 지정할 필요가 없음
+        // Anonymous Class 와 Lambda 는 this 가 가리키는 대상에 차이가 있다.
+        // Anonymous Class 에서의 this 는 Anonymous Class 를 가리키고,
+        // Lambda 에서의 this 는 Lambda 를 가지고 있는 class 를 가리킨다.
+        // Lambda 는 scope 를 가지고 있지 않다.
 
-           java 7 까지는 외부 변수가 final 이 아닐 경우 error 발생
-           java 8 부터는 final 이 아니어도 접근 가능
-
-           대신 외부 scope 의 변수를 read (읽기) 는 가능,
-           외부 scope 의 변수를 update (조작) 하는 것은 불가능
-         */
     }
 
     private static void testClosure(String name, Runnable runnable) {
@@ -34,4 +41,5 @@ public class ClosureExample {
         runnable.run();
         System.out.println("==========================");
     }
+
 }
