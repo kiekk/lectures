@@ -17,12 +17,15 @@ public class ClosureExample {
                 System.out.println(number); // 100
 //                System.out.println(this.number); // Error, Anonymous Class 인 Runnable 은 number 를 가지고 있지 않다.
                 System.out.println(ClosureExample.this.number); // 999
+                System.out.println(this); // com.example.modernjava.ClosureExample$1@ed17bee
+                System.out.println(ClosureExample.this); // ClosureExamples{number=999}
             }
         });
 
         testClosure("Lambda Expression", () -> {
             System.out.println(number); // 100
             System.out.println(this.number); // 999
+            System.out.println(this); // ClosureExamples{number=999}
         });
 
         // number = 999 를 출력하고 싶은 경우는?
@@ -42,4 +45,11 @@ public class ClosureExample {
         System.out.println("==========================");
     }
 
+    @Override
+    public String toString() {
+        return "ClosureExamples{" +
+                "number=" +
+                number +
+                "}";
+    }
 }
