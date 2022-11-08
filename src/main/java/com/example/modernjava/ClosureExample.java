@@ -31,6 +31,10 @@ public class ClosureExample {
         });
 
         testClosure("Lambda Expression", () -> {
+//            int number = 50; // Error
+            // Variable 'number' is already defined in the scope
+            // lambda 에서는 scope 가 확장되기 때문에 외부 scope 의 number 를 찾고, number 가 있다고 판단하여 에러 발생
+
             System.out.println(number); // 100
             System.out.println(this.number); // 999
             System.out.println(this); // ClosureExamples{number=999}
