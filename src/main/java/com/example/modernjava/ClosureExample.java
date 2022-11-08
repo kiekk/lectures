@@ -19,6 +19,14 @@ public class ClosureExample {
                 System.out.println(ClosureExample.this.number); // 999
                 System.out.println(this); // com.example.modernjava.ClosureExample$1@ed17bee
                 System.out.println(ClosureExample.this); // ClosureExamples{number=999}
+
+//                System.out.println(toString("test")); // Error
+                // Anonymous Class 에서는 가지고 있는 메소드(상속한 메소드 포함)와 이름이 동일한 외부 메소드에 접근할 경우 shadowing 이 발생한다.
+                // shadowing 이 발생할 경우 가장 가까이 있는 클로저를 사용, 이 때는 Runnable 을 사용하는데 Runnable 에 toString 을 호출하게 됨
+
+                System.out.println("toString(): " + toString()); // toString(): com.example.modernjava.ClosureExample$1@ed17bee
+                System.out.println("ClosureExample.toString(): " + ClosureExample.toString("test")); // ClosureExample.toString(): The value is test
+                // 외부 scope 의 메소드를 사용하려면 변수 때와 마찬가지로 class name 을 지정
             }
         });
 
@@ -26,6 +34,9 @@ public class ClosureExample {
             System.out.println(number); // 100
             System.out.println(this.number); // 999
             System.out.println(this); // ClosureExamples{number=999}
+
+            System.out.println(toString("test"));
+            // Lambda 에서는 shadowing 이 발생하지 않음
         });
 
         // number = 999 를 출력하고 싶은 경우는?
@@ -51,5 +62,9 @@ public class ClosureExample {
                 "number=" +
                 number +
                 "}";
+    }
+
+    public static <T> String toString(T value) {
+        return "The value is " + String.valueOf(value);
     }
 }
