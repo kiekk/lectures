@@ -2,6 +2,7 @@ package com.example.modernjava;
 
 import java.math.BigDecimal;
 import java.util.Arrays;
+import java.util.List;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -41,6 +42,22 @@ public class MethodReferenceExample {
         Function<Integer, String> fmr = getDoubleThenToStringUsingMethodReference();
         String resultFromFmr = fmr.apply(3);
         System.out.println(resultFromFmr);
+
+        System.out.println("------------------------------------------------");
+        // lambda expression
+        List<Function<Integer, String>> fsL = Arrays.asList(integer -> String.valueOf(integer * 2));
+        for (Function<Integer, String> f : fsL) {
+            String result = f.apply(3);
+            System.out.println(result);
+        }
+
+        System.out.println("------------------------------------------------");
+        // method reference
+        List<Function<Integer, String>> fsMr = Arrays.asList(MethodReferenceExample::doubleThenToString);
+        for (Function<Integer, String> f : fsMr) {
+            String result = f.apply(3);
+            System.out.println(result);
+        }
     }
 
     private static String testFirstClassFunction1(int n, Function<Integer, String> f) {
