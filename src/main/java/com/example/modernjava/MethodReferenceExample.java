@@ -15,6 +15,12 @@ public class MethodReferenceExample {
                 .sorted(BigDecimal::compareTo)
 //                .sorted(BigDecimalUtil::compare)
                 .collect(Collectors.toList()));
+
+
+        // instance method reference
+        System.out.println(Stream.of("a", "b", "c", "d")
+                .anyMatch("c"::equals));
+//                .anyMatch(s -> s.equals("c")));
     }
 }
 
