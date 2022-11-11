@@ -22,7 +22,18 @@ public class MethodReferenceExample2Constructor {
         Function<Integer, Section> sectionFactoryWithMethodReference = Section::new;
         Section section2WithFunction = sectionFactoryWithMethodReference.apply(3);
         System.out.println(section2WithFunction);
+
+        ProductCreator productCreator = Product2::new;
+        Product2 productWithCreator = productCreator.create(2L, "B", new BigDecimal("200"));
+
+        System.out.println(product2);
+        System.out.println(productWithCreator);
     }
+}
+
+@FunctionalInterface
+interface ProductCreator {
+    Product2 create(Long id, String name, BigDecimal price);
 }
 
 @Data
