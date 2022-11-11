@@ -28,12 +28,32 @@ public class MethodReferenceExample2Constructor {
 
         System.out.println(product2);
         System.out.println(productWithCreator);
+
+        ProductA a = createProduct(1L, "A", new BigDecimal("123"), ProductA::new);
+        ProductB b = createProduct(1L, "A", new BigDecimal("123"), ProductB::new);
+
+        System.out.println(a);
+        System.out.println(b);
+    }
+
+    private static <T extends Product2> T createProduct(Long id, String name, BigDecimal price, ProductCreator<T> creator) {
+        if (id == null || id < 1L) {
+            throw new IllegalArgumentException("The id must be a positive Long.");
+        }
+        if (name == null || name.isEmpty()) {
+            throw new IllegalArgumentException("The name is not given.");
+        }
+        if (price == null || BigDecimal.ZERO.compareTo(price) >= 0) {
+            throw new IllegalArgumentException("The price must be greater than 0.");
+        }
+
+        return creator.create(id, name, price);
     }
 }
 
 @FunctionalInterface
-interface ProductCreator {
-    Product2 create(Long id, String name, BigDecimal price);
+interface ProductCreator<T extends Product2> {
+    T create(Long id, String name, BigDecimal price);
 }
 
 @Data
@@ -48,4 +68,28 @@ class Product2 {
     private Long id;
     private String name;
     private BigDecimal price;
+}
+
+class ProductA extends Product2 {
+
+    public ProductA(Long id, String name, BigDecimal price) {
+        super(id, name, price);
+    }
+
+    @Override
+    public String toString() {
+        return "A=" + super.toString();
+    }
+}
+
+class ProductB extends Product2 {
+
+    public ProductB(Long id, String name, BigDecimal price) {
+        super(id, name, price);
+    }
+
+    @Override
+    public String toString() {
+        return "B=" + super.toString();
+    }
 }
