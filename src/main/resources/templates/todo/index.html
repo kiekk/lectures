@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" th:href="@{/webjars/todomvc-common/base.css}">
+    <link rel="stylesheet" th:href="@{/webjars/todomvc-app-css/index.css}">
+</head>
+<body>
+<section class="todoapp">
+    <header class="header">
+        <h1>todos</h1>
+        <form id="new-todo-form" th:action="@{/todo}" method="post" th:object="${item}">
+            <input id="new-todo-input" class="new-todo" placeholder="What needs to be done?" autofocus
+                   autocomplete="false"
+                   name="title"
+                   th:field="*{title}"
+                   hx-target="#todo-list"
+                   hx-swap="beforeend"
+                   hx-post="/todo"
+                   hx-trigger="keyup[key=='Enter']"
+            >
+        </form>
+    </header>
+    <!-- This section should be hidden by default and shown when there are todos -->
+    <section id="main-section" class="main">
+        <ul id="todo-list" class="todo-list" th:remove="all-but-first">
+            <li th:insert="fragments :: todoItem(${item})" th:each="item : ${todos}" th:remove="tag"></li>
+        </ul>
+    </section>
+</section>
+<script th:src="@{/webjars/todomvc-common/base.js}"></script>
+<script type="text/javascript" th:src="@{/webjars/htmx.org/dist/htmx.min.js}"></script>
+<script>
+    htmx.on('#new-todo-input', 'htmx:afterRequest', function (evt) {
+        evt.detail.elt.value = '';
+    });
+
+    document.getElementById('new-todo-form').addEventListener('submit', function (evt) {
+        evt.preventDefault();
+    })
+</script>
+</body>
+</html>

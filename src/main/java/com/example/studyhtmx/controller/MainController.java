@@ -8,6 +8,6 @@ public class MainController {
 
     @RequestMapping(value = {"", "/"})
     public String index() {
-        return "index";
+        return "redirect:/todo";
     }
 }
