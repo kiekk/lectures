@@ -25,4 +25,12 @@ public class Stock {
     public Long getQuantity() {
         return quantity;
     }
+
+    public void decrease(Long quantity) {
+        if (this.quantity - quantity < 0) {
+            throw new RuntimeException("foo");
+        }
+
+        this.quantity -= quantity;
+    }
 }
