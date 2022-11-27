@@ -3,6 +3,7 @@ package com.tobyspring.studytobyspring.service;
 import com.tobyspring.studytobyspring.dao.UserDao;
 import com.tobyspring.studytobyspring.domain.User;
 import com.tobyspring.studytobyspring.enums.Level;
+import com.tobyspring.studytobyspring.handler.TransactionHandler;
 import com.tobyspring.studytobyspring.policy.UserLevelUpgradePolicy;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -13,6 +14,7 @@ import org.springframework.test.context.TestPropertySource;
 import org.springframework.transaction.PlatformTransactionManager;
 
 import javax.sql.DataSource;
+import java.lang.reflect.Proxy;
 import java.util.Arrays;
 import java.util.List;
 
@@ -24,7 +26,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 @TestPropertySource(locations = "classpath:application.yml")
 class UserServiceTest {
     @Autowired
-    @Qualifier("userServiceTx")
+    @Qualifier("userServiceImpl")
     UserService userService;
 
     @Autowired
@@ -90,6 +92,22 @@ class UserServiceTest {
 
         assertEquals(userWithLevelRead.getLevel(), userWithLevel.getLevel());
         assertEquals(userWithoutLevelRead.getLevel(), userWithoutLevel.getLevel());
+    }
+
+    @Test
+    public void upgradeAllOrNothing() {
+        TransactionHandler handler = new TransactionHandler();
+        handler.setTarget(userService);
+        handler.setTransactionManager(transactionManager);
+        handler.setPattern("upgradeLevels");
+
+        UserService txUserService = (UserService) Proxy.newProxyInstance(
+                getClass().getClassLoader(),
+                new Class[]{UserService.class},
+                handler
+        );
+
+        txUserService.upgradeLevels();
     }
 
     // 이제 어떤 레벨로 바뀔 것인가가 아니라
