@@ -1,6 +1,7 @@
 package com.tobyspring.studytobyspring.dao;
 
 import com.tobyspring.studytobyspring.domain.User;
+import com.tobyspring.studytobyspring.enums.Level;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
