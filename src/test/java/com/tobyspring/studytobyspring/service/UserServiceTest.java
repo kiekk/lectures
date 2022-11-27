@@ -3,6 +3,7 @@ package com.tobyspring.studytobyspring.service;
 import com.tobyspring.studytobyspring.dao.UserDao;
 import com.tobyspring.studytobyspring.domain.User;
 import com.tobyspring.studytobyspring.enums.Level;
+import com.tobyspring.studytobyspring.policy.UserLevelUpgradePolicy;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,8 +14,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @TestPropertySource(locations = "classpath:application.yml")
@@ -24,6 +24,9 @@ class UserServiceTest {
 
     @Autowired
     UserDao userDao;
+
+    @Autowired
+    UserLevelUpgradePolicy policy;
 
     List<User> users;
 
@@ -87,5 +90,54 @@ class UserServiceTest {
         } else {
             assertThat(userUpdate.getLevel()).isEqualTo(user.getLevel());
         }
+    }
+
+    @Test
+    public void upgradeAllOrNothing() {
+        UserService testUserService = new TestUserService(userDao, policy, users.get(3).getId());
+
+        userDao.deleteAll();
+
+        for (User user : users) {
+            userDao.add(user);
+        }
+
+        try {
+            testUserService.upgradeLevels();
+            fail("TestUserServiceException expected");
+        } catch (TestUserServiceException e) {
+
+        }
+
+        // 테스트 실패
+        /*
+        원인
+
+        트랜잭션 경계 설정이 제대로 되어 있지 않아 발생
+        현재 userDao.update() 메소드 기준으로 트랜잭션 경계 설정이 되어 있어
+        각 method 실행 단위가 독립적으로 실행
+         */
+        checkLevelUpgraded(users.get(1), false);
+    }
+
+    static class TestUserService extends UserService {
+        private String id;
+
+        public TestUserService(UserDao userDao, UserLevelUpgradePolicy policy, String id) {
+            super(userDao, policy);
+            this.id = id;
+        }
+
+        @Override
+        public void upgradeLevel(User user) {
+            if (user.getId().equals(this.id)) {
+                throw new TestUserServiceException();
+            }
+            super.upgradeLevel(user);
+        }
+    }
+
+    static class TestUserServiceException extends RuntimeException {
+
     }
 }
