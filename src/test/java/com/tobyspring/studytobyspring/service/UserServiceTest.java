@@ -3,6 +3,7 @@ package com.tobyspring.studytobyspring.service;
 import com.tobyspring.studytobyspring.dao.UserDao;
 import com.tobyspring.studytobyspring.domain.User;
 import com.tobyspring.studytobyspring.enums.Level;
+import com.tobyspring.studytobyspring.mail.DummyMailSender;
 import com.tobyspring.studytobyspring.policy.UserLevelUpgradePolicy;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -37,9 +38,6 @@ class UserServiceTest {
 
     @Autowired
     PlatformTransactionManager transactionManager;
-
-    @Autowired
-    MailSender mailSender;
 
     List<User> users;
 
@@ -107,7 +105,7 @@ class UserServiceTest {
 
     @Test
     public void upgradeAllOrNothing() {
-        UserService testUserService = new TestUserService(userDao, policy, dataSource, transactionManager, mailSender, users.get(3).getId());
+        UserService testUserService = new TestUserService(userDao, policy, dataSource, transactionManager, new DummyMailSender(), users.get(3).getId());
 
         userDao.deleteAll();
 
