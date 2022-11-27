@@ -38,14 +38,7 @@ public class UserService {
         TransactionStatus status = this.transactionManager.getTransaction(new DefaultTransactionDefinition());
 
         try {
-            List<User> users = userDao.getAll();
-
-            for (User user : users) {
-                if (policy.canUpgradeLevel(user)) {
-                    upgradeLevel(user);
-                }
-            }
-
+            upgradeLevelsInternal();
             // 정상일 경우 commit
             this.transactionManager.commit(status);
         } catch (Exception e) {
@@ -55,7 +48,17 @@ public class UserService {
         }
     }
 
-    public void upgradeLevel(User user) throws NoSuchProviderException {
+    private void upgradeLevelsInternal() {
+        List<User> users = userDao.getAll();
+
+        for (User user : users) {
+            if (policy.canUpgradeLevel(user)) {
+                upgradeLevel(user);
+            }
+        }
+    }
+
+    public void upgradeLevel(User user) {
         policy.upgradeLevel(user);
         sendUpgradeEmail(user);
     }

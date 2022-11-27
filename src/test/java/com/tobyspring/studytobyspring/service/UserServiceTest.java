@@ -132,7 +132,7 @@ class UserServiceTest {
         }
 
         @Override
-        public void upgradeLevel(User user) throws NoSuchProviderException {
+        public void upgradeLevel(User user) {
             if (user.getId().equals(this.id)) {
                 throw new TestUserServiceException();
             }
