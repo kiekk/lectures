@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.TestPropertySource;
 
+import javax.sql.DataSource;
 import java.util.Arrays;
 import java.util.List;
 
@@ -27,6 +28,9 @@ class UserServiceTest {
 
     @Autowired
     UserLevelUpgradePolicy policy;
+
+    @Autowired
+    DataSource dataSource;
 
     List<User> users;
 
@@ -47,7 +51,7 @@ class UserServiceTest {
     }
 
     @Test
-    public void upgradeLevels() {
+    public void upgradeLevels() throws Exception {
         userDao.deleteAll();
 
         for (User user : users) {
@@ -94,7 +98,7 @@ class UserServiceTest {
 
     @Test
     public void upgradeAllOrNothing() {
-        UserService testUserService = new TestUserService(userDao, policy, users.get(3).getId());
+        UserService testUserService = new TestUserService(userDao, policy, dataSource, users.get(3).getId());
 
         userDao.deleteAll();
 
@@ -105,7 +109,7 @@ class UserServiceTest {
         try {
             testUserService.upgradeLevels();
             fail("TestUserServiceException expected");
-        } catch (TestUserServiceException e) {
+        } catch (Exception e) {
 
         }
 
@@ -123,8 +127,8 @@ class UserServiceTest {
     static class TestUserService extends UserService {
         private String id;
 
-        public TestUserService(UserDao userDao, UserLevelUpgradePolicy policy, String id) {
-            super(userDao, policy);
+        public TestUserService(UserDao userDao, UserLevelUpgradePolicy policy, DataSource dataSource, String id) {
+            super(userDao, policy, dataSource);
             this.id = id;
         }
 
