@@ -46,11 +46,11 @@ class UserServiceTest {
     @BeforeEach
     public void setUp() {
         users = Arrays.asList(
-                new User("1", "soonho", "1234", Level.BASIC, 49, 0),
-                new User("2", "sooni", "1234", Level.BASIC, 50, 10),
-                new User("3", "zooni", "1234", Level.SILVER, 60, 29),
-                new User("4", "오민규", "1234", Level.SILVER, 60, 30),
-                new User("5", "박범진", "1234", Level.GOLD, 100, 100)
+                new User("1", "soonho", "1234", Level.BASIC, 49, 0, "dbstnsgh2@naver.com"),
+                new User("2", "sooni", "1234", Level.BASIC, 50, 10, "dbstnsgh2@naver.com"),
+                new User("3", "zooni", "1234", Level.SILVER, 60, 29, "dbstnsgh2@naver.com"),
+                new User("4", "오민규", "1234", Level.SILVER, 60, 30, "dbstnsgh2@naver.com"),
+                new User("5", "박범진", "1234", Level.GOLD, 100, 100, "dbstnsgh2@naver.com")
         );
     }
 
