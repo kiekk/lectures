@@ -19,17 +19,18 @@ public class UserService {
     private final UserDao userDao;
     private final UserLevelUpgradePolicy policy;
     private final DataSource dataSource;
+    // UserService 가 트랜잭션 매니저의 구현체를 알고 있으면 DI 원칙에 위배되기 때문에 의존성을 주입받음
+    private final PlatformTransactionManager transactionManager;
 
-    public UserService(UserDao userDao, UserLevelUpgradePolicy policy, DataSource dataSource) {
+    public UserService(UserDao userDao, UserLevelUpgradePolicy policy, DataSource dataSource, PlatformTransactionManager transactionManager) {
         this.userDao = userDao;
         this.policy = policy;
         this.dataSource = dataSource;
+        this.transactionManager = transactionManager;
     }
 
     public void upgradeLevels() throws Exception {
-        // 트랜잭션 추상화 API 적용
-        PlatformTransactionManager transactionManager = new DataSourceTransactionManager(dataSource);
-        TransactionStatus status = transactionManager.getTransaction(new DefaultTransactionDefinition());
+        TransactionStatus status = this.transactionManager.getTransaction(new DefaultTransactionDefinition());
 
         try {
             List<User> users = userDao.getAll();
@@ -41,10 +42,10 @@ public class UserService {
             }
 
             // 정상일 경우 commit
-            transactionManager.commit(status);
+            this.transactionManager.commit(status);
         } catch (Exception e) {
             // 예외가 발생할 경우 rollback
-            transactionManager.rollback(status);
+            this.transactionManager.rollback(status);
             throw e;
         }
     }

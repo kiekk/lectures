@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.TestPropertySource;
+import org.springframework.transaction.PlatformTransactionManager;
 
 import javax.sql.DataSource;
 import java.util.Arrays;
@@ -31,6 +32,9 @@ class UserServiceTest {
 
     @Autowired
     DataSource dataSource;
+
+    @Autowired
+    PlatformTransactionManager transactionManager;
 
     List<User> users;
 
@@ -98,7 +102,7 @@ class UserServiceTest {
 
     @Test
     public void upgradeAllOrNothing() {
-        UserService testUserService = new TestUserService(userDao, policy, dataSource, users.get(3).getId());
+        UserService testUserService = new TestUserService(userDao, policy, dataSource, transactionManager, users.get(3).getId());
 
         userDao.deleteAll();
 
@@ -119,8 +123,8 @@ class UserServiceTest {
     static class TestUserService extends UserService {
         private String id;
 
-        public TestUserService(UserDao userDao, UserLevelUpgradePolicy policy, DataSource dataSource, String id) {
-            super(userDao, policy, dataSource);
+        public TestUserService(UserDao userDao, UserLevelUpgradePolicy policy, DataSource dataSource, PlatformTransactionManager transactionManager, String id) {
+            super(userDao, policy, dataSource, transactionManager);
             this.id = id;
         }
 
