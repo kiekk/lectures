@@ -3,6 +3,7 @@ package com.tobyspring.studytobyspring.service;
 import com.tobyspring.studytobyspring.dao.UserDao;
 import com.tobyspring.studytobyspring.domain.User;
 import com.tobyspring.studytobyspring.enums.Level;
+import com.tobyspring.studytobyspring.policy.UserLevelUpgradePolicy;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -11,24 +12,25 @@ import java.util.List;
 public class UserService {
 
     private final UserDao userDao;
+    private final UserLevelUpgradePolicy policy;
 
-    public UserService(UserDao userDao) {
+    public UserService(UserDao userDao, UserLevelUpgradePolicy policy) {
         this.userDao = userDao;
+        this.policy = policy;
     }
 
     public void upgradeLevels() {
         List<User> users = userDao.getAll();
 
         for (User user : users) {
-            if (canUpgradeLevel(user)) {
+            if (policy.canUpgradeLevel(user)) {
                 upgradeLevel(user);
             }
         }
     }
 
     public void upgradeLevel(User user) {
-        user.upgradeLevel();
-        userDao.update(user);
+        policy.upgradeLevel(user);
     }
 
     public void add(User user) {
@@ -39,18 +41,4 @@ public class UserService {
         userDao.add(user);
     }
 
-    private boolean canUpgradeLevel(User user) {
-        Level currentLevel = user.getLevel();
-
-        switch (currentLevel) {
-            case BASIC:
-                return user.getLogin() >= 50;
-            case SILVER:
-                return user.getRecommend() >= 30;
-            case GOLD:
-                return false;
-            default:
-                throw new IllegalArgumentException("Unknown Level: " + currentLevel);
-        }
-    }
 }
