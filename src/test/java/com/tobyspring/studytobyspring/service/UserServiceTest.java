@@ -59,6 +59,24 @@ class UserServiceTest {
         checkLevel(users.get(4), Level.GOLD);
     }
 
+    @Test
+    public void add() {
+        userDao.deleteAll();
+
+        User userWithLevel = users.get(4); // GOLD
+        User userWithoutLevel = users.get(0);
+        userWithoutLevel.setLevel(null); // level 이 비어 있는 사용자
+
+        userService.add(userWithLevel);
+        userService.add(userWithoutLevel);
+
+        User userWithLevelRead = userDao.get(userWithLevel.getId());
+        User userWithoutLevelRead = userDao.get(userWithoutLevel.getId());
+
+        assertEquals(userWithLevelRead.getLevel(), userWithLevel.getLevel());
+        assertEquals(userWithoutLevelRead.getLevel(), userWithoutLevel.getLevel());
+    }
+
     private void checkLevel(User user, Level expectedLevel) {
         User userUpdate = userDao.get(user.getId());
         assertEquals(userUpdate.getLevel(), expectedLevel);
