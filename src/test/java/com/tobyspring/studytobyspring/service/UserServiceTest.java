@@ -3,17 +3,14 @@ package com.tobyspring.studytobyspring.service;
 import com.tobyspring.studytobyspring.dao.UserDao;
 import com.tobyspring.studytobyspring.domain.User;
 import com.tobyspring.studytobyspring.enums.Level;
-import com.tobyspring.studytobyspring.mail.DummyMailSender;
 import com.tobyspring.studytobyspring.policy.UserLevelUpgradePolicy;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.mail.MailSender;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.transaction.PlatformTransactionManager;
 
-import javax.mail.NoSuchProviderException;
 import javax.sql.DataSource;
 import java.util.Arrays;
 import java.util.List;
@@ -103,44 +100,4 @@ class UserServiceTest {
         }
     }
 
-    @Test
-    public void upgradeAllOrNothing() {
-        UserService testUserService = new TestUserService(userDao, policy, dataSource, transactionManager, new DummyMailSender(), users.get(3).getId());
-
-        userDao.deleteAll();
-
-        for (User user : users) {
-            userDao.add(user);
-        }
-
-        try {
-            testUserService.upgradeLevels();
-            fail("TestUserServiceException expected");
-        } catch (Exception e) {
-
-        }
-
-        checkLevelUpgraded(users.get(1), false);
-    }
-
-    static class TestUserService extends UserService {
-        private String id;
-
-        public TestUserService(UserDao userDao, UserLevelUpgradePolicy policy, DataSource dataSource, PlatformTransactionManager transactionManager, MailSender mailSender, String id) {
-            super(userDao, policy, dataSource, transactionManager, mailSender);
-            this.id = id;
-        }
-
-        @Override
-        public void upgradeLevel(User user) {
-            if (user.getId().equals(this.id)) {
-                throw new TestUserServiceException();
-            }
-            super.upgradeLevel(user);
-        }
-    }
-
-    static class TestUserServiceException extends RuntimeException {
-
-    }
 }
