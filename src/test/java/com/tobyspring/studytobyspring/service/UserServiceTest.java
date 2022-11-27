@@ -11,6 +11,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.transaction.PlatformTransactionManager;
 
+import javax.mail.NoSuchProviderException;
 import javax.sql.DataSource;
 import java.util.Arrays;
 import java.util.List;
@@ -129,7 +130,7 @@ class UserServiceTest {
         }
 
         @Override
-        public void upgradeLevel(User user) {
+        public void upgradeLevel(User user) throws NoSuchProviderException {
             if (user.getId().equals(this.id)) {
                 throw new TestUserServiceException();
             }
