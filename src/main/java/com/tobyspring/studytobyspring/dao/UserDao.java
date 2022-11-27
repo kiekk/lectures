@@ -1,10 +1,8 @@
 package com.tobyspring.studytobyspring.dao;
 
-import com.mysql.cj.exceptions.MysqlErrorNumbers;
 import com.tobyspring.studytobyspring.domain.User;
 import com.tobyspring.studytobyspring.enums.Level;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.UncategorizedSQLException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
@@ -63,4 +61,15 @@ public class UserDao {
         return this.jdbcTemplate.query("select * from users order by id", userRowMapper);
     }
 
+    public void update(User user) {
+        this.jdbcTemplate.update(
+                "update users set name = ?, password = ?, level = ?, login = ?, recommend = ? where id = ?",
+                user.getName(),
+                user.getPassword(),
+                user.getLevel().intValue(),
+                user.getLogin(),
+                user.getRecommend(),
+                user.getId()
+        );
+    }
 }
