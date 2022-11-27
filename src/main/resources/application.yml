@@ -4,3 +4,8 @@ spring:
     url: jdbc:mysql://localhost:3306/springbook
     username: root
     password: 1234
+  mail:
+    host: smtp.naver.com
+    port: 587
+    username: username
+    password: password

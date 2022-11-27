@@ -8,6 +8,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.mail.MailSender;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.transaction.PlatformTransactionManager;
 
@@ -36,6 +37,9 @@ class UserServiceTest {
 
     @Autowired
     PlatformTransactionManager transactionManager;
+
+    @Autowired
+    MailSender mailSender;
 
     List<User> users;
 
@@ -103,7 +107,7 @@ class UserServiceTest {
 
     @Test
     public void upgradeAllOrNothing() {
-        UserService testUserService = new TestUserService(userDao, policy, dataSource, transactionManager, users.get(3).getId());
+        UserService testUserService = new TestUserService(userDao, policy, dataSource, transactionManager, mailSender, users.get(3).getId());
 
         userDao.deleteAll();
 
@@ -124,8 +128,8 @@ class UserServiceTest {
     static class TestUserService extends UserService {
         private String id;
 
-        public TestUserService(UserDao userDao, UserLevelUpgradePolicy policy, DataSource dataSource, PlatformTransactionManager transactionManager, String id) {
-            super(userDao, policy, dataSource, transactionManager);
+        public TestUserService(UserDao userDao, UserLevelUpgradePolicy policy, DataSource dataSource, PlatformTransactionManager transactionManager, MailSender mailSender, String id) {
+            super(userDao, policy, dataSource, transactionManager, mailSender);
             this.id = id;
         }
 

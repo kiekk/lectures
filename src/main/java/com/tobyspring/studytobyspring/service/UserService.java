@@ -4,8 +4,8 @@ import com.tobyspring.studytobyspring.dao.UserDao;
 import com.tobyspring.studytobyspring.domain.User;
 import com.tobyspring.studytobyspring.enums.Level;
 import com.tobyspring.studytobyspring.policy.UserLevelUpgradePolicy;
+import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
-import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.PlatformTransactionManager;
@@ -24,12 +24,14 @@ public class UserService {
     private final DataSource dataSource;
     // UserService 가 트랜잭션 매니저의 구현체를 알고 있으면 DI 원칙에 위배되기 때문에 의존성을 주입받음
     private final PlatformTransactionManager transactionManager;
+    private final MailSender mailSender;
 
-    public UserService(UserDao userDao, UserLevelUpgradePolicy policy, DataSource dataSource, PlatformTransactionManager transactionManager) {
+    public UserService(UserDao userDao, UserLevelUpgradePolicy policy, DataSource dataSource, PlatformTransactionManager transactionManager, MailSender mailSender) {
         this.userDao = userDao;
         this.policy = policy;
         this.dataSource = dataSource;
         this.transactionManager = transactionManager;
+        this.mailSender = mailSender;
     }
 
     public void upgradeLevels() throws Exception {
@@ -59,19 +61,13 @@ public class UserService {
     }
 
     private void sendUpgradeEmail(User user) {
-        JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
-        mailSender.setHost("smtp.naver.com");
-        mailSender.setPort(587);
-        mailSender.setUsername(username);
-        mailSender.setPassword(password);
-
         SimpleMailMessage mailMessage = new SimpleMailMessage();
         mailMessage.setTo(user.getEmail());
-        mailMessage.setFrom(from);
+        mailMessage.setFrom("dbstnsgh2@naver.com");
         mailMessage.setSubject("Upgrade 안내");
         mailMessage.setText("사용자님의 등급이 [" + user.getLevel().name() + "] 로 업그레이드 되었습니다.");
 
-        mailSender.send(mailMessage);
+        this.mailSender.send(mailMessage);
     }
 
     public void add(User user) {
