@@ -30,7 +30,7 @@ public class UserDaoTest {
         this.user1 = new User("1", "soonho", "1234", Level.BASIC, 1, 0);
         this.user2 = new User("2", "sooni", "1234", Level.SILVER, 55, 10);
         this.user3 = new User("3", "zooni", "1234", Level.GOLD, 100, 40);
-    }
+}
 
     @Test
     public void addAndGet() throws SQLException, ClassNotFoundException {
