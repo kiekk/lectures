@@ -1,8 +1,11 @@
 package com.tobyspring.studytobyspring.config;
 
-import com.tobyspring.studytobyspring.proxy.TxProxyFactoryBean;
-import com.tobyspring.studytobyspring.service.UserService;
+import com.tobyspring.studytobyspring.aspect.TransactionAdvice;
 import com.tobyspring.studytobyspring.service.impl.UserServiceImpl;
+import org.springframework.aop.PointcutAdvisor;
+import org.springframework.aop.framework.ProxyFactoryBean;
+import org.springframework.aop.support.DefaultPointcutAdvisor;
+import org.springframework.aop.support.NameMatchMethodPointcut;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -18,12 +21,32 @@ public class AppConfig {
     private PlatformTransactionManager transactionManager;
 
     @Bean
-    public TxProxyFactoryBean userService() {
-        TxProxyFactoryBean factoryBean = new TxProxyFactoryBean();
-        factoryBean.setTarget(this.userServiceImpl);
-        factoryBean.setTransactionManager(this.transactionManager);
-        factoryBean.setPattern("upgradeLevels");
-        factoryBean.setServiceInterface(UserService.class);
+    public ProxyFactoryBean userService() {
+        ProxyFactoryBean factoryBean = new ProxyFactoryBean();
+        factoryBean.setTarget(userServiceImpl);
+        factoryBean.setInterceptorNames("transactionAdvisor");
         return factoryBean;
+    }
+
+    @Bean
+    public TransactionAdvice transactionAdvice() {
+        TransactionAdvice transactionAdvice = new TransactionAdvice();
+        transactionAdvice.setTransactionManager(transactionManager);
+        return transactionAdvice;
+    }
+
+    @Bean
+    public NameMatchMethodPointcut transactionPointcut() {
+        NameMatchMethodPointcut pointcut = new NameMatchMethodPointcut();
+        pointcut.setMappedName("upgrade*");
+        return pointcut;
+    }
+
+    @Bean
+    public PointcutAdvisor transactionAdvisor() {
+        DefaultPointcutAdvisor advisor = new DefaultPointcutAdvisor();
+        advisor.setAdvice(transactionAdvice());
+        advisor.setPointcut(transactionPointcut());
+        return advisor;
     }
 }

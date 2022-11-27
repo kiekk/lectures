@@ -7,6 +7,7 @@ import com.tobyspring.studytobyspring.enums.Level;
 import com.tobyspring.studytobyspring.policy.UserLevelUpgradePolicy;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.aop.framework.ProxyFactoryBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -100,7 +101,7 @@ class UserServiceTest {
 
     @Test
     public void upgradeAllOrNothing() throws Exception {
-        TxProxyFactoryBean txProxyFactoryBean = context.getBean("&userService", TxProxyFactoryBean.class);
+        ProxyFactoryBean txProxyFactoryBean = context.getBean("&userService", ProxyFactoryBean.class);
         txProxyFactoryBean.setTarget(userService);
         UserService txUserService = (UserService) txProxyFactoryBean.getObject();
 
