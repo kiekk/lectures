@@ -113,14 +113,6 @@ class UserServiceTest {
 
         }
 
-        // 테스트 실패
-        /*
-        원인
-
-        트랜잭션 경계 설정이 제대로 되어 있지 않아 발생
-        현재 userDao.update() 메소드 기준으로 트랜잭션 경계 설정이 되어 있어
-        각 method 실행 단위가 독립적으로 실행
-         */
         checkLevelUpgraded(users.get(1), false);
     }
 

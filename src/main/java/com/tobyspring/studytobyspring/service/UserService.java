@@ -4,12 +4,13 @@ import com.tobyspring.studytobyspring.dao.UserDao;
 import com.tobyspring.studytobyspring.domain.User;
 import com.tobyspring.studytobyspring.enums.Level;
 import com.tobyspring.studytobyspring.policy.UserLevelUpgradePolicy;
-import org.springframework.jdbc.datasource.DataSourceUtils;
+import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.support.TransactionSynchronizationManager;
+import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.TransactionStatus;
+import org.springframework.transaction.support.DefaultTransactionDefinition;
 
 import javax.sql.DataSource;
-import java.sql.Connection;
 import java.util.List;
 
 @Component
@@ -26,10 +27,9 @@ public class UserService {
     }
 
     public void upgradeLevels() throws Exception {
-        // 트랜잭션 동기화 관리자를 이용, 동기화 작업 초기화
-        TransactionSynchronizationManager.initSynchronization();
-        Connection c = DataSourceUtils.getConnection(dataSource);
-        c.setAutoCommit(false);
+        // 트랜잭션 추상화 API 적용
+        PlatformTransactionManager transactionManager = new DataSourceTransactionManager(dataSource);
+        TransactionStatus status = transactionManager.getTransaction(new DefaultTransactionDefinition());
 
         try {
             List<User> users = userDao.getAll();
@@ -41,16 +41,11 @@ public class UserService {
             }
 
             // 정상일 경우 commit
-            c.commit();
+            transactionManager.commit(status);
         } catch (Exception e) {
             // 예외가 발생할 경우 rollback
-            c.rollback();
+            transactionManager.rollback(status);
             throw e;
-        } finally {
-            // 정상, 예외 발생 후 커넥션 종료, 동기화 작업 clear
-            DataSourceUtils.releaseConnection(c, dataSource);
-            TransactionSynchronizationManager.unbindResource(dataSource);
-            TransactionSynchronizationManager.clearSynchronization();
         }
     }
 
