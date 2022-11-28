@@ -1,5 +1,6 @@
 package com.tobyspring.studytobyspring.config;
 
+import com.tobyspring.studytobyspring.aspect.NameMatchClassMethodPointcut;
 import com.tobyspring.studytobyspring.aspect.TransactionAdvice;
 import com.tobyspring.studytobyspring.service.impl.UserServiceImpl;
 import org.springframework.aop.PointcutAdvisor;
@@ -36,8 +37,9 @@ public class AppConfig {
     }
 
     @Bean
-    public NameMatchMethodPointcut transactionPointcut() {
-        NameMatchMethodPointcut pointcut = new NameMatchMethodPointcut();
+    public NameMatchClassMethodPointcut transactionPointcut() {
+        NameMatchClassMethodPointcut pointcut = new NameMatchClassMethodPointcut();
+        pointcut.setMappedClassName("*ServiceImpl");
         pointcut.setMappedName("upgrade*");
         return pointcut;
     }

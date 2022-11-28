@@ -31,7 +31,6 @@ class UserServiceTest {
     ApplicationContext context;
 
     @Autowired
-    @Qualifier("userServiceImpl")
     UserService userService;
 
     @Autowired
