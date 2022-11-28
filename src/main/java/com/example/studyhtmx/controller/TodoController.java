@@ -3,19 +3,18 @@ package com.example.studyhtmx.controller;
 import com.example.studyhtmx.entity.TodoItem;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/todo")
 public class TodoController {
 
-    private static final List<TodoItem> todos = new ArrayList<>();
+    private static List<TodoItem> todos = new ArrayList<>();
 
     static {
         todos.add(new TodoItem(1L, "movie", false));
@@ -47,6 +46,30 @@ public class TodoController {
         model.addAttribute("item", todoItem);
         response.setHeader("HX-Trigger", "itemAdded");
         return "fragments :: todoItem";
+    }
+
+    @PutMapping(value = "{id}/toggle", headers = "HX-Request")
+    public String toggleSelection(@PathVariable Long id,
+                                  Model model,
+                                  HttpServletResponse response) {
+
+        TodoItem todoItem = todos.stream().filter(todo -> todo.getId().equals(id)).findFirst().orElseThrow();
+
+        todoItem.setCompleted(!todoItem.getCompleted());
+
+        model.addAttribute("item", todoItem);
+        response.setHeader("HX-Trigger", "itemCompletionToggled");
+        return "fragments :: todoItem";
+    }
+
+    @DeleteMapping(value = "/{id}", headers = "HX-Request")
+    @ResponseBody
+    public String htmxDeleteTodoItem(@PathVariable Long id,
+                                     HttpServletResponse response) {
+        todos = todos.stream().filter(todo -> !todo.getId().equals(id)).collect(Collectors.toList());
+
+        response.setHeader("HX-Trigger", "itemDeleted");
+        return "";
     }
 
 }

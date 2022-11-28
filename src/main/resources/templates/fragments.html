@@ -6,13 +6,13 @@
     <div class="view">
         <input th:id="|toggle-checkbox-${item.id}|" class="toggle" type="checkbox"
                th:attrappend="checked=${item.completed?'true':null}"
-               th:attr="hx-put=@{/{id}/toggle(id=${item.id})},hx-target=|#list-item-${item.id}|"
+               th:attr="hx-put=@{/todo/{id}/toggle(id=${item.id})},hx-target=|#list-item-${item.id}|"
                hx-trigger="click"
                hx-swap="outerHTML"
         >
         <label th:text="${item.title}">Taste JavaScript</label>
         <button class="destroy"
-                th:attr="hx-delete=@{/{id}(id=${item.id})},hx-target=|#list-item-${item.id}|"
+                th:attr="hx-delete=@{/todo/{id}(id=${item.id})},hx-target=|#list-item-${item.id}|"
                 hx-trigger="click"
                 hx-swap="outerHTML"
         ></button>
