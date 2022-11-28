@@ -1,29 +1,35 @@
 package com.tobyspring.studytobyspring.service;
 
+import com.tobyspring.studytobyspring.proxy.TxProxyFactoryBean;
 import com.tobyspring.studytobyspring.dao.UserDao;
 import com.tobyspring.studytobyspring.domain.User;
 import com.tobyspring.studytobyspring.enums.Level;
-import com.tobyspring.studytobyspring.mail.DummyMailSender;
 import com.tobyspring.studytobyspring.policy.UserLevelUpgradePolicy;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.aop.framework.ProxyFactoryBean;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.mail.MailSender;
+import org.springframework.context.ApplicationContext;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.transaction.PlatformTransactionManager;
 
-import javax.mail.NoSuchProviderException;
 import javax.sql.DataSource;
 import java.util.Arrays;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @SpringBootTest
 @TestPropertySource(locations = "classpath:application.yml")
 class UserServiceTest {
+
+    @Autowired
+    ApplicationContext context;
+
     @Autowired
     UserService userService;
 
@@ -92,6 +98,15 @@ class UserServiceTest {
         assertEquals(userWithoutLevelRead.getLevel(), userWithoutLevel.getLevel());
     }
 
+    @Test
+    public void upgradeAllOrNothing() throws Exception {
+        ProxyFactoryBean txProxyFactoryBean = context.getBean("&userService", ProxyFactoryBean.class);
+        txProxyFactoryBean.setTarget(userService);
+        UserService txUserService = (UserService) txProxyFactoryBean.getObject();
+
+        txUserService.upgradeLevels();
+    }
+
     // 이제 어떤 레벨로 바뀔 것인가가 아니라
     // 다음 레벨로 업그레이드 될 것인가 아닌가를 지정한다.
     private void checkLevelUpgraded(User user, boolean upgraded) {
@@ -103,44 +118,4 @@ class UserServiceTest {
         }
     }
 
-    @Test
-    public void upgradeAllOrNothing() {
-        UserService testUserService = new TestUserService(userDao, policy, dataSource, transactionManager, new DummyMailSender(), users.get(3).getId());
-
-        userDao.deleteAll();
-
-        for (User user : users) {
-            userDao.add(user);
-        }
-
-        try {
-            testUserService.upgradeLevels();
-            fail("TestUserServiceException expected");
-        } catch (Exception e) {
-
-        }
-
-        checkLevelUpgraded(users.get(1), false);
-    }
-
-    static class TestUserService extends UserService {
-        private String id;
-
-        public TestUserService(UserDao userDao, UserLevelUpgradePolicy policy, DataSource dataSource, PlatformTransactionManager transactionManager, MailSender mailSender, String id) {
-            super(userDao, policy, dataSource, transactionManager, mailSender);
-            this.id = id;
-        }
-
-        @Override
-        public void upgradeLevel(User user) throws NoSuchProviderException {
-            if (user.getId().equals(this.id)) {
-                throw new TestUserServiceException();
-            }
-            super.upgradeLevel(user);
-        }
-    }
-
-    static class TestUserServiceException extends RuntimeException {
-
-    }
 }
