@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Controller
-@RequestMapping("/todo")
+@RequestMapping("todo")
 public class TodoController {
 
     private static List<TodoItem> todos = new ArrayList<>();
@@ -62,7 +62,7 @@ public class TodoController {
         return "fragments :: todoItem";
     }
 
-    @DeleteMapping(value = "/{id}", headers = "HX-Request")
+    @DeleteMapping(value = "{id}", headers = "HX-Request")
     @ResponseBody
     public String htmxDeleteTodoItem(@PathVariable Long id,
                                      HttpServletResponse response) {
@@ -71,5 +71,14 @@ public class TodoController {
         response.setHeader("HX-Trigger", "itemDeleted");
         return "";
     }
+
+    @PostMapping("toggle-all")
+    public String toggleAll() {
+        for (TodoItem todo : todos) {
+            todo.setCompleted(!todo.getCompleted());
+        }
+        return "redirect:/";
+    }
+
 
 }
