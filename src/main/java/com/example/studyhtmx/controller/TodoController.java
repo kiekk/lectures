@@ -27,11 +27,7 @@ public class TodoController {
 
     @GetMapping()
     public String index(Model model) {
-        model.addAttribute("item", new TodoItem());
-        model.addAttribute("todos", todos);
-        model.addAttribute("totalNumberOfItems", todos.size());
-        model.addAttribute("numberOfActiveItems", todos.stream().filter(todo -> !todo.getCompleted()).count());
-        model.addAttribute("numberOfCompletedItems", todos.stream().filter(TodoItem::getCompleted).count());
+        addAttributesForIndex(model, ListFilter.ALL);
         return "todo/index";
     }
 
@@ -80,5 +76,51 @@ public class TodoController {
         return "redirect:/";
     }
 
+    @GetMapping("active")
+    public String indexActive(Model model) {
+        addAttributesForIndex(model, ListFilter.ACTIVE);
+        return "todo/index";
+    }
+
+    @GetMapping("completed")
+    public String indexCompleted(Model model) {
+        addAttributesForIndex(model, ListFilter.COMPLETED);
+        return "todo/index";
+    }
+
+    @GetMapping(value = "/active-items-count", headers = "HX-Request")
+    public String htmxActiveItemsCount(Model model) {
+        model.addAttribute("numberOfActiveItems", todos.stream().filter(todo -> !todo.getCompleted()).count());
+
+        return "fragments :: active-items-count";
+    }
+
+    private void addAttributesForIndex(Model model, ListFilter filter) {
+        model.addAttribute("item", new TodoItem());
+        model.addAttribute("filter", filter);
+        model.addAttribute("todos", getTodoItems(filter));
+        model.addAttribute("totalNumberOfItems", todos.size());
+        model.addAttribute("numberOfActiveItems", todos.stream().filter(todo -> !todo.getCompleted()).count());
+        model.addAttribute("numberOfCompletedItems", todos.stream().filter(TodoItem::getCompleted).count());
+    }
+
+    private List<TodoItem> getTodoItems(ListFilter filter) {
+        switch (filter) {
+            case ACTIVE:
+                return todos.stream().filter(todo -> !todo.getCompleted()).collect(Collectors.toList());
+            case COMPLETED:
+                return todos.stream().filter(TodoItem::getCompleted).collect(Collectors.toList());
+            case ALL:
+                return todos;
+            default:
+                return todos;
+        }
+    }
+
+    public enum ListFilter {
+        ALL,
+        ACTIVE,
+        COMPLETED
+    }
 
 }
