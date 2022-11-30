@@ -55,7 +55,7 @@
             </li>
         </ul>
         <!-- Hidden if no completed items are left ↓ -->
-        <form th:action="@{/tood/completed}" th:method="delete"
+        <form th:action="@{/todo/completed}" th:method="post"
               th:if="${numberOfCompletedItems > 0}">
             <button class="clear-completed">Clear completed</button>
         </form>

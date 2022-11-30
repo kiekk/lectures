@@ -88,12 +88,19 @@ public class TodoController {
         return "todo/index";
     }
 
-    @GetMapping(value = "/active-items-count", headers = "HX-Request")
+    @GetMapping(value = "active-items-count", headers = "HX-Request")
     public String htmxActiveItemsCount(Model model) {
         model.addAttribute("numberOfActiveItems", todos.stream().filter(todo -> !todo.getCompleted()).count());
 
         return "fragments :: active-items-count";
     }
+
+    @PostMapping("completed")
+    public String deleteCompletedItems() {
+        todos = todos.stream().filter(todo -> !todo.getCompleted()).collect(Collectors.toList());
+        return "redirect:/";
+    }
+
 
     private void addAttributesForIndex(Model model, ListFilter filter) {
         model.addAttribute("item", new TodoItem());
