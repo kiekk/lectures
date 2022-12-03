@@ -51,5 +51,7 @@ jar 패키징을 위한 경로 src/main/resources/META-INF/resource/WEB-INF/..
 
 ### 관련 링크
 https://github.com/spring-projects/spring-boot/issues/13420
+
 https://stackoverflow.com/questions/44689773/why-spring-boot-1-5-3-jar-does-not-recognise-jsp-files-in-src-main-resources-met
+
 https://github.com/spring-projects/spring-boot/commit/9d9acc92e328159063b916083a2988b563869e04
