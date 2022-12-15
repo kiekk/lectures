@@ -28,4 +28,9 @@ public class Board {
         this.title = title;
         this.contents = contents;
     }
+
+    public void updateFields(Board board) {
+        this.title = board.getTitle();
+        this.contents = board.getContents();
+    }
 }
