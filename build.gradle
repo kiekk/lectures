@@ -18,6 +18,10 @@ repositories {
     mavenCentral()
 }
 
+ext {
+    lucyXssServletVersion = '2.0.1'
+}
+
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
     implementation 'org.springframework.boot:spring-boot-starter-web'
@@ -28,6 +32,7 @@ dependencies {
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     runtimeOnly 'com.h2database:h2'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation "com.navercorp.lucy:lucy-xss-servlet:${lucyXssServletVersion}"
 }
 
 tasks.named('test') {
