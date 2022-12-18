@@ -27,4 +27,14 @@ public class XssPreventerTest {
         assertEquals("&lt;img src=&quot;javascript:alert(&quot;test&quot;);&quot;&gt;&lt;/img&gt;", clean);
     }
 
+    @Test
+    public void testXssPreventerUnicode() {
+        String dirty = "\"><script>alert('테스트');</script>";
+        String clean = XssPreventer.escape(dirty);
+
+        assertEquals(clean, "&quot;&gt;&lt;script&gt;alert(&#39;테스트&#39;);&lt;/script&gt;");
+        assertEquals(dirty, XssPreventer.unescape(clean));
+    }
+
+
 }
