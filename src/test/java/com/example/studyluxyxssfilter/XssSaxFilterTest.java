@@ -16,6 +16,8 @@ public class XssSaxFilterTest extends XssFilterTestCase {
 
     private static final String DIRTY_CODES_FILE = "xss-dirtycodes.txt";
     private static final String NORMAL_HTML_FILE = "xss-normal1.html";
+    private static final String INVALID_HTML_FILE1 = "xss-invalid1.html";
+    private static final String INVALID_HTML_FILE2 = "xss-invalid2.html";
     private static final String INVALID_HTML_FILE3 = "xss-invalid3.html";
 
     /**
@@ -58,6 +60,24 @@ public class XssSaxFilterTest extends XssFilterTestCase {
         System.out.println("dirty: " + dirty);
         System.out.println("clean: " + clean);
         assertNotEquals(dirty, clean);
+    }
+
+    /**
+     * 허용되지 않은 element, attribute 를 필터링 하는지 검사한다. (필터링 전후가 틀려야 정상)
+     * @throws Exception
+     */
+    @Test
+    public void testCrackCodeFiltering() throws Exception {
+        XssSaxFilter filter = XssSaxFilter.getInstance("lucy-xss-superset-sax.xml");
+        String dirty = readString(INVALID_HTML_FILE1);
+        String clean = filter.doFilter(dirty);
+        String expected = "<html><head><title>제품 정보</title></head><!-- Not Allowed Tag Filtered -->&lt;body&gt;<form name=\"myform\" action=\"\" method=\"post\"><h2 align=\"center\">제품 정보</h2><input type=\"submit\" value=\"등록하기\"> &nbsp; <input type=\"reset\">value=\"취소\"&gt;</p>&lt;/body&gt;</html>";
+        assertEquals(expected, clean);
+
+        dirty = readString(INVALID_HTML_FILE2);
+        clean = filter.doFilter(dirty);
+        expected = "<a href=\"naver.com\" name=\"rich\">참고</a>하세요.";
+        assertEquals(expected, clean);
     }
 
 }
