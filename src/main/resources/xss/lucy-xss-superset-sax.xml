@@ -2,15 +2,16 @@
 <!-- version 20180725-1 -->
 <config xmlns="http://www.nhncorp.com/lucy-xss" extends="lucy-xss-default-sax.xml">
     <elementRule>
-        <element name="body" disable="true" /> <!-- <BODY ONLOAD=alert("XSS")>, <BODY BACKGROUND="javascript:alert('XSS')"> -->
-        <element name="embed" disable="true" />
-        <element name="iframe" disable="true" /> <!-- <IFRAME SRC=”http://hacker-site.com/xss.html”> -->
-        <element name="meta" disable="true" />
-        <element name="object" disable="true" />
-        <element name="script" disable="true" /> <!-- <SCRIPT> alert(“XSS”); </SCRIPT> -->
-        <element name="style" disable="true" />
-        <element name="link" disable="true" />
-        <element name="base" disable="true" />
+        <element name="body"
+                 disable="true"/> <!-- <BODY ONLOAD=alert("XSS")>, <BODY BACKGROUND="javascript:alert('XSS')"> -->
+        <element name="embed" disable="true"/>
+        <element name="iframe" disable="true"/> <!-- <IFRAME SRC=”http://hacker-site.com/xss.html”> -->
+        <element name="meta" disable="true"/>
+        <element name="object" disable="true"/>
+        <element name="script" disable="true"/> <!-- <SCRIPT> alert(“XSS”); </SCRIPT> -->
+        <element name="style" disable="true"/>
+        <element name="link" disable="true"/>
+        <element name="base" disable="true"/>
     </elementRule>
     <attributeRule>
         <attribute name="data" base64Decoding="true">
