@@ -8,11 +8,13 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 @SpringBootTest
 @AutoConfigureTestDatabase(connection = EmbeddedDatabaseConnection.H2)
 public class XssSaxFilterTest extends XssFilterTestCase {
 
+    private static final String DIRTY_CODES_FILE = "xss-dirtycodes.txt";
     private static final String NORMAL_HTML_FILE = "xss-normal1.html";
     private static final String INVALID_HTML_FILE3 = "xss-invalid3.html";
 
@@ -43,4 +45,19 @@ public class XssSaxFilterTest extends XssFilterTestCase {
         System.out.println("clean: " + clean);
         assertEquals(dirty, clean);
     }
+
+    /**
+     * JavaScript와 같은 공격적인 코드를 필터링 하는지 검사한다.(필터링 전후가 틀려야 정상)
+     * @throws Exception
+     */
+    @Test
+    public void testDirtyCodeFiltering() throws Exception {
+        XssSaxFilter filter = XssSaxFilter.getInstance("lucy-xss-superset-sax.xml");
+        String dirty = readString(DIRTY_CODES_FILE);
+        String clean = filter.doFilter(dirty);
+        System.out.println("dirty: " + dirty);
+        System.out.println("clean: " + clean);
+        assertNotEquals(dirty, clean);
+    }
+
 }
