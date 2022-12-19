@@ -224,5 +224,16 @@ public class XssSaxFilterTest extends XssFilterTestCase {
 
     }
 
+    /**
+     * Href 속성에서 javascript 패턴 존재하는지 테스트
+     */
+    @Test
+    public void hrefAttackTest() {
+        XssSaxFilter filter = XssSaxFilter.getInstance("lucy-xss-superset-sax.xml");
+        String dirty = "<a HREF=\"javascript:alert('XSS');\">";
+        String expected = "<!-- Not Allowed Attribute Filtered ( HREF=\"javascript:alert('XSS');\") --><a>";
+        String clean = filter.doFilter(dirty);
+        assertEquals(expected, clean);
+    }
 
 }
