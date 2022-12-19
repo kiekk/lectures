@@ -20,7 +20,7 @@
                 url: null,
                 board: {
                     title: null,
-                    content: null
+                    contents: null
                 }
             },
             formDataSubmit() {
@@ -29,6 +29,24 @@
                     url: app.data.url,
                     type: 'POST',
                     data: app.data.board,
+                    success() {
+                        alert('등록 성공');
+                        location.href = '/board/list';
+                    },
+                    error(e) {
+                        console.error(e);
+                        alert('등록 실패');
+                        location.reload();
+                    }
+                });
+            },
+            jsonSubmit() {
+                var app = this;
+                $.ajax({
+                    url: app.data.url,
+                    type: 'POST',
+                    data: JSON.stringify(app.data.board),
+                    contentType: 'application/json',
                     success() {
                         alert('등록 성공');
                         location.href = '/board/list';
@@ -58,6 +76,14 @@
                 BOARD.data.board.contents = $('textarea[name="contents"]', $registerForm).val();
                 BOARD.formDataSubmit();
             });
+
+            $('.board-register-json').on('click', function () {
+                var $registerForm = $('#register-form');
+                BOARD.data.url = '/api/board/json'
+                BOARD.data.board.title = $('input[name="title"]', $registerForm).val();
+                BOARD.data.board.contents = $('textarea[name="contents"]', $registerForm).val();
+                BOARD.jsonSubmit();
+            });
         });
     </script>
 </head>
@@ -77,5 +103,6 @@
     </table>
 </form>
 <button type="button" class="board-register-form-data">FormData 등록</button>
+<button type="button" class="board-register-json">Json 등록</button>
 </body>
 </html>

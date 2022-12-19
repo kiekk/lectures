@@ -2,6 +2,7 @@ package com.example.studyluxyxssfilter.controller.api.board;
 
 import com.example.studyluxyxssfilter.entity.Board;
 import com.example.studyluxyxssfilter.service.BoardService;
+import com.example.studyluxyxssfilter.util.XssSaxFilterUtil;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -16,6 +17,7 @@ public class BoardJsonController {
 
     @PostMapping("")
     public void insert(@RequestBody Board board) {
+        board.setContents(XssSaxFilterUtil.xssEscape(board.getContents()));
         boardService.save(board);
     }
 
@@ -23,6 +25,7 @@ public class BoardJsonController {
     public void update(@PathVariable String id,
                        @RequestBody Board board) {
         board.setId(id);
+        board.setContents(XssSaxFilterUtil.xssEscape(board.getContents()));
         boardService.update(board);
     }
 
