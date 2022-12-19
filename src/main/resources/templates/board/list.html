@@ -23,7 +23,9 @@
     <tr th:each="item, index : ${list}">
         <td th:text="${index.index + 1}"></td>
         <td th:text="${item.title}"></td>
-        <td th:text="${item.contents}"></td>
+        <td>
+            <div th:utext="${item.contents}"></div>
+        </td>
     </tr>
     <tr th:if="${list.isEmpty()}">
         <td colspan="3">조회된 결과가 없습니다.</td>
