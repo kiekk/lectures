@@ -169,4 +169,27 @@ public class XssSaxFilterTest extends XssFilterTestCase {
         assertEquals(expected, clean);
     }
 
+    /**
+     * src에 script 패턴이 존재 시 무조건 필터링 되는 문제 테스트
+     */
+    @Test
+    public void notAllowedPatternSrcAttribute() {
+        XssSaxFilter filter = XssSaxFilter.getInstance("lucy-xss-superset-sax.xml");
+
+        String dirty = "<img src='http://sstorym.cafe24.com/deScription/lereve/lelogo.gif' width='700'>";
+        String expected = "<img src='http://sstorym.cafe24.com/deScription/lereve/lelogo.gif' width='700'>";
+        String clean = filter.doFilter(dirty);
+        assertEquals(expected, clean);
+
+        dirty = "<img src='scription/lereve/lelogo.gif' width='700'>";
+        expected = "<img src='scription/lereve/lelogo.gif' width='700'>";
+        clean = filter.doFilter(dirty);
+        assertEquals(expected, clean);
+
+        dirty = "<img src='script:/lereve/lelogo.gif' width='700'>";
+        expected = "<!-- Not Allowed Attribute Filtered ( src='script:/lereve/lelogo.gif') --><img width='700'>";
+        clean = filter.doFilter(dirty);
+        assertEquals(expected, clean);
+    }
+
 }
