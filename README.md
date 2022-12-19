@@ -62,6 +62,13 @@ xml 만으로 XSS 설정이 가능하다.
 lucy-xss-superset-sax.xml 의 경우 특별한 설정이 없을 경우 
 lucy-xss-filter 에서 제공하는 기본 설정 내용을 적용한다.
 
-XssSasFilter : SAX Parser => lucy-xss-superset-sax.xml & lucy-xss-sax.xml
+XssSaxFilter : SAX Parser => lucy-xss-superset-sax.xml & lucy-xss-sax.xml
 XssFilter : DOM Parser => lucy-xss-superset.xml & lucy-xss.xml 
+```
+
+```
+직접 파라미터를 전달 받은 후 XssSaxFilter, XssFilter를 사용해 필터링을 하게 되면
+XssSaxFilter, XssFilter 중 어떤걸 사용해도 필터링이 적용된다.
+
+따라서 lucy-xss-filter 진영에서 권장하는 SAX Parser 방식인 XssSaxFilter 를 사용하는 것이 좋다.
 ```
