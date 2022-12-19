@@ -84,6 +84,22 @@
                 BOARD.data.board.contents = $('textarea[name="contents"]', $registerForm).val();
                 BOARD.jsonSubmit();
             });
+
+            $('.board-register-form-data-lucy-servlet-filter').on('click', function () {
+                var $registerForm = $('#register-form');
+                BOARD.data.url = '/lucy-xss-servlet-filter/api/board/form-data'
+                BOARD.data.board.title = $('input[name="title"]', $registerForm).val();
+                BOARD.data.board.contents = $('textarea[name="contents"]', $registerForm).val();
+                BOARD.formDataSubmit();
+            });
+
+            $('.board-register-json-lucy-servlet-filter').on('click', function () {
+                var $registerForm = $('#register-form');
+                BOARD.data.url = '/lucy-xss-servlet-filter/api/board/json'
+                BOARD.data.board.title = $('input[name="title"]', $registerForm).val();
+                BOARD.data.board.contents = $('textarea[name="contents"]', $registerForm).val();
+                BOARD.jsonSubmit();
+            });
         });
     </script>
 </head>
@@ -104,5 +120,7 @@
 </form>
 <button type="button" class="board-register-form-data">FormData 등록</button>
 <button type="button" class="board-register-json">Json 등록</button>
+<button type="button" class="board-register-form-data-lucy-servlet-filter">lucy xss filter FormData 등록</button>
+<button type="button" class="board-register-json-lucy-servlet-filter">lucy xss filter Json 등록</button>
 </body>
 </html>
