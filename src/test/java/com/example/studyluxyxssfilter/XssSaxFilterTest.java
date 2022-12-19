@@ -136,4 +136,21 @@ public class XssSaxFilterTest extends XssFilterTestCase {
         assertEquals(expected, clean);
     }
 
+    /**
+     * removeTag 속성 테스트
+     */
+    @Test
+    public void testElementRemoveSimple() {
+        XssSaxFilter filter = XssSaxFilter.getInstance("lucy-xss-sax-blog-removetag.xml");
+
+        String dirty = "<html><head></head><body><p>Hello</p></body>";
+        String expected = "<!-- Removed Tag Filtered (html) --><!-- Removed Tag Filtered (head) --><!-- Removed Tag Filtered (body) --><p>Hello</p>";
+        String clean = filter.doFilter(dirty);
+
+        System.out.println("expected : " + expected);
+        System.out.println("clean    : " + clean);
+        assertEquals(expected, clean);
+    }
+
+
 }
