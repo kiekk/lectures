@@ -32,4 +32,40 @@ public class XssFilterTest {
         assertEquals(expected, actual);
     }
 
+    @Test
+    public void notAllowAttributeTest() {
+        XssFilter filter = XssFilter.getInstance("lucy-xss-superset.xml");
+        String dirty = "<img src=\"1\" onerror=\"alert(1234);\" onload=\"alert('XSS');\" onkeyup=\"alert('XSS');\" onmouseover=\"alert('XSS');\">";
+        String expected = "<!-- Not Allowed Attribute Filtered ( onerror=\"alert(1234);\" onload=\"alert('XSS');\" onkeyup=\"alert('XSS');\" onmouseover=\"alert('XSS');\") --><img src=\"1\">";
+        String actual = filter.doFilter(dirty);
+
+        System.out.println("dirty : " + dirty);
+        System.out.println("actual : " + actual);
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void notAllowAttributeTest2() {
+        XssFilter filter = XssFilter.getInstance("lucy-xss-superset.xml");
+        String dirty = "<p src=\"1\" onerror=\"alert(1234);\" onload=\"alert('XSS');\" onkeyup=\"alert('XSS');\" onmouseover=\"alert('XSS');\"></p>";
+        String expected = "<!-- Not Allowed Attribute Filtered ( src=\"1\" onerror=\"alert(1234);\" onload=\"alert('XSS');\" onkeyup=\"alert('XSS');\" onmouseover=\"alert('XSS');\") --><p></p>";
+        String actual = filter.doFilter(dirty);
+
+        System.out.println("dirty : " + dirty);
+        System.out.println("actual : " + actual);
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void notAllowAttributeTest3() {
+        XssFilter filter = XssFilter.getInstance("lucy-xss-superset.xml");
+        String dirty = "<img src=\"javascript:alert(1234);\" onerror=\"alert(1234);\" onload=\"alert('XSS');\" onkeyup=\"alert('XSS');\" onmouseover=\"alert('XSS');\">";
+        String expected = "<!-- Not Allowed Attribute Filtered ( src=\"javascript:alert(1234);\" onerror=\"alert(1234);\" onload=\"alert('XSS');\" onkeyup=\"alert('XSS');\" onmouseover=\"alert('XSS');\") --><img>";
+        String actual = filter.doFilter(dirty);
+
+        System.out.println("dirty : " + dirty);
+        System.out.println("actual : " + actual);
+        assertEquals(expected, actual);
+    }
+
 }
