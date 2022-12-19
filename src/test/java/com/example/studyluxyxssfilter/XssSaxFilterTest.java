@@ -248,5 +248,17 @@ public class XssSaxFilterTest extends XssFilterTestCase {
         assertEquals(expected, clean);
     }
 
+    /**
+     * STYLE 속성에서 javascript 패턴 존재하는지 테스트
+     */
+    @Test
+    public void styleAttackTest() {
+        XssSaxFilter filter = XssSaxFilter.getInstance("lucy-xss-superset-sax.xml");
+        String dirty = "<DIV STYLE=\"background-image: url(javascript:alert('XSS'))\">";
+        String expected = "<!-- Not Allowed Attribute Filtered ( STYLE=\"background-image: url(javascript:alert('XSS'))\") --><DIV>";
+        String clean = filter.doFilter(dirty);
+        assertEquals(expected, clean);
+    }
+
 
 }
