@@ -120,4 +120,20 @@ public class XssSaxFilterTest extends XssFilterTestCase {
         assertEquals(expected, clean);
     }
 
+    /**
+     * disable 속성 테스트
+     */
+    @Test
+    public void testElementDisabledSimple() {
+        XssSaxFilter filter = XssSaxFilter.getInstance("lucy-xss-sax.xml");
+
+        String dirty = "<html><head></head><body><p>Hello</p></body>";
+        String expected = "<!-- Not Allowed Tag Filtered -->&lt;html&gt;<head></head><!-- Not Allowed Tag Filtered -->&lt;body&gt;<p>Hello</p>&lt;/body&gt;";
+        String clean = filter.doFilter(dirty);
+
+        System.out.println("expected : " + expected);
+        System.out.println("clean    : " + clean);
+        assertEquals(expected, clean);
+    }
+
 }
