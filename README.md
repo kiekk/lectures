@@ -72,3 +72,10 @@ XssSaxFilter, XssFilter 중 어떤걸 사용해도 필터링이 적용된다.
 
 따라서 lucy-xss-filter 진영에서 권장하는 SAX Parser 방식인 XssSaxFilter 를 사용하는 것이 좋다.
 ```
+
+```
+lucy-xss-servlet-filter 적용시 form-data 방식만 필터링이 된다.
+json 데이터는 적용 X
+
+```
+![img.png](img.png)
