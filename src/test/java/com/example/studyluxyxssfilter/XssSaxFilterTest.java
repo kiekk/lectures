@@ -236,4 +236,17 @@ public class XssSaxFilterTest extends XssFilterTestCase {
         assertEquals(expected, clean);
     }
 
+    /**
+     * Link 태그가 escape 되는지 테스트
+     */
+    @Test
+    public void linkAttackTest() {
+        XssSaxFilter filter = XssSaxFilter.getInstance("lucy-xss-superset-sax.xml");
+        String dirty = "<LINK REL=\"stylesheet\" HREF=\"javascript:alert('XSS');\">";
+        String expected = "<!-- Not Allowed Tag Filtered -->&lt;LINK REL=\"stylesheet\" HREF=\"javascript:alert('XSS');\"&gt;";
+        String clean = filter.doFilter(dirty);
+        assertEquals(expected, clean);
+    }
+
+
 }
