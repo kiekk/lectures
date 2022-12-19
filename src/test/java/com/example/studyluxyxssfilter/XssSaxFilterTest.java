@@ -192,4 +192,37 @@ public class XssSaxFilterTest extends XssFilterTestCase {
         assertEquals(expected, clean);
     }
 
+    /**
+     * 모든 태그에서 class 속성을 허용하지 않고, table 태그에서만 class 속성을 허용
+     */
+    @Test
+    public void disableClassAttrExceptTable() {
+        XssSaxFilter filter = XssSaxFilter.getInstance("lucy-xss-sax-simple.xml");
+        // exceptionTagList 에 포함 된 element 는 attribute 의 disable 속성에 영향을 안 받도록 예외처리가 잘 되는지 확인.
+        String dirty = "<table class='test'></table>";
+        String expected = "<table class='test'></table>";
+        String clean = filter.doFilter(dirty);
+        assertEquals(expected, clean);
+
+        // exceptionTagList 에 없는 태그들은 attribute 의 disable 속성이 true 되어 있으면 필터링 되는지 확인.
+        dirty = "<div class='test'></div>";
+        expected = "<!-- Not Allowed Attribute Filtered ( class='test') --><div></div>";
+        clean = filter.doFilter(dirty);
+        assertEquals(expected, clean);
+
+        // exceptionTagList로 예외처리가 되어있고, element 의 속성요소로 설정이 안되어 있어도 자식 속성을 체크하지 않는 SAX 스펙상 통과
+        dirty = "<span class='test'></span>";
+        expected = "<span class='test'></span>";
+        clean = filter.doFilter(dirty);
+        assertEquals(expected, clean);
+
+        // exceptionTagList로 예외처리가 되었어도, value 가 문제 있을 경우 disable 되는지 확인
+        dirty = "<table class='script'></table>";
+        expected = "<!-- Not Allowed Attribute Filtered ( class='script') --><table></table>";
+        clean = filter.doFilter(dirty);
+        assertEquals(expected, clean);
+
+    }
+
+
 }
