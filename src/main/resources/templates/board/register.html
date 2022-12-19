@@ -5,9 +5,63 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script type="text/javascript" src="/js/jquery-1.12.4.min.js"></script>
     <title>Document</title>
+    <script>
+        var BOARD = {
+            data: {
+                url: null,
+                board: {
+                    title: null,
+                    content: null
+                }
+            },
+            formDataSubmit() {
+                var app = this;
+                $.ajax({
+                    url: app.data.url,
+                    type: 'POST',
+                    data: app.data.board,
+                    success() {
+                        alert('등록 성공');
+                        location.href = '/board/list';
+                    },
+                    error(e) {
+                        console.error(e);
+                        alert('등록 실패');
+                        location.reload();
+                    }
+                });
+            }
+        }
+
+
+        $(function () {
+            $('.board-register-form-data').on('click', function () {
+                var $registerForm = $('#register-form');
+                BOARD.data.url = '/api/board/form-data'
+                BOARD.data.board.title = $('input[name="title"]', $registerForm).val();
+                BOARD.data.board.contents = $('textarea[name="contents"]', $registerForm).val();
+                BOARD.formDataSubmit();
+            });
+        });
+    </script>
 </head>
 <body>
-board register
+<form id="register-form">
+    <table>
+        <tbody>
+        <tr>
+            <td>title</td>
+            <td><input type="text" name="title"></td>
+        </tr>
+        <tr>
+            <td>contents</td>
+            <td><textarea name="contents" rows="10" cols="50"></textarea></td>
+        </tr>
+        </tbody>
+    </table>
+</form>
+<button type="button" class="board-register-form-data">FormData 등록</button>
 </body>
 </html>
