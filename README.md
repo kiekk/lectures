@@ -61,4 +61,7 @@ xml 만으로 XSS 설정이 가능하다.
 ```
 lucy-xss-superset-sax.xml 의 경우 특별한 설정이 없을 경우 
 lucy-xss-filter 에서 제공하는 기본 설정 내용을 적용한다.
+
+XssSasFilter : SAX Parser => lucy-xss-superset-sax.xml & lucy-xss-sax.xml
+XssFilter : DOM Parser => lucy-xss-superset.xml & lucy-xss.xml 
 ```
