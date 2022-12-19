@@ -22,6 +22,7 @@ public class XssSaxFilterTest extends XssFilterTestCase {
 
     /**
      * 표준 HTML 페이지를 통과 시키는지 검사한다.(필터링 전후가 동일하면 정상)
+     *
      * @throws Exception
      */
     @Test
@@ -36,6 +37,7 @@ public class XssSaxFilterTest extends XssFilterTestCase {
 
     /**
      * 비표준 HTML 페이지를 통과 시키는지 검사한다.(필터링 전후가 동일하면 정상)
+     *
      * @throws Exception
      */
     @Test
@@ -50,6 +52,7 @@ public class XssSaxFilterTest extends XssFilterTestCase {
 
     /**
      * JavaScript와 같은 공격적인 코드를 필터링 하는지 검사한다.(필터링 전후가 틀려야 정상)
+     *
      * @throws Exception
      */
     @Test
@@ -64,6 +67,7 @@ public class XssSaxFilterTest extends XssFilterTestCase {
 
     /**
      * 허용되지 않은 element, attribute 를 필터링 하는지 검사한다. (필터링 전후가 틀려야 정상)
+     *
      * @throws Exception
      */
     @Test
@@ -77,6 +81,42 @@ public class XssSaxFilterTest extends XssFilterTestCase {
         dirty = readString(INVALID_HTML_FILE2);
         clean = filter.doFilter(dirty);
         expected = "<a href=\"naver.com\" name=\"rich\">참고</a>하세요.";
+        assertEquals(expected, clean);
+    }
+
+    /**
+     * White Url을 포함하지 않은 Embed 태그에 대한 보안 필터링 하는지 검사한다.
+     *
+     * @throws Exception
+     */
+    @Test
+    public void testEmbedListener() throws Exception {
+        XssSaxFilter filter = XssSaxFilter.getInstance("lucy-xss-sax-cafe-child.xml");
+
+        String dirty = "<EMBED src=\"http://medlabum.com/cafe/0225/harisu.wmv\" width=\"425\" height=\"344\">";
+        String expected = "<EMBED src=\"http://medlabum.com/cafe/0225/harisu.wmv\" width=\"425\" height=\"344\" type=\"video/x-ms-wmv\" invokeURLs=\"false\" autostart=\"false\" allowScriptAccess=\"never\" allowNetworking=\"internal\">";
+        String clean = filter.doFilter(dirty);
+
+        System.out.println("expected : " + expected);
+        System.out.println("clean    : " + clean);
+        assertEquals(expected, clean);
+    }
+
+    /**
+     * White Url을 포함한 Embed 태그에 대한 보안 필터링 하는지 검사한다.
+     *
+     * @throws Exception
+     */
+    @Test
+    public void testEmbedListenerWithWhiteUrl() throws Exception {
+        XssSaxFilter filter = XssSaxFilter.getInstance("lucy-xss-sax-cafe-child.xml");
+
+        String dirty = "<EMBED src=\"http://play.tagstory.com/player/harisu.wmv\" width=\"425\" height=\"344\">";
+        String expected = "<EMBED src=\"http://play.tagstory.com/player/harisu.wmv\" width=\"425\" height=\"344\" invokeURLs=\"false\" autostart=\"false\" allowScriptAccess=\"never\" allowNetworking=\"all\">";
+        String clean = filter.doFilter(dirty);
+
+        System.out.println("expected : " + expected);
+        System.out.println("clean    : " + clean);
         assertEquals(expected, clean);
     }
 
