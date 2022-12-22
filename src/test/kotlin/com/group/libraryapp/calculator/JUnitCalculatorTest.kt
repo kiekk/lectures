@@ -1,16 +1,23 @@
 package com.group.libraryapp.calculator
 
 import org.assertj.core.api.AssertionsForInterfaceTypes.assertThat
+import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 
 class JUnitCalculatorTest {
 
+
+    private lateinit var calculator: Calculator
+
+    @BeforeEach
+    fun beforeEach() {
+        // given
+       calculator = Calculator(5)
+    }
+
     @Test
     fun addTest() {
-        // given
-        val calculator = Calculator(5)
-
         // when
         calculator.add(3)
 
@@ -20,9 +27,6 @@ class JUnitCalculatorTest {
 
     @Test
     fun minusTest() {
-        // given
-        val calculator = Calculator(5)
-
         // when
         calculator.minus(2)
 
@@ -32,9 +36,6 @@ class JUnitCalculatorTest {
 
     @Test
     fun multiplyTest() {
-        // given
-        val calculator = Calculator(5)
-
         // when
         calculator.multiply(3)
 
@@ -44,9 +45,6 @@ class JUnitCalculatorTest {
 
     @Test
     fun divideTestGivenZero() {
-        // given
-        val calculator = Calculator(5)
-
         // when
         // then
         val message = assertThrows<IllegalArgumentException> { calculator.divide(0) }.message
@@ -57,14 +55,11 @@ class JUnitCalculatorTest {
 
     @Test
     fun divideTestGivenNotZero() {
-        // given
-        val calculator = Calculator(10)
-
         // when
         calculator.divide(2)
 
         // then
-        assertThat(calculator.number).isEqualTo(5)
+        assertThat(calculator.number).isEqualTo(2)
     }
 
 }
