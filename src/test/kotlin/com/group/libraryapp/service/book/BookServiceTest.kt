@@ -4,6 +4,7 @@ import com.group.libraryapp.domain.book.Book
 import com.group.libraryapp.domain.book.BookRepository
 import com.group.libraryapp.domain.user.User
 import com.group.libraryapp.domain.user.UserRepository
+import com.group.libraryapp.domain.user.loanhistory.UserLoanHistory
 import com.group.libraryapp.domain.user.loanhistory.UserLoanHistoryRepository
 import com.group.libraryapp.dto.book.request.BookLoanRequest
 import com.group.libraryapp.dto.book.request.BookRequest
@@ -11,8 +12,10 @@ import org.assertj.core.api.AssertionsForInterfaceTypes.assertThat
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.assertThrows
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
+import java.lang.IllegalArgumentException
 
 @SpringBootTest
 class BookServiceTest @Autowired constructor(
@@ -60,5 +63,22 @@ class BookServiceTest @Autowired constructor(
         assertThat(results.first().bookName).isEqualTo("운영체제")
         assertThat(results.first().user.id).isEqualTo(savedUser.id)
         assertThat(results.first().isReturn).isFalse
+    }
+
+    @Test
+    @DisplayName("책이 이미 대출되어 있다면, 신규 대출이 실패한다.")
+    fun loanBookTestFail() {
+        // given
+        bookRepository.save(Book("운영체제"))
+        val savedUser = userRepository.save(User("soono", null))
+        userLoanHistoryRepository.save(UserLoanHistory(savedUser, "운영체제", false))
+        val request = BookLoanRequest("soono", "운영체제")
+
+        // when & then
+        assertThrows<IllegalArgumentException> {
+            bookService.loanBook(request)
+        }.apply {
+            assertThat(message).isEqualTo("진작 대출되어 있는 책입니다")
+        }
     }
 }
