@@ -13,7 +13,7 @@ class JUnitCalculatorTest {
     @BeforeEach
     fun beforeEach() {
         // given
-       calculator = Calculator(5)
+        calculator = Calculator(5)
     }
 
     @Test
@@ -47,10 +47,11 @@ class JUnitCalculatorTest {
     fun divideTestGivenZero() {
         // when
         // then
-        val message = assertThrows<IllegalArgumentException> { calculator.divide(0) }.message
-
-        assertThat(message).isEqualTo("0으로 나눌 수 없습니다.")
-
+        assertThrows<IllegalArgumentException> {
+            calculator.divide(0)
+        }.apply {
+            assertThat(message).isEqualTo("0으로 나눌 수 없습니다.")
+        }
     }
 
     @Test
