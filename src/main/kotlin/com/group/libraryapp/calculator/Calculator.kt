@@ -1,6 +1,6 @@
 package com.group.libraryapp.calculator
 
-class Calculator(
+data class Calculator(
     private var number: Int
 ) {
 
