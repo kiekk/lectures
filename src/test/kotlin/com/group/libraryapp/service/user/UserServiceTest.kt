@@ -4,6 +4,7 @@ import com.group.libraryapp.domain.user.User
 import com.group.libraryapp.domain.user.UserRepository
 import com.group.libraryapp.dto.user.request.UserCreateRequest
 import org.assertj.core.api.AssertionsForInterfaceTypes.assertThat
+import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
@@ -14,12 +15,12 @@ class UserServiceTest @Autowired constructor(
     private val userService: UserService
 ) {
 
-    /*
-    현재 getUsersTest 는 실패한다.
-    saveUserTest 에서 이미 User 하나를 추가했기 때문에
-    getUsersTest 에서 추가한 2명이 아닌 총 3명이 조회되어 테스트 실패
-    각 테스트별로 테스트 종료 후 데이터를 초기화 해줄 필요가 있다.
-     */
+    // 각 테스트가 종료할 때마다 데이터를 초기화 해준다.
+    @AfterEach
+    fun clean() {
+        userRepository.deleteAll()
+    }
+
     @Test
     fun saveUserTest() {
         // given
