@@ -9,6 +9,7 @@ import com.group.libraryapp.domain.user.loanhistory.UserLoanHistoryRepository
 import com.group.libraryapp.dto.book.request.BookLoanRequest
 import com.group.libraryapp.dto.book.request.BookRequest
 import com.group.libraryapp.dto.book.request.BookReturnRequest
+import com.group.libraryapp.dto.book.response.BookStatResponse
 import com.group.libraryapp.enums.book.BookType
 import com.group.libraryapp.enums.user.UserLoanStatus.*
 import org.assertj.core.api.AssertionsForInterfaceTypes.assertThat
@@ -140,10 +141,11 @@ class BookServiceTest @Autowired constructor(
 
         // then
         assertThat(results).hasSize(2)
-        val computerDto = results.first { result -> result.type == BookType.COMPUTER }
-        assertThat(computerDto.count).isEqualTo(2)
+        assertCount(results, BookType.COMPUTER, 2)
+        assertCount(results, BookType.SCIENCE, 1)
+    }
 
-        val scienceDto = results.first { result -> result.type == BookType.SCIENCE }
-        assertThat(scienceDto.count).isEqualTo(1)
+    private fun assertCount(results: List<BookStatResponse>, type: BookType, count: Int) {
+        assertThat(results.first { result -> result.type == type }.count).isEqualTo(count)
     }
 }
