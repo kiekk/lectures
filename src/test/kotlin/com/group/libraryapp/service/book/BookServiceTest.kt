@@ -16,7 +16,6 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
-import java.lang.IllegalArgumentException
 
 @SpringBootTest
 class BookServiceTest @Autowired constructor(
@@ -79,7 +78,7 @@ class BookServiceTest @Autowired constructor(
         assertThrows<IllegalArgumentException> {
             bookService.loanBook(request)
         }.apply {
-            assertThat(message).isEqualTo("진작 대출되어 있는 책입니다")
+            assertThat(message).isEqualTo("진작 대출되어 있는 책입니다.")
         }
     }
 
