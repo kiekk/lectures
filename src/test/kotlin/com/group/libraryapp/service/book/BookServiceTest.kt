@@ -9,6 +9,7 @@ import com.group.libraryapp.domain.user.loanhistory.UserLoanHistoryRepository
 import com.group.libraryapp.dto.book.request.BookLoanRequest
 import com.group.libraryapp.dto.book.request.BookRequest
 import com.group.libraryapp.dto.book.request.BookReturnRequest
+import com.group.libraryapp.dto.book.response.BookStatResponse
 import com.group.libraryapp.enums.book.BookType
 import com.group.libraryapp.enums.user.UserLoanStatus.*
 import org.assertj.core.api.AssertionsForInterfaceTypes.assertThat
@@ -101,5 +102,50 @@ class BookServiceTest @Autowired constructor(
         val results = userLoanHistoryRepository.findAll()
         assertThat(results).hasSize(1)
         assertThat(results.first().status).isEqualTo(RETURNED)
+    }
+
+    @Test
+    @DisplayName("책 대여 권수를 정상 확인한다.")
+    fun countLoanedBookTest() {
+        // given
+        val savedUser = userRepository.save(User("soono", null))
+        userLoanHistoryRepository.saveAll(
+            listOf(
+                UserLoanHistory.fixture(savedUser, "A"),
+                UserLoanHistory.fixture(savedUser, "B", RETURNED),
+                UserLoanHistory.fixture(savedUser, "C", RETURNED),
+            )
+        )
+
+        // when
+        val result = bookService.countLoanedBook()
+
+        // then
+        assertThat(result).isEqualTo(1)
+    }
+
+    @Test
+    @DisplayName("분야별 책 권수를 정상 확인한다.")
+    fun getBookStatistics() {
+        // given
+        bookRepository.saveAll(
+            listOf(
+                Book.fixture("A", BookType.COMPUTER),
+                Book.fixture("B", BookType.COMPUTER),
+                Book.fixture("C", BookType.SCIENCE),
+            )
+        )
+
+        // when
+        val results = bookService.getBookStatistics()
+
+        // then
+        assertThat(results).hasSize(2)
+        assertCount(results, BookType.COMPUTER, 2L)
+        assertCount(results, BookType.SCIENCE, 1L)
+    }
+
+    private fun assertCount(results: List<BookStatResponse>, type: BookType, count: Long) {
+        assertThat(results.first { result -> result.type == type }.count).isEqualTo(count)
     }
 }
