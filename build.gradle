@@ -20,6 +20,8 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk8'
     implementation 'org.jetbrains.kotlin:kotlin-reflect:1.6.21'
+    // json 데이터를 kotlin 으로 파싱하기 위해 의존성 필요
+    implementation 'com.fasterxml.jackson.module:jackson-module-kotlin:2.13.3'
     runtimeOnly 'com.h2database:h2'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
