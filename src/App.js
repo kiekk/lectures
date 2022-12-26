@@ -32,6 +32,7 @@ const reducer = (state, action) => {
 }
 
 export const DiaryStateContext = React.createContext()
+export const DiaryDispatchContext = React.createContext()
 
 function App() {
     const [data, dispatch] = useReducer(reducer, [])
@@ -40,12 +41,8 @@ function App() {
     // Create
     const onCreate = (date, content, emotion) => {
         dispatch({
-            type: 'CREATE',
-            data: {
-                id: dataId.current,
-                date: new Date(date).getTime(),
-                content,
-                emotion
+            type: 'CREATE', data: {
+                id: dataId.current, date: new Date(date).getTime(), content, emotion
             }
         })
         dataId.current += 1
@@ -54,38 +51,35 @@ function App() {
     // Remove
     const onRemove = (targetId) => {
         dispatch({
-            type: 'REMOVE',
-            targetId
+            type: 'REMOVE', targetId
         })
     }
 
     // Edit
     const onEdit = (targetId, date, content, emotion) => {
         dispatch({
-            type: 'EDIT',
-            data: {
-                id: targetId,
-                date: new Date(date).getTime(),
-                content,
-                emotion
+            type: 'EDIT', data: {
+                id: targetId, date: new Date(date).getTime(), content, emotion
             }
         })
     }
 
-    return (
-        <DiaryStateContext.Provider value={data}>
-            <BrowserRouter>
-                <div className="App">
-                    <Routes>
-                        <Route path='/' element={<Home/>}></Route>
-                        <Route path='/edit' element={<Edit/>}></Route>
-                        <Route path='/new' element={<New/>}></Route>
-                        <Route path='/diary' element={<Diary/>}></Route>
-                    </Routes>
-                </div>
-            </BrowserRouter>
-        </DiaryStateContext.Provider>
-    );
+    return (<DiaryStateContext.Provider value={data}>
+            <DiaryDispatchContext.Provider value={{
+                onCreate, onRemove, onEdit
+            }}>
+                <BrowserRouter>
+                    <div className="App">
+                        <Routes>
+                            <Route path='/' element={<Home/>}></Route>
+                            <Route path='/edit' element={<Edit/>}></Route>
+                            <Route path='/new' element={<New/>}></Route>
+                            <Route path='/diary' element={<Diary/>}></Route>
+                        </Routes>
+                    </div>
+                </BrowserRouter>
+            </DiaryDispatchContext.Provider>
+        </DiaryStateContext.Provider>);
 }
 
 export default App;
