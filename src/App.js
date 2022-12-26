@@ -12,16 +12,17 @@ function App() {
         <BrowserRouter>
             <div className="App">
                 <h2>App.js</h2>
+
+
+                <Routes>
+                    <Route path='/' element={<Home/>}></Route>
+                    <Route path='/edit' element={<Edit/>}></Route>
+                    <Route path='/new' element={<New/>}></Route>
+                    <Route path='/diary' element={<Diary/>}></Route>
+                </Routes>
+
+                <RouterTest/>
             </div>
-
-            <Routes>
-                <Route path='/' element={<Home/>}></Route>
-                <Route path='/edit' element={<Edit/>}></Route>
-                <Route path='/new' element={<New/>}></Route>
-                <Route path='/diary' element={<Diary/>}></Route>
-            </Routes>
-
-            <RouterTest/>
         </BrowserRouter>
     );
 }
