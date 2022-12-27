@@ -1,6 +1,7 @@
 import {useState} from "react";
 import MyButton from "./MyButton";
 import {useNavigate} from "react-router-dom";
+import DiaryItem from "./DiaryItem";
 
 const filterOptionList = [
     {value: 'all', name: '전부 다'},
@@ -67,7 +68,7 @@ const DiaryList = ({diaryList}) => {
             </div>
         </div>
         {getProcessDiaryList().map((it) => (
-            <div key={it.id}>{it.content} {it.emotion}</div>
+            <DiaryItem key={it.id} {...it}/>
         ))}
     </div>
 }
