@@ -65,21 +65,21 @@ function App() {
     }
 
     return (<DiaryStateContext.Provider value={data}>
-            <DiaryDispatchContext.Provider value={{
-                onCreate, onRemove, onEdit
-            }}>
-                <BrowserRouter>
-                    <div className="App">
-                        <Routes>
-                            <Route path='/' element={<Home/>}></Route>
-                            <Route path='/edit' element={<Edit/>}></Route>
-                            <Route path='/new' element={<New/>}></Route>
-                            <Route path='/diary' element={<Diary/>}></Route>
-                        </Routes>
-                    </div>
-                </BrowserRouter>
-            </DiaryDispatchContext.Provider>
-        </DiaryStateContext.Provider>);
+        <DiaryDispatchContext.Provider value={{
+            onCreate, onRemove, onEdit
+        }}>
+            <BrowserRouter>
+                <div className="App">
+                    <Routes>
+                        <Route path='/' element={<Home/>}></Route>
+                        <Route path='/edit' element={<Edit/>}></Route>
+                        <Route path='/new' element={<New/>}></Route>
+                        <Route path='/diary' element={<Diary/>}></Route>
+                    </Routes>
+                </div>
+            </BrowserRouter>
+        </DiaryDispatchContext.Provider>
+    </DiaryStateContext.Provider>);
 }
 
 export default App;
