@@ -6,4 +6,8 @@
 Dan Vega Youtube : https://www.youtube.com/@DanVega/videos
 
 해당 영상 : https://www.youtube.com/watch?v=6kFzJZCW1Qw
+
+사용될 Back-End 소스 
+GitHub: https://github.com/kiekk/study-dan-vega-security
+Branch: security-authenticate-with-jwt
 ```
