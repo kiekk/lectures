@@ -68,7 +68,12 @@ const DiaryEditor = () => {
       <h4>오늘의 감정</h4>
       <div className='input_box emotion_list_wrapper'>
         {emotionList.map((it) => (
-          <EmotionItem key={it.emotion_id} {...it} onClick={handleClickEmote}/>
+          <EmotionItem
+            key={it.emotion_id}
+            {...it}
+            onClick={handleClickEmote}
+            isSelected={it.emotion_id === emotion}
+          />
         ))}
       </div>
     </section>
