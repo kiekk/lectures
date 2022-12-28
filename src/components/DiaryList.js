@@ -41,8 +41,8 @@ const DiaryList = ({diaryList}) => {
       }
     }
     const copyList = JSON.parse(JSON.stringify(diaryList))
-    const filterdList = filter === 'all' ? copyList : copyList.filter(filterCallBack)
-    return filterdList.sort(compare)
+    const filteredList = filter === 'all' ? copyList : copyList.filter(filterCallBack)
+    return filteredList.sort(compare)
   }
 
   return <div className='DiaryList'>
