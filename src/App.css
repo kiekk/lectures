@@ -258,9 +258,9 @@ header button {
 }
 
 .DiaryEditor .control_box {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 @media (min-width: 650px) {
