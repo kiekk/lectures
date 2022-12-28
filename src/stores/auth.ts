@@ -5,7 +5,7 @@ export const useAuthStore = defineStore({
   id: 'auth',
   state: () => {
     return {
-      user: '',
+      user: null,
       token: '',
       returnUrl: '/',
     }
