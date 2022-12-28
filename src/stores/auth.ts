@@ -26,6 +26,11 @@ export const useAuthStore = defineStore({
         this.token = token
         await router.push(this.returnUrl || '/')
       }
+    },
+    logout() {
+      this.user = null
+      this.token = ''
+      router.push('/login')
     }
   }
 })

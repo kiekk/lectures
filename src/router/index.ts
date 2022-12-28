@@ -25,7 +25,7 @@ router.beforeEach(async (to) => {
   const auth = useAuthStore()
 
   // if auth is required and the user is not logged in
-  if (authRequired && auth.user === '') {
+  if (authRequired && !auth.user) {
     return '/login'
   }
 })
