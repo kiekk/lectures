@@ -42,6 +42,11 @@ const getStringDate = (date) => {
 const DiaryEditor = () => {
   const navigate = useNavigate()
   const [date, setDate] = useState(getStringDate(new Date()))
+  const [emotion, setEmotion] = useState(3)
+
+  const handleClickEmote = (emotion) => {
+    setEmotion(emotion)
+  }
 
   return <div className='DiaryEditor'>
     <MyHeader
@@ -63,7 +68,7 @@ const DiaryEditor = () => {
       <h4>오늘의 감정</h4>
       <div className='input_box emotion_list_wrapper'>
         {emotionList.map((it) => (
-          <EmotionItem key={it.emotion_id} {...it}/>
+          <EmotionItem key={it.emotion_id} {...it} onClick={handleClickEmote}/>
         ))}
       </div>
     </section>
