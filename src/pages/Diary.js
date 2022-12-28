@@ -4,6 +4,7 @@ import {useContext, useEffect, useState} from "react";
 import MyHeader from "../components/MyHeader";
 import {getStringDate} from "../util/date";
 import MyButton from "../components/MyButton";
+import {emotionList} from "../util/emotion";
 
 const Diary = () => {
   const navigate = useNavigate()
@@ -27,6 +28,7 @@ const Diary = () => {
   if (!data) {
     return <div className='DiaryPage'>로딩중입니다...</div>
   } else {
+    const currentEmotionData = emotionList.find((it) => parseInt(it.emotion_id) === data.emotion)
     return (
       <div className='DiaryPage'>
         <MyHeader
@@ -34,6 +36,17 @@ const Diary = () => {
           leftChild={<MyButton text={'< 뒤로가기'} onClick={() => navigate(-1)}/>}
           rightChild={<MyButton text={'수정하기'} onClick={() => navigate(`/edit/${data.id}`)}/>}
         />
+        <article>
+          <section>
+            <h4>오늘의 감정</h4>
+            <div className={['diary_img_wrapper', `diary_img_wrapper_${data.emotion}`].join(' ')}>
+              <img src={currentEmotionData.emotion_img} alt=""/>
+              <div className='emotion_descript'>
+                {currentEmotionData.emotion_descript}
+              </div>
+            </div>
+          </section>
+        </article>
       </div>
     )
   }
