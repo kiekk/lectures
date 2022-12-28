@@ -2,6 +2,7 @@ import {useState} from "react";
 import MyHeader from "./MyHeader";
 import MyButton from "./MyButton";
 import {useNavigate} from "react-router-dom";
+import EmotionItem from "./EmotionItem";
 
 const env = process.env
 env.PUBLIC_URL = env.PUBLIC_URL || ''
@@ -56,6 +57,14 @@ const DiaryEditor = () => {
           value={date}
           onChange={(e) => setDate(e.target.value)}
         />
+      </div>
+    </section>
+    <section>
+      <h4>오늘의 감정</h4>
+      <div className='input_box emotion_list_wrapper'>
+        {emotionList.map((it) => (
+          <EmotionItem key={it.emotion_id} {...it}/>
+        ))}
       </div>
     </section>
   </div>
