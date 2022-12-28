@@ -4,6 +4,7 @@ import MyButton from "./MyButton";
 import {useNavigate} from "react-router-dom";
 import EmotionItem from "./EmotionItem";
 import {DiaryDispatchContext} from "../App";
+import {getStringDate} from "../util/date";
 
 const env = process.env
 env.PUBLIC_URL = env.PUBLIC_URL || ''
@@ -35,10 +36,6 @@ const emotionList = [
     emotion_descript: '끔찍함',
   },
 ]
-
-const getStringDate = (date) => {
-  return date.toISOString().slice(0, 10)
-}
 
 const DiaryEditor = ({isEdit, originData}) => {
   const navigate = useNavigate()
