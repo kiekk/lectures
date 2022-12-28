@@ -11,15 +11,16 @@ const Edit = () => {
 
   useEffect(() => {
     if (diaryList.length >= 1) {
-      const targetDiary = diaryList.find((it) => it.id === parseInt(id))
+      const targetDiary = diaryList.find((it) => parseInt(it.id) === parseInt(id))
 
       if (targetDiary) {
         setOriginData(targetDiary)
       } else {
+        alert('없는 일기입니다.')
         navigate('/', {replace: true})
       }
     }
-  }, [id, diaryList])
+  }, [id, diaryList, navigate])
 
   return (
     <div>
