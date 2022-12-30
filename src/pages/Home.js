@@ -19,7 +19,7 @@ const Home = () => {
   }
 
   useEffect(() => {
-    if (diaryList.length <= 0) {
+    if (!diaryList) {
       return
     }
     const firstDay = new Date(
