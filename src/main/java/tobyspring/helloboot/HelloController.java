@@ -1,17 +1,24 @@
 package tobyspring.helloboot;
 
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
 import java.util.Objects;
 
+@Controller
+@RequestMapping("/hello")
 public class HelloController {
-    // interface 의 구현체가 여러 개일 경우
-    // 1. 주입 받을 bean 파라미터명을 bean name 과 동일하게 작성한다.
-    // 2. 등록 된 bean 중에서 Primary bean 을 설정
+
     private final HelloService helloService;
 
     public HelloController(HelloService helloService) {
         this.helloService = helloService;
     }
 
+    @GetMapping
+    @ResponseBody
     public String hello(String name) {
         return helloService.sayHello(Objects.requireNonNull(name));
     }
