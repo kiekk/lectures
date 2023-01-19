@@ -13,13 +13,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 
 public class InflearnTobySpringBootApplication {
 
     public static void main(String[] args) {
         GenericApplicationContext applicationContext = new GenericApplicationContext();
         applicationContext.registerBean(HelloController.class);
-        applicationContext.registerBean(SimpleHelloService.class);
+        applicationContext.registerBean(EmojiHelloService.class);
         applicationContext.refresh();
 
         // ServletWebServerFactory, WebServer 추상화 객체
