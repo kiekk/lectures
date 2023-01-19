@@ -20,7 +20,8 @@ public class InflearnTobySpringBootApplication {
     public static void main(String[] args) {
         GenericApplicationContext applicationContext = new GenericApplicationContext();
         applicationContext.registerBean(HelloController.class);
-        applicationContext.registerBean(EmojiHelloService.class);
+        applicationContext.registerBean("simpleHelloService", SimpleHelloService.class);
+        applicationContext.registerBean("emojiHelloService", EmojiHelloService.class);
         applicationContext.refresh();
 
         // ServletWebServerFactory, WebServer 추상화 객체
