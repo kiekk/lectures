@@ -35,6 +35,7 @@ public class InflearnTobySpringBootApplication {
                         HelloController helloController = applicationContext.getBean(HelloController.class);
                         String ret = helloController.hello(name);
 
+                        resp.setCharacterEncoding(StandardCharsets.UTF_8.name());
                         resp.setContentType(MediaType.TEXT_PLAIN_VALUE);
                         resp.getWriter().println(ret);
                     } else if (req.getRequestURI().equals("/user")) {
