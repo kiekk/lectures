@@ -9,21 +9,22 @@ import org.springframework.web.servlet.DispatcherServlet;
 public class InflearnTobySpringBootApplication {
 
     public static void main(String[] args) {
-        GenericWebApplicationContext applicationContext = new GenericWebApplicationContext();
+        GenericWebApplicationContext applicationContext = new GenericWebApplicationContext() {
+            @Override
+            protected void onRefresh() {
+                super.onRefresh();
+
+                ServletWebServerFactory serverFactory = new TomcatServletWebServerFactory();
+                WebServer webServer = serverFactory.getWebServer(servletContext -> servletContext.addServlet("dispatcherServlet",
+                                new DispatcherServlet(this))
+                        .addMapping("/*"));
+                webServer.start();
+            }
+        };
         applicationContext.registerBean(HelloController.class);
         applicationContext.registerBean("simpleHelloService", SimpleHelloService.class);
         applicationContext.registerBean("emojiHelloService", EmojiHelloService.class, (bd -> bd.setPrimary(true)));
         applicationContext.refresh();
-
-        // ServletWebServerFactory, WebServer 추상화 객체
-        ServletWebServerFactory tomcatServletWebServerFactory = new TomcatServletWebServerFactory();
-        WebServer webServer = tomcatServletWebServerFactory.getWebServer(servletContext -> {
-            servletContext.addServlet("dispatcherServlet",
-                    new DispatcherServlet(applicationContext)
-            ).addMapping("/*");
-        });
-
-        webServer.start(); // Tomcat Servlet Container 동작
     }
 
 }
