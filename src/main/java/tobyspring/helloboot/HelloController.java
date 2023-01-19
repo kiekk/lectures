@@ -1,5 +1,6 @@
 package tobyspring.helloboot;
 
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,7 +18,7 @@ public class HelloController {
         this.helloService = helloService;
     }
 
-    @GetMapping
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public String hello(String name) {
         return helloService.sayHello(Objects.requireNonNull(name));
