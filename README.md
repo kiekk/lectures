@@ -22,3 +22,27 @@
 8. 외부 설정을 이용한 자동 구성
 9. Spring JDBC 자동 구성 개발
 10. 스프링 부트 자세히 살펴보기
+
+
+### 이슈
+```
+독립 실행형 스프링 애플리케이션 - 애노테이션 매핑 정보 사용
+
+HelloController에 @RequestMapping, @GetMapping, @ResponseBody 애노테이션을 추가하여도,
+/hello에 대한 경로를 인식하지 못함.
+
+원인: Spring 6 부터는 Type Level, 즉 Class에 @RequestMapping 애노테이션을 인식하지 않는다고 합니다.
+
+해결: 
+1. Type Level 에 @Controller, @RestController 애노테이션을 추가
+2. 클래스 기반 프록시 (CGLib) 활성화
+```
+
+![img_1.png](img_1.png)
+<img src="img_2.png" alt="drawing" width="500"/>
+
+### Spring 6 이전
+![img_3.png](img_3.png)
+
+### Spring 6 이후
+![img_4.png](img_4.png)
