@@ -1,8 +1,6 @@
 package tobyspring.helloboot;
 
-import org.springframework.stereotype.Component;
-
-@Component
+@MyComponent
 public class EmojiHelloService implements HelloService {
     @Override
     public String sayHello(String name) {
