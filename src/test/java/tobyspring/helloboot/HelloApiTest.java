@@ -22,6 +22,6 @@ public class HelloApiTest {
         // header(Content-type) text/plain
         Assertions.assertThat(response.getHeaders().getFirst(HttpHeaders.CONTENT_TYPE)).isEqualTo(MediaType.APPLICATION_JSON_VALUE);
         // body Hello, Spring 😜
-        Assertions.assertThat(response.getBody()).isEqualTo("Hello, Spring \uD83D\uDE1C");
+        Assertions.assertThat(response.getBody()).isEqualTo("**Hello, Spring \uD83D\uDE1C**");
     }
 }

@@ -14,8 +14,8 @@ public class HelloController {
 
     private final HelloService helloService;
 
-    public HelloController(HelloService emojiHelloService) {
-        this.helloService = emojiHelloService;
+    public HelloController(HelloService helloService) {
+        this.helloService = helloService;
     }
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)

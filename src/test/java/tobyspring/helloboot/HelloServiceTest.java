@@ -21,4 +21,13 @@ public class HelloServiceTest {
 
         Assertions.assertThat(result).isEqualTo("Hello Spring");
     }
+
+    @Test
+    void helloDecorator() {
+        HelloDecorator decorator = new HelloDecorator(name -> name);
+
+        String result = decorator.sayHello("Test");
+
+        Assertions.assertThat(result).isEqualTo("**Test**");
+    }
 }
