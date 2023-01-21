@@ -33,18 +33,20 @@ public class ConditionalTest {
 
     @Retention(RetentionPolicy.RUNTIME)
     @Target(ElementType.TYPE)
-    @Conditional(TrueCondition.class)
-    @interface TrueConditional {
+    @Conditional(BooleanCondition.class)
+    @interface BooleanConditional {
+        boolean value();
     }
 
-    @Retention(RetentionPolicy.RUNTIME)
-    @Target(ElementType.TYPE)
-    @Conditional(FalseCondition.class)
-    @interface FalseConditional {
+    static class BooleanCondition implements Condition {
+        @Override
+        public boolean matches(ConditionContext context, AnnotatedTypeMetadata metadata) {
+            return (Boolean) metadata.getAnnotationAttributes(BooleanConditional.class.getName()).get("value");
+        }
     }
 
     @Configuration
-    @TrueConditional
+    @BooleanConditional(true)
     static class Config1 {
         @Bean
         MyBean myBean() {
@@ -53,7 +55,7 @@ public class ConditionalTest {
     }
 
     @Configuration
-    @FalseConditional
+    @BooleanConditional(false)
     static class Config2 {
         @Bean
         MyBean myBean() {
