@@ -15,8 +15,15 @@ repositories {
 ext['jakarta-servlet.version'] = '5.0.0'
 
 dependencies {
-    implementation 'org.springframework.boot:spring-boot-starter-web'
+    // Tomcat 제외, Jetty 라이브러리 추가
+    implementation('org.springframework.boot:spring-boot-starter-web') {
+        exclude group: 'org.springframework.boot', module: 'spring-boot-starter-tomcat'
+    }
     implementation 'org.springframework.boot:spring-boot-starter-jetty'
+
+    // Tomcat 추가, Jetty 라이브러리 제외
+//    implementation 'org.springframework.boot:spring-boot-starter-web'
+////    implementation 'org.springframework.boot:spring-boot-starter-jetty'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 
