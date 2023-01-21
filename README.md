@@ -72,3 +72,25 @@ MVC에서는 @RequestMapping 도 인식하여 Controller 라고 판단하는데
 [@FeignClient 에서 top-level에 @RequestMapping 사용 시 이슈 - 2](https://www.google.com/search?q=%EB%B2%88%EC%97%AD%EA%B8%B0&oq=%EB%B2%88%EC%97%AD%EA%B8%B0&aqs=chrome.0.69i59.4483j0j7&sourceid=chrome&ie=UTF-8)
 
 [remove support top-level @RequestMapping](https://github.com/spring-cloud/spring-cloud-openfeign/issues/547)
+
+```
+조건부 자동 구성 - @Conditional과 @Condition 강의 이슈
+JettyWebServerConfig 적용시 에러 발생
+
+Caused by: java.lang.ClassNotFoundException: jakarta.servlet.http.HttpSessionContext
+
+
+해결:
+build.gradle 에 아래 옵션 추가
+
+ext['jakarta-servlet.version'] = '5.0.0'
+
+```
+
+![img_5.png](img_5.png)
+
+### 관련 링크
+[NoClassDefFoundError: jakarta/servlet/http/HttpSessionContext stack overflow](https://stackoverflow.com/questions/74949611/noclassdeffounderror-jakarta-servlet-http-httpsessioncontext-after-upgrade-to-sp)
+
+[Spring Boot 3.0 migration guide](https://github.com/spring-projects/spring-boot/wiki/Spring-Boot-3.0-Migration-Guide#jetty)
+
