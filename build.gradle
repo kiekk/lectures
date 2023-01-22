@@ -10,6 +10,10 @@ sourceCompatibility = '17'
 
 repositories {
     mavenCentral()
+    maven {
+        url 'https://repo.clojars.org'
+        name 'Clojars'
+    }
 }
 
 ext['jakarta-servlet.version'] = '5.0.0'

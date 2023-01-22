@@ -1,5 +1,6 @@
 package tobyspring.config.autoconfig;
 
+import com.zaxxer.hikari.HikariDataSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.jdbc.datasource.SimpleDriverDataSource;
 import tobyspring.config.ConditionalMyOnClass;
@@ -19,6 +20,16 @@ public class DataSourceConfig {
         SimpleDriverDataSource dataSource = new SimpleDriverDataSource();
         dataSource.setDriverClass((Class<? extends Driver>) Class.forName(properties.getDriverClassName()));
         dataSource.setUrl(properties.getUrl());
+        dataSource.setUsername(properties.getUsername());
+        dataSource.setPassword(properties.getPassword());
+        return dataSource;
+    }
+
+    @Bean
+    DataSource hikariDataSource(MyDataSourceProperties properties) {
+        HikariDataSource dataSource = new HikariDataSource();
+        dataSource.setDriverClassName(properties.getDriverClassName());
+        dataSource.setJdbcUrl(properties.getUrl());
         dataSource.setUsername(properties.getUsername());
         dataSource.setPassword(properties.getPassword());
         return dataSource;
