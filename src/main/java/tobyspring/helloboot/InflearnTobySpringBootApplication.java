@@ -13,16 +13,4 @@ public class InflearnTobySpringBootApplication {
         SpringApplication.run(InflearnTobySpringBootApplication.class, args);
     }
 
-    /*
-    Environment 프로퍼티 적용 및 우선 순위 확인
-
-    System Property > Environment Variable > Application Properties
-     */
-    @Bean
-    ApplicationRunner applicationRunner(Environment env) {
-        return args -> {
-            String name = env.getProperty("my.name");
-            System.out.println("my.name: " + name);
-        };
-    }
 }

@@ -4,6 +4,7 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
 import org.springframework.boot.web.embedded.jetty.JettyServletWebServerFactory;
 import org.springframework.boot.web.servlet.server.ServletWebServerFactory;
 import org.springframework.context.annotation.Bean;
+import org.springframework.core.env.Environment;
 import tobyspring.config.ConditionalMyOnClass;
 import tobyspring.config.MyAutoConfiguration;
 
@@ -13,8 +14,10 @@ public class JettyWebServerConfig {
 
     @Bean("jettyWebServerFactory")
     @ConditionalOnMissingBean
-    public ServletWebServerFactory servletWebServerFactory() {
-        return new JettyServletWebServerFactory();
+    public ServletWebServerFactory servletWebServerFactory(Environment env) {
+        JettyServletWebServerFactory factory = new JettyServletWebServerFactory();
+        factory.setContextPath(env.getProperty("contextPath"));
+        return factory;
     }
 
 }
