@@ -15,11 +15,15 @@ public class JettyWebServerConfig {
     @Value("${contextPath}")
     String contextPath;
 
+    @Value("${port:8080}")
+    int port;
+
     @Bean("jettyWebServerFactory")
     @ConditionalOnMissingBean
     public ServletWebServerFactory servletWebServerFactory() {
         JettyServletWebServerFactory factory = new JettyServletWebServerFactory();
         factory.setContextPath(contextPath);
+        factory.setPort(port);
         return factory;
     }
 

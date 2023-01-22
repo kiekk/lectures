@@ -15,11 +15,17 @@ public class TomcatWebServerConfig {
     @Value("${contextPath}")
     String contextPath;
 
+    // 기본 값 설정
+    // ${propertyName:default value}
+    @Value("${port:8080}")
+    int port;
+
     @Bean("tomcatWebServerFactory")
     @ConditionalOnMissingBean
     public ServletWebServerFactory servletWebServerFactory() {
         TomcatServletWebServerFactory factory = new TomcatServletWebServerFactory();
         factory.setContextPath(contextPath);
+        factory.setPort(port);
         return factory;
     }
 
