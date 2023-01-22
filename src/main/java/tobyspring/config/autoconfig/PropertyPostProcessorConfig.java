@@ -9,6 +9,8 @@ import org.springframework.core.env.Environment;
 import tobyspring.config.MyAutoConfiguration;
 import tobyspring.config.MyConfigurationProperties;
 
+import java.util.Map;
+
 @MyAutoConfiguration
 public class PropertyPostProcessorConfig {
 
@@ -20,7 +22,9 @@ public class PropertyPostProcessorConfig {
                 MyConfigurationProperties annotation = AnnotationUtils.findAnnotation(bean.getClass(), MyConfigurationProperties.class);
                 if (annotation == null) return bean;
 
-                return Binder.get(env).bindOrCreate("", bean.getClass());
+                Map<String, Object> attrs = AnnotationUtils.getAnnotationAttributes(annotation);
+                String prefix = (String) attrs.get("prefix");
+                return Binder.get(env).bindOrCreate(prefix, bean.getClass());
             }
         };
     }
