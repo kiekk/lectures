@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Objects;
 
 @RestController
-@RequestMapping("/hello")
+@RequestMapping
 public class HelloController {
 
     private final HelloService helloService;
@@ -18,10 +18,15 @@ public class HelloController {
         this.helloService = helloService;
     }
 
-    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/hello", produces = MediaType.APPLICATION_JSON_VALUE)
     public String hello(String name) {
         if(Strings.isEmpty(name)) throw new IllegalArgumentException();
         return helloService.sayHello(name);
+    }
+
+    @GetMapping("count")
+    public String count(String name) {
+        return name + ": " + helloService.countOf(name);
     }
 
 }

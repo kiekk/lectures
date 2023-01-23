@@ -16,4 +16,9 @@ public class EmojiHelloService implements HelloService {
         helloRepository.increaseCount(name);
         return "Hello, " + name + " 😜";
     }
+
+    @Override
+    public int countOf(String name) {
+        return helloRepository.countOf(name);
+    }
 }
