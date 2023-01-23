@@ -1,5 +1,6 @@
 package tobyspring.helloboot;
 
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -14,11 +15,15 @@ public class HelloRepositoryJdbc implements HelloRepository {
 
     @Override
     public Hello findHello(String name) {
-        return jdbcTemplate.queryForObject("select * from hello where name = '" + name + "'"
-                , (rs, rowNum) -> new Hello(
-                        rs.getString("name"),
-                        rs.getInt("count")
-                ));
+        try {
+            return jdbcTemplate.queryForObject("select * from hello where name = '" + name + "'"
+                    , (rs, rowNum) -> new Hello(
+                            rs.getString("name"),
+                            rs.getInt("count")
+                    ));
+        } catch (EmptyResultDataAccessException e) {
+            return null;
+        }
     }
 
     @Override
