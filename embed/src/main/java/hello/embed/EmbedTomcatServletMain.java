@@ -6,12 +6,8 @@ import org.apache.catalina.LifecycleException;
 import org.apache.catalina.connector.Connector;
 import org.apache.catalina.startup.Tomcat;
 
-/*
-해당 코드는 에러 발생! 에러 코드 반드시 확인
+import java.io.File;
 
-org.apache.catalina.LifecycleException: Failed to start component [org.apache.catalina.webresources.StandardRoot@3023df74]
-...
- */
 public class EmbedTomcatServletMain {
     public static void main(String[] args) throws LifecycleException {
         System.out.println("EmbedTomcatServletMain.main");
@@ -24,6 +20,14 @@ public class EmbedTomcatServletMain {
 
         //서블릿 등록
         Context context = tomcat.addContext("", "/");
+        
+        File docBaseFile = new File(context.getDocBase());
+        if (!docBaseFile.isAbsolute()) {
+            docBaseFile = new File(((org.apache.catalina.Host) context.getParent()).getAppBaseFile(), docBaseFile.getPath());
+        }
+
+        docBaseFile.mkdirs();
+
         tomcat.addServlet("", "helloServlet", new HelloServlet());
         context.addServletMappingDecoded("/hello-servlet", "helloServlet");
         tomcat.start();
