@@ -22,6 +22,11 @@ public class JavaSystemProperties {
         log.info("url = {}", url);
         log.info("username = {}", username);
         log.info("password = {}", password);
+
+        // Custom Java System Properties Code 에서 설정 & 출력
+        System.setProperty("hello_key", "hello_value");
+        String hello_key = System.getProperty("hello_key");
+        log.info("hello_key = {}", hello_key);
     }
 
 }
