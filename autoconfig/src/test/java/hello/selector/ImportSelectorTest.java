@@ -16,10 +16,23 @@ public class ImportSelectorTest {
         assertThat(bean).isNotNull();
     }
 
+    @Test
+    void selectorConfig() {
+        AnnotationConfigApplicationContext appContext = new AnnotationConfigApplicationContext(SelectorConfig.class);
+        HelloBean bean = appContext.getBean(HelloBean.class);
+        assertThat(bean).isNotNull();
+    }
+
 
     @Configuration
     @Import(HelloConfig.class)
     public static class StaticConfig {
+
+    }
+
+    @Configuration
+    @Import(HelloImportSelector.class)
+    public static class SelectorConfig {
 
     }
 }
