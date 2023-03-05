@@ -1,14 +1,14 @@
 package hello.config;
 
-import memory.MemoryCondition;
 import memory.MemoryController;
 import memory.MemoryFinder;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Conditional;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-@Conditional(MemoryCondition.class)
+// matchInfMissing = true → 해당 property 가 존재하지 않을 경우에 Bean 을 생성 (default=false)
+@ConditionalOnProperty(name = "memory", havingValue = "on")
 public class MemoryConfig {
 
     @Bean
