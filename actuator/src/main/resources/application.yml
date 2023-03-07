@@ -6,6 +6,7 @@ management:
     web:
       exposure:
         include: "*"
+        exclude: "env,beans"
     jmx:
       exposure:
         include: "health,info"
