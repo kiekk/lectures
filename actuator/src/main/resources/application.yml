@@ -2,6 +2,7 @@ management:
   server:
     port: 9092
   endpoint:
+    base-path: "/manage"
     health:
       show-components: always
     shutdown:
