@@ -8,3 +8,4 @@ actuator/.gradle/
 actuator/.idea/
 actuator/out/production/classes/
 actuator/out/
+actuator/build/
