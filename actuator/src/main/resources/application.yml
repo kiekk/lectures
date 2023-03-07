@@ -1,4 +1,6 @@
 management:
+  server:
+    port: 9092
   endpoint:
     health:
       show-components: always
