@@ -12,3 +12,8 @@ management:
     jmx:
       exposure:
         include: "health,info"
+  info:
+    java:
+      enabled: true
+    os:
+      enabled: true
