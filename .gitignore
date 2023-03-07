@@ -5,3 +5,6 @@ memory/memory-v2/.gradle/
 memory/memory-v2/.idea/
 memory/memory-v2/build/
 actuator/.gradle/
+actuator/.idea/
+actuator/out/production/classes/
+actuator/out/
