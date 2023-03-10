@@ -13,6 +13,7 @@ public class BasicController {
 
     @GetMapping("home")
     public String home() {
+        System.out.println("basic home");
         return "basic/home";
     }
 
