@@ -17,12 +17,14 @@ public class BasicController {
         return "basic/home";
     }
 
+    // RequestResponseBodyMethodProcessor
     @GetMapping("response-body")
     @ResponseBody
     public String responseBody() {
         return "basic-response-body";
     }
 
+    // HttpEntityMethodProcessor
     @GetMapping("response-entity")
     public ResponseEntity<?> responseEntity() {
         return new ResponseEntity<>("basic-response-entity", HttpStatus.OK);
