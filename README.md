@@ -9,19 +9,20 @@
 [인프런 강의 바로가기](https://www.inflearn.com/course/%ED%86%A0%EB%B9%84-%EC%8A%A4%ED%94%84%EB%A7%81%EB%B6%80%ED%8A%B8-%EC%9D%B4%ED%95%B4%EC%99%80%EC%9B%90%EB%A6%AC/dashboard)
 
 ### Notion
-[notion 바로가기](https://flat-asp-5ca.notion.site/11303e8aa74246a5b9f3d5a41300350e)
+[Notion 바로가기](https://flat-asp-5ca.notion.site/11303e8aa74246a5b9f3d5a41300350e)
 
 ### Blog 주소
-1. 스프링 부트 살펴보기
-2. 스프링 부트 시작하기
-3. 독립 실행형 서블릿 애플리케이션
-4. 독립 실행형 스프링 애플리케이션
-5. DI와 테스트, 디자인 패턴
-6. 자동 구성 기반 애플리케이션
-7. 조건부 자동 구성
-8. 외부 설정을 이용한 자동 구성
-9. Spring JDBC 자동 구성 개발
-10. 스프링 부트 자세히 살펴보기
+1. [시작하기](https://soono-991.tistory.com/18)
+2. [스프링 부트 살펴보기](https://soono-991.tistory.com/21)
+3. [스프링 부트 시작하기](https://soono-991.tistory.com/21)
+4. [독립 실행형 서블릿 애플리케이션](https://soono-991.tistory.com/22)
+5. [독립 실행형 스프링 애플리케이션](https://soono-991.tistory.com/23)
+6. [DI와 테스트, 디자인 패턴](https://soono-991.tistory.com/24)
+7. [자동 구성 기반 애플리케이션](https://soono-991.tistory.com/25)
+8. [조건부 자동 구성](https://soono-991.tistory.com/26)
+9. [외부 설정을 이용한 자동 구성](https://soono-991.tistory.com/27)
+10. [Spring JDBC 자동 구성 개발](https://soono-991.tistory.com/28)
+11. [스프링 부트 자세히 살펴보기](https://soono-991.tistory.com/29)
 
 
 ### 이슈
