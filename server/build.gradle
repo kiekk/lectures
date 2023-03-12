@@ -1,11 +1,12 @@
 plugins {
     id 'java'
-    id 'war'
+//    id 'war'
 }
 
 group = 'hello'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '17'
+apply plugin: 'war'
 
 repositories {
     mavenCentral()
@@ -21,4 +22,8 @@ dependencies {
 
 tasks.named('test') {
     useJUnitPlatform()
+}
+
+war {
+    archiveName("demo.war") // war 파일 이름 설정
 }
