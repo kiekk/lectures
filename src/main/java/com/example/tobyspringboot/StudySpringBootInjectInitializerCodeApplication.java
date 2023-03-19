@@ -3,7 +3,7 @@ package com.example.tobyspringboot;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.stereotype.Component;
+import org.springframework.context.annotation.Bean;
 
 @SpringBootApplication
 public class StudySpringBootInjectInitializerCodeApplication {
@@ -12,15 +12,10 @@ public class StudySpringBootInjectInitializerCodeApplication {
         SpringApplication.run(StudySpringBootInjectInitializerCodeApplication.class, args);
     }
 
-}
-
-// CommandLineRunner interface 를 구현한 객체를 Bean 으로 등록하면
-// Spring Boot 초기화 후 코드를 실행할 수 있다.
-@Component
-class MyCommandLineRunner implements CommandLineRunner {
-
-    @Override
-    public void run(String... args) throws Exception {
-        System.out.println("Hello CommandLineRunner");
+    @Bean
+    CommandLineRunner commandLineRunner() {
+        return args -> {
+            System.out.println("Hello CommandLineRunner - Lambda");
+        };
     }
 }
