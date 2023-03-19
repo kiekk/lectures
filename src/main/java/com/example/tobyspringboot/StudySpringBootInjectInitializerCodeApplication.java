@@ -1,6 +1,6 @@
 package com.example.tobyspringboot;
 
-import org.springframework.boot.CommandLineRunner;
+import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -13,9 +13,9 @@ public class StudySpringBootInjectInitializerCodeApplication {
     }
 
     @Bean
-    CommandLineRunner commandLineRunner() {
+    ApplicationRunner applicationRunner() {
         return args -> {
-            System.out.println("Hello CommandLineRunner - Lambda");
+            System.out.println("Hello Anonymous Lambda ApplicationRunner");
         };
     }
 }
