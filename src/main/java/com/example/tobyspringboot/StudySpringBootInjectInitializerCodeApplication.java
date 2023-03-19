@@ -1,9 +1,9 @@
 package com.example.tobyspringboot;
 
-import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Bean;
+import org.springframework.boot.context.event.ApplicationReadyEvent;
+import org.springframework.context.event.EventListener;
 
 @SpringBootApplication
 public class StudySpringBootInjectInitializerCodeApplication {
@@ -12,10 +12,8 @@ public class StudySpringBootInjectInitializerCodeApplication {
         SpringApplication.run(StudySpringBootInjectInitializerCodeApplication.class, args);
     }
 
-    @Bean
-    ApplicationRunner applicationRunner() {
-        return args -> {
-            System.out.println("Hello Anonymous Lambda ApplicationRunner");
-        };
+    @EventListener(ApplicationReadyEvent.class)
+    public void init() {
+        System.out.println("Hello ApplicationReadyEvent");
     }
 }
