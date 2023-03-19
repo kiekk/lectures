@@ -6,6 +6,11 @@ import org.springframework.context.ApplicationEvent;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.event.EventListener;
 
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
+
 @SpringBootApplication
 public class StudySpringBootInjectInitializerCodeApplication {
 
@@ -15,8 +20,7 @@ public class StudySpringBootInjectInitializerCodeApplication {
         ac.publishEvent(new MyEvent(ac, "TobySpringBoot Event"));
     }
 
-    // 파라미터의 Type 을 보고 Listener 할 Event 대상을 찾음
-    @EventListener
+    @MyEventListener
     public void onMyEvent(MyEvent event) {
         System.out.println("Hello My Event: " + event.getMessage());
     }
@@ -32,5 +36,12 @@ public class StudySpringBootInjectInitializerCodeApplication {
         public String getMessage() {
             return message;
         }
+    }
+
+    @Target(ElementType.METHOD)
+    @Retention(RetentionPolicy.RUNTIME)
+    @EventListener
+    @interface MyEventListener {
+
     }
 }
