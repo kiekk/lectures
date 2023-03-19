@@ -15,11 +15,18 @@ public class StudySpringBootInjectInitializerCodeApplication {
         ac.publishEvent(new MyEvent(ac, "TobySpringBoot Event"));
     }
 
-    // Event Listener
+    // Multi Event Listener
+    // EventListener 는 기본적으로 Broadcasting 이다.
     @EventListener(MyEvent.class)
     public void onMyEvent(MyEvent event) {
         System.out.println("Hello My Event: " + event.getMessage());
     }
+
+    @EventListener(MyEvent.class)
+    public void onMyEvent2(MyEvent event) {
+        System.out.println("Hello My Event2: " + event.getMessage());
+    }
+
 
     static class MyEvent extends ApplicationEvent {
         private final String message;
