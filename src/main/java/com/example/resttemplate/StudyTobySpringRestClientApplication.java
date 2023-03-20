@@ -20,7 +20,7 @@ public class StudyTobySpringRestClientApplication {
     }
 
     @Bean
-    ApplicationRunner init() {
+    ApplicationRunner init(ErApi api) {
         return args -> {
             // https://open.er-api.com/v6/latest
             RestTemplate restTemplate = new RestTemplate();
@@ -38,7 +38,19 @@ public class StudyTobySpringRestClientApplication {
             ErApi erApi = httpServiceProxyFactory.createClient(ErApi.class);
             Map<String, Map<String, Double>> res3 = erApi.getLatest();
             System.out.println(res3.get("rates").get("KRW"));
+
+            Map<String, Map<String, Double>> res4 = api.getLatest();
+            System.out.println(res4.get("rates").get("KRW"));
         };
+    }
+
+    @Bean
+    ErApi erApi() {
+        WebClient client = WebClient.create("https://open.er-api.com");
+        HttpServiceProxyFactory httpServiceProxyFactory = HttpServiceProxyFactory
+                .builder(WebClientAdapter.forClient(client))
+                .build();
+        return httpServiceProxyFactory.createClient(ErApi.class);
     }
 
     interface ErApi {
