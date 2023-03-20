@@ -6,6 +6,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.Map;
+
 @SpringBootApplication
 public class StudyTobySpringRestClientApplication {
 
@@ -18,8 +20,8 @@ public class StudyTobySpringRestClientApplication {
         return args -> {
             // https://open.er-api.com/v6/latest
             RestTemplate restTemplate = new RestTemplate();
-            String res = restTemplate.getForObject("https://open.er-api.com/v6/latest", String.class);
-            System.out.println(res);
+            Map<String, Map<String, Double>> res = restTemplate.getForObject("https://open.er-api.com/v6/latest", Map.class);
+            System.out.println(res.get("rates").get("USD"));
         };
     }
 }
