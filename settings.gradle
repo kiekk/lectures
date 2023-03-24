@@ -1,2 +1,3 @@
 rootProject.name = 'inflearn-kafka-perfect-guide-core'
+include 'producers'
 
