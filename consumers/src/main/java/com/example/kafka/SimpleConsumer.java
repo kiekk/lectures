@@ -24,6 +24,7 @@ public class SimpleConsumer {
         props.setProperty(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
         props.setProperty(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
         props.setProperty(ConsumerConfig.GROUP_ID_CONFIG, "group-01-static");
+        props.setProperty(ConsumerConfig.GROUP_INSTANCE_ID_CONFIG, "1");
 
         try (KafkaConsumer<String, String> kafkaConsumer = new KafkaConsumer<>(props)) {
             kafkaConsumer.subscribe(List.of(topicName));
