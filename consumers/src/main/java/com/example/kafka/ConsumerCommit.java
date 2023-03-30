@@ -46,8 +46,41 @@ public class ConsumerCommit {
 
         kafkaConsumer.subscribe(List.of(topicName));
 
-        pollCommitSync(kafkaConsumer);
+        pollCommitAsync(kafkaConsumer);
 
+    }
+
+    private static void pollCommitAsync(KafkaConsumer<String, String> kafkaConsumer) {
+        try (kafkaConsumer) {
+            int loopCount = 0;
+            while (true) {
+                ConsumerRecords<String, String> consumerRecords = kafkaConsumer.poll(Duration.ofMillis(1000));
+
+                logger.info(" ###### logCount : {} consumerRecords count: {}", loopCount++, consumerRecords.count());
+
+                consumerRecords.forEach(record -> {
+                    logger.info("record key: {}, record value: {}, partition : {}, record offset: {}",
+                            record.key(), record.value(), record.partition(), record.offset());
+                });
+
+                kafkaConsumer.commitAsync((offsets, exception) -> {
+                    if (exception != null) {
+                        logger.error("offsets {} is not completed, error: {}", offsets, exception.getMessage());
+                    }
+                });
+            }
+        } catch (WakeupException e) {
+            logger.error("wakeup exception has been called");
+        } catch (Exception e) {
+            logger.error(e.getMessage());
+        } finally {
+            try {
+                kafkaConsumer.commitSync();
+            } catch (CommitFailedException e) {
+                e.printStackTrace();
+            }
+            logger.info("finally consumer is closing");
+        }
     }
 
     private static void pollCommitSync(KafkaConsumer<String, String> kafkaConsumer) {
