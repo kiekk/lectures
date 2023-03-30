@@ -1,5 +1,6 @@
 package com.example.kafka;
 
+import org.apache.kafka.clients.consumer.CommitFailedException;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
@@ -25,7 +26,7 @@ public class ConsumerCommit {
         props.setProperty(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
         props.setProperty(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
         props.setProperty(ConsumerConfig.GROUP_ID_CONFIG, "group_03");
-        props.setProperty(ConsumerConfig.AUTO_COMMIT_INTERVAL_MS_CONFIG, "6000");
+        props.setProperty(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG, "false");
         KafkaConsumer<String, String> kafkaConsumer = new KafkaConsumer<>(props);
 
         // main thread
@@ -45,8 +46,39 @@ public class ConsumerCommit {
 
         kafkaConsumer.subscribe(List.of(topicName));
 
-        pollAutoCommit(kafkaConsumer);
+        pollCommitSync(kafkaConsumer);
 
+    }
+
+    private static void pollCommitSync(KafkaConsumer<String, String> kafkaConsumer) {
+        try (kafkaConsumer) {
+            int loopCount = 0;
+            while (true) {
+                ConsumerRecords<String, String> consumerRecords = kafkaConsumer.poll(Duration.ofMillis(1000));
+
+                logger.info(" ###### logCount : {} consumerRecords count: {}", loopCount++, consumerRecords.count());
+
+                consumerRecords.forEach(record -> {
+                    logger.info("record key: {}, record value: {}, partition : {}, record offset: {}",
+                            record.key(), record.value(), record.partition(), record.offset());
+                });
+
+                try {
+                    if (consumerRecords.count() > 0) {
+                        kafkaConsumer.commitSync();
+                        logger.info("commit sync has been called");
+                    }
+                } catch (CommitFailedException e) {
+                    logger.error(e.getMessage());
+                }
+            }
+        } catch (WakeupException e) {
+            logger.error("wakeup exception has been called");
+        } catch (Exception e) {
+            logger.error(e.getMessage());
+        } finally {
+            logger.info("finally consumer is closing");
+        }
     }
 
     private static void pollAutoCommit(KafkaConsumer<String, String> kafkaConsumer) {
