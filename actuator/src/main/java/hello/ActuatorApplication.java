@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Import;
 
 @Import({OrderConfigV4.class, StockConfigV2.class})
-@SpringBootApplication(scanBasePackages = "hello.controller")
+@SpringBootApplication(scanBasePackages = {"hello.controller", "hello.endpoints"})
 public class ActuatorApplication {
 
     public static void main(String[] args) {
