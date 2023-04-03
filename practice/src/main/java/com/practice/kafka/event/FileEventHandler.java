@@ -1,11 +1,14 @@
 package com.practice.kafka.event;
 
 import org.apache.kafka.clients.producer.KafkaProducer;
+import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.apache.kafka.clients.producer.RecordMetadata;
+import org.apache.kafka.common.serialization.StringSerializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.Properties;
 import java.util.concurrent.ExecutionException;
 
 public class FileEventHandler implements EventHandler {
@@ -43,5 +46,22 @@ public class FileEventHandler implements EventHandler {
                 }
             });
         }
+    }
+    
+    //FileEventHandler가 제대로 생성되었는지 확인을 위해 직접 수행.
+    public static void main(String[] args) throws Exception {
+        String topicName = "file-topic";
+
+        Properties props  = new Properties();
+        props.setProperty(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "192.168.56.101:9092");
+        props.setProperty(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
+        props.setProperty(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
+
+        KafkaProducer<String, String> kafkaProducer = new KafkaProducer<String, String>(props);
+        boolean sync = true;
+
+        FileEventHandler fileEventHandler = new FileEventHandler(kafkaProducer, topicName, sync);
+        MessageEvent messageEvent = new MessageEvent("key00001", "this is test message");
+        fileEventHandler.onMessage(messageEvent);
     }
 }
