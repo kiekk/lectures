@@ -47,7 +47,7 @@ public class FileEventHandler implements EventHandler {
             });
         }
     }
-    
+
     //FileEventHandler가 제대로 생성되었는지 확인을 위해 직접 수행.
     public static void main(String[] args) throws Exception {
         String topicName = "file-topic";
