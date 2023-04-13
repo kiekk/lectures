@@ -10,3 +10,5 @@ actuator/out/production/classes/
 actuator/out/
 actuator/build/
 .idea/
+admin/.gradle/
+admin/out/
