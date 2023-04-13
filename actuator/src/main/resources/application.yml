@@ -1,6 +1,13 @@
+spring:
+  boot:
+    admin:
+      client:
+        url: http://localhost:8081 #admin server url
+        instance:
+          name: Client Server #admin UI 에서 보여질 이름 설정
+
 management:
   endpoint:
-    base-path: "/manage"
     health:
       show-components: always
     shutdown:
