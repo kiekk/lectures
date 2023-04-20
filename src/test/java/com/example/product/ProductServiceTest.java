@@ -1,9 +1,27 @@
 package com.example.product;
 
+import org.junit.jupiter.api.Test;
 import org.springframework.util.Assert;
 
 class ProductServiceTest {
 
+    private ProductService productService;
+
+    @Test
+    void 상품등록() {
+        final String name = "상품명";
+        final int price = 1000;
+        final DiscountPolicy discountPolicy = DiscountPolicy.NONE;
+        final AddProductRequest request = new AddProductRequest(name, price, discountPolicy);
+        productService.addProduct(request);
+    }
+
+    private class ProductService {
+
+        public void addProduct(AddProductRequest request) {
+            throw new UnsupportedOperationException("Unsupported addProduct");
+        }
+    }
 
     private record AddProductRequest(String name, int price, DiscountPolicy discountPolicy) {
 
