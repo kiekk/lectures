@@ -1,11 +1,17 @@
 package com.example.product;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.util.Assert;
 
 class ProductServiceTest {
 
     private ProductService productService;
+
+    @BeforeEach
+    void setUp() {
+        productService = new ProductService();
+    }
 
     @Test
     void 상품등록() {
