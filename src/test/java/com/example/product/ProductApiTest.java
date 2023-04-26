@@ -17,15 +17,19 @@ class ProductApiTest extends Apitest {
         final AddProductRequest request = 상품등록요청_생성();
 
         // API 요청
-        final ExtractableResponse<Response> response = RestAssured.given().log().all() // 요청을 보내는 로그를 모두 남긴다.
+        final ExtractableResponse<Response> response = 상품등록요청(request);
+
+        assertThat(response.statusCode()).isEqualTo(HttpStatus.CREATED.value());
+    }
+
+    private static ExtractableResponse<Response> 상품등록요청(AddProductRequest request) {
+        return RestAssured.given().log().all() // 요청을 보내는 로그를 모두 남긴다.
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .body(request)
                 .when()
                 .post("/products")
                 .then()
                 .log().all().extract();
-
-        assertThat(response.statusCode()).isEqualTo(HttpStatus.CREATED.value());
     }
 
     private static AddProductRequest 상품등록요청_생성() {
