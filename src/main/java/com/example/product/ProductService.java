@@ -1,8 +1,12 @@
 package com.example.product;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.*;
 
-@Component
+@RestController
+@RequestMapping("/products")
 class ProductService {
 
     private final ProductPort productPort;
@@ -11,7 +15,9 @@ class ProductService {
         this.productPort = productPort;
     }
 
-    public void addProduct(AddProductRequest request) {
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public void addProduct(@RequestBody final AddProductRequest request) {
         final Product product = new Product(request.name(), request.price(), request.discountPolicy());
         productPort.save(product);
     }
