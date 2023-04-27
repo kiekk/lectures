@@ -33,6 +33,7 @@ class ProductApiTest extends Apitest {
                 .extract();
 
         assertThat(response.statusCode()).isEqualTo(HttpStatus.OK.value());
+        assertThat(response.jsonPath().getString("name")).isEqualTo("상품명");
     }
 
 }
