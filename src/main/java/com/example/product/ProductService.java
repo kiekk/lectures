@@ -27,4 +27,10 @@ class ProductService {
         final Product product = productPort.getProduct(productId);
         return new GetProductResponse(product.getId(), product.getName(), product.getPrice(), product.getDiscountPolicy());
     }
+
+    public void updateProduct(Long productId, UpdateProductRequest request) {
+        final Product product = productPort.getProduct(productId);
+        product.update(request.name(), request.price(), request.discountPolicy());
+        productPort.save(product);
+    }
 }
