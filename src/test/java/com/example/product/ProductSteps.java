@@ -31,4 +31,19 @@ public class ProductSteps {
                 .then().log().all()
                 .extract();
     }
+
+    public static UpdateProductRequest 상품수정요청_생성() {
+        return new UpdateProductRequest("상품 수정", 2000, DiscountPolicy.NONE);
+    }
+
+    public static ExtractableResponse<Response> 상품수정요청() {
+        final ExtractableResponse<Response> response = RestAssured.given().log().all()
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .body(ProductSteps.상품수정요청_생성())
+                .when()
+                .patch("/products/{productId}", 1L)
+                .then()
+                .log().all().extract();
+        return response;
+    }
 }
