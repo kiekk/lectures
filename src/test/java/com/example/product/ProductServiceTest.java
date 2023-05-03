@@ -27,25 +27,14 @@ public class ProductServiceTest {
 
     @Test
     void 상품수정() {
+        productService.addProduct(ProductSteps.상품등록요청_생성());
         final Long productId = 1L;
         final UpdateProductRequest request = new UpdateProductRequest("상품 수정", 2000, DiscountPolicy.NONE);
-        final Product product = new Product("상품명", 1000, DiscountPolicy.NONE);
-        ProductPort productPort = new ProductPort() {
-            @Override
-            public void save(Product product) {
-
-            }
-
-            @Override
-            public Product getProduct(Long productId) {
-                return product;
-            }
-        };
-        productService = new ProductService(productPort);
 
         productService.updateProduct(productId, request);
-        assertThat(product.getName()).isEqualTo("상품 수정");
-        assertThat(product.getPrice()).isEqualTo(2000);
+        final GetProductResponse product = productService.getProduct(productId);
+        assertThat(product.name()).isEqualTo("상품 수정");
+        assertThat(product.price()).isEqualTo(2000);
     }
 
 }
