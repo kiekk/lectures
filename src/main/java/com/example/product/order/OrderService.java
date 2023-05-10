@@ -1,9 +1,11 @@
 package com.example.product.order;
 
 import com.example.product.Product;
-import org.springframework.stereotype.Component;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 
-@Component
+@RestController
+@RequestMapping("orders")
 class OrderService {
 
     private final OrderPort orderPort;
@@ -12,8 +14,10 @@ class OrderService {
         this.orderPort = orderPort;
     }
 
+    @PostMapping("")
+    @ResponseStatus(HttpStatus.CREATED)
 
-    public void createOrder(final CreateOrderRequest request) {
+    public void createOrder(@RequestBody final CreateOrderRequest request) {
         Product product = orderPort.getProductById(request.productId());
         final Order order = new Order(product, request.quantity());
 
