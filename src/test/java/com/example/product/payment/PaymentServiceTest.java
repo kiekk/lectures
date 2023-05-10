@@ -18,15 +18,9 @@ public class PaymentServiceTest {
 
     @Test
     void 상품주문() {
-        final PaymentRequest request = 주문결제요청_생성();
+        final PaymentRequest request = PaymentSteps.주문결제요청_생성();
 
         paymentService.payment(request);
-    }
-
-    private static PaymentRequest 주문결제요청_생성() {
-        final Long orderId = 1L;
-        final String cardNumber = "1234-1234-1234-1234";
-        return new PaymentRequest(orderId, cardNumber);
     }
 
 }
