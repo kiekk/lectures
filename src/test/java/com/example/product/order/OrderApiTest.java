@@ -2,6 +2,7 @@ package com.example.product.order;
 
 import com.example.product.Apitest;
 import com.example.product.ProductSteps;
+import com.example.product.order.application.service.CreateOrderRequest;
 import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;
 import org.junit.jupiter.api.Test;

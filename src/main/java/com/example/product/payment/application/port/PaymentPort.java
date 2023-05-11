@@ -1,6 +1,7 @@
-package com.example.product.payment;
+package com.example.product.payment.application.port;
 
-import com.example.product.order.Order;
+import com.example.product.order.domain.Order;
+import com.example.product.payment.domain.Payment;
 
 interface PaymentPort {
     Order getOrder(final Long orderId);

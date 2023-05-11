@@ -1,5 +1,7 @@
-package com.example.product;
+package com.example.product.application.adapter;
 
+import com.example.product.application.port.ProductPort;
+import com.example.product.domain.Product;
 import org.springframework.stereotype.Component;
 
 @Component

@@ -1,6 +1,8 @@
-package com.example.product.payment;
+package com.example.product.payment.application.service;
 
-import com.example.product.order.Order;
+import com.example.product.order.domain.Order;
+import com.example.product.payment.PaymentPort;
+import com.example.product.payment.domain.Payment;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;

@@ -1,5 +1,6 @@
-package com.example.product;
+package com.example.product.application.service;
 
+import com.example.product.domain.DiscountPolicy;
 import org.springframework.util.Assert;
 
 public record GetProductResponse(
