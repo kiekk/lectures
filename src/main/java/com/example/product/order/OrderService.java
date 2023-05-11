@@ -2,11 +2,12 @@ package com.example.product.order;
 
 import com.example.product.Product;
 import org.springframework.http.HttpStatus;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("orders")
-class OrderService {
+public class OrderService {
 
     private final OrderPort orderPort;
 
@@ -14,6 +15,7 @@ class OrderService {
         this.orderPort = orderPort;
     }
 
+    @Transactional
     @PostMapping("")
     @ResponseStatus(HttpStatus.CREATED)
 

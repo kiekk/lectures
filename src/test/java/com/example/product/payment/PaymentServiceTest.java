@@ -1,26 +1,28 @@
 package com.example.product.payment;
 
-import org.junit.jupiter.api.BeforeEach;
+import com.example.product.ProductService;
+import com.example.product.ProductSteps;
+import com.example.product.order.OrderService;
+import com.example.product.order.OrderSteps;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 
+@SpringBootTest
 public class PaymentServiceTest {
 
+    @Autowired
+    private ProductService productService;
+    @Autowired
+    private OrderService orderService;
+    @Autowired
     private PaymentService paymentService;
-    private PaymentPort paymentPort;
-
-    @BeforeEach
-    void setUp() {
-        final PaymentGateway paymentGateway = new ConsolePaymentGateway();
-        final PaymentRepository paymentRepository = new PaymentRepository();
-        paymentPort = new PaymentAdapter(paymentGateway, paymentRepository);
-        paymentService = new PaymentService(paymentPort);
-    }
 
     @Test
     void 상품주문() {
-        final PaymentRequest request = PaymentSteps.주문결제요청_생성();
-
-        paymentService.payment(request);
+        productService.addProduct(ProductSteps.상품등록요청_생성());
+        orderService.createOrder(OrderSteps.상품주문요청_생성());
+        paymentService.payment(PaymentSteps.주문결제요청_생성());
     }
 
 }

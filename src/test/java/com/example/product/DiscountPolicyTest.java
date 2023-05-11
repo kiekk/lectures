@@ -1,6 +1,5 @@
-package com.example.product.payment;
+package com.example.product;
 
-import com.example.product.DiscountPolicy;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
