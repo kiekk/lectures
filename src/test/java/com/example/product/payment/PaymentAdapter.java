@@ -20,8 +20,9 @@ class PaymentAdapter implements PaymentPort {
     }
 
     @Override
-    public void pay(Payment payment) {
-        paymentGateway.execute(payment);
+    public void pay(int totalPrice, String cardNumber) {
+
+        paymentGateway.execute(totalPrice, cardNumber);
     }
 
     @Override

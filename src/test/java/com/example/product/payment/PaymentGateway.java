@@ -1,5 +1,5 @@
 package com.example.product.payment;
 
 interface PaymentGateway {
-    void execute(final Payment payment);
+    void execute(final int totalPrice, final String cardNumber);
 }

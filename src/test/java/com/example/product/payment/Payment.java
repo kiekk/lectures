@@ -18,4 +18,8 @@ record Payment(Order order, String cardNumber) {
     public Long getId() {
         return id;
     }
+
+    public int price() {
+        return order.getTotalPrice();
+    }
 }

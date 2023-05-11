@@ -30,4 +30,7 @@ public class Order {
         this.id = id;
     }
 
+    public int getTotalPrice() {
+        return product.getDiscountedPrice() * quantity;
+    }
 }
