@@ -1,4 +1,4 @@
-- name: Ansible Copy Example Local to Remtoe 
+- name: Ansible Copy Example Local to Remote
   hosts: devops
   tasks:
     - name: copying file with playbook
