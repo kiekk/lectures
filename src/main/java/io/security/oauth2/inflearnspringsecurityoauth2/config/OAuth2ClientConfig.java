@@ -14,9 +14,8 @@ public class OAuth2ClientConfig {
                 .authorizeHttpRequests((authz) -> {
                     authz.anyRequest().authenticated();
                 })
-                .oauth2Login(oauth2Login -> {
-                    oauth2Login.loginPage("/loginPage").permitAll();
-                })
+                .oauth2Login()
+                .and()
                 .build();
     }
 }
