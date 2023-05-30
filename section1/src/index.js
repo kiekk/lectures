@@ -1,1 +1,1 @@
-var func = function () { return console.log("Hello"); };
+const func = () => console.log("Hello");
