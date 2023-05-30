@@ -1,1 +1,2 @@
-const func = () => console.log("Hello")
+import { hello } from "./hello";
+console.log(hello);

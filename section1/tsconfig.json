@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
-    "target": "ESNext"
+    "target": "ESNext",
+    "module": "CommonJS"
   },
   "include": ["src"]
 }
