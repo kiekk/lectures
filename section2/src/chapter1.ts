@@ -38,3 +38,13 @@ let unde1: undefined = undefined;
 
 // "strictNullChecks": false로 다른 타입에 null 할당하기
 let num10: number = null
+
+// literal type
+let numA: 10 = 10;
+
+// numA 변수에는 10 이외의 다른 값은 할당 불가능
+// numA = 20
+
+let strA: "hello" = "hello";
+let boolA: true = true;
+let boolB: false = false;
