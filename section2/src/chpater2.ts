@@ -6,3 +6,9 @@ let strArr: string[] = ["hello", "im", "winterlood"];
 let boolArr: Array<boolean> = [true, false, true];
 
 // number[]와 Array<number>는 동일합니다.
+
+// nested array
+let doubleArr : number[][] = [
+    [1, 2, 3],
+    [4, 5],
+];
