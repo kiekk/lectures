@@ -6,6 +6,9 @@
     "strict": true,
     "moduleDetection": "force"
   },
+  "ts-node": {
+    "esm": true
+  },
   "include": [
     "src"
   ]
