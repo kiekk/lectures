@@ -26,3 +26,11 @@ let null1: null = null;
 // null1 = undefined
 // null1 = 1;
 // null1 = 'hello';
+
+// undefined 타입
+let unde1: undefined = undefined;
+
+// undefined 타입 역시 undefined 외에 다른 값을 할당할 수 없음.
+// unde1 = null1
+// unde1 = 1
+// unde1 = 'hello'
