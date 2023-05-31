@@ -24,3 +24,22 @@ let multiArr3: (number | string)[]
 // 단점, 타입의 순서를 지정할 수는 없습니다.
 multiArr3 = [1, "hello"]
 multiArr3 = ["hello", 1]
+
+
+
+// tuple
+let tup1: [number, number] = [1, 2];
+
+// tup1 = [1, 2, 3]
+//TS2322: Type '[number, number, number]' is not assignable to type '[number, number]'.
+// Source has 3 element(s) but target allows only 2
+
+let tup2: [number, string, boolean] = [1, "hello", true];
+
+let tup3: [number, number] = [1, 2];
+
+// 배열 메서드를 이용해 고정된 길이를 무시하고 요소를 추가/삭제 할 수 있다.
+tup3.push(1);
+tup3.push(1);
+tup3.push(1);
+tup3.push(1);
