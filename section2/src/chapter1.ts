@@ -34,3 +34,7 @@ let unde1: undefined = undefined;
 // unde1 = null1
 // unde1 = 1
 // unde1 = 'hello'
+
+
+// "strictNullChecks": false로 다른 타입에 null 할당하기
+let num10: number = null
