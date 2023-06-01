@@ -34,3 +34,30 @@ let user2: User = {
 function test() {
     type User = string;
 }
+
+
+// index signature
+type CountryCodes = {
+    Korea: string;
+    UnitedState: string;
+    UnitedKingdom: string;
+};
+
+let countryCodes: CountryCodes = {
+    Korea: "ko",
+    UnitedState: "us",
+    UnitedKingdom: "uk",
+};
+
+// korea 프로퍼티는 반드시 포함되어야 함.
+type CountryNumberCodes = {
+    [key: string]: number;
+    Korea: number;
+};
+
+// 명시한 프로퍼티의 value 타입은 인덱스 시그니처의 value 타입과 호환되거나 일치해야 함
+// type CountryNumberCodes2 = {
+//     [key: string]: number;
+//     Korea: string; // 오류!
+// };
+// TS2411: Property 'Korea' of type 'string' is not assignable to 'string' index type 'number'.
