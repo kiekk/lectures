@@ -27,9 +27,9 @@ let user3: {
 }
 
 // TS2741: Property 'id' is missing in type '{ name: string; }' but required in type '{ id: number; name: string; }'.
-user3 = {
-    name: "홍길동", // 오류 발생!
-};
+// user3 = {
+//     name: "홍길동", // 오류 발생!
+// };
 
 let user4: {
     id?: number; // 선택적 프로퍼티가 된 id
@@ -50,4 +50,4 @@ let user5: {
 };
 
 // TS2540: Cannot assign to 'name' because it is a read-only property.
-user5.name = "dskfd"; // 오류 발생
+// user5.name = "dskfd"; // 오류 발생
