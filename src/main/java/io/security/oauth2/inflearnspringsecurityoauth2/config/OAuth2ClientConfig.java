@@ -21,6 +21,7 @@ public class OAuth2ClientConfig {
                 .clientId("oauth2-client-app")
                 .clientSecret("client secret")
                 .redirectUri("http://localhost:8081/login/oauth2/code/keycloak")
+                .scope("openid", "email", "profile")
                 .build();
     }
 }
