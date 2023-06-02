@@ -17,3 +17,11 @@ spring:
               - openid
               - profile
               - email
+        provider:
+          keycloak:
+            authorization-uri: http://localhost:18080/realms/master/protocol/openid-connect/auth
+            token-uri: http://localhost:18080/realms/master/protocol/openid-connect/token
+            issuer-uri: http://localhost:18080/realms/master
+            user-info-uri: http://localhost:18080/realms/master/protocol/openid-connect/userinfo
+            jwk-set-uri: http://localhost:18080/realms/master/protocol/openid-connect/certs
+            user-name-attribute: preferred_username
