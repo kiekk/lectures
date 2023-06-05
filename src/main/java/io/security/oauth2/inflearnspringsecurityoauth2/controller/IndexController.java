@@ -9,6 +9,7 @@ import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
 import org.springframework.security.oauth2.core.OAuth2AccessToken;
 import org.springframework.security.oauth2.core.oidc.IdTokenClaimNames;
 import org.springframework.security.oauth2.core.oidc.OidcIdToken;
+import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.time.Instant;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 @RestController
 public class IndexController {
@@ -52,12 +54,14 @@ public class IndexController {
                 OAuth2AccessToken.TokenType.BEARER, // 토큰 타입
                 accessToken, // 토큰 값
                 Instant.now(), // 발행일
-                Instant.MAX // 만료일
+                Instant.MAX, // 만료일
+                Set.of("openid") // scope
         );
         Map<String, Object> idTokenClaims = Map.of(
                 IdTokenClaimNames.ISS, "http://localhost:18080/realms/master",
-                IdTokenClaimNames.SUB, "OIDC0",
-                "preferred_username", "username"
+                // 인가 서버에서 다시 인증 처리 시 sub validation 에서 오류 발생
+                IdTokenClaimNames.SUB, "e83371fe-aacc-456d-a5e4-76de30abc3b3", // 계정 ID 입력
+                "preferred_username", "user"
         );
         OidcIdToken oidcIdToken = new OidcIdToken(
                 idToken, // 토큰 값
