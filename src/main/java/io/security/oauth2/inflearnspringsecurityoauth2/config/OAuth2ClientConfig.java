@@ -2,6 +2,7 @@ package io.security.oauth2.inflearnspringsecurityoauth2.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.web.SecurityFilterChain;
 
@@ -11,11 +12,10 @@ public class OAuth2ClientConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http
-                .authorizeHttpRequests((authz) -> {
-                    authz.anyRequest().authenticated();
+                .authorizeRequests((authz) -> {
+                    authz.anyRequest().permitAll();
                 })
-                .oauth2Login()
-                .and()
+                .oauth2Login(Customizer.withDefaults())
                 .build();
     }
 }
