@@ -27,7 +27,7 @@ public class IndexController {
 
     @GetMapping("user")
     public OAuth2User user(String accessToken) {
-        ClientRegistration clientRegistration = clientRegistrationRepository.findByRegistrationId("keycload");
+        ClientRegistration clientRegistration = clientRegistrationRepository.findByRegistrationId("keycloak");
         OAuth2AccessToken oAuth2AccessToken = new OAuth2AccessToken(
                 OAuth2AccessToken.TokenType.BEARER, // 토큰 타입
                 accessToken, // 토큰 값
