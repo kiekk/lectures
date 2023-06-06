@@ -20,6 +20,9 @@ public class OAuth2ClientConfig {
                             .loginPage("/login")
                             .authorizationEndpoint(authorizationEndpointConfig -> {
                                 authorizationEndpointConfig.baseUri("/oauth2/v1/authorization");
+                            })
+                            .redirectionEndpoint(redirectionEndpointConfig -> {
+                                redirectionEndpointConfig.baseUri("/login/v1/oauth2/code/*");
                             });
                 })
                 .build();
