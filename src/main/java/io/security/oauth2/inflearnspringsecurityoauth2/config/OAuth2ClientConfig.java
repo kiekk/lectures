@@ -2,7 +2,6 @@ package io.security.oauth2.inflearnspringsecurityoauth2.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.web.SecurityFilterChain;
 
@@ -15,7 +14,13 @@ public class OAuth2ClientConfig {
                 .authorizeRequests((authz) -> {
                     authz.anyRequest().authenticated();
                 })
-                .oauth2Login(Customizer.withDefaults())
+                .oauth2Login(oauth2 -> {
+                    oauth2
+                            .loginPage("/login")
+                            .authorizationEndpoint(authorizationEndpointConfig -> {
+                                authorizationEndpointConfig.baseUri("/oauth2/v1/authorization");
+                            });
+                })
                 .build();
     }
 
