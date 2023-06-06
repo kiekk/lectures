@@ -12,6 +12,7 @@ public class OAuth2ClientConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http
                 .authorizeRequests((authz) -> {
+                    authz.antMatchers("/login").permitAll();
                     authz.anyRequest().authenticated();
                 })
                 .oauth2Login(oauth2 -> {
