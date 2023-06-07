@@ -34,7 +34,7 @@ spring:
             client-name: oauth2-client-app3
             client-id: oauth2-client-app3
             client-secret: 'client secret'
-            redirect-uri: http://localhost:80801/home
+            redirect-uri: http://localhost:8081/home
             authorization-grant-type: implicit
             client-authentication-method: none
             scope:
