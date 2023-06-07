@@ -17,6 +17,31 @@ spring:
               - openid
               - profile
               - email
+            provider: keycloak
+          keycloakWithPKCE:
+            client-name: oauth2-client-app2
+            client-id: oauth2-client-app2
+            client-secret: 'client secret'
+            redirect-uri: http://localhost:8081/login/v1/oauth2/code/keycloak
+            authorization-grant-type: authorization_code
+            client-authentication-method: none
+            scope:
+              - openid
+              - profile
+              - email
+            provider: keycloak
+          keycloak2:
+            client-name: oauth2-client-app3
+            client-id: oauth2-client-app3
+            client-secret: 'client secret'
+            redirect-uri: http://localhost:80801/home
+            authorization-grant-type: implicit
+            client-authentication-method: none
+            scope:
+              - openid
+              - profile
+              - email
+            provider: keycloak
         provider:
           keycloak:
             authorization-uri: http://localhost:18080/realms/master/protocol/openid-connect/auth

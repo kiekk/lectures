@@ -13,6 +13,7 @@ public class OAuth2ClientConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http
                 .authorizeRequests((authz) -> {
+                    authz.antMatchers("/home").permitAll();
                     authz.anyRequest().authenticated();
                 })
                 .oauth2Login(Customizer.withDefaults())
