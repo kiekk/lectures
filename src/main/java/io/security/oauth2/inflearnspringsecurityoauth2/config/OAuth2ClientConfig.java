@@ -2,23 +2,25 @@ package io.security.oauth2.inflearnspringsecurityoauth2.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.web.SecurityFilterChain;
 
-@Configuration
+@Configuration(proxyBeanMethods = false)
 public class OAuth2ClientConfig {
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    SecurityFilterChain oauth2SecurityFilterChain(HttpSecurity http) throws Exception {
         return http
-                .authorizeRequests((authz) -> {
-                    authz.antMatchers("/home").permitAll();
-                    authz.anyRequest().authenticated();
+                .authorizeRequests((requests) -> {
+                    requests.antMatchers("/", "/oauth2Login", "/client", "/logout").permitAll();
+                    requests.anyRequest().authenticated();
                 })
-                .oauth2Client(Customizer.withDefaults())
+                .oauth2Client()
+                .and()
                 .logout(logout -> {
-                    logout.logoutSuccessUrl("/home");
+                    logout.invalidateHttpSession(true);
+                    logout.deleteCookies("JSESSIONID");
+                    logout.clearAuthentication(true);
                 })
                 .build();
     }
