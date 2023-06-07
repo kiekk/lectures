@@ -2,6 +2,7 @@ package io.security.oauth2.inflearnspringsecurityoauth2.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.web.SecurityFilterChain;
 
@@ -12,7 +13,12 @@ public class OAuth2ClientConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http
                 .authorizeRequests((authz) -> {
+                    authz.antMatchers("/home").permitAll();
                     authz.anyRequest().authenticated();
+                })
+                .oauth2Client(Customizer.withDefaults())
+                .logout(logout -> {
+                    logout.logoutSuccessUrl("/home");
                 })
                 .build();
     }
