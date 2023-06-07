@@ -29,3 +29,12 @@ enum Role3 {
 console.log(Role3.ADMIN)
 console.log(Role3.USER)
 console.log(Role3.GUEST)
+
+
+// enum 값 출력
+console.log(Role2[10]) // ADMIN
+console.log(Role2[11]) // USER
+console.log(Role2[12]) // GUEST
+
+// 문자열 enum은 에러
+console.log(Role3['ADMIN'])
