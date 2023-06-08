@@ -11,12 +11,8 @@ spring:
             client-id: oauth2-client-app
             client-secret: 'client secret'
             redirect-uri: http://localhost:8081/login/oauth2/code/keycloak
-            authorization-grant-type: password
+            authorization-grant-type: client_credentials
             client-authentication-method: client_secret_basic
-            scope:
-              - openid
-              - profile
-              - email
             provider: keycloak
         provider:
           keycloak:
