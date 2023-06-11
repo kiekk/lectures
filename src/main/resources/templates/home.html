@@ -8,7 +8,9 @@
 </head>
 <body>
 
-<div>Welcome <br/> <span th:text="${authorizedClient}"/></div>
+<div>Welcome <br/></div>
+<div>Access Token: <p><span th:text="${accessToken}"></span></p></div>
+<div>Refresh Token: <p><span th:text="${refreshToken}"></span></p></div>
 
 <div>
     <a href="/logout">Logout</a>
