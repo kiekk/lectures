@@ -4,7 +4,6 @@ import io.security.oauth2.inflearnspringsecurityoauth2.filter.CustomOAuth2Authen
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.oauth2.client.web.DefaultOAuth2AuthorizedClientManager;
 import org.springframework.security.oauth2.client.web.OAuth2AuthorizedClientRepository;
@@ -23,8 +22,8 @@ public class OAuth2ClientConfig {
     @Bean
     SecurityFilterChain oauth2SecurityFilterChain(HttpSecurity http) throws Exception {
         return http
-                .authorizeRequests((requests) -> {
-                    requests.antMatchers("/", "/oauth2Login", "/client", "/v2/oauth2Login").permitAll();
+                .authorizeHttpRequests((requests) -> {
+                    requests.requestMatchers("/", "/oauth2Login", "/client", "/v2/oauth2Login").permitAll();
                     requests.anyRequest().authenticated();
                 })
                 .oauth2Client()
