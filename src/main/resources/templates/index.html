@@ -15,6 +15,10 @@
             window.location = new URL('http://localhost:8081/oauth2Login?username=user&password=P@ssw0rd');
         }
 
+        function passwordV2(){
+            window.location = new URL('http://localhost:8081/v2/oauth2Login?username=user&password=P@ssw0rd');
+        }
+
         function clientCredentials(){
             window.location = new URL('http://localhost:8081/oauth2Login');
         }
@@ -28,6 +32,7 @@
 <form sec:authorize="isAnonymous()" action="#">
     <p><input type="button" onclick="authorizationCode()" value="AuthorizationCode Grant" />
     <p><input type="button" onclick="password()" value="Resource Owner Password Grant" />
+    <p><input type="button" onclick="passwordV2()" value="Resource Owner Password Grant V2" />
     <p><input type="button" onclick="clientCredentials()" value="Client Credentials Grant" />
 </form>
 </body>
