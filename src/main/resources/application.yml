@@ -17,6 +17,9 @@ spring:
             scope:
               - openid
               - profile
+          google:
+            client-id: 'client-id'
+            client-secret: 'client-secret'
         provider:
           keycloak:
             authorization-uri: http://localhost:18080/realms/master/protocol/openid-connect/auth
