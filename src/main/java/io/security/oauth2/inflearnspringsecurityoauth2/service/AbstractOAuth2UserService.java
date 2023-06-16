@@ -31,6 +31,9 @@ public abstract class AbstractOAuth2UserService {
             case "kakao" -> {
                 return new KakaoUser(oAuth2User, clientRegistration);
             }
+            case "facebook" -> {
+                return new FacebookUser(oAuth2User, clientRegistration);
+            }
             default -> {
                 return null;
             }
