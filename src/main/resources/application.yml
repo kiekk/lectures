@@ -37,8 +37,9 @@ spring:
             redirect-uri: http://localhost:8081/login/oauth2/code/kakao
             scope:
               - openid
-              - profile
-              - email
+              - profile_image
+              - profile_nickname
+              - account_email
         provider:
           keycloak:
             authorization-uri: http://localhost:18080/realms/master/protocol/openid-connect/auth
