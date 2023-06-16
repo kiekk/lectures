@@ -36,7 +36,6 @@ spring:
             client-name: client-app
             redirect-uri: http://localhost:8081/login/oauth2/code/kakao
             scope:
-              - openid
               - profile_image
               - profile_nickname
               - account_email

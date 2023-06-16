@@ -28,6 +28,9 @@ public abstract class AbstractOAuth2UserService {
             case "naver" -> {
                 return new NaverUser(oAuth2User, clientRegistration);
             }
+            case "kakao" -> {
+                return new KakaoUser(oAuth2User, clientRegistration);
+            }
             default -> {
                 return null;
             }

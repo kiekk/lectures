@@ -29,6 +29,9 @@ public class IndexController {
                 case "keycloak" -> {
                     name = (String) attributes.get("preferred_username");
                 }
+                case "kakao" -> {
+                    name = (String) ((Map<String, Object>) ((Map<String, Object>) attributes.get("kakao_account")).get("profile")).get("nickname");
+                }
                 default -> {
                     name = (String) attributes.get("name");
                 }
