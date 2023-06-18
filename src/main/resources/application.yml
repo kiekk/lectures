@@ -26,6 +26,10 @@ spring:
           google:
             client-id: 'client-id'
             client-secret: 'client-secret'
+            scope:
+              - openid,
+              - profile,
+              - email
           naver:
             client-id: 'client-id'
             client-secret: 'client-secret'
