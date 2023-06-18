@@ -46,8 +46,8 @@ spring:
               - profile_nickname
               - account_email
           facebook:
-            client-id: '257904493597885'
-            client-secret: 'a0247bf83670234d9585d3b2f437e5a5'
+            client-id: 'client-id'
+            client-secret: 'client-secret'
             authorization-grant-type: authorization_code
             client-name: client-app
             redirect-uri: https://localhost/login/oauth2/code/facebook
