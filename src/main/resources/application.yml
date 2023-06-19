@@ -27,8 +27,8 @@ spring:
             client-id: 'client-id'
             client-secret: 'client-secret'
             scope:
-              - openid,
-              - profile,
+              - openid
+              - profile
               - email
           naver:
             client-id: 'client-id'
