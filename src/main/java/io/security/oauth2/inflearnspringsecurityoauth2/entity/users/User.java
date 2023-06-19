@@ -1,4 +1,4 @@
-package io.security.oauth2.inflearnspringsecurityoauth2.entity;
+package io.security.oauth2.inflearnspringsecurityoauth2.entity.users;
 
 import lombok.Builder;
 import lombok.Data;

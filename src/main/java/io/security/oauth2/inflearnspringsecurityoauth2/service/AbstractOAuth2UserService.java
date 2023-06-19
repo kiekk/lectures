@@ -1,6 +1,8 @@
 package io.security.oauth2.inflearnspringsecurityoauth2.service;
 
 import io.security.oauth2.inflearnspringsecurityoauth2.entity.*;
+import io.security.oauth2.inflearnspringsecurityoauth2.entity.social.*;
+import io.security.oauth2.inflearnspringsecurityoauth2.entity.users.*;
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.oauth2.client.registration.ClientRegistration;

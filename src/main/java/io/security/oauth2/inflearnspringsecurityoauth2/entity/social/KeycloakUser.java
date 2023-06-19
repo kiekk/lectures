@@ -1,11 +1,12 @@
-package io.security.oauth2.inflearnspringsecurityoauth2.entity;
+package io.security.oauth2.inflearnspringsecurityoauth2.entity.social;
 
+import io.security.oauth2.inflearnspringsecurityoauth2.entity.OAuth2ProviderUser;
 import org.springframework.security.oauth2.client.registration.ClientRegistration;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 
-public class GoogleUser extends OAuth2ProviderUser {
+public class KeycloakUser extends OAuth2ProviderUser {
 
-    public GoogleUser(OAuth2User oAuth2User, ClientRegistration clientRegistration) {
+    public KeycloakUser(OAuth2User oAuth2User, ClientRegistration clientRegistration) {
         super(oAuth2User.getAttributes(), oAuth2User, clientRegistration);
     }
 
@@ -16,7 +17,7 @@ public class GoogleUser extends OAuth2ProviderUser {
 
     @Override
     public String getUsername() {
-        return (String) getAttributes().get("sub");
+        return (String) getAttributes().get("preferred_username");
     }
 
 }

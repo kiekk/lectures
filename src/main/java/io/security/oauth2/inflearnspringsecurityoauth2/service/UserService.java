@@ -1,7 +1,7 @@
 package io.security.oauth2.inflearnspringsecurityoauth2.service;
 
 import io.security.oauth2.inflearnspringsecurityoauth2.entity.ProviderUser;
-import io.security.oauth2.inflearnspringsecurityoauth2.entity.User;
+import io.security.oauth2.inflearnspringsecurityoauth2.entity.users.User;
 import io.security.oauth2.inflearnspringsecurityoauth2.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

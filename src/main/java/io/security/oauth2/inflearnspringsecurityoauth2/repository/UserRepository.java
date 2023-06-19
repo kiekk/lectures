@@ -1,6 +1,6 @@
 package io.security.oauth2.inflearnspringsecurityoauth2.repository;
 
-import io.security.oauth2.inflearnspringsecurityoauth2.entity.User;
+import io.security.oauth2.inflearnspringsecurityoauth2.entity.users.User;
 import org.springframework.stereotype.Repository;
 
 import java.util.HashMap;
