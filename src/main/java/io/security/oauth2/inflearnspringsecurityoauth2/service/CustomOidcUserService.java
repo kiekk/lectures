@@ -1,5 +1,6 @@
 package io.security.oauth2.inflearnspringsecurityoauth2.service;
 
+import io.security.oauth2.inflearnspringsecurityoauth2.converters.ProviderUserRequest;
 import io.security.oauth2.inflearnspringsecurityoauth2.entity.ProviderUser;
 import org.springframework.security.oauth2.client.oidc.userinfo.OidcUserRequest;
 import org.springframework.security.oauth2.client.oidc.userinfo.OidcUserService;
@@ -17,7 +18,10 @@ public class CustomOidcUserService extends AbstractOAuth2UserService implements 
         ClientRegistration clientRegistration = userRequest.getClientRegistration();
         OidcUserService userService = new OidcUserService();
         OidcUser oidcUser = userService.loadUser(userRequest);
-        ProviderUser providerUser = super.providerUser(oidcUser, clientRegistration);
+
+        ProviderUserRequest providerUserRequest = new ProviderUserRequest(clientRegistration, oidcUser);
+
+        ProviderUser providerUser = super.providerUser(providerUserRequest);
 
         // 회원 가입
         super.register(providerUser, userRequest);
