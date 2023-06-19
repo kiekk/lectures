@@ -20,4 +20,8 @@ public class FacebookUser extends OAuth2ProviderUser {
         return (String) getAttributes().get("sub");
     }
 
+    @Override
+    public String getPicture() {
+        return null;
+    }
 }
