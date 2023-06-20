@@ -5,21 +5,21 @@ import {
   OneToMany,
   PrimaryGeneratedColumn,
   Unique,
-} from 'typeorm';
-import { Board } from '../boards/board.entity';
+} from 'typeorm'
+import { Board } from '../boards/board.entity'
 
 @Entity()
 @Unique(['username'])
 export class User extends BaseEntity {
   @PrimaryGeneratedColumn()
-  id: string;
+  id: string
 
   @Column()
-  username: string;
+  username: string
 
   @Column()
-  password: string;
+  password: string
 
   @OneToMany((type) => Board, (board) => board.user, { eager: true })
-  boards: Board[];
+  boards: Board[]
 }

@@ -4,24 +4,24 @@ import {
   Entity,
   ManyToOne,
   PrimaryGeneratedColumn,
-} from 'typeorm';
-import { BoardStatus } from './enum/boardStatus';
-import { User } from '../auth/user.entity';
+} from 'typeorm'
+import { BoardStatus } from './enum/boardStatus'
+import { User } from '../auth/user.entity'
 
 @Entity()
 export class Board extends BaseEntity {
   @PrimaryGeneratedColumn()
-  id: number;
+  id: number
 
   @Column()
-  title: string;
+  title: string
 
   @Column()
-  description: string;
+  description: string
 
   @Column()
-  status: BoardStatus;
+  status: BoardStatus
 
   @ManyToOne((type) => User, (user) => user.boards, { eager: false })
-  user: User;
+  user: User
 }
