@@ -1,6 +1,5 @@
 package com.example.api.service;
 
-import com.example.api.domain.Coupon;
 import com.example.api.kafka.producer.CouponCreateProducer;
 import com.example.api.repository.CouponCountRepository;
 import com.example.api.repository.CouponRepository;
@@ -9,12 +8,10 @@ import org.springframework.stereotype.Service;
 @Service
 public class ApplyService {
 
-    private final CouponRepository couponRepository;
     private final CouponCountRepository couponCountRepository;
     private final CouponCreateProducer couponCreateProducer;
 
-    public ApplyService(CouponRepository couponRepository, CouponCountRepository couponCountRepository, CouponCreateProducer couponCreateProducer) {
-        this.couponRepository = couponRepository;
+    public ApplyService(CouponCountRepository couponCountRepository, CouponCreateProducer couponCreateProducer) {
         this.couponCountRepository = couponCountRepository;
         this.couponCreateProducer = couponCreateProducer;
     }
