@@ -55,4 +55,32 @@ class ApplyServiceTest {
         assertThat(count).isEqualTo(100);
     }
 
+    @Test
+    void 한명당_한개의쿠폰만_발급() throws InterruptedException {
+        // 동시 접근 시 의도한대로 동작하지 않음
+        int threadCount = 1_000;
+
+        ExecutorService executorService = Executors.newFixedThreadPool(32);
+        CountDownLatch countDownLatch = new CountDownLatch(threadCount);
+
+        for (int i = 0; i < threadCount; i++) {
+            executorService.submit(() -> {
+                try {
+                    // userId 고정 -> 1
+                    applyService.apply(1L);
+                } finally {
+                    countDownLatch.countDown();
+                }
+            });
+        }
+
+        countDownLatch.await();
+
+        Thread.sleep(1);
+
+        long count = couponRepository.count();
+        assertThat(count).isEqualTo(1);
+    }
+
+
 }
