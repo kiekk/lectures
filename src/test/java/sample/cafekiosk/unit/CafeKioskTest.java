@@ -49,9 +49,7 @@ class CafeKioskTest {
         CafeKiosk cafeKiosk = new CafeKiosk();
         Americano americano = new Americano();
 
-        assertThatThrownBy(() -> cafeKiosk.add(americano, 0))
-                .isInstanceOf(IllegalArgumentException.class)
-                .hasMessage("음료는 1잔 이상 주문하실 수 있습니다.");
+        assertThatThrownBy(() -> cafeKiosk.add(americano, 0)).isInstanceOf(IllegalArgumentException.class).hasMessage("음료는 1잔 이상 주문하실 수 있습니다.");
     }
 
     @Test
@@ -122,5 +120,21 @@ class CafeKioskTest {
                 .hasMessage("주문 시간이 아닙니다. 관리자에게 문의하세요.");
         // 변하는 값을 외부에서 주입하자.
     }
+
+    @Test
+    void calculateTotalPrice() {
+        CafeKiosk cafeKiosk = new CafeKiosk();
+        Americano americano = new Americano();
+        Latte latte = new Latte();
+
+        cafeKiosk.add(americano);
+        cafeKiosk.add(latte);
+
+        int totalPrice = cafeKiosk.calculateTotalPrice();
+
+        // 처음에는 실패하는 케이스를 먼저 작성
+        assertThat(totalPrice).isEqualTo(8_500);
+    }
+
 
 }
