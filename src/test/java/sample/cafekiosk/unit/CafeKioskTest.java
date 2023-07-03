@@ -3,6 +3,8 @@ package sample.cafekiosk.unit;
 import org.junit.jupiter.api.Test;
 import sample.cafekiosk.unit.beverage.Americano;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 class CafeKioskTest {
 
     @Test
@@ -14,6 +16,16 @@ class CafeKioskTest {
         System.out.println(">>> 담긴 음료 : " + cafeKiosk.getBeverages().get(0).getName());
 
         // 테스트이지만 결국 개발자가 직접 테스트 성공/실패를 판단해야 합니다.
+    }
+
+    @Test
+    void add() {
+        CafeKiosk cafeKiosk = new CafeKiosk();
+        cafeKiosk.add(new Americano());
+
+        assertThat(cafeKiosk.getBeverages().size()).isEqualTo(1);
+        assertThat(cafeKiosk.getBeverages()).hasSize(1);
+        assertThat(cafeKiosk.getBeverages().get(0).getName()).isEqualTo("아메리카노");
     }
 
 }
