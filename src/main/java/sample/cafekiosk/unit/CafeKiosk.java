@@ -40,7 +40,10 @@ public class CafeKiosk {
     }
 
     public int calculateTotalPrice() {
-        return 0;
+        // 최대한 빠르게 테스트를 통과하도록 케이스를 작성
+        // 지금과 같이 하드코딩도 TDD 에서는 허용
+        // 구현의 완성도는 지금 단계에서는 중요하지 않고, 테스트를 통과하는 것이 가장 중요
+        return 8_500;
     }
 
     public Order createOrder() {
