@@ -132,7 +132,7 @@ class CafeKioskTest {
 
         int totalPrice = cafeKiosk.calculateTotalPrice();
 
-        // 처음에는 실패하는 케이스를 먼저 작성
+        // 테스트 통과는 계속 유지하면서 리팩토링하여 코드를 개선함
         assertThat(totalPrice).isEqualTo(8_500);
     }
 
