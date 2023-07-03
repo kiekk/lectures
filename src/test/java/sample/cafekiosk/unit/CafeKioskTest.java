@@ -30,6 +30,17 @@ class CafeKioskTest {
     }
 
     @Test
+    void addSeveralBeverages() {
+        CafeKiosk cafeKiosk = new CafeKiosk();
+        Americano americano = new Americano();
+        cafeKiosk.add(americano, 2);
+
+        assertThat(cafeKiosk.getBeverages()).hasSize(2);
+        assertThat(cafeKiosk.getBeverages().get(0)).isEqualTo(americano);
+        assertThat(cafeKiosk.getBeverages().get(1)).isEqualTo(americano);
+    }
+
+    @Test
     void remove() {
         CafeKiosk cafeKiosk = new CafeKiosk();
         Americano americano = new Americano();
