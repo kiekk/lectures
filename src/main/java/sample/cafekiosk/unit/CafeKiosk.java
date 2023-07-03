@@ -7,6 +7,7 @@ import sample.cafekiosk.unit.order.Order;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.IntStream;
 
 @Getter
 public class CafeKiosk {
@@ -15,6 +16,16 @@ public class CafeKiosk {
 
     public void add(Beverage beverage) {
         beverages.add(beverage);
+    }
+
+    public void add(Beverage beverage, int count) {
+        if (count <= 0) {
+            throw new IllegalArgumentException("음료는 1잔 이상 주문하실 수 있습니다.");
+        }
+
+        IntStream.range(0, count).forEach((value) -> {
+            beverages.add(beverage);
+        });
     }
 
     public void remove(Beverage beverage) {
