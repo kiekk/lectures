@@ -12,6 +12,6 @@ import java.util.List;
 @RequiredArgsConstructor
 public class Order {
     private final LocalDateTime orderDateTime;
-    private final List<Beverage> beverages = new ArrayList<>();
+    private final List<Beverage> beverages;
 
 }

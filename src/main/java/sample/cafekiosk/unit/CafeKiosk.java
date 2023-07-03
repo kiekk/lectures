@@ -1,7 +1,9 @@
 package sample.cafekiosk.unit;
 
 import sample.cafekiosk.unit.beverage.Beverage;
+import sample.cafekiosk.unit.order.Order;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,5 +25,9 @@ public class CafeKiosk {
 
     public int calculateTotalPrice() {
         return beverages.stream().mapToInt(Beverage::getPrice).sum();
+    }
+
+    public Order createOrder() {
+        return new Order(LocalDateTime.now(), beverages);
     }
 }
