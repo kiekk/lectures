@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import sample.cafekiosk.spring.api.controller.order.request.OrderCreateRequest;
 import sample.cafekiosk.spring.api.service.order.OrderService;
+import sample.cafekiosk.spring.api.service.order.response.OrderResponse;
 
 import java.time.LocalDateTime;
 
@@ -17,9 +18,9 @@ public class OrderController {
 
     @PostMapping("new")
     @ResponseStatus(HttpStatus.CREATED)
-    public void createOrder(@RequestBody OrderCreateRequest request) {
+    public OrderResponse createOrder(@RequestBody OrderCreateRequest request) {
         LocalDateTime registeredDateTIme = LocalDateTime.now();
-        orderService.createOrder(request, registeredDateTIme);
+        return orderService.createOrder(request, registeredDateTIme);
     }
 
 }
