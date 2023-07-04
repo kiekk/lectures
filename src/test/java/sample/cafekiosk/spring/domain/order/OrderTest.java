@@ -27,7 +27,7 @@ class OrderTest {
         Order order = Order.create(products);
 
         // then
-        assertThat(order.getTotalPrice()).isEqualTo(3_000);
+        assertThat(order.getTotalPrice()).isEqualTo(6_000);
     }
 
 

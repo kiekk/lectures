@@ -32,7 +32,8 @@ public class Order {
     private List<OrderProduct> orderProducts = new ArrayList<>();
 
     public Order(List<Product> products) {
-        
+        this.status = OrderStatus.INIT;
+        this.totalPrice = products.stream().mapToInt(Product::getPrice).sum();
     }
 
     public static Order create(List<Product> products) {
