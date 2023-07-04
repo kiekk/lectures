@@ -2,6 +2,7 @@ package sample.cafekiosk.spring.api.service.order;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import sample.cafekiosk.spring.api.controller.order.request.OrderCreateRequest;
 import sample.cafekiosk.spring.api.service.order.response.OrderResponse;
 import sample.cafekiosk.spring.domain.order.Order;
@@ -20,6 +21,7 @@ import java.util.Map;
 import static java.util.stream.Collectors.*;
 
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class OrderService {
 
