@@ -34,4 +34,9 @@ public class Stock {
                 .quantity(quantity)
                 .build();
     }
+
+    public boolean isQuantityLessThan(int quantity) {
+        return this.quantity < quantity;
+    }
+
 }
