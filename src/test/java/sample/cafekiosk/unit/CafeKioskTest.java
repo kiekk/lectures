@@ -91,7 +91,7 @@ class CafeKioskTest {
 
         cafeKiosk.add(americano);
 
-        Order order = cafeKiosk.createOrder();
+        Order order = cafeKiosk.createOrder(LocalDateTime.of(2023, 7, 3, 10, 0));
         assertThat(order.getBeverages()).hasSize(1);
         assertThat(order.getBeverages().get(0).getName()).isEqualTo("아메리카노");
 
