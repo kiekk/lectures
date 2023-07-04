@@ -3,8 +3,8 @@ package sample.cafekiosk.spring.api.service.order;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 import sample.cafekiosk.spring.api.controller.order.request.OrderCreateRequest;
 import sample.cafekiosk.spring.api.service.order.response.OrderResponse;
 import sample.cafekiosk.spring.domain.product.Product;
@@ -20,6 +20,7 @@ import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
 import static sample.cafekiosk.spring.domain.product.ProductSellingStatus.SELLING;
 import static sample.cafekiosk.spring.domain.product.ProductType.HANDMADE;
 
+@ActiveProfiles("test")
 @SpringBootTest
 //@DataJpaTest // OrderService 빈 주입 실패
 class OrderServiceTest {
@@ -34,6 +35,7 @@ class OrderServiceTest {
     @Test
     void createOrder() {
         // given - 테스트를 위한 준비 단계
+        LocalDateTime registeredDateTime = LocalDateTime.now();
         Product product1 = createProduct(HANDMADE, "001", 1_000, SELLING, "아메리카노");
         Product product2 = createProduct(HANDMADE, "002", 3_000, SELLING, "에스프레소");
         Product product3 = createProduct(HANDMADE, "003", 5_000, SELLING, "카페라뗴");
@@ -44,13 +46,13 @@ class OrderServiceTest {
                 .build();
 
         // when - 실제 테스트
-        OrderResponse orderResponse = orderService.createOrder(request, LocalDateTime.now());
+        OrderResponse orderResponse = orderService.createOrder(request, registeredDateTime);
 
         // then - 테스트 결과 검증
         assertThat(orderResponse).isNotNull();
         assertThat(orderResponse)
                 .extracting("registeredDateTime", "totalPrice")
-                .contains(LocalDateTime.now(), 4_000);
+                .contains(registeredDateTime, 4_000);
         assertThat(orderResponse.getProducts())
                 .hasSize(2)
                 .extracting("productNumber", "price")

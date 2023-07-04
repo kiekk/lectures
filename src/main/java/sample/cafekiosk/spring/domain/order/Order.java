@@ -35,6 +35,7 @@ public class Order {
         this.status = OrderStatus.INIT;
         this.totalPrice = calculateTotalPrice(products);
         this.registeredDateTime = registeredDateTime;
+        this.orderProducts = products.stream().map(product -> new OrderProduct(this, product)).toList();
     }
 
     private int calculateTotalPrice(List<Product> products) {
