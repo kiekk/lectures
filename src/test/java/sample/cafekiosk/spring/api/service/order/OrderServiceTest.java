@@ -1,12 +1,11 @@
 package sample.cafekiosk.spring.api.service.order;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.transaction.annotation.Transactional;
 import sample.cafekiosk.spring.api.controller.order.request.OrderCreateRequest;
 import sample.cafekiosk.spring.api.service.order.response.OrderResponse;
 import sample.cafekiosk.spring.domain.order.OrderRepository;
@@ -25,6 +24,7 @@ import static sample.cafekiosk.spring.domain.product.ProductSellingStatus.SELLIN
 import static sample.cafekiosk.spring.domain.product.ProductType.HANDMADE;
 
 @ActiveProfiles("test")
+@Transactional
 @SpringBootTest
 //@DataJpaTest // OrderService 빈 주입 실패
 class OrderServiceTest {
@@ -41,12 +41,15 @@ class OrderServiceTest {
     @Autowired
     private OrderProductRepository orderProductRepository;
 
-    @AfterEach
-    void tearDown() {
-        orderProductRepository.deleteAllInBatch();
-        orderRepository.deleteAllInBatch();
-        productRepository.deleteAllInBatch();
-    }
+    @Autowired
+    private StockRepository stockRepository;
+
+//    @AfterEach
+//    void tearDown() {
+//        orderProductRepository.deleteAllInBatch();
+//        orderRepository.deleteAllInBatch();
+//        productRepository.deleteAllInBatch();
+//    }
 
     @DisplayName("주문번호 리스트를 받아 주문을 생성한다.")
     @Test
