@@ -39,4 +39,7 @@ public class Stock {
         return this.quantity < quantity;
     }
 
+    public void deductQuantity(int quantity) {
+    }
+
 }

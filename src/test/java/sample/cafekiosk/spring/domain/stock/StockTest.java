@@ -35,4 +35,19 @@ class StockTest {
         assertThat(result).isFalse();
     }
 
+    @DisplayName("재고를 주어진 개수만큼 차감할 수 있다.")
+    @Test
+    void deductQuantity() {
+        // given
+        Stock stock = Stock.create("001", 1);
+        int quantity = 1;
+
+        // when
+        stock.deductQuantity(quantity);
+
+        // then
+        assertThat(stock.getQuantity()).isEqualTo(0);
+        assertThat(stock.getQuantity()).isZero();
+    }
+
 }
