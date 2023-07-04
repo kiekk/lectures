@@ -3,7 +3,8 @@ package sample.cafekiosk.spring.domain.stock;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 class StockTest {
 
@@ -48,6 +49,20 @@ class StockTest {
         // then
         assertThat(stock.getQuantity()).isEqualTo(0);
         assertThat(stock.getQuantity()).isZero();
+    }
+
+    @DisplayName("재고보다 많은 수량으로 차감 시도하는 경우 예외가 발생한다.")
+    @Test
+    void deductQuantityFail() {
+        // given
+        Stock stock = Stock.create("001", 1);
+        int quantity = 2;
+
+        // when
+        // then
+        assertThatThrownBy(() -> stock.deductQuantity(quantity))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage("차감할 재고 수량이 없습니다.");
     }
 
 }
