@@ -127,6 +127,7 @@ class CafeKioskTest {
 
     @Test
     void calculateTotalPrice() {
+        // given
         CafeKiosk cafeKiosk = new CafeKiosk();
         Americano americano = new Americano();
         Latte latte = new Latte();
@@ -134,8 +135,10 @@ class CafeKioskTest {
         cafeKiosk.add(americano);
         cafeKiosk.add(latte);
 
+        // when
         int totalPrice = cafeKiosk.calculateTotalPrice();
 
+        // then
         // 테스트 통과는 계속 유지하면서 리팩토링하여 코드를 개선함
         assertThat(totalPrice).isEqualTo(8_500);
     }
