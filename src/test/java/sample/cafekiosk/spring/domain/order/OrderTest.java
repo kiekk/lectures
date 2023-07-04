@@ -9,7 +9,7 @@ import sample.cafekiosk.spring.domain.product.ProductType;
 import java.util.List;
 
 import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
+import static sample.cafekiosk.spring.domain.order.OrderStatus.INIT;
 
 class OrderTest {
 
@@ -28,6 +28,23 @@ class OrderTest {
 
         // then
         assertThat(order.getTotalPrice()).isEqualTo(6_000);
+    }
+
+    @DisplayName("주문 생성 시 주문 상태는 INIT이다.")
+    @Test
+    void orderStatusInit() {
+        // given
+        List<Product> products = List.of(
+                createProduct("001", 1_000),
+                createProduct("002", 2_000),
+                createProduct("003", 3_000)
+        );
+
+        // when
+        Order order = Order.create(products);
+
+        // then
+        assertThat(order.getStatus()).isEqualByComparingTo(INIT);
     }
 
 
