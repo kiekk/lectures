@@ -1,5 +1,6 @@
 package sample.cafekiosk.unit;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import sample.cafekiosk.unit.beverage.Americano;
 import sample.cafekiosk.unit.beverage.Latte;
@@ -23,6 +24,9 @@ class CafeKioskTest {
         // 테스트이지만 결국 개발자가 직접 테스트 성공/실패를 판단해야 합니다.
     }
 
+    // @DisplayName을 사용하여 테스트 코드의 목적을 상세하게 설명해주는 것이 좋다.
+//    @DisplayName("음료 1개 추가 테스트") // Bad
+    @DisplayName("음료 1개를 추가하면 주문 목록에 추가된다.") // Good
     @Test
     void add() {
         CafeKiosk cafeKiosk = new CafeKiosk();
