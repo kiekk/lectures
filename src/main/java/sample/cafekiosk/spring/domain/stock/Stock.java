@@ -40,6 +40,7 @@ public class Stock {
     }
 
     public void deductQuantity(int quantity) {
+        this.quantity -= quantity;
     }
 
 }
