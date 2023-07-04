@@ -44,7 +44,7 @@ class OrderServiceTest {
                 .build();
 
         // when - 실제 테스트
-        OrderResponse orderResponse = orderService.createOrder(request);
+        OrderResponse orderResponse = orderService.createOrder(request, LocalDateTime.now());
 
         // then - 테스트 결과 검증
         assertThat(orderResponse).isNotNull();

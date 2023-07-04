@@ -31,16 +31,17 @@ public class Order {
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
     private List<OrderProduct> orderProducts = new ArrayList<>();
 
-    public Order(List<Product> products) {
+    public Order(List<Product> products, LocalDateTime registeredDateTime) {
         this.status = OrderStatus.INIT;
         this.totalPrice = calculateTotalPrice(products);
+        this.registeredDateTime = registeredDateTime;
     }
 
     private int calculateTotalPrice(List<Product> products) {
         return products.stream().mapToInt(Product::getPrice).sum();
     }
 
-    public static Order create(List<Product> products) {
-        return new Order(products);
+    public static Order create(List<Product> products, LocalDateTime registeredDateTime) {
+        return new Order(products, registeredDateTime);
     }
 }
