@@ -125,6 +125,7 @@ class CafeKioskTest {
         // 변하는 값을 외부에서 주입하자.
     }
 
+    @DisplayName("주묵 목록에 담긴 상품들의 총 금액을 계산할 수 있다.")
     @Test
     void calculateTotalPrice() {
         // given
