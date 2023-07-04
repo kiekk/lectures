@@ -1,5 +1,6 @@
 package sample.cafekiosk.spring.api.service.order;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +26,7 @@ import static sample.cafekiosk.spring.domain.product.ProductSellingStatus.SELLIN
 import static sample.cafekiosk.spring.domain.product.ProductType.*;
 
 @ActiveProfiles("test")
-@Transactional
+//@Transactional
 @SpringBootTest
 //@DataJpaTest // OrderService 빈 주입 실패
 class OrderServiceTest {
@@ -45,12 +46,13 @@ class OrderServiceTest {
     @Autowired
     private StockRepository stockRepository;
 
-//    @AfterEach
-//    void tearDown() {
-//        orderProductRepository.deleteAllInBatch();
-//        orderRepository.deleteAllInBatch();
-//        productRepository.deleteAllInBatch();
-//    }
+    @AfterEach
+    void tearDown() {
+        orderProductRepository.deleteAllInBatch();
+        orderRepository.deleteAllInBatch();
+        productRepository.deleteAllInBatch();
+        stockRepository.deleteAllInBatch();
+    }
 
     @DisplayName("주문번호 리스트를 받아 주문을 생성한다.")
     @Test
