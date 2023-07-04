@@ -33,7 +33,11 @@ public class Order {
 
     public Order(List<Product> products) {
         this.status = OrderStatus.INIT;
-        this.totalPrice = products.stream().mapToInt(Product::getPrice).sum();
+        this.totalPrice = calculateTotalPrice(products);
+    }
+
+    private int calculateTotalPrice(List<Product> products) {
+        return products.stream().mapToInt(Product::getPrice).sum();
     }
 
     public static Order create(List<Product> products) {
