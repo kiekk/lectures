@@ -2,6 +2,7 @@ package sample.cafekiosk.spring.api.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 import sample.cafekiosk.spring.api.controller.product.dto.request.ProductCreateRequest;
 import sample.cafekiosk.spring.api.service.response.ProductResponse;
 import sample.cafekiosk.spring.domain.product.ProductRepository;
@@ -35,6 +36,10 @@ public class ProductService {
     }
 
     private String createNextProductNumber() {
-        return String.format("%03d", Integer.parseInt(productRepository.findLatestProductNumber()) + 1);
+        String latestProductNumber = productRepository.findLatestProductNumber();
+        if (!StringUtils.hasText(latestProductNumber)) {
+            return "001";
+        }
+        return String.format("%03d", Integer.parseInt(latestProductNumber) + 1);
     }
 }
