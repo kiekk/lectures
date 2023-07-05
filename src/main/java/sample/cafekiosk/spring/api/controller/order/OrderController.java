@@ -22,7 +22,7 @@ public class OrderController {
     @ResponseStatus(HttpStatus.CREATED)
     public ApiResponse<OrderResponse> createOrder(@RequestBody @Valid OrderCreateRequest request) {
         LocalDateTime registeredDateTIme = LocalDateTime.now();
-        return ApiResponse.ok(orderService.createOrder(request, registeredDateTIme));
+        return ApiResponse.ok(orderService.createOrder(request.toServiceRequest(), registeredDateTIme));
     }
 
 }
