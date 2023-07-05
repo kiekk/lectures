@@ -4,6 +4,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import sample.cafekiosk.spring.api.ApiResponse;
 import sample.cafekiosk.spring.api.controller.product.dto.request.ProductCreateRequest;
 import sample.cafekiosk.spring.api.service.ProductService;
 import sample.cafekiosk.spring.api.service.response.ProductResponse;
@@ -19,13 +20,13 @@ public class ProductController {
 
     @PostMapping("new")
     @ResponseStatus(HttpStatus.CREATED)
-    public ProductResponse createProduct(@RequestBody @Valid ProductCreateRequest request) {
-        return productService.createProduct(request);
+    public ApiResponse<ProductResponse> createProduct(@RequestBody @Valid ProductCreateRequest request) {
+        return ApiResponse.created(productService.createProduct(request));
     }
 
 
     @GetMapping("selling")
-    public List<ProductResponse> getSellingProducts() {
-        return productService.getSellingProducts();
+    public ApiResponse<List<ProductResponse>> getSellingProducts() {
+        return ApiResponse.of(HttpStatus.OK, productService.getSellingProducts());
     }
 }
