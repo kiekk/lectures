@@ -21,7 +21,7 @@ public class ProductController {
     @PostMapping("new")
     @ResponseStatus(HttpStatus.CREATED)
     public ApiResponse<ProductResponse> createProduct(@RequestBody @Valid ProductCreateRequest request) {
-        return ApiResponse.created(productService.createProduct(request));
+        return ApiResponse.created(productService.createProduct(request.toServiceRequest()));
     }
 
 
