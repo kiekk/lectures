@@ -82,6 +82,16 @@ class ProductRepositoryTest {
         assertThat(latestProductNumber).isEqualTo(targetProductNumber);
     }
 
+    @DisplayName("가장 마지막으로 저장한 상품의 상품 번호를 읽어올 때 상품이 하나도 없는 경우에는 null을 반환한다.")
+    @Test
+    void findLatestProductNumberWhenProductIsEmpty() {
+        // when
+        String latestProductNumber = productRepository.findLatestProductNumber();
+
+        // then
+        assertThat(latestProductNumber).isNull();
+    }
+
     private Product createProduct(ProductType type, String productNumber, int price, ProductSellingStatus status, String name) {
         return Product.builder()
                 .productNumber(productNumber)
