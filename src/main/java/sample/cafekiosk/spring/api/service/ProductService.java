@@ -23,11 +23,18 @@ public class ProductService {
     }
 
     public ProductResponse createProduct(ProductCreateRequest request) {
-        // generate productNumber
-        // DB 에서 마지막 저장된 Product 의 상품 번호를 읽어와서 +1
-        // ex: 001 002 003 004
-        String latestProductNumber = productRepository.findLatestProductNumber();
+        String nextProductNumber = createNextProductNumber();
 
-        return null;
+        return ProductResponse.builder()
+                .productNumber(nextProductNumber)
+                .type(request.getType())
+                .sellingStatus(request.getSellingStatus())
+                .name(request.getName())
+                .price(request.getPrice())
+                .build();
+    }
+
+    private String createNextProductNumber() {
+        return String.format("%03d", Integer.parseInt(productRepository.findLatestProductNumber()) + 1);
     }
 }
