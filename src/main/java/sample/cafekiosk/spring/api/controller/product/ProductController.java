@@ -1,6 +1,7 @@
 package sample.cafekiosk.spring.api.controller.product;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import sample.cafekiosk.spring.api.controller.product.dto.request.ProductCreateRequest;
 import sample.cafekiosk.spring.api.service.ProductService;
@@ -16,8 +17,9 @@ public class ProductController {
     private final ProductService productService;
 
     @PostMapping("new")
-    public void createProduct(@RequestBody ProductCreateRequest request) {
-        productService.createProduct(request);
+    @ResponseStatus(HttpStatus.CREATED)
+    public ProductResponse createProduct(@RequestBody ProductCreateRequest request) {
+        return productService.createProduct(request);
     }
 
 
