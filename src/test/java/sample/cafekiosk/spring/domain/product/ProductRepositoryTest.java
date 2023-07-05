@@ -11,7 +11,7 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.tuple;
 import static sample.cafekiosk.spring.domain.product.ProductSellingStatus.*;
-import static sample.cafekiosk.spring.domain.product.ProductType.HANDMADE;
+import static sample.cafekiosk.spring.domain.product.ProductType.*;
 
 //@SpringBootTest
 @ActiveProfiles("test")
@@ -99,6 +99,33 @@ class ProductRepositoryTest {
                         tuple("001", "아메리카노", SELLING),
                         tuple("002", "카페라떼", HOLD)
                 );
+    }
+
+    @DisplayName("가장 마지막으로 저장한 상품의 상품 번호를 읽어온다.")
+    @Test
+    void findLatestProductNumber() {
+        // given
+        String targetProductNumber = "003";
+        Product product1 = createProduct(BOTTLE, "001", 1_000, SELLING, "아메리카노");
+        Product product2 = createProduct(BAKERY, "002", 3_000, SELLING, "에스프레소");
+        Product product3 = createProduct(HANDMADE, targetProductNumber, 5_000, SELLING, "카페라뗴");
+        productRepository.saveAll(List.of(product1, product2, product3));
+
+        // when
+        String latestProductNumber = productRepository.findLatestProductNumber();
+
+        // then
+        assertThat(latestProductNumber).isEqualTo(targetProductNumber);
+    }
+
+    private Product createProduct(ProductType type, String productNumber, int price, ProductSellingStatus status, String name) {
+        return Product.builder()
+                .productNumber(productNumber)
+                .type(type)
+                .sellingStatus(status)
+                .name(name)
+                .price(price)
+                .build();
     }
 
 }
