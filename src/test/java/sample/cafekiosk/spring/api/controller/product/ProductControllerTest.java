@@ -99,5 +99,29 @@ class ProductControllerTest {
                 .andExpect(jsonPath("$.data").isEmpty());
     }
 
+    @DisplayName("신규 상품을 등록할 때 상품 이름은 필숫값이다.")
+    @Test
+    void createProductWithoutName() throws Exception {
+        // given
+        ProductCreateRequest request = ProductCreateRequest.builder()
+                .type(ProductType.HANDMADE)
+                .sellingStatus(ProductSellingStatus.SELLING)
+                .price(4_000)
+                .build();
+
+        // when
+        // then
+        mockMvc.perform(post("/api/v1/products/new")
+                        .content(objectMapper.writeValueAsString(request))
+                        .contentType(MediaType.APPLICATION_JSON)
+                )
+                .andDo(print())
+                .andExpect(MockMvcResultMatchers.status().isBadRequest())
+                .andExpect(jsonPath("$.code").value("400"))
+                .andExpect(jsonPath("$.status").value("BAD_REQUEST"))
+                .andExpect(jsonPath("$.message").value("상품 이름은 필수입니다."))
+                .andExpect(jsonPath("$.data").isEmpty());
+    }
+
 
 }
