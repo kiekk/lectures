@@ -32,11 +32,11 @@ public class ProductService {
 
         return ProductResponse.builder()
                 .id(savedProduct.getId())
-                .productNumber(nextProductNumber)
-                .type(request.getType())
-                .sellingStatus(request.getSellingStatus())
-                .name(request.getName())
-                .price(request.getPrice())
+                .productNumber(savedProduct.getProductNumber())
+                .type(savedProduct.getType())
+                .sellingStatus(savedProduct.getSellingStatus())
+                .name(savedProduct.getName())
+                .price(savedProduct.getPrice())
                 .build();
     }
 
