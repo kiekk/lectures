@@ -27,6 +27,6 @@ public class ProductController {
 
     @GetMapping("selling")
     public ApiResponse<List<ProductResponse>> getSellingProducts() {
-        return ApiResponse.of(HttpStatus.OK, productService.getSellingProducts());
+        return ApiResponse.ok(productService.getSellingProducts());
     }
 }
