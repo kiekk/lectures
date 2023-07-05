@@ -15,6 +15,7 @@ import sample.cafekiosk.spring.domain.product.ProductSellingStatus;
 import sample.cafekiosk.spring.domain.product.ProductType;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 
 @WebMvcTest(controllers = ProductController.class)
 class ProductControllerTest {
@@ -42,9 +43,10 @@ class ProductControllerTest {
         // when
         // then
         mockMvc.perform(post("/api/v1/products/new")
-                .content(objectMapper.writeValueAsBytes(request))
-                .contentType(MediaType.APPLICATION_JSON)
-        )
+                        .content(objectMapper.writeValueAsString(request))
+                        .contentType(MediaType.APPLICATION_JSON)
+                )
+                .andDo(print())
                 .andExpect(MockMvcResultMatchers.status().isCreated());
     }
 
