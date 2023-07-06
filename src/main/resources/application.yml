@@ -1,0 +1,16 @@
+management:
+  endpoint:
+    health:
+      enabled: false # health endpoint 비활성화
+    beans:
+      enabled: false # beans endpoint 비활성화
+    caches:
+      enabled: true # caches endpoint 활성화 # default = true
+    heapdump:
+      enabled: true # heapdump endpoint 활성화 # default = true
+  endpoints:
+    web:
+      exposure:
+        include: "*" # 모두 노출
+        exclude:
+          - health # health endpoint 노출 X
