@@ -2,7 +2,10 @@ package sample.cafekiosk.spring.api.service.mail;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.mockito.junit.jupiter.MockitoExtension;
 import sample.cafekiosk.spring.client.mail.MailSendClient;
 import sample.cafekiosk.spring.domain.history.mail.MailSendHistory;
 import sample.cafekiosk.spring.domain.history.mail.MailSendHistoryRepository;
@@ -13,15 +16,20 @@ import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.when;
 
+// @Mock 애노테이션을 사용할 경우 반드시 @ExtendWith 애노테이션을 선언해야 함.
+@ExtendWith(MockitoExtension.class)
 class MailServiceTest {
+
+    @Mock
+    private MailSendClient mailSendClient;
+
+    @Mock
+    private MailSendHistoryRepository mailSendHistoryRepository;
 
     @DisplayName("메일 전송 테스트")
     @Test
     void sendMail() {
         // given
-        MailSendClient mailSendClient = Mockito.mock(MailSendClient.class);
-        MailSendHistoryRepository mailSendHistoryRepository = Mockito.mock(MailSendHistoryRepository.class);
-
         MailService mailService = new MailService(mailSendClient, mailSendHistoryRepository);
 
         // stubbing
