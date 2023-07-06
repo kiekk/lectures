@@ -3,6 +3,7 @@ package sample.cafekiosk.spring.api.service.mail;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -26,12 +27,14 @@ class MailServiceTest {
     @Mock
     private MailSendHistoryRepository mailSendHistoryRepository;
 
+    // MailService 의 생성자를 확인 후 Mock 객체를 주입
+    @InjectMocks
+    private MailService mailService;
+
     @DisplayName("메일 전송 테스트")
     @Test
     void sendMail() {
         // given
-        MailService mailService = new MailService(mailSendClient, mailSendHistoryRepository);
-
         // stubbing
         when(mailSendClient.sendEmail(anyString(), anyString(), anyString(), anyString()))
                 .thenReturn(true);
