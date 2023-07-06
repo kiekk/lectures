@@ -27,3 +27,6 @@ management:
         include: "*" # 모두 노출
         exclude:
           - health # health endpoint 노출 X
+      cors:
+        allowed-origins: http://test.com
+        allowed-methods: GET
