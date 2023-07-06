@@ -2,12 +2,25 @@ management:
   endpoint:
     health:
       enabled: false # health endpoint 비활성화
+      cache:
+        time-to-live: 1s # 1초
     beans:
       enabled: false # beans endpoint 비활성화
+      cache:
+        time-to-live: 10m # 10분
     caches:
       enabled: true # caches endpoint 활성화 # default = true
+      cache:
+        time-to-live: 1h # 1시간 # default = 0ms
+        # ms milliseconds
+        # s seconds
+        # m minutes
+        # h hours
+        # d days
     heapdump:
       enabled: true # heapdump endpoint 활성화 # default = true
+      cache:
+        time-to-live: 1d # 1일
   endpoints:
     web:
       exposure:
