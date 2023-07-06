@@ -4,7 +4,6 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 class ProductTypeTest {
 
@@ -32,5 +31,24 @@ class ProductTypeTest {
 
         // then
         assertThat(result).isTrue();
+    }
+
+    @DisplayName("상품 타입이 재고 관련 타입인지를 체크한다.")
+    @Test
+    void containsStockType3() {
+        // given
+        ProductType handmade = ProductType.HANDMADE;
+        ProductType bottle = ProductType.BOTTLE;
+        ProductType bakery = ProductType.BAKERY;
+
+        // when
+        boolean handmadeResult = ProductType.containsStockType(handmade);
+        boolean bottleResult = ProductType.containsStockType(bottle);
+        boolean bakeryResult = ProductType.containsStockType(bakery);
+
+        // then
+        assertThat(handmadeResult).isFalse();
+        assertThat(bottleResult).isTrue();
+        assertThat(bakeryResult).isTrue();
     }
 }
