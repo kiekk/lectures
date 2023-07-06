@@ -6,6 +6,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 import sample.cafekiosk.spring.client.mail.MailSendClient;
 import sample.cafekiosk.spring.domain.history.mail.MailSendHistory;
@@ -14,14 +15,14 @@ import sample.cafekiosk.spring.domain.history.mail.MailSendHistoryRepository;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.when;
 
 // @Mock 애노테이션을 사용할 경우 반드시 @ExtendWith 애노테이션을 선언해야 함.
 @ExtendWith(MockitoExtension.class)
 class MailServiceTest {
 
-    @Mock
+    @Spy
     private MailSendClient mailSendClient;
 
     @Mock
@@ -35,9 +36,13 @@ class MailServiceTest {
     @Test
     void sendMail() {
         // given
-        // stubbing
-        when(mailSendClient.sendEmail(anyString(), anyString(), anyString(), anyString()))
-                .thenReturn(true);
+        // @Spy의 경우 실제 객체를 사용하기 때문에 Mockito의 When 대신 Stubber를 사용해야 한다.
+
+        // @Mock 은 Mock 객체이기 때문에 MailSendClient 에 테스트로 만든 a(), b(), c() 메서드가 실행되지 않습니다.
+        // @Spy 는 실제 객체이기 때문에 a(), b(), c() 메서드가 호출됩니다.
+        doReturn(true)
+                .when(mailSendClient)
+                .sendEmail(anyString(), anyString(), anyString(), anyString());
 
         // when
         boolean result = mailService.sendMail("", "", "", "");
