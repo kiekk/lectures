@@ -7,6 +7,7 @@ import org.springframework.boot.actuate.endpoint.annotation.Selector;
 import org.springframework.boot.actuate.endpoint.annotation.WriteOperation;
 import org.springframework.lang.Nullable;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
@@ -20,9 +21,10 @@ public class MyLibraryInfoEndpoint {
     }
 
     @ReadOperation
-    public String getPathTest(@Selector String path) {
-        log.info("path: {}", path);
-        return "path : " + path;
+    // array 는 Selector.Match.ALL_REMAINING
+    public String getPathTest(@Selector(match = Selector.Match.ALL_REMAINING) String[] paths) {
+        log.info("paths: {}", List.of(paths));
+        return "paths : " + List.of(paths);
     }
 
     @ReadOperation
