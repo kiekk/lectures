@@ -1,32 +1,20 @@
 management:
-  endpoint:
-    health:
-      enabled: false # health endpoint 비활성화
-      cache:
-        time-to-live: 1s # 1초
-    beans:
-      enabled: false # beans endpoint 비활성화
-      cache:
-        time-to-live: 10m # 10분
-    caches:
-      enabled: true # caches endpoint 활성화 # default = true
-      cache:
-        time-to-live: 1h # 1시간 # default = 0ms
-        # ms milliseconds
-        # s seconds
-        # m minutes
-        # h hours
-        # d days
-    heapdump:
-      enabled: true # heapdump endpoint 활성화 # default = true
-      cache:
-        time-to-live: 1d # 1일
   endpoints:
     web:
       exposure:
-        include: "*" # 모두 노출
-        exclude:
-          - health # health endpoint 노출 X
-      cors:
-        allowed-origins: http://test.com
-        allowed-methods: GET
+        include: "*"
+  endpoint:
+    health:
+      show-details: always
+      #show-components: always
+      #validate-group-membership: true
+      #group:
+      #roles:
+      #probes:
+        #add-additional-paths:
+      #status:
+        #order: DOWN
+      #status:
+        #http-mapping:
+      #logging:
+        #slow-indicator-threshold:
