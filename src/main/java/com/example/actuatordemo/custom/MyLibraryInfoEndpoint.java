@@ -3,6 +3,7 @@ package com.example.actuatordemo.custom;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
 import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
+import org.springframework.boot.actuate.endpoint.annotation.Selector;
 import org.springframework.boot.actuate.endpoint.annotation.WriteOperation;
 import org.springframework.lang.Nullable;
 
@@ -16,6 +17,12 @@ public class MyLibraryInfoEndpoint {
     @WriteOperation
     public void changeSomething(String name, boolean enableSomething) {
         log.info("name: {}, enableSomething: {}", name, enableSomething);
+    }
+
+    @ReadOperation
+    public String getPathTest(@Selector String path) {
+        log.info("path: {}", path);
+        return "path : " + path;
     }
 
     @ReadOperation
