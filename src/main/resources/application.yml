@@ -16,3 +16,8 @@ management:
       enabled: true
     defaults:
       enabled: true
+
+# info 로 시작하면 info endpoint env 에  추가됨
+info:
+  name: developer
+  age: 11
