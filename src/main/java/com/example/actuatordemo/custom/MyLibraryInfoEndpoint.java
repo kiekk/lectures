@@ -7,10 +7,14 @@ import org.springframework.boot.actuate.endpoint.annotation.Selector;
 import org.springframework.boot.actuate.endpoint.annotation.WriteOperation;
 import org.springframework.lang.Nullable;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * @Endpoint = Web, Jmx 모두 지원
+ * @WebEncpoint = Web 만 지원
+ * @JmxEndpoint = Jmx 만 지원
+ */
 @Slf4j
 @Endpoint(id = "myLibraryInfo")
 public class MyLibraryInfoEndpoint {
