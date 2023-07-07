@@ -8,6 +8,8 @@ management:
       enabled: true
     git:
       enabled: true
+      mode: full # 상세
+      #mode: simple # 간략
     env:
       enabled: true
     java:
