@@ -35,3 +35,8 @@ dependencies {
 tasks.named('test') {
     useJUnitPlatform()
 }
+
+// info endpoint build 정보 추가
+springBoot {
+    buildInfo()
+}
