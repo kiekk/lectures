@@ -9,14 +9,17 @@ import org.springframework.web.bind.annotation.RestController;
 public class CounterController {
 
     private final MyHttpRequestManager myHttpRequestManager;
+    private final MyHttpRequestWithoutMicrometer myManager;
 
-    public CounterController(MyHttpRequestManager myHttpRequestManager) {
+    public CounterController(MyHttpRequestManager myHttpRequestManager, MyHttpRequestWithoutMicrometer myManager) {
         this.myHttpRequestManager = myHttpRequestManager;
+        this.myManager = myManager;
     }
 
     @GetMapping("req")
     public String req() {
         myHttpRequestManager.increase();
+        myManager.increase();
         return "ok";
     }
 
