@@ -10,6 +10,6 @@ public class MyStockMeterBinderConfig {
 
     @Bean
     public MeterBinder myMeterBinder(MyStockManager myStockManager) {
-        return registry -> Gauge.builder("my.stock", myStockManager, MyStockManager::getStockCount).register(registry);
+        return registry -> Gauge.builder("my.stock", myStockManager).register(registry);
     }
 }
