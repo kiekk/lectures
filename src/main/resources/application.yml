@@ -19,6 +19,15 @@ management:
     defaults:
       enabled: true
 
+spring:
+  boot:
+    admin:
+      client:
+        url:
+          - 127.0.0.1:9090 # admin server 설정
+        instance:
+          name: Spring Boot Client Server # admin UI 에서 보여질 이름
+
 # info 로 시작하면 info endpoint env 에  추가됨
 info:
   name: developer
