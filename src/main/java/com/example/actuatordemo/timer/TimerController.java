@@ -1,6 +1,8 @@
 package com.example.actuatordemo.timer;
 
+import io.micrometer.core.instrument.MeterRegistry;
 import io.micrometer.core.instrument.Timer;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -9,12 +11,14 @@ import org.springframework.web.bind.annotation.RestController;
 public class TimerController {
 
     private final Timer myTimer;
+    private final MeterRegistry meterRegistry;
 
-    public TimerController(Timer myTimer) {
+    public TimerController(Timer myTimer, MeterRegistry meterRegistry) {
         this.myTimer = myTimer;
+        this.meterRegistry = meterRegistry;
     }
 
-    @RequestMapping("timer")
+    @GetMapping("timer")
     public String timer() {
         myTimer.record(() -> {
             try {
@@ -23,6 +27,18 @@ public class TimerController {
                 throw new RuntimeException(e);
             }
         });
+        return "ok";
+    }
+
+
+    @GetMapping("timer2")
+    public String timer2() throws InterruptedException {
+        Timer.Sample sample = Timer.start(meterRegistry);
+
+        // do business login
+        Thread.sleep(2_000);
+
+        sample.stop(meterRegistry.timer("my.timer2"));
         return "ok";
     }
 }
