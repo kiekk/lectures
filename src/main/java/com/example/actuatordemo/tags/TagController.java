@@ -11,13 +11,13 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/tag")
 public class TagController {
 
-    @Counted("my.counted")
+    @Counted(value = "my.counted", extraTags = {"type1", "value1", "type2", "value2"})
     @GetMapping("push")
     public String push() {
         return "ok";
     }
 
-    @Counted("my.counted")
+    @Counted(value = "my.counted", extraTags = {"type3", "value3", "type4", "value4"})
     @GetMapping("pop")
     public String pop() {
         return "ok";
