@@ -14,14 +14,19 @@ import sample.cafekiosk.spring.docs.RestDocsSupport;
 import sample.cafekiosk.spring.domain.product.ProductSellingStatus;
 import sample.cafekiosk.spring.domain.product.ProductType;
 
+import java.util.List;
+
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.operation.preprocess.Preprocessors.*;
 import static org.springframework.restdocs.payload.PayloadDocumentation.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 
 public class ProductControllerDocsTest extends RestDocsSupport {
 
@@ -93,6 +98,67 @@ public class ProductControllerDocsTest extends RestDocsSupport {
                                 fieldWithPath("data.name").type(JsonFieldType.STRING)
                                         .description("상품 이름"),
                                 fieldWithPath("data.price").type(JsonFieldType.NUMBER)
+                                        .description("상품 가격")
+                        )
+                ));
+    }
+
+    @DisplayName("판매 상품을 조회하는 API")
+    @Test
+    void getSellingProducts() throws Exception {
+        List<ProductResponse> result = List.of();
+        when(productService.getSellingProducts()).thenReturn(result);
+
+        given(productService.getSellingProducts())
+                .willReturn(List.of(
+                        ProductResponse.builder()
+                                .id(1L)
+                                .productNumber("001")
+                                .type(ProductType.HANDMADE)
+                                .sellingStatus(ProductSellingStatus.SELLING)
+                                .name("아메리카노")
+                                .price(4_000)
+                                .build(),
+                        ProductResponse.builder()
+                                .id(2L)
+                                .productNumber("002")
+                                .type(ProductType.HANDMADE)
+                                .sellingStatus(ProductSellingStatus.HOLD)
+                                .name("카페라떼")
+                                .price(4_500)
+                                .build()
+                ));
+
+        mockMvc.perform(get("/api/v1/products/selling"))
+                .andDo(print())
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(jsonPath("$.code").value("200"))
+                .andExpect(jsonPath("$.status").value("OK"))
+                .andExpect(jsonPath("$.message").value("OK"))
+                .andExpect(jsonPath("$.data").isArray())
+                .andDo(document("product-selling",
+                        preprocessRequest(prettyPrint()),
+                        preprocessResponse(prettyPrint()),
+                        responseFields(
+                                fieldWithPath("code").type(JsonFieldType.NUMBER)
+                                        .description("코드"),
+                                fieldWithPath("status").type(JsonFieldType.STRING)
+                                        .description("상태"),
+                                fieldWithPath("message").type(JsonFieldType.STRING)
+                                        .description("메세지"),
+                                fieldWithPath("data").type(JsonFieldType.ARRAY)
+                                        .description("응답 데이터"),
+                                fieldWithPath("data[].id").type(JsonFieldType.NUMBER)
+                                        .description("상품 아이디"),
+                                fieldWithPath("data[].productNumber").type(JsonFieldType.STRING)
+                                        .description("상품 번호"),
+                                fieldWithPath("data[].type").type(JsonFieldType.STRING)
+                                        .description("상품 타입"),
+                                fieldWithPath("data[].sellingStatus").type(JsonFieldType.STRING)
+                                        .description("상품 상태"),
+                                fieldWithPath("data[].name").type(JsonFieldType.STRING)
+                                        .description("상품 이름"),
+                                fieldWithPath("data[].price").type(JsonFieldType.NUMBER)
                                         .description("상품 가격")
                         )
                 ));
