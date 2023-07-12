@@ -6,9 +6,9 @@
 
 [인프런 바로가기](https://www.inflearn.com/course/%EC%A0%9C%EB%8C%80%EB%A1%9C-%ED%8C%8C%EB%8A%94-%EA%B9%83/dashboard)
 
-<img src="https://cdn.inflearn.com/public/courses/328284/cover/18612f29-4d6c-4804-a5e2-dc7e3a74b265/Git-GitHub--IFL.png" width="400">
+<img src="https://cdn.inflearn.com/public/courses/328284/cover/18612f29-4d6c-4804-a5e2-dc7e3a74b265/Git-GitHub--IFL.png" width="500">
 
-![img.png](img.png)
+<img src="img.png" width="500">
 
 ### 챕터
 - 섹션 0. 인트로
