@@ -35,3 +35,27 @@ a = null
 function func5(): void {
     console.log("hello");
 }
+
+
+// never
+// never는 다음과 같이 함수가 값을 반환하는 것이 '불가능'할 때 사용하는 타입입니다..
+function func3(): never {
+    while (true) {
+    }
+}
+
+// 또는 오류를 발생시키는 함수의 경우에도 never 타입을 사용합니다.
+function func4(): never {
+    throw new Error();
+}
+
+// 변수의 타입에도 never를 사용할 수 있지만, never 타입의 변수에는 어떠한 값도 설정할 수 없습니다.
+// null, undefined도 불가능
+
+let anyVar: any
+let never: never;
+// never = 1; // 오류
+// never = null; // 오류
+// never = undefined; // 오류
+// never = anyVar; // 오류
+
