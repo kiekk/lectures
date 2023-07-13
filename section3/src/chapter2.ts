@@ -41,3 +41,18 @@ function neverExam() {
     // let never2: never = 'string' // 오류
     // let never3: never = true // 오류
 }
+
+/**
+ * Void 타입
+ */
+
+function voidExam() {
+    function voidFunc() {
+        console.log('hi')
+    }
+
+    // void는 undefined 슈퍼 타입이므로 업 캐스팅 가능
+    let voidVar1: void = undefined
+    // null은 'strictNullChecks' 옵션 값에 따라 달라짐
+    // let voidVar2: void = null
+}
