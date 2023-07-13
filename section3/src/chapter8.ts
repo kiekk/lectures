@@ -68,3 +68,48 @@ function login2(user: User2) {
         console.log(`${user.name}님 현재까지 ${user.visitCount}번 오셨습니다`)
     }
 }
+
+
+/**
+ * 비동기 작업의 결과를 처리하는 객체
+ */
+
+type LoadingTask = {
+    state: 'LOADING'
+}
+
+type FailedTask = {
+    state: 'FAILED',
+    error: {
+        message: string
+    }
+}
+
+type SuccessTask = {
+    state: 'SUCCESS',
+    response: {
+        data: string
+    }
+}
+
+type AsyncTask = LoadingTask | FailedTask | SuccessTask
+
+// 로딩 중 → '로딩 중' 출력
+// 로딩 실패 → 에러 메세지 출력
+// 로딩 성공 → 데이터 출력
+function processResult(task: AsyncTask) {
+    switch (task.state) {
+        case 'LOADING': {
+            console.log('로딩 중')
+            break
+        }
+        case 'FAILED': {
+            console.log(`에러 발생: ${task.error.message}`)
+            break
+        }
+        case 'SUCCESS': {
+            console.log(`성공 : ${task.response.data}`)
+            break
+        }
+    }
+}
