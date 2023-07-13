@@ -56,3 +56,21 @@ function voidExam() {
     // null은 'strictNullChecks' 옵션 값에 따라 달라짐
     // let voidVar2: void = null
 }
+
+/**
+ * Any 타입
+ */
+
+function anyExam() {
+    let unknownVar: unknown
+    let anyVar: any
+    let undefinedVar: unknown
+    let neverVar: never
+
+    // any 타입에 한정해서는 다운 캐스팅이 가능
+    anyVar = unknownVar // unknown → any
+    unknownVar = anyVar // any → undefined
+
+    // never 타입에는 어떤 타입도 다운 캐스팅이 불가능
+    // neverVar = anyVar
+}
