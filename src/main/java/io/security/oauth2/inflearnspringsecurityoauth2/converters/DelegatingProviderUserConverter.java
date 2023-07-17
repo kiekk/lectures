@@ -15,7 +15,8 @@ public class DelegatingProviderUserConverter<T, R> implements ProviderUserConver
         this.converters = List.of(
                 new OAuth2GoogleProviderUserConverter(),
                 new OAuth2NaverProviderUserConverter(),
-                new OAuth2KakaoProviderUserConverter()
+                new OAuth2KakaoProviderUserConverter(),
+                new OAuth2FacebookProviderUserConverter()
         );
     }
 

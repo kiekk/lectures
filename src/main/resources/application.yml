@@ -53,8 +53,11 @@ spring:
             client-id: 'client-id'
             client-secret: 'client-secret'
             authorization-grant-type: authorization_code
-            client-name: client-app
-            redirect-uri: https://localhost/login/oauth2/code/facebook
+            client-name: my-client-app
+            redirect-uri: http://localhost:8081/login/oauth2/code/facebook
+            scope:
+              - public_profile
+              - email
         provider:
           keycloak:
             authorization-uri: http://localhost:18080/realms/master/protocol/openid-connect/auth
