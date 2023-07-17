@@ -17,7 +17,8 @@ public class DelegatingProviderUserConverter<T, R> implements ProviderUserConver
                 new OAuth2NaverProviderUserConverter(),
                 new OAuth2KakaoProviderUserConverter(),
                 new OAuth2FacebookProviderUserConverter(),
-                new OAuth2KeycloakProviderUserConverter()
+                new OAuth2KeycloakProviderUserConverter(),
+                new OAuth2MicrosoftProviderUserConverter()
         );
     }
 
