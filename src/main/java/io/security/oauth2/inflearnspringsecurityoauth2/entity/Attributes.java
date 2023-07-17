@@ -3,7 +3,6 @@ package io.security.oauth2.inflearnspringsecurityoauth2.entity;
 import lombok.Builder;
 import lombok.Data;
 
-import java.util.HashMap;
 import java.util.Map;
 
 @Data

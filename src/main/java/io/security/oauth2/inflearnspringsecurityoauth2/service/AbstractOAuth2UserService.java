@@ -3,7 +3,6 @@ package io.security.oauth2.inflearnspringsecurityoauth2.service;
 import io.security.oauth2.inflearnspringsecurityoauth2.converters.ProviderUserConverter;
 import io.security.oauth2.inflearnspringsecurityoauth2.converters.ProviderUserRequest;
 import io.security.oauth2.inflearnspringsecurityoauth2.entity.ProviderUser;
-import io.security.oauth2.inflearnspringsecurityoauth2.entity.social.*;
 import io.security.oauth2.inflearnspringsecurityoauth2.entity.users.User;
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
