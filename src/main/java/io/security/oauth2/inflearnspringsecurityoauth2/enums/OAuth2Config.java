@@ -3,6 +3,7 @@ package io.security.oauth2.inflearnspringsecurityoauth2.enums;
 public class OAuth2Config {
 
     public enum SocialType {
+        KEYCLOAK("keycloak"),
         GOOGLE("google"),
         NAVER("naver"),
         KAKAO("kakao"),
