@@ -42,8 +42,14 @@ public class SecurityConfig {
                 .formLogin(AbstractHttpConfigurer::disable)
                 .httpBasic(AbstractHttpConfigurer::disable)
                 .exceptionHandling(exception ->
-                        exception.authenticationEntryPoint((request, response, authException) ->
-                                CustomResponseUtil.unAuthentication(response, "인증안됨")
+                        exception.authenticationEntryPoint((request, response, authException) -> {
+                                    String requestURI = request.getRequestURI();
+                                    if (requestURI.contains("admin")) {
+                                        CustomResponseUtil.unAuthorization(response, "권한없음");
+                                    } else {
+                                        CustomResponseUtil.unAuthentication(response, "인증안됨");
+                                    }
+                                }
                         )
                 )
                 .build();

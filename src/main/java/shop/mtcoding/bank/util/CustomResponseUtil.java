@@ -24,4 +24,16 @@ public class CustomResponseUtil {
         }
     }
 
+    public static void unAuthorization(HttpServletResponse response, String message) {
+        try {
+            ResponseDto<Object> responseDto = new ResponseDto<>(-1, message, null);
+            String responseBody = objectMapper.writeValueAsString(responseDto);
+            response.setContentType("application/json; charset=utf-8");
+            response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+            response.getWriter().println(responseBody);
+        } catch (Exception e) {
+            log.error("서버 파싱 에러");
+        }
+    }
+
 }

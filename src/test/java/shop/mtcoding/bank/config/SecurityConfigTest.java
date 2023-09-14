@@ -7,7 +7,6 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
-import shop.mtcoding.bank.dto.ResponseDto;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -30,6 +29,16 @@ class SecurityConfigTest {
 
         // then
         assertThat(httpStatusCode).isEqualTo(HttpServletResponse.SC_UNAUTHORIZED);
+    }
+
+    @Test
+    void authorization_test() throws Exception {
+        // when
+        ResultActions resultActions = mvc.perform(get("/api/admin/hello"));
+        int httpStatusCode = resultActions.andReturn().getResponse().getStatus();
+
+        // then
+        assertThat(httpStatusCode).isEqualTo(HttpServletResponse.SC_FORBIDDEN);
     }
 
 }
