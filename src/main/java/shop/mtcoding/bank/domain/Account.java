@@ -2,6 +2,7 @@ package shop.mtcoding.bank.domain;
 
 import jakarta.persistence.*;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
@@ -29,6 +30,10 @@ public class Account {
     @Column(nullable = false)
     private Long balance; // 잔액 (기본값 1_000원)
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private User user;
+
     @CreatedDate
     @Column(nullable = false)
     private LocalDateTime createdAt;
@@ -36,5 +41,16 @@ public class Account {
     @LastModifiedDate
     @Column(nullable = false)
     private LocalDateTime updatedAt;
+
+    @Builder
+    public Account(Long id, Long number, Long password, Long balance, User user, LocalDateTime createdAt, LocalDateTime updatedAt) {
+        this.id = id;
+        this.number = number;
+        this.password = password;
+        this.balance = balance;
+        this.user = user;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+    }
 
 }

@@ -10,6 +10,8 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
@@ -35,6 +37,9 @@ public class User {
 
     @Enumerated(EnumType.STRING)
     private UserEnum role; // ADMIN, CUSTOMER
+
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    private List<Account> accounts = new ArrayList<>();
 
     @CreatedDate
     @Column(nullable = false)
