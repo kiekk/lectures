@@ -22,11 +22,16 @@ public class Transaction {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Account withDrawAccount;
+    @JoinColumn(foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Account withdrawAccount;
+
+    @JoinColumn(foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
+    @ManyToOne(fetch = FetchType.LAZY)
     private Account depositAccount;
 
     private Long amount;
-    private Long withDrawAccountBalance;
+    private Long withdrawAccountBalance;
     private Long depositAccountBalance;
 
     @Column(nullable = false)
@@ -47,12 +52,12 @@ public class Transaction {
     private LocalDateTime updatedAt;
 
     @Builder
-    public Transaction(Long id, Account withDrawAccount, Account depositAccount, Long amount, Long withDrawAccountBalance, Long depositAccountBalance, TransactionEnum gubun, String sender, String receiver, String tel, LocalDateTime createdAt, LocalDateTime updatedAt) {
+    public Transaction(Long id, Account withdrawAccount, Account depositAccount, Long amount, Long withdrawAccountBalance, Long depositAccountBalance, TransactionEnum gubun, String sender, String receiver, String tel, LocalDateTime createdAt, LocalDateTime updatedAt) {
         this.id = id;
-        this.withDrawAccount = withDrawAccount;
+        this.withdrawAccount = withdrawAccount;
         this.depositAccount = depositAccount;
         this.amount = amount;
-        this.withDrawAccountBalance = withDrawAccountBalance;
+        this.withdrawAccountBalance = withdrawAccountBalance;
         this.depositAccountBalance = depositAccountBalance;
         this.gubun = gubun;
         this.sender = sender;
