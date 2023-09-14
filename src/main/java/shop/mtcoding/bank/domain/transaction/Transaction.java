@@ -1,4 +1,4 @@
-package shop.mtcoding.bank.domain;
+package shop.mtcoding.bank.domain.transaction;
 
 import jakarta.persistence.*;
 import lombok.AccessLevel;
@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import shop.mtcoding.bank.domain.account.Account;
 
 import java.time.LocalDateTime;
 

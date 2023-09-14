@@ -1,4 +1,4 @@
-package shop.mtcoding.bank.domain;
+package shop.mtcoding.bank.domain.account;
 
 import jakarta.persistence.*;
 import lombok.AccessLevel;
@@ -8,38 +8,32 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import shop.mtcoding.bank.domain.user.User;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @EntityListeners(AuditingEntityListener.class)
 @Entity
-@Table(name = "user_tb")
-public class User {
+@Table(name = "account_tb")
+public class Account {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(unique = true, nullable = false, length = 20)
-    private String username;
+    private Long number; // 계좌 번호
 
-    @Column(nullable = false, length = 60)
-    private String password;
+    @Column(nullable = false, length = 4)
+    private Long password; // 계좌 비밀번호
 
-    @Column(nullable = false, length = 20)
-    private String email;
+    @Column(nullable = false)
+    private Long balance; // 잔액 (기본값 1_000원)
 
-    @Column(nullable = false, length = 20)
-    private String fullname;
-
-    @Enumerated(EnumType.STRING)
-    private UserEnum role; // ADMIN, CUSTOMER
-
-    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
-    private List<Account> accounts = new ArrayList<>();
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private User user;
 
     @CreatedDate
     @Column(nullable = false)
@@ -50,13 +44,12 @@ public class User {
     private LocalDateTime updatedAt;
 
     @Builder
-    public User(Long id, String username, String password, String email, String fullname, UserEnum role, LocalDateTime createdAt, LocalDateTime updatedAt) {
+    public Account(Long id, Long number, Long password, Long balance, User user, LocalDateTime createdAt, LocalDateTime updatedAt) {
         this.id = id;
-        this.username = username;
+        this.number = number;
         this.password = password;
-        this.email = email;
-        this.fullname = fullname;
-        this.role = role;
+        this.balance = balance;
+        this.user = user;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
     }
