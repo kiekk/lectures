@@ -1,5 +1,6 @@
 package shop.mtcoding.bank.config;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,6 +17,7 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import shop.mtcoding.bank.domain.user.UserEnum;
+import shop.mtcoding.bank.dto.ResponseDto;
 
 @Configuration
 public class SecurityConfig {
@@ -42,10 +44,14 @@ public class SecurityConfig {
                 .formLogin(AbstractHttpConfigurer::disable)
                 .httpBasic(AbstractHttpConfigurer::disable)
                 .exceptionHandling(exception ->
-                    exception.authenticationEntryPoint((request, response, authException) -> {
-                        response.setStatus(HttpServletResponse.SC_FORBIDDEN);
-                        response.getWriter().println("error");
-                    })
+                        exception.authenticationEntryPoint((request, response, authException) -> {
+                            ObjectMapper objectMapper = new ObjectMapper();
+                            ResponseDto<Object> responseDto = new ResponseDto<>(-1, "권한없음", null);
+                            String responseBody = objectMapper.writeValueAsString(responseDto);
+                            response.setContentType("application/json; charset=utf-8");
+                            response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+                            response.getWriter().println(responseBody);
+                        })
                 )
                 .build();
     }
