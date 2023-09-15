@@ -17,8 +17,8 @@ import java.util.Optional;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
-import static shop.mtcoding.bank.service.user.UserService.JoinRequest;
-import static shop.mtcoding.bank.service.user.UserService.JoinResponse;
+import static shop.mtcoding.bank.dto.user.UserRequest.JoinRequest;
+import static shop.mtcoding.bank.dto.user.UserResponse.JoinResponse;
 
 @ExtendWith(MockitoExtension.class)
 class UserServiceTest {

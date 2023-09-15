@@ -1,19 +1,19 @@
 package shop.mtcoding.bank.service.user;
 
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import lombok.Setter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import shop.mtcoding.bank.domain.user.User;
-import shop.mtcoding.bank.domain.user.UserEnum;
 import shop.mtcoding.bank.domain.user.UserRepository;
 import shop.mtcoding.bank.handler.exception.CustomApiException;
 
 import java.util.Optional;
+
+import static shop.mtcoding.bank.dto.user.UserRequest.JoinRequest;
+import static shop.mtcoding.bank.dto.user.UserResponse.JoinResponse;
 
 @Service
 @RequiredArgsConstructor
@@ -37,40 +37,6 @@ public class UserService {
 
         // 3. dto 응답
         return new JoinResponse(userPS);
-    }
-
-    @Getter
-    @Setter
-    public static class JoinRequest {
-        // 유효성검사
-        private String username;
-        private String password;
-        private String email;
-        private String fullname;
-
-        public User toEntity(PasswordEncoder passwordEncoder) {
-            return User.builder()
-                    .username(username)
-                    .password(passwordEncoder.encode(password))
-                    .email(email)
-                    .fullname(fullname)
-                    .role(UserEnum.CUSTOMER)
-                    .build();
-        }
-    }
-
-    @Getter
-    @Setter
-    public static class JoinResponse {
-        private Long id;
-        private String username;
-        private String fullname;
-
-        public JoinResponse(User user) {
-            this.id = user.getId();
-            this.username = user.getUsername();
-            this.fullname = user.getFullname();
-        }
     }
 
 }
