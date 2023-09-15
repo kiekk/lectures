@@ -7,11 +7,10 @@ import org.mockito.Mock;
 import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import shop.mtcoding.bank.config.dummy.DummyObject;
 import shop.mtcoding.bank.domain.user.User;
-import shop.mtcoding.bank.domain.user.UserEnum;
 import shop.mtcoding.bank.domain.user.UserRepository;
 
-import java.time.LocalDateTime;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -21,7 +20,7 @@ import static shop.mtcoding.bank.dto.user.UserRequest.JoinRequest;
 import static shop.mtcoding.bank.dto.user.UserResponse.JoinResponse;
 
 @ExtendWith(MockitoExtension.class)
-class UserServiceTest {
+class UserServiceTest extends DummyObject {
 
     @InjectMocks
     private UserService userService;
@@ -45,16 +44,7 @@ class UserServiceTest {
         when(userRepository.findByUsername(any())).thenReturn(Optional.empty());
 
         // stub - 2
-        User user = User.builder()
-                .id(1L)
-                .username("soono")
-                .password("1234")
-                .email("shyoon991@gmail.com")
-                .fullname("soono")
-                .role(UserEnum.CUSTOMER)
-                .createdAt(LocalDateTime.now())
-                .updatedAt(LocalDateTime.now())
-                .build();
+        User user = newMockUser(1L, "soono", "soono");
         when(userRepository.save(any())).thenReturn(user);
 
         // when
