@@ -13,6 +13,13 @@ public class UserRequest {
 
     @Getter
     @Setter
+    public static class LoginRequest {
+        private String username;
+        private String password;
+    }
+
+    @Getter
+    @Setter
     public static class JoinRequest {
         @Pattern(regexp = "^[a-zA-Z0-9]{2,20}$", message = "영문/숫자 2~20자 이내로 작성해주세요.")
         @NotEmpty(message = "필수 값입니다.")
