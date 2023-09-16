@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import shop.mtcoding.bank.dto.ResponseDto;
 import shop.mtcoding.bank.handler.exception.CustomApiException;
+import shop.mtcoding.bank.handler.exception.CustomValidationException;
 
 @RestControllerAdvice
 public class CustomExceptionHandler {
@@ -21,4 +22,14 @@ public class CustomExceptionHandler {
                 HttpStatus.BAD_REQUEST
         );
     }
+
+    @ExceptionHandler(CustomValidationException.class)
+    public ResponseEntity<?> validationException(CustomValidationException exception) {
+        log.error(exception.getMessage());
+        return new ResponseEntity<>(
+                new ResponseDto<>(-1, exception.getMessage(), exception.getErrorMap()),
+                HttpStatus.BAD_REQUEST
+        );
+    }
+
 }
