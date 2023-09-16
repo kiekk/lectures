@@ -11,9 +11,11 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.servlet.util.matcher.MvcRequestMatcher;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.servlet.handler.HandlerMappingIntrospector;
 import shop.mtcoding.bank.domain.user.UserEnum;
 import shop.mtcoding.bank.util.CustomResponseUtil;
 
@@ -23,7 +25,8 @@ public class SecurityConfig {
     private final Logger log = LoggerFactory.getLogger(SecurityConfig.class);
 
     @Bean
-    SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    SecurityFilterChain securityFilterChain(HttpSecurity http,
+                                            HandlerMappingIntrospector introspector) throws Exception {
         log.debug("** securityFilterChain called **");
         return http
                 .headers(headers ->
@@ -32,8 +35,8 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .cors(cors -> cors.configurationSource(configurationSource()))
                 .authorizeHttpRequests(authz ->
-                        authz.requestMatchers("/api/s/**").authenticated()
-                                .requestMatchers("/api/admin/**").hasRole(UserEnum.ADMIN.getValue())
+                        authz.requestMatchers(new MvcRequestMatcher(introspector, "/api/s/**")).authenticated()
+                                .requestMatchers(new MvcRequestMatcher(introspector, "/api/admin/**")).hasRole(UserEnum.ADMIN.getValue())
                                 .anyRequest().permitAll()
                 )
                 .sessionManagement(
