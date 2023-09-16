@@ -12,6 +12,19 @@ public class CustomResponseUtil {
 
     private static ObjectMapper objectMapper = new ObjectMapper();
 
+    public static void successAuthentication(HttpServletResponse response, Object dto) {
+        try {
+            ResponseDto<Object> responseDto = new ResponseDto<>(1, "로그인성공", dto);
+            String responseBody = objectMapper.writeValueAsString(responseDto);
+            response.setContentType("application/json; charset=utf-8");
+            response.setStatus(HttpServletResponse.SC_OK);
+            response.getWriter().println(responseBody);
+        } catch (Exception e) {
+            log.error("서버 파싱 에러");
+        }
+    }
+
+
     public static void unAuthentication(HttpServletResponse response, String message) {
         try {
             ResponseDto<Object> responseDto = new ResponseDto<>(-1, message, null);
