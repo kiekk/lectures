@@ -19,7 +19,6 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.servlet.handler.HandlerMappingIntrospector;
 import shop.mtcoding.bank.config.jwt.JwtAuthenticationFilter;
 import shop.mtcoding.bank.domain.user.UserEnum;
-import shop.mtcoding.bank.util.CustomResponseUtil;
 
 @Configuration
 public class SecurityConfig {
@@ -45,18 +44,7 @@ public class SecurityConfig {
                         sessionManagement -> sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 )
                 .formLogin(AbstractHttpConfigurer::disable)
-                .httpBasic(AbstractHttpConfigurer::disable)
-                .exceptionHandling(exception ->
-                        exception.authenticationEntryPoint((request, response, authException) -> {
-                                    String requestURI = request.getRequestURI();
-                                    if (requestURI.contains("admin")) {
-                                        CustomResponseUtil.unAuthorization(response, "권한없음");
-                                    } else {
-                                        CustomResponseUtil.unAuthentication(response, "인증안됨");
-                                    }
-                                }
-                        )
-                );
+                .httpBasic(AbstractHttpConfigurer::disable);
         http.apply(new CustomSecurityFilterManager());
         return http.build();
     }

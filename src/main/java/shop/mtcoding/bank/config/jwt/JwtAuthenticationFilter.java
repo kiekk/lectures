@@ -41,7 +41,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
             Authentication authentication = authenticationManager.authenticate(authenticationToken); // UserDetailsService
             return authentication;
         } catch (Exception e) {
-            // AuthenticationEntryPoint 에 걸린다.
+            // AuthenticationEntryPoint 이 아니라 unsuccessfulAuthentication 메서드에 걸린다.
             throw new InternalAuthenticationServiceException(e.getMessage());
         }
     }
@@ -56,4 +56,11 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         LoginResponse loginResponse = new LoginResponse(loginUser);
         CustomResponseUtil.successAuthentication(response, loginResponse);
     }
+
+    //
+    @Override
+    protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response, AuthenticationException failed) throws IOException, ServletException {
+        CustomResponseUtil.unAuthentication(response, "로그인실패");
+    }
+
 }
