@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
@@ -49,11 +50,11 @@ public class SecurityConfig {
                 .httpBasic(AbstractHttpConfigurer::disable)
                 .exceptionHandling(exception ->
                         exception.authenticationEntryPoint((request, response, authException) -> {
-                                    CustomResponseUtil.unAuthentication(response, "인증안됨");
-                                }
-                        )
+                                            CustomResponseUtil.fail(response, "인증안됨", HttpStatus.UNAUTHORIZED);
+                                        }
+                                )
                                 .accessDeniedHandler((request, response, accessDeniedException) -> {
-                                    CustomResponseUtil.unAuthorization(response, "권한없음");
+                                    CustomResponseUtil.fail(response, "권한없음", HttpStatus.FORBIDDEN);
                                 })
                 );
         http.apply(new CustomSecurityFilterManager());
