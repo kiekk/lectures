@@ -37,7 +37,7 @@ public class SecurityConfig {
                 .cors(cors -> cors.configurationSource(configurationSource()))
                 .authorizeHttpRequests(authz ->
                         authz.requestMatchers(new MvcRequestMatcher(introspector, "/api/s/**")).authenticated()
-                                .requestMatchers(new MvcRequestMatcher(introspector, "/api/admin/**")).hasRole(UserEnum.ADMIN.getValue())
+                                .requestMatchers(new MvcRequestMatcher(introspector, "/api/admin/**")).hasRole(String.valueOf(UserEnum.ADMIN))
                                 .anyRequest().permitAll()
                 )
                 .sessionManagement(
