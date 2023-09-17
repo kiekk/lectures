@@ -20,7 +20,7 @@ public class JwtProcess {
                 .withSubject("bank")
                 .withExpiresAt(new Date(System.currentTimeMillis() + JwtVO.EXPIRATION_TIME))
                 .withClaim("id", loginUser.getUser().getId())
-                .withClaim("role", loginUser.getUser().getRole().getValue())
+                .withClaim("role", String.valueOf(loginUser.getUser().getRole()))
                 .sign(Algorithm.HMAC512(JwtVO.SECRET));
         return JwtVO.TOKEN_PREFIX + jwtToken;
     }
