@@ -7,6 +7,11 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
+import shop.mtcoding.bank.auth.LoginUser;
+import shop.mtcoding.bank.config.jwt.JwtProcess;
+import shop.mtcoding.bank.config.jwt.JwtVO;
+import shop.mtcoding.bank.domain.user.User;
+import shop.mtcoding.bank.domain.user.UserEnum;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -33,8 +38,14 @@ class SecurityConfigTest {
 
     @Test
     void authorization_test() throws Exception {
+        // given
+        User user = User.builder().id(1L).role(UserEnum.CUSTOMER).build();
+        LoginUser loginUser = new LoginUser(user);
+        String jwtToken = JwtProcess.create(loginUser);
+
         // when
-        ResultActions resultActions = mvc.perform(get("/api/admin/hello"));
+        ResultActions resultActions = mvc.perform(get("/api/admin/hello")
+                .header(JwtVO.HEADER, jwtToken));
         int httpStatusCode = resultActions.andReturn().getResponse().getStatus();
 
         // then

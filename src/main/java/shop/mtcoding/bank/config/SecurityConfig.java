@@ -4,6 +4,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpStatus;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.annotation.web.configurers.HeadersConfigurer;
@@ -11,9 +13,13 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.servlet.util.matcher.MvcRequestMatcher;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.servlet.handler.HandlerMappingIntrospector;
+import shop.mtcoding.bank.config.jwt.JwtAuthenticationFilter;
+import shop.mtcoding.bank.config.jwt.JwtAuthorizationFilter;
 import shop.mtcoding.bank.domain.user.UserEnum;
 import shop.mtcoding.bank.util.CustomResponseUtil;
 
@@ -23,17 +29,18 @@ public class SecurityConfig {
     private final Logger log = LoggerFactory.getLogger(SecurityConfig.class);
 
     @Bean
-    SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    SecurityFilterChain securityFilterChain(HttpSecurity http,
+                                            HandlerMappingIntrospector introspector) throws Exception {
         log.debug("** securityFilterChain called **");
-        return http
+        http
                 .headers(headers ->
                         headers.frameOptions(HeadersConfigurer.FrameOptionsConfig::disable)
                 )
                 .csrf(AbstractHttpConfigurer::disable)
                 .cors(cors -> cors.configurationSource(configurationSource()))
                 .authorizeHttpRequests(authz ->
-                        authz.requestMatchers("/api/s/**").authenticated()
-                                .requestMatchers("/api/admin/**").hasRole(UserEnum.ADMIN.getValue())
+                        authz.requestMatchers(new MvcRequestMatcher(introspector, "/api/s/**")).authenticated()
+                                .requestMatchers(new MvcRequestMatcher(introspector, "/api/admin/**")).hasRole(String.valueOf(UserEnum.ADMIN))
                                 .anyRequest().permitAll()
                 )
                 .sessionManagement(
@@ -43,16 +50,15 @@ public class SecurityConfig {
                 .httpBasic(AbstractHttpConfigurer::disable)
                 .exceptionHandling(exception ->
                         exception.authenticationEntryPoint((request, response, authException) -> {
-                                    String requestURI = request.getRequestURI();
-                                    if (requestURI.contains("admin")) {
-                                        CustomResponseUtil.unAuthorization(response, "권한없음");
-                                    } else {
-                                        CustomResponseUtil.unAuthentication(response, "인증안됨");
-                                    }
-                                }
-                        )
-                )
-                .build();
+                                            CustomResponseUtil.fail(response, "인증안됨", HttpStatus.UNAUTHORIZED);
+                                        }
+                                )
+                                .accessDeniedHandler((request, response, accessDeniedException) -> {
+                                    CustomResponseUtil.fail(response, "권한없음", HttpStatus.FORBIDDEN);
+                                })
+                );
+        http.apply(new CustomSecurityFilterManager());
+        return http.build();
     }
 
     @Bean
@@ -73,6 +79,18 @@ public class SecurityConfig {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", corsConfiguration);
         return source;
+    }
+
+    public class CustomSecurityFilterManager extends AbstractHttpConfigurer<CustomSecurityFilterManager, HttpSecurity> {
+
+        @Override
+        public void configure(HttpSecurity builder) throws Exception {
+            AuthenticationManager authenticationManager = builder.getSharedObject(AuthenticationManager.class);
+            builder.addFilter(new JwtAuthenticationFilter(authenticationManager));
+            builder.addFilter(new JwtAuthorizationFilter(authenticationManager));
+            super.configure(builder);
+        }
+
     }
 
 }
