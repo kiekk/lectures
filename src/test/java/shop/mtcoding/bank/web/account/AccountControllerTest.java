@@ -18,8 +18,7 @@ import shop.mtcoding.bank.domain.account.AccountRepository;
 import shop.mtcoding.bank.domain.user.User;
 import shop.mtcoding.bank.domain.user.UserRepository;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static shop.mtcoding.bank.dto.account.AccountRequest.AccountSaveRequest;
@@ -98,6 +97,20 @@ class AccountControllerTest extends DummyObject {
                 .andExpect(jsonPath("$.msg").value("계좌목록보기_유저별 성공"))
                 .andExpect(jsonPath("$.data.fullname").value(fullname))
                 .andExpect(jsonPath("$.data.accounts").isArray());
+    }
+
+    // 계좌 삭제 실패 테스트는 이미 AccountService 에서 했으므로 컨트롤러에서는 성공 케이스만 테스트
+    @WithUserDetails(value = "soono", setupBefore = TestExecutionEvent.TEST_EXECUTION)
+    @Test
+    void deleteAccount() throws Exception {
+        // given
+        Long accountNumber = 1111L;
+
+        // when
+        ResultActions resultActions = mvc.perform(delete("/api/s/account/" + accountNumber));
+
+        // then
+        resultActions.andExpect(status().isOk());
     }
 
 

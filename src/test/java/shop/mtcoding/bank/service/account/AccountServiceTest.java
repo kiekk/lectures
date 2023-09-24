@@ -13,11 +13,13 @@ import shop.mtcoding.bank.domain.user.User;
 import shop.mtcoding.bank.domain.user.UserRepository;
 import shop.mtcoding.bank.dto.account.AccountRequest.AccountSaveRequest;
 import shop.mtcoding.bank.dto.account.AccountResponse.AccountListResponse;
+import shop.mtcoding.bank.handler.exception.CustomApiException;
 
 import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.when;
@@ -82,6 +84,36 @@ class AccountServiceTest extends DummyObject {
         // then
         assertThat(accountListResponse.getFullname()).isEqualTo("soono");
         assertThat(accountListResponse.getAccounts().size()).isEqualTo(2);
+    }
+
+    @DisplayName("계좌 삭제 시 본인 소유의 계좌는 정상적으로 삭제할 수 있다.")
+    @Test
+    void deleteAccountSuccess() {
+        // given
+        Long userId = 1L;
+        Long accountNumber = 1111L;
+        User user = newMockUser(userId, "soono", "soono");
+
+        Account userAccount = newMockAccount(1L, accountNumber, 1000L, user);
+        when(accountRepository.findByNumber(accountNumber)).thenReturn(Optional.of(userAccount));
+
+        // when & then
+        accountService.deleteAccount(accountNumber, userId);
+    }
+
+    @DisplayName("계좌 삭제 시 본인 소유의 계좌가 아닐 경우 예외가 발생한다.")
+    @Test
+    void deleteAccountFail() {
+        // given
+        Long userId = 1L;
+        Long accountNumber = 1111L;
+        User user = newMockUser(userId, "soono", "soono");
+
+        Account userAccount = newMockAccount(1L, accountNumber, 1000L, user);
+        when(accountRepository.findByNumber(accountNumber)).thenReturn(Optional.of(userAccount));
+
+        // when & then
+        assertThrows(CustomApiException.class, () -> accountService.deleteAccount(accountNumber, 2L));
     }
 
 }

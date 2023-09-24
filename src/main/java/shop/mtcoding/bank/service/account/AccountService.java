@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static shop.mtcoding.bank.dto.account.AccountRequest.AccountSaveRequest;
-import static shop.mtcoding.bank.dto.account.AccountResponse.*;
+import static shop.mtcoding.bank.dto.account.AccountResponse.AccountListResponse;
 
 @Service
 @Transactional(readOnly = true)
@@ -48,4 +48,18 @@ public class AccountService {
 
         return new AccountListResponse(userPS, accountsPS);
     }
+
+    @Transactional
+    public void deleteAccount(Long accountNumber, Long userId) {
+        // 계좌 확인
+        Account accountPS = accountRepository.findByNumber(accountNumber)
+                .orElseThrow(() -> new CustomApiException("계좌를 찾을 수 없습니다."));
+
+        // 계좌 소유자 확인
+        accountPS.checkOwner(userId);
+
+        // 계좌 삭제
+        accountRepository.deleteById(accountPS.getId());
+    }
+
 }
