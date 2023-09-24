@@ -14,9 +14,13 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.transaction.annotation.Transactional;
 import shop.mtcoding.bank.config.dummy.DummyObject;
+import shop.mtcoding.bank.domain.account.AccountRepository;
+import shop.mtcoding.bank.domain.user.User;
 import shop.mtcoding.bank.domain.user.UserRepository;
 
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static shop.mtcoding.bank.dto.account.AccountRequest.AccountSaveRequest;
 
@@ -29,18 +33,28 @@ class AccountControllerTest extends DummyObject {
     private final ObjectMapper objectMapper;
     private final MockMvc mvc;
     private final UserRepository userRepository;
+    private final AccountRepository accountRepository;
 
     AccountControllerTest(@Autowired ObjectMapper objectMapper,
                           @Autowired MockMvc mvc,
-                          @Autowired UserRepository userRepository) {
+                          @Autowired UserRepository userRepository,
+                          @Autowired AccountRepository accountRepository) {
         this.objectMapper = objectMapper;
         this.mvc = mvc;
         this.userRepository = userRepository;
+        this.accountRepository = accountRepository;
     }
 
     @BeforeEach
     void setUp() {
-        userRepository.save(newUser("soono", "soono"));
+        User user1 = userRepository.save(newUser("soono", "soono"));
+        User user2 = userRepository.save(newUser("soono2", "soono2"));
+
+        accountRepository.save(newAccount(1111L, user1));
+        accountRepository.save(newAccount(1112L, user1));
+        accountRepository.save(newAccount(1113L, user1));
+        accountRepository.save(newAccount(2111L, user2));
+        accountRepository.save(newAccount(2112L, user2));
     }
 
     // setupBefore = TestExecutionEvent.TEST_EXECUTION
@@ -67,6 +81,23 @@ class AccountControllerTest extends DummyObject {
 
         // then
         resultActions.andExpect(status().isCreated());
+    }
+
+    @WithUserDetails(value = "soono", setupBefore = TestExecutionEvent.TEST_EXECUTION)
+    @Test
+    void findUserAccounts() throws Exception {
+        // given
+        String fullname = "soono";
+
+        // when
+        ResultActions resultActions = mvc.perform(get("/api/s/account/my"));
+
+        // then
+        resultActions.andExpect(status().isOk())
+                .andExpect(jsonPath("$.code").value("1"))
+                .andExpect(jsonPath("$.msg").value("계좌목록보기_유저별 성공"))
+                .andExpect(jsonPath("$.data.fullname").value(fullname))
+                .andExpect(jsonPath("$.data.accounts").isArray());
     }
 
 
