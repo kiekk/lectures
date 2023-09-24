@@ -1,5 +1,6 @@
 package shop.mtcoding.bank.service.account;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -11,16 +12,16 @@ import shop.mtcoding.bank.domain.account.AccountRepository;
 import shop.mtcoding.bank.domain.user.User;
 import shop.mtcoding.bank.domain.user.UserRepository;
 import shop.mtcoding.bank.dto.account.AccountRequest.AccountSaveRequest;
-import shop.mtcoding.bank.dto.account.AccountResponse;
+import shop.mtcoding.bank.dto.account.AccountResponse.AccountListResponse;
 
+import java.util.List;
 import java.util.Optional;
 
-import static org.assertj.core.api.Assertions.as;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.when;
-import static shop.mtcoding.bank.dto.account.AccountResponse.*;
+import static shop.mtcoding.bank.dto.account.AccountResponse.AccountSaveResponse;
 
 @ExtendWith(MockitoExtension.class)
 class AccountServiceTest extends DummyObject {
@@ -59,4 +60,28 @@ class AccountServiceTest extends DummyObject {
         assertThat(accountSaveResponse.getNumber()).isEqualTo(account.getNumber());
         assertThat(accountSaveResponse.getBalance()).isEqualTo(account.getBalance());
     }
+
+    @DisplayName("내 계좌만 볼 수 있다.")
+    @Test
+    public void 계좌목록보기_유저별_test() {
+        // given
+        Long userId = 1L;
+
+        // stub
+        User user = newMockUser(1L, "soono", "soono");
+        when(userRepository.findById(userId)).thenReturn(Optional.of(user));
+
+        Account userAccount1 = newMockAccount(1L, 1111L, 1000L, user);
+        Account userAccount2 = newMockAccount(2L, 2222L, 1000L, user);
+        List<Account> accountList = List.of(userAccount1, userAccount2);
+        when(accountRepository.findByUser_id(any())).thenReturn(accountList);
+
+        // when
+        AccountListResponse accountListResponse = accountService.getAccountsByUser(userId);
+
+        // then
+        assertThat(accountListResponse.getFullname()).isEqualTo("soono");
+        assertThat(accountListResponse.getAccounts().size()).isEqualTo(2);
+    }
+
 }

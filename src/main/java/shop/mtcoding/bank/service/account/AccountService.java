@@ -10,9 +10,11 @@ import shop.mtcoding.bank.domain.user.UserRepository;
 import shop.mtcoding.bank.dto.account.AccountResponse.AccountSaveResponse;
 import shop.mtcoding.bank.handler.exception.CustomApiException;
 
+import java.util.List;
 import java.util.Optional;
 
 import static shop.mtcoding.bank.dto.account.AccountRequest.AccountSaveRequest;
+import static shop.mtcoding.bank.dto.account.AccountResponse.*;
 
 @Service
 @Transactional(readOnly = true)
@@ -38,5 +40,12 @@ public class AccountService {
 
         // DTO 에 응답
         return new AccountSaveResponse(accountPS);
+    }
+
+    public AccountListResponse getAccountsByUser(Long userId) {
+        User userPS = userRepository.findById(userId).orElseThrow(() -> new CustomApiException("유저를 찾을 수 없습니다."));
+        List<Account> accountsPS = accountRepository.findByUser_id(userId);
+
+        return new AccountListResponse(userPS, accountsPS);
     }
 }
