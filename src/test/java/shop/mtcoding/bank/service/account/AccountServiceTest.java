@@ -63,7 +63,7 @@ class AccountServiceTest extends DummyObject {
 
     @DisplayName("내 계좌만 볼 수 있다.")
     @Test
-    public void 계좌목록보기_유저별_test() {
+    void 계좌목록보기_유저별_test() {
         // given
         Long userId = 1L;
 
