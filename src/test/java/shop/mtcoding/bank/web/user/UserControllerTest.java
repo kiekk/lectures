@@ -1,6 +1,7 @@
 package shop.mtcoding.bank.web.user;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import jakarta.persistence.EntityManager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -8,9 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
-import org.springframework.transaction.annotation.Transactional;
 import shop.mtcoding.bank.config.dummy.DummyObject;
 import shop.mtcoding.bank.domain.user.UserRepository;
 
@@ -18,7 +20,8 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static shop.mtcoding.bank.dto.user.UserRequest.JoinRequest;
 
-@Transactional
+@Sql("classpath:db/teardown.sql")
+@ActiveProfiles("test")
 @AutoConfigureMockMvc
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK)
 class UserControllerTest extends DummyObject {
@@ -26,13 +29,16 @@ class UserControllerTest extends DummyObject {
     private final MockMvc mvc;
     private final ObjectMapper om;
     private final UserRepository userRepository;
+    private final EntityManager entityManager;
 
     UserControllerTest(@Autowired MockMvc mvc,
                        @Autowired ObjectMapper om,
-                       @Autowired UserRepository userRepository) {
+                       @Autowired UserRepository userRepository,
+                       @Autowired EntityManager entityManager) {
         this.mvc = mvc;
         this.om = om;
         this.userRepository = userRepository;
+        this.entityManager = entityManager;
     }
 
     @BeforeEach
@@ -117,6 +123,7 @@ class UserControllerTest extends DummyObject {
 
     private void dateSetting() {
         userRepository.save(newUser("soono", "soono"));
+        entityManager.clear();
     }
 
 }
