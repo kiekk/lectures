@@ -75,4 +75,44 @@ public class RegexTest {
         assertThat(Pattern.matches("^[a-zA-Z]{2,4}$", value5)).isFalse();
     }
 
+    @Test
+    void account_gubun_success_test() {
+        String gubun = "DEPOSIT";
+        boolean result = Pattern.matches("^(DEPOSIT)$", gubun);
+
+        assertThat(result).isTrue();
+    }
+
+    @Test
+    void account_gubun_fail_test() {
+        String gubun = "WRONGVALUE";
+        boolean result = Pattern.matches("^(DEPOSIT)$", gubun);
+
+        assertThat(result).isFalse();
+    }
+
+    @Test
+    void account_tel_success_test() {
+        String tel1 = "01011112222";
+        String tel2 = "0112223333";
+
+        boolean result1 = Pattern.matches("^010[0-9]{4}[0-9]{4}|01[1|6|7|8|9][0-9]{3,4}[0-9]{4}", tel1);
+        boolean result2 = Pattern.matches("^010[0-9]{4}[0-9]{4}|01[1|6|7|8|9][0-9]{3,4}[0-9]{4}", tel2);
+
+        assertThat(result1).isTrue();
+        assertThat(result2).isTrue();
+    }
+
+    @Test
+    void account_tel_fail_test() {
+        String tel1 = "010111122222";
+        String tel2 = "011223333";
+
+        boolean result1 = Pattern.matches("^010[0-9]{4}[0-9]{4}|01[1|6|7|8|9][0-9]{3,4}[0-9]{4}", tel1);
+        boolean result2 = Pattern.matches("^010[0-9]{4}[0-9]{4}|01[1|6|7|8|9][0-9]{3,4}[0-9]{4}", tel2);
+
+        assertThat(result1).isFalse();
+        assertThat(result2).isFalse();
+    }
+
 }
