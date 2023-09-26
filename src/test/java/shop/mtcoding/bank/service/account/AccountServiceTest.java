@@ -149,4 +149,24 @@ class AccountServiceTest extends DummyObject {
         assertThat(soonoAccount.getBalance()).isEqualTo(1100L);
     }
 
+    @Test
+    void withdrawAccountSuccess() {
+        // given
+        Long amount = 100L;
+        Long password = 1234L;
+        Long userId = 1L;
+
+        User user = newMockUser(1L, "soono", "soono");
+        Account userAccount = newMockAccount(1L, 1111L, 1000L, user);
+
+        // when
+        userAccount.checkOwner(userId);
+        userAccount.checkSamePassword(password);
+        userAccount.checkBalance(amount);
+        userAccount.withdraw(amount);
+
+        // then
+        assertThat(userAccount.getBalance()).isEqualTo(900L);
+    }
+
 }

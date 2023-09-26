@@ -9,14 +9,12 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import shop.mtcoding.bank.auth.LoginUser;
 import shop.mtcoding.bank.dto.ResponseDto;
-import shop.mtcoding.bank.dto.account.AccountRequest;
 import shop.mtcoding.bank.dto.account.AccountRequest.AccountSaveRequest;
-import shop.mtcoding.bank.dto.account.AccountResponse;
-import shop.mtcoding.bank.dto.account.AccountResponse.AccountSaveResponse;
 import shop.mtcoding.bank.service.account.AccountService;
 
-import static shop.mtcoding.bank.dto.account.AccountRequest.*;
-import static shop.mtcoding.bank.dto.account.AccountResponse.AccountListResponse;
+import static shop.mtcoding.bank.dto.account.AccountRequest.AccountDepositRequest;
+import static shop.mtcoding.bank.dto.account.AccountRequest.AccountWithdrawRequest;
+import static shop.mtcoding.bank.dto.account.AccountResponse.*;
 
 @RestController
 @RequestMapping("api")
@@ -46,9 +44,17 @@ public class AccountController {
     }
 
     @PostMapping("/account/deposit")
-    public ResponseEntity<?> depositAccount(@RequestBody @Valid AccountDepositRequest accountDepositRequest) {
-        AccountResponse.AccountDepositResponse accountDepositResponse = accountService.depositAccount(accountDepositRequest);
+    public ResponseEntity<?> depositAccount(@RequestBody @Valid AccountDepositRequest accountDepositRequest, BindingResult bindingResult) {
+        AccountDepositResponse accountDepositResponse = accountService.depositAccount(accountDepositRequest);
         return new ResponseEntity<>(new ResponseDto<>(1, "계좌 입금 완료", accountDepositResponse), HttpStatus.CREATED);
+    }
+
+    @PostMapping("/s/account/withdraw")
+    public ResponseEntity<?> withdrawAccount(@RequestBody @Valid AccountWithdrawRequest accountWithdrawRequest,
+                                             BindingResult bindingResult,
+                                             @AuthenticationPrincipal LoginUser loginUser) {
+        AccountWithdrawResponse accountWithdrawResponse = accountService.withdrawAccount(accountWithdrawRequest, loginUser.getUser().getId());
+        return new ResponseEntity<>(new ResponseDto<>(1, "계좌 출금 완료", accountWithdrawResponse), HttpStatus.CREATED);
     }
 
 }

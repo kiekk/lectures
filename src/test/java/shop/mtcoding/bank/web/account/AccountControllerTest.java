@@ -19,6 +19,7 @@ import shop.mtcoding.bank.domain.account.AccountRepository;
 import shop.mtcoding.bank.domain.user.User;
 import shop.mtcoding.bank.domain.user.UserRepository;
 import shop.mtcoding.bank.dto.account.AccountRequest;
+import shop.mtcoding.bank.dto.account.AccountRequest.AccountWithdrawRequest;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -138,5 +139,28 @@ class AccountControllerTest extends DummyObject {
         resultActions.andExpect(status().isCreated());
     }
 
+    @WithUserDetails(value = "soono", setupBefore = TestExecutionEvent.TEST_EXECUTION)
+    @Test
+    public void withdrawAccount_test() throws Exception {
+        // given
+        AccountWithdrawRequest accountWithdrawRequest = new AccountWithdrawRequest();
+        accountWithdrawRequest.setNumber(1111L);
+        accountWithdrawRequest.setPassword(1234L);
+        accountWithdrawRequest.setAmount(100L);
+        accountWithdrawRequest.setGubun("WITHDRAW");
+
+        String requestBody = objectMapper.writeValueAsString(accountWithdrawRequest);
+        System.out.println("테스트 : " + requestBody);
+
+        // when
+        ResultActions resultActions = mvc
+                .perform(post("/api/s/account/withdraw").content(requestBody)
+                        .contentType(MediaType.APPLICATION_JSON));
+        String responseBody = resultActions.andReturn().getResponse().getContentAsString();
+        System.out.println("테스트 체크 : " + responseBody);
+
+        // then
+        resultActions.andExpect(status().isCreated());
+    }
 
 }
