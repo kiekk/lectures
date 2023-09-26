@@ -1,5 +1,6 @@
 package shop.mtcoding.bank.web.account;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -17,6 +18,7 @@ import shop.mtcoding.bank.config.dummy.DummyObject;
 import shop.mtcoding.bank.domain.account.AccountRepository;
 import shop.mtcoding.bank.domain.user.User;
 import shop.mtcoding.bank.domain.user.UserRepository;
+import shop.mtcoding.bank.dto.account.AccountRequest;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -111,6 +113,29 @@ class AccountControllerTest extends DummyObject {
 
         // then
         resultActions.andExpect(status().isOk());
+    }
+
+    @Test
+    void depositAccount() throws Exception {
+        // given
+        AccountRequest.AccountDepositRequest accountDepositRequest = new AccountRequest.AccountDepositRequest();
+        accountDepositRequest.setNumber(1111L);
+        accountDepositRequest.setAmount(100L);
+        accountDepositRequest.setGubun("DEPOSIT");
+        accountDepositRequest.setTel("01011112222");
+
+        String requestBody = objectMapper.writeValueAsString(accountDepositRequest);
+        System.out.println("테스트 : " + requestBody);
+
+        // when
+        ResultActions resultActions = mvc.perform(post("/api/account/deposit")
+                .content(requestBody)
+                .contentType(MediaType.APPLICATION_JSON));
+        String responseBody = resultActions.andReturn().getResponse().getContentAsString();
+        System.out.println("테스트 : " + responseBody);
+
+        // then
+        resultActions.andExpect(status().isCreated());
     }
 
 

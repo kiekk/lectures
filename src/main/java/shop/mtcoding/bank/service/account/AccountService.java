@@ -6,6 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 import shop.mtcoding.bank.domain.account.Account;
 import shop.mtcoding.bank.domain.account.AccountRepository;
 import shop.mtcoding.bank.domain.transaction.Transaction;
+import shop.mtcoding.bank.domain.transaction.TransactionEnum;
 import shop.mtcoding.bank.domain.transaction.TransactionRepository;
 import shop.mtcoding.bank.domain.user.User;
 import shop.mtcoding.bank.domain.user.UserRepository;
@@ -91,6 +92,7 @@ public class AccountService {
                 .withdrawAccountBalance(null)
                 .amount(accountDepositRequest.getAmount())
                 .sender("ATM")
+                .gubun(TransactionEnum.DEPOSIT)
                 .receiver(depositAccountPS.getNumber() + "")
                 .tel(accountDepositRequest.getTel())
                 .build();

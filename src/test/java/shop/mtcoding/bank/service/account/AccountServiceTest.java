@@ -9,6 +9,8 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import shop.mtcoding.bank.config.dummy.DummyObject;
 import shop.mtcoding.bank.domain.account.Account;
 import shop.mtcoding.bank.domain.account.AccountRepository;
+import shop.mtcoding.bank.domain.transaction.Transaction;
+import shop.mtcoding.bank.domain.transaction.TransactionRepository;
 import shop.mtcoding.bank.domain.user.User;
 import shop.mtcoding.bank.domain.user.UserRepository;
 import shop.mtcoding.bank.dto.account.AccountRequest.AccountSaveRequest;
@@ -23,6 +25,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.when;
+import static shop.mtcoding.bank.dto.account.AccountRequest.AccountDepositRequest;
+import static shop.mtcoding.bank.dto.account.AccountResponse.AccountDepositResponse;
 import static shop.mtcoding.bank.dto.account.AccountResponse.AccountSaveResponse;
 
 @ExtendWith(MockitoExtension.class)
@@ -36,6 +40,9 @@ class AccountServiceTest extends DummyObject {
 
     @Mock
     private AccountRepository accountRepository;
+
+    @Mock
+    private TransactionRepository transactionRepository;
 
     @Test
     void 계좌등록_test() {
@@ -114,6 +121,32 @@ class AccountServiceTest extends DummyObject {
 
         // when & then
         assertThrows(CustomApiException.class, () -> accountService.deleteAccount(accountNumber, 2L));
+    }
+
+    @Test
+    void depositAccountSuccess() {
+        // given
+        AccountDepositRequest accountDepositRequest = new AccountDepositRequest();
+        accountDepositRequest.setNumber(1111L);
+        accountDepositRequest.setAmount(100L);
+        accountDepositRequest.setGubun("DEPOSIT");
+        accountDepositRequest.setTel("01011112222");
+
+        // stub
+        User soono = newMockUser(1L, "soono", "soono");
+        Account soonoAccount = newMockAccount(1L, 1111L, 1000L, soono);
+        when(accountRepository.findByNumber(anyLong())).thenReturn(Optional.of(soonoAccount));
+
+        Account stubAccount = newMockAccount(1L, 1111L, 1000L, soono);
+        Transaction transaction = newMockDepositTransaction(1L, stubAccount);
+        when(transactionRepository.save(any())).thenReturn(transaction);
+
+        // when
+        AccountDepositResponse accountDepositResponse = accountService.depositAccount(accountDepositRequest);
+
+        // then
+        assertThat(accountDepositResponse.getTransaction().getDepositAccountBalance()).isEqualTo(1100L);
+        assertThat(soonoAccount.getBalance()).isEqualTo(1100L);
     }
 
 }
