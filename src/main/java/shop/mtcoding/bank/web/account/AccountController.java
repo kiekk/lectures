@@ -9,6 +9,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import shop.mtcoding.bank.auth.LoginUser;
 import shop.mtcoding.bank.dto.ResponseDto;
+import shop.mtcoding.bank.dto.account.AccountRequest;
 import shop.mtcoding.bank.dto.account.AccountRequest.AccountSaveRequest;
 import shop.mtcoding.bank.service.account.AccountService;
 
@@ -55,6 +56,14 @@ public class AccountController {
                                              @AuthenticationPrincipal LoginUser loginUser) {
         AccountWithdrawResponse accountWithdrawResponse = accountService.withdrawAccount(accountWithdrawRequest, loginUser.getUser().getId());
         return new ResponseEntity<>(new ResponseDto<>(1, "계좌 출금 완료", accountWithdrawResponse), HttpStatus.CREATED);
+    }
+
+    @PostMapping("/s/account/transfer")
+    public ResponseEntity<?> transferAccount(@RequestBody @Valid AccountRequest.AccountTransferRequest accountTransferRequest,
+                                             BindingResult bindingResult,
+                                             @AuthenticationPrincipal LoginUser loginUser) {
+        AccountTransferResponse accountTransferResponse = accountService.transferAccount(accountTransferRequest, loginUser.getUser().getId());
+        return new ResponseEntity<>(new ResponseDto<>(1, "계좌 이체 완료", accountTransferResponse), HttpStatus.CREATED);
     }
 
 }

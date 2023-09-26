@@ -1,6 +1,5 @@
 package shop.mtcoding.bank.web.account;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -15,16 +14,17 @@ import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import shop.mtcoding.bank.config.dummy.DummyObject;
+import shop.mtcoding.bank.domain.account.Account;
 import shop.mtcoding.bank.domain.account.AccountRepository;
+import shop.mtcoding.bank.domain.transaction.Transaction;
+import shop.mtcoding.bank.domain.transaction.TransactionRepository;
 import shop.mtcoding.bank.domain.user.User;
 import shop.mtcoding.bank.domain.user.UserRepository;
-import shop.mtcoding.bank.dto.account.AccountRequest;
-import shop.mtcoding.bank.dto.account.AccountRequest.AccountWithdrawRequest;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static shop.mtcoding.bank.dto.account.AccountRequest.AccountSaveRequest;
+import static shop.mtcoding.bank.dto.account.AccountRequest.*;
 
 @Sql("classpath:db/teardown.sql")
 @ActiveProfiles("test")
@@ -36,27 +36,40 @@ class AccountControllerTest extends DummyObject {
     private final MockMvc mvc;
     private final UserRepository userRepository;
     private final AccountRepository accountRepository;
+    private final TransactionRepository transactionRepository;
 
     AccountControllerTest(@Autowired ObjectMapper objectMapper,
                           @Autowired MockMvc mvc,
                           @Autowired UserRepository userRepository,
-                          @Autowired AccountRepository accountRepository) {
+                          @Autowired AccountRepository accountRepository,
+                          @Autowired TransactionRepository transactionRepository) {
         this.objectMapper = objectMapper;
         this.mvc = mvc;
         this.userRepository = userRepository;
         this.accountRepository = accountRepository;
+        this.transactionRepository = transactionRepository;
     }
 
     @BeforeEach
     void setUp() {
         User user1 = userRepository.save(newUser("soono", "soono"));
         User user2 = userRepository.save(newUser("soono2", "soono2"));
+        User user3 = userRepository.save(newUser("soono3", "soono3"));
+        User user4 = userRepository.save(newUser("soono4", "soono4"));
 
-        accountRepository.save(newAccount(1111L, user1));
+        Account userAccount1 = accountRepository.save(newAccount(1111L, user1));
         accountRepository.save(newAccount(1112L, user1));
         accountRepository.save(newAccount(1113L, user1));
-        accountRepository.save(newAccount(2111L, user2));
+        Account userAccount2 = accountRepository.save(newAccount(2111L, user2));
         accountRepository.save(newAccount(2112L, user2));
+        Account userAccount3 = accountRepository.save(newAccount(3111L, user3));
+        Account userAccount4 = accountRepository.save(newAccount(4111L, user4));
+
+        Transaction withdrawTransaction1 = transactionRepository.save(newWithdrawTransaction(userAccount1, accountRepository));
+        Transaction depositTransaction1 = transactionRepository.save(newDepositTransaction(userAccount2, accountRepository));
+        Transaction transferTransaction1 = transactionRepository.save(newTransferTransaction(userAccount1, userAccount2, accountRepository));
+        Transaction transferTransaction2 = transactionRepository.save(newTransferTransaction(userAccount1, userAccount4, accountRepository));
+        Transaction transferTransaction3 = transactionRepository.save(newTransferTransaction(userAccount2, userAccount1, accountRepository));
     }
 
     // setupBefore = TestExecutionEvent.TEST_EXECUTION
@@ -119,7 +132,7 @@ class AccountControllerTest extends DummyObject {
     @Test
     void depositAccount() throws Exception {
         // given
-        AccountRequest.AccountDepositRequest accountDepositRequest = new AccountRequest.AccountDepositRequest();
+        AccountDepositRequest accountDepositRequest = new AccountDepositRequest();
         accountDepositRequest.setNumber(1111L);
         accountDepositRequest.setAmount(100L);
         accountDepositRequest.setGubun("DEPOSIT");
@@ -158,6 +171,31 @@ class AccountControllerTest extends DummyObject {
                         .contentType(MediaType.APPLICATION_JSON));
         String responseBody = resultActions.andReturn().getResponse().getContentAsString();
         System.out.println("테스트 체크 : " + responseBody);
+
+        // then
+        resultActions.andExpect(status().isCreated());
+    }
+
+    @WithUserDetails(value = "soono", setupBefore = TestExecutionEvent.TEST_EXECUTION)
+    @Test
+    public void transferAccount_test() throws Exception {
+        // given
+        AccountTransferRequest accountTransferRequest = new AccountTransferRequest();
+        accountTransferRequest.setWithdrawNumber(1111L);
+        accountTransferRequest.setDepositNumber(2111L);
+        accountTransferRequest.setWithdrawPassword(1234L);
+        accountTransferRequest.setAmount(100L);
+        accountTransferRequest.setGubun("TRANSFER");
+
+        String requestBody = objectMapper.writeValueAsString(accountTransferRequest);
+        System.out.println("테스트 : " + requestBody);
+
+        // when
+        ResultActions resultActions = mvc
+                .perform(post("/api/s/account/transfer").content(requestBody)
+                        .contentType(MediaType.APPLICATION_JSON));
+        String responseBody = resultActions.andReturn().getResponse().getContentAsString();
+        System.out.println("테스트 : " + responseBody);
 
         // then
         resultActions.andExpect(status().isCreated());
