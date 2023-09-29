@@ -1,5 +1,6 @@
 package shop.mtcoding.bank.config.domain.transaction;
 
+import jakarta.persistence.EntityManager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -29,9 +30,14 @@ public class TransactionRepositoryImplTest extends DummyObject {
     @Autowired
     private TransactionRepository transactionRepository;
 
+    @Autowired
+    private EntityManager em;
+
     @BeforeEach
     void setUp() {
+        autoincrementReset();
         dataSetting();
+        em.clear(); // Repository 테스트에서는 필수
     }
 
     @DisplayName("간단한 데이터 조회 테스트 - 따로 검증은 하지 않는다.")
@@ -82,6 +88,12 @@ public class TransactionRepositoryImplTest extends DummyObject {
                 .save(newTransferTransaction(ssarAccount1, loveAccount, accountRepository));
         Transaction transferTransaction3 = transactionRepository
                 .save(newTransferTransaction(cosAccount, ssarAccount1, accountRepository));
+    }
+
+    private void autoincrementReset() {
+        em.createNativeQuery("ALTER TABLE user_tb ALTER COLUMN id RESTART WITH 1").executeUpdate();
+        em.createNativeQuery("ALTER TABLE account_tb ALTER COLUMN id RESTART WITH 1").executeUpdate();
+        em.createNativeQuery("ALTER TABLE transaction_tb ALTER COLUMN id RESTART WITH 1").executeUpdate();
     }
 
 }
