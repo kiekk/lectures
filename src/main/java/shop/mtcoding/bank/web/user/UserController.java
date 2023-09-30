@@ -1,5 +1,8 @@
 package shop.mtcoding.bank.web.user;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.tags.Tags;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -11,6 +14,7 @@ import shop.mtcoding.bank.service.user.UserService;
 import static shop.mtcoding.bank.dto.user.UserRequest.JoinRequest;
 import static shop.mtcoding.bank.dto.user.UserResponse.JoinResponse;
 
+@Tags(value = @Tag(name = "User Controller", description = "사용자 관리 API"))
 @RestController
 @RequestMapping("api")
 @RequiredArgsConstructor
@@ -18,6 +22,7 @@ public class UserController {
 
     private final UserService userService;
 
+    @Operation(summary = "회원 가입")
     @PostMapping("join")
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseDto<?> join(@RequestBody @Valid JoinRequest joinRequest, BindingResult bindingResult) {

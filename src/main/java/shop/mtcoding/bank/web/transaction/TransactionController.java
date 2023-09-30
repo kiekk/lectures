@@ -1,5 +1,8 @@
 package shop.mtcoding.bank.web.transaction;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.tags.Tags;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,12 +14,14 @@ import shop.mtcoding.bank.service.transaction.TransactionService;
 
 import static shop.mtcoding.bank.dto.transaction.TransactionResponse.TransactionListResponse;
 
+@Tags(value = @Tag(name = "Transaction Controller", description = "거래 내역 관리 API"))
 @RestController
 @RequestMapping("/api")
 @RequiredArgsConstructor
 public class TransactionController {
     private final TransactionService transactionService;
 
+    @Operation(summary = "입출금 내역 조회")
     @GetMapping("/s/account/{number}/transaction")
     public ResponseEntity<?> findTransactionList(@PathVariable Long number,
                                                  @RequestParam(value = "gubun", defaultValue = "ALL") String gubun,
