@@ -216,5 +216,4 @@ class AccountServiceTest extends DummyObject {
         assertThat(depositAccount.getBalance()).isEqualTo(1100L);
     }
 
-
 }
