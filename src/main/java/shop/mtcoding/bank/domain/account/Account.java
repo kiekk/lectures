@@ -9,6 +9,7 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import shop.mtcoding.bank.domain.user.User;
+import shop.mtcoding.bank.handler.exception.CustomApiException;
 
 import java.time.LocalDateTime;
 
@@ -22,7 +23,7 @@ public class Account {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(unique = true, nullable = false, length = 20)
+    @Column(unique = true, nullable = false, length = 4)
     private Long number; // 계좌 번호
 
     @Column(nullable = false, length = 4)
@@ -52,6 +53,32 @@ public class Account {
         this.user = user;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
+    }
+
+    public void checkOwner(Long userId) {
+        if (user.getId().longValue() != userId.longValue()) {
+            throw new CustomApiException("계좌 소유주가 아닙니다.");
+        }
+    }
+
+    public void deposit(Long amount) {
+        balance += amount;
+    }
+
+    public void checkSamePassword(Long password) {
+        if (this.password.longValue() != password.longValue()) {
+            throw new CustomApiException("계좌 비밀번호 검증에 실패했습니다.");
+        }
+    }
+
+    public void checkBalance(Long amount) {
+        if (balance < amount) {
+            throw new CustomApiException("계좌 잔액이 부족합니다.");
+        }
+    }
+
+    public void withdraw(Long amount) {
+        balance -= amount;
     }
 
 }

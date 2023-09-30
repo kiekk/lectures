@@ -9,14 +9,19 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 class JwtProcessTest {
 
-    @Test
-    void create_test() {
-        // given
+    private String createToken() {
         User user = User.builder().id(1L).role(UserEnum.CUSTOMER).build();
         LoginUser loginUser = new LoginUser(user);
 
+        return JwtProcess.create(loginUser);
+    }
+
+    @Test
+    void create_test() {
+        // given
+
         // when
-        String jwtToken = JwtProcess.create(loginUser);
+        String jwtToken = createToken();
 
         System.out.println(jwtToken);
         // then
@@ -28,10 +33,10 @@ class JwtProcessTest {
         // given
         User user = User.builder().id(1L).role(UserEnum.CUSTOMER).build();
         LoginUser loginUser = new LoginUser(user);
-        String token = "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJiYW5rIiwiZXhwIjoxNjk1NzIxMDEyLCJpZCI6MSwicm9sZSI6IkNVU1RPTUVSIn0.DkYAwoMsrGkXDjqCUg7XrE2_xlTc6KXbeg942bH6WL2HXlcEVG-3mjIQApsvowWjxrtywyCYeQOOiAPZlRtnsQ";
+        String jwtToken = createToken().replace(JwtVO.TOKEN_PREFIX, "");
 
         // when
-        LoginUser verifyUser = JwtProcess.verify(token);
+        LoginUser verifyUser = JwtProcess.verify(jwtToken);
 
         // then
         assertThat(verifyUser.getUsername()).isEqualTo(loginUser.getUsername());
