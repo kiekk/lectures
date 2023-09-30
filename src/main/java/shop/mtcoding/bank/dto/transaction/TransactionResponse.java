@@ -15,7 +15,7 @@ public class TransactionResponse {
     @Setter
     public static class TransactionListResponse {
 
-        private List<TransactionDto> transactions = new ArrayList<>();
+        private List<TransactionDto> transactions;
 
         public TransactionListResponse(List<Transaction> transactions, Account account) {
             this.transactions = transactions.stream()
