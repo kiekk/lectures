@@ -6,6 +6,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
 import shop.mtcoding.bank.config.dummy.DummyObject;
 import shop.mtcoding.bank.domain.account.Account;
@@ -17,7 +18,7 @@ import shop.mtcoding.bank.domain.user.UserRepository;
 
 import java.util.List;
 
-@Sql("classpath:db/teardown.sql")
+@ActiveProfiles("test")
 @DataJpaTest
 public class TransactionRepositoryImplTest extends DummyObject {
 
