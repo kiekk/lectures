@@ -7,7 +7,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.jdbc.Sql;
 import shop.mtcoding.bank.config.dummy.DummyObject;
 import shop.mtcoding.bank.domain.account.Account;
 import shop.mtcoding.bank.domain.account.AccountRepository;
@@ -17,6 +16,8 @@ import shop.mtcoding.bank.domain.user.User;
 import shop.mtcoding.bank.domain.user.UserRepository;
 
 import java.util.List;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 @ActiveProfiles("test")
 @DataJpaTest
@@ -54,6 +55,27 @@ public class TransactionRepositoryImplTest extends DummyObject {
         });
     }
 
+    @Test
+    public void findTransactionList_all_test() {
+        // given
+        Long accountId = 1L;
+
+        // when
+        List<Transaction> transactionListPS = transactionRepository.findTransactionList(accountId, "ALL", 0);
+        transactionListPS.forEach((t) -> {
+            System.out.println("테스트 : id : " + t.getId());
+            System.out.println("테스트 : amount : " + t.getAmount());
+            System.out.println("테스트 : sender : " + t.getSender());
+            System.out.println("테스트 : receiver : " + t.getReceiver());
+            System.out.println("테스트 : withdrawAccount잔액 : " + t.getWithdrawAccountBalance());
+            System.out.println("테스트 : depositAccount잔액 : " + t.getDepositAccountBalance());
+            System.out.println("테스트 : 잔액 : " + t.getWithdrawAccount().getBalance());
+            System.out.println("테스트 : ======================================");
+        });
+
+        // then
+        assertThat(transactionListPS.get(3).getDepositAccountBalance()).isEqualTo(800L);
+    }
 
     @DisplayName("@BeforeEach 에서 더미 데이터 셋팅이 잘 되었는지, dataJpa_test1과 동일하게 데이터를 조회해본다.")
     @Test
