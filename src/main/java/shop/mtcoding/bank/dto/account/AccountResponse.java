@@ -135,7 +135,7 @@ public class AccountResponse {
             this.transaction = new TransactionWithdrawDetail(transaction);
         }
 
-        @Schema(title = "거래 출금 내역", description = "거래 출금 내역")
+        @Schema(title = "계좌 출금 내역", description = "계좌 출금 내역")
         @Getter
         @Setter
         public class TransactionWithdrawDetail {
@@ -163,7 +163,7 @@ public class AccountResponse {
         }
     }
 
-    @Schema(title = "거래 이체 응답", description = "거래 이체 응답")
+    @Schema(title = "계좌 이체 응답", description = "계좌 이체 응답")
     @Setter
     @Getter
     public static class AccountTransferResponse {
@@ -183,7 +183,7 @@ public class AccountResponse {
             this.transaction = new TransactionTransferDetail(transaction);
         }
 
-        @Schema(title = "거래 이체 내역", description = "거래 이체 내역")
+        @Schema(title = "계좌 이체 내역", description = "계좌 이체 내역")
         @Setter
         @Getter
         public class TransactionTransferDetail {
