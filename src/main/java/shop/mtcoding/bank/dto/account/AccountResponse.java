@@ -64,11 +64,15 @@ public class AccountResponse {
         }
     }
 
+    @Schema(title = "계좌 입금 응답")
     @Getter
     @Setter
     public static class AccountDepositResponse {
+        @Schema(title = "id", description = "id")
         private Long id;
+        @Schema(title = "계좌 번호", description = "계좌 번호")
         private Long number;
+        @Schema(title = "거래 내역", description = "거래 내역")
         private TransactionDto transaction;
 
         public AccountDepositResponse(Account account, Transaction transaction) {
@@ -80,14 +84,21 @@ public class AccountResponse {
         @Getter
         @Setter
         public class TransactionDto {
+            @Schema(title = "id", description = "id")
             private Long id;
+            @Schema(title = "구분", description = "구분", example = "DEPOSIT")
             private String gubun;
+            @Schema(title = "송금자", description = "송금자")
             private String sender;
+            @Schema(title = "수금자", description = "수금자")
             private String receiver;
+            @Schema(title = "금액", description = "금액")
             private Long amount;
             @JsonIgnore
             private Long depositAccountBalance; // 클라이언트에게 전달X -> 서비스단에서 테스트 용도로 사용
+            @Schema(title = "전화번호", description = "전화번호")
             private String tel;
+            @Schema(title = "거래일시", description = "거래일시", example = "yyyy-MM-dd HH:mm:ss")
             private String createdAt;
 
             public TransactionDto(Transaction transaction) {
