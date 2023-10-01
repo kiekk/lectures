@@ -111,7 +111,7 @@ public class AccountController {
     }
 
     @Operation(summary = "계좌 입금", responses = {
-            @ApiResponse(responseCode = "200", description = "계좌 입금 완료", content = @Content(schemaProperties = {
+            @ApiResponse(responseCode = "201", description = "계좌 입금 완료", content = @Content(schemaProperties = {
                     @SchemaProperty(name = "code", schema = @Schema(title = "응답 코드", type = "int", description = "응답 코드", example = "1")),
                     @SchemaProperty(name = "msg", schema = @Schema(title = "응답 메세지", type = "string", description = "응답 메세지", example = "계좌 입금 완료")),
                     @SchemaProperty(name = "data", schema = @Schema(example = "null"))
