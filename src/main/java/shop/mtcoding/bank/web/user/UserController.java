@@ -44,7 +44,12 @@ public class UserController {
                                         "fullname": "한글/영문 1~20자 이내로 작성해주세요."
                                         }                           
                                     """))
-                    }))
+                    })),
+            @ApiResponse(responseCode = "Duplicate Username", description = "동일한 username이 존재할 경우", content = @Content(schemaProperties = {
+                    @SchemaProperty(name = "code", schema = @Schema(title = "응답 코드", type = "int", description = "응답 코드", example = "-1")),
+                    @SchemaProperty(name = "msg", schema = @Schema(title = "응답 메세지", type = "string", description = "응답 메세지", example = "동일한 username이 존재합니다.")),
+                    @SchemaProperty(name = "data", schema = @Schema(example = "null"))
+            }))
     })
     @PostMapping("join")
     @ResponseStatus(HttpStatus.CREATED)

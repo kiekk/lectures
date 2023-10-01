@@ -32,6 +32,11 @@ public class TransactionController {
                     @SchemaProperty(name = "code", schema = @Schema(title = "응답 코드", type = "int", description = "응답 코드", example = "1")),
                     @SchemaProperty(name = "msg", schema = @Schema(title = "응답 메세지", type = "string", description = "응답 메세지", example = "입출금목록보기 성공")),
                     @SchemaProperty(name = "data", schema = @Schema(implementation = TransactionListResponse.class))
+            })),
+            @ApiResponse(responseCode = "Not Found", description = "Not Found", content = @Content(schemaProperties = {
+                    @SchemaProperty(name = "code", schema = @Schema(title = "응답 코드", type = "int", description = "응답 코드", example = "-1")),
+                    @SchemaProperty(name = "msg", schema = @Schema(title = "응답 메세지", type = "string", description = "응답 메세지", example = "해당 계좌를 찾을 수 없습니다.")),
+                    @SchemaProperty(name = "data", schema = @Schema(example = "null"))
             }))
     })
     @GetMapping("/s/account/{number}/transaction")

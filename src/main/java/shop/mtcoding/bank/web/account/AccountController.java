@@ -53,7 +53,17 @@ public class AccountController {
                                         "password": "4자리로 입력해주세요."
                                         }                           
                                     """))
-                    }))
+                    })),
+            @ApiResponse(responseCode = "Not Found User", description = "유저가 없을 경우", content = @Content(schemaProperties = {
+                    @SchemaProperty(name = "code", schema = @Schema(title = "응답 코드", type = "int", description = "응답 코드", example = "-1")),
+                    @SchemaProperty(name = "msg", schema = @Schema(title = "응답 메세지", type = "string", description = "응답 메세지", example = "유저를 찾을 수 없습니다.")),
+                    @SchemaProperty(name = "data", schema = @Schema(example = "null"))
+            })),
+            @ApiResponse(responseCode = "Duplicate AccountNumber", description = "동일한 계좌 번호가 있을 경우", content = @Content(schemaProperties = {
+                    @SchemaProperty(name = "code", schema = @Schema(title = "응답 코드", type = "int", description = "응답 코드", example = "-1")),
+                    @SchemaProperty(name = "msg", schema = @Schema(title = "응답 메세지", type = "string", description = "응답 메세지", example = "해당 계좌가 이미 존재합니다.")),
+                    @SchemaProperty(name = "data", schema = @Schema(example = "null"))
+            }))
     })
     @PostMapping("/s/account")
     public ResponseEntity<?> saveAccount(@RequestBody @Valid AccountSaveRequest accountSaveRequest,
@@ -72,6 +82,11 @@ public class AccountController {
             @ApiResponse(responseCode = "401", description = "인증안됨", content = @Content(schemaProperties = {
                     @SchemaProperty(name = "code", schema = @Schema(title = "응답 코드", type = "int", description = "응답 코드", example = "-1")),
                     @SchemaProperty(name = "msg", schema = @Schema(title = "응답 메세지", type = "string", description = "응답 메세지", example = "인증안됨")),
+                    @SchemaProperty(name = "data", schema = @Schema(example = "null"))
+            })),
+            @ApiResponse(responseCode = "Not Found User", description = "유저가 없을 경우", content = @Content(schemaProperties = {
+                    @SchemaProperty(name = "code", schema = @Schema(title = "응답 코드", type = "int", description = "응답 코드", example = "-1")),
+                    @SchemaProperty(name = "msg", schema = @Schema(title = "응답 메세지", type = "string", description = "응답 메세지", example = "유저를 찾을 수 없습니다.")),
                     @SchemaProperty(name = "data", schema = @Schema(example = "null"))
             }))
     })
