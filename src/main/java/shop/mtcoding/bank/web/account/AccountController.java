@@ -37,6 +37,11 @@ public class AccountController {
                     @SchemaProperty(name = "msg", schema = @Schema(title = "응답 메세지", type = "string", description = "응답 메세지", example = "계좌등록 성공")),
                     @SchemaProperty(name = "data", schema = @Schema(implementation = AccountSaveResponse.class))
             })),
+            @ApiResponse(responseCode = "401", description = "인증안됨", content = @Content(schemaProperties = {
+                    @SchemaProperty(name = "code", schema = @Schema(title = "응답 코드", type = "int", description = "응답 코드", example = "-1")),
+                    @SchemaProperty(name = "msg", schema = @Schema(title = "응답 메세지", type = "string", description = "응답 메세지", example = "인증안됨")),
+                    @SchemaProperty(name = "data", schema = @Schema(example = "null"))
+            })),
             @ApiResponse(responseCode = "400", description = "파라미터 검증 오류", content = @Content(
                     schemaProperties = {
                             @SchemaProperty(name = "code", schema = @Schema(title = "응답 코드", type = "int", description = "응답 코드", example = "-1")),
