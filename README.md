@@ -5,10 +5,10 @@
 
 ```
 
-### 인프런
+## 인프런
 [인프런 강의 바로가기](https://www.inflearn.com/course/%EC%8A%A4%ED%94%84%EB%A7%81%EB%B6%80%ED%8A%B8-junit-%ED%85%8C%EC%8A%A4%ED%8A%B8/dashboard)
 
-### 개발 환경
+## 개발 환경
 
 * Intellij IDEA Ultimate 2023.2.2
 * Java 17
@@ -31,10 +31,10 @@
 * Jwt
 * springdoc-openapi
 
-### Jacoco로 테스트 커버리지 확인하기
+## Jacoco로 테스트 커버리지 확인하기
 * 참고 링크: https://techblog.woowahan.com/2661/
 
-### 적용 순서
+## 적용 순서
 ```
 1. Jacoco 플러그인 추가
 2. 전체 테스트 실행하여 build/jacoco/test.exec 파일 생성하기
@@ -45,5 +45,5 @@
 ```
 ![img_1.png](img_1.png)
 
-### 테스트 커버리지 확인 결과
+## 테스트 커버리지 확인 결과
 ![img.png](img.png)
