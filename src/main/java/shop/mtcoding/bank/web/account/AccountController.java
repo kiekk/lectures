@@ -62,7 +62,18 @@ public class AccountController {
         return new ResponseEntity<>(new ResponseDto<>(1, "계좌등록 성공", accountSaveResponse), HttpStatus.CREATED);
     }
 
-    @Operation(summary = "계좌 목록 조회")
+    @Operation(summary = "계좌 목록 조회", responses = {
+            @ApiResponse(responseCode = "200", description = "계좌목록보기_유저별 성공", content = @Content(schemaProperties = {
+                    @SchemaProperty(name = "code", schema = @Schema(title = "응답 코드", type = "int", description = "응답 코드", example = "1")),
+                    @SchemaProperty(name = "msg", schema = @Schema(title = "응답 메세지", type = "string", description = "응답 메세지", example = "계좌목록보기_유저별 성공")),
+                    @SchemaProperty(name = "data", schema = @Schema(implementation = AccountListResponse.class))
+            })),
+            @ApiResponse(responseCode = "401", description = "인증안됨", content = @Content(schemaProperties = {
+                    @SchemaProperty(name = "code", schema = @Schema(title = "응답 코드", type = "int", description = "응답 코드", example = "-1")),
+                    @SchemaProperty(name = "msg", schema = @Schema(title = "응답 메세지", type = "string", description = "응답 메세지", example = "인증안됨")),
+                    @SchemaProperty(name = "data", schema = @Schema(example = "null"))
+            })),
+    })
     @GetMapping("/s/account/my")
     public ResponseEntity<?> findUserAccounts(@AuthenticationPrincipal LoginUser loginUser) {
         AccountListResponse accountsByUser = accountService.getAccountsByUser(loginUser.getUser().getId());

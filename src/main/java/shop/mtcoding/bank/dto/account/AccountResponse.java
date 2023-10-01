@@ -31,10 +31,13 @@ public class AccountResponse {
         }
     }
 
+    @Schema(title = "계좌 목록 조회 응답")
     @Getter
     @Setter
     public static class AccountListResponse {
+        @Schema(title = "풀네임", description = "풀네임")
         private String fullname;
+        @Schema(title = "계좌 목록", description = "계좌 목록")
         private List<AccountDto> accounts;
 
         public AccountListResponse(User user, List<Account> accounts) {
@@ -42,11 +45,15 @@ public class AccountResponse {
             this.accounts = accounts.stream().map(AccountDto::new).toList();
         }
 
+        @Schema(title = "계좌 상세")
         @Getter
         @Setter
         public class AccountDto {
+            @Schema(title = "id", description = "id")
             private Long id;
+            @Schema(title = "계좌 번호", description = "계좌 번호")
             private Long number;
+            @Schema(title = "잔액", description = "잔액")
             private Long balance;
 
             public AccountDto(Account account) {
