@@ -35,22 +35,27 @@ public class AccountRequest {
         }
     }
 
+    @Schema(description = "계좌 입금 요청")
     @Getter
     @Setter
     public static class AccountDepositRequest {
+        @Schema(title = "계좌 번호", description = "계좌 번호")
         @NotNull
-        @Digits(integer = 4, fraction = 4)
+        @Digits(integer = 4, fraction = 4, message = "4자리로 입력해주세요.")
         private Long number;
 
+        @Schema(title = "금액", description = "금액")
         @NotNull
         private Long amount;
 
+        @Schema(title = "구분", description = "구분", allowableValues = "DEPOSIT")
         @NotEmpty
-        @Pattern(regexp = "^(DEPOSIT)$")
+        @Pattern(regexp = "^(DEPOSIT)$", message = "DEPOSIT만 가능합니다.")
         private String gubun; // DEPOSIT
 
+        @Schema(title = "전화번호", description = "전화번호", pattern = "^010[0-9]{4}[0-9]{4}|01[1|6|7|8|9][0-9]{3,4}[0-9]{4}")
         @NotEmpty
-        @Pattern(regexp = "^010[0-9]{4}[0-9]{4}|01[1|6|7|8|9][0-9]{3,4}[0-9]{4}")
+        @Pattern(regexp = "^010[0-9]{4}[0-9]{4}|01[1|6|7|8|9][0-9]{3,4}[0-9]{4}", message = "전화번호 형식이 아닙니다.")
         private String tel;
     }
 
