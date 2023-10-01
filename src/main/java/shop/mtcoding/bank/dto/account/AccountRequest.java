@@ -59,20 +59,25 @@ public class AccountRequest {
         private String tel;
     }
 
+    @Schema(description = "계좌 출금 요청")
     @Getter
     @Setter
     public static class AccountWithdrawRequest {
+        @Schema(title = "계좌 번호", description = "계좌 번호")
         @NotNull
-        @Digits(integer = 4, fraction = 4)
+        @Digits(integer = 4, fraction = 4, message = "4자리로 입력해주세요.")
         private Long number;
 
+        @Schema(title = "비밀번호", description = "비밀번호")
         @NotNull
-        @Digits(integer = 4, fraction = 4)
+        @Digits(integer = 4, fraction = 4, message = "4자리로 입력해주세요.")
         private Long password;
 
+        @Schema(title = "금액", description = "금액")
         @NotNull
         private Long amount;
 
+        @Schema(title = "구분", description = "구분", allowableValues = "WITHDRAW")
         @NotEmpty
         @Pattern(regexp = "WITHDRAW")
         private String gubun;
