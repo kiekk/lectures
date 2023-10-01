@@ -1,6 +1,7 @@
 package shop.mtcoding.bank.web.account;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.media.SchemaProperty;
@@ -80,9 +81,30 @@ public class AccountController {
         return new ResponseEntity<>(new ResponseDto<>(1, "계좌목록보기_유저별 성공", accountsByUser), HttpStatus.OK);
     }
 
-    @Operation(summary = "계좌 삭제")
+    @Operation(summary = "계좌 삭제", responses = {
+            @ApiResponse(responseCode = "200", description = "계좌 삭제 완료", content = @Content(schemaProperties = {
+                    @SchemaProperty(name = "code", schema = @Schema(title = "응답 코드", type = "int", description = "응답 코드", example = "1")),
+                    @SchemaProperty(name = "msg", schema = @Schema(title = "응답 메세지", type = "string", description = "응답 메세지", example = "계좌 삭제 완료")),
+                    @SchemaProperty(name = "data", schema = @Schema(example = "null"))
+            })),
+            @ApiResponse(responseCode = "401", description = "인증안됨", content = @Content(schemaProperties = {
+                    @SchemaProperty(name = "code", schema = @Schema(title = "응답 코드", type = "int", description = "응답 코드", example = "-1")),
+                    @SchemaProperty(name = "msg", schema = @Schema(title = "응답 메세지", type = "string", description = "응답 메세지", example = "인증안됨")),
+                    @SchemaProperty(name = "data", schema = @Schema(example = "null"))
+            })),
+            @ApiResponse(responseCode = "Not Found", description = "Not Found", content = @Content(schemaProperties = {
+                    @SchemaProperty(name = "code", schema = @Schema(title = "응답 코드", type = "int", description = "응답 코드", example = "-1")),
+                    @SchemaProperty(name = "msg", schema = @Schema(title = "응답 메세지", type = "string", description = "응답 메세지", example = "계좌를 찾을 수 없습니다.")),
+                    @SchemaProperty(name = "data", schema = @Schema(example = "null"))
+            })),
+            @ApiResponse(responseCode = "Check Account Auth Fail", description = "계좌 소유주 인증 실패", content = @Content(schemaProperties = {
+                    @SchemaProperty(name = "code", schema = @Schema(title = "응답 코드", type = "int", description = "응답 코드", example = "-1")),
+                    @SchemaProperty(name = "msg", schema = @Schema(title = "응답 메세지", type = "string", description = "응답 메세지", example = "계좌 소유주가 아닙니다.")),
+                    @SchemaProperty(name = "data", schema = @Schema(example = "null"))
+            })),
+    })
     @DeleteMapping("/s/account/{accountNumber}")
-    public ResponseEntity<?> deleteAccount(@PathVariable Long accountNumber,
+    public ResponseEntity<?> deleteAccount(@Parameter(name = "accountNumber", description = "계좌 번호") @PathVariable Long accountNumber,
                                            @AuthenticationPrincipal LoginUser loginUser) {
         accountService.deleteAccount(accountNumber, loginUser.getUser().getId());
         return new ResponseEntity<>(new ResponseDto<>(1, "계좌 삭제 완료", null), HttpStatus.OK);
