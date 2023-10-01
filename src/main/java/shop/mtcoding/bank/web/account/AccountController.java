@@ -239,14 +239,35 @@ public class AccountController {
         return new ResponseEntity<>(new ResponseDto<>(1, "계좌 이체 완료", accountTransferResponse), HttpStatus.CREATED);
     }
 
-    @Operation(summary = "계좌 상세 조회")
+    @Operation(summary = "계좌 상세 조회", responses = {
+            @ApiResponse(responseCode = "200", description = "계좌상세보기 성공", content = @Content(schemaProperties = {
+                    @SchemaProperty(name = "code", schema = @Schema(title = "응답 코드", type = "int", description = "응답 코드", example = "1")),
+                    @SchemaProperty(name = "msg", schema = @Schema(title = "응답 메세지", type = "string", description = "응답 메세지", example = "계좌상세보기 성공")),
+                    @SchemaProperty(name = "data", schema = @Schema(implementation = AccountDetailResponse.class))
+            })),
+            @ApiResponse(responseCode = "401", description = "인증안됨", content = @Content(schemaProperties = {
+                    @SchemaProperty(name = "code", schema = @Schema(title = "응답 코드", type = "int", description = "응답 코드", example = "-1")),
+                    @SchemaProperty(name = "msg", schema = @Schema(title = "응답 메세지", type = "string", description = "응답 메세지", example = "인증안됨")),
+                    @SchemaProperty(name = "data", schema = @Schema(example = "null"))
+            })),
+            @ApiResponse(responseCode = "Not Found", description = "Not Found", content = @Content(schemaProperties = {
+                    @SchemaProperty(name = "code", schema = @Schema(title = "응답 코드", type = "int", description = "응답 코드", example = "-1")),
+                    @SchemaProperty(name = "msg", schema = @Schema(title = "응답 메세지", type = "string", description = "응답 메세지", example = "계좌를 찾을 수 없습니다.")),
+                    @SchemaProperty(name = "data", schema = @Schema(example = "null"))
+            })),
+            @ApiResponse(responseCode = "Check Account Auth Fail", description = "계좌 소유주 인증 실패", content = @Content(schemaProperties = {
+                    @SchemaProperty(name = "code", schema = @Schema(title = "응답 코드", type = "int", description = "응답 코드", example = "-1")),
+                    @SchemaProperty(name = "msg", schema = @Schema(title = "응답 메세지", type = "string", description = "응답 메세지", example = "계좌 소유주가 아닙니다.")),
+                    @SchemaProperty(name = "data", schema = @Schema(example = "null"))
+            }))
+    })
     @GetMapping("/s/account/{number}")
-    public ResponseEntity<?> findDetailAccount(@PathVariable Long number,
-                                               @RequestParam(value = "page", defaultValue = "0") Integer page,
+    public ResponseEntity<?> findDetailAccount(@Parameter(name = "number", description = "계좌 번호") @PathVariable Long number,
+                                               @Parameter(name = "page", description = "페이지 번호") @RequestParam(value = "page", defaultValue = "0") Integer page,
                                                @AuthenticationPrincipal LoginUser loginUser) {
-        AccountDetailResponse accountDetailRespDto = accountService.getAccountDetail(number, loginUser.getUser().getId(),
+        AccountDetailResponse accountDetailResponse = accountService.getAccountDetail(number, loginUser.getUser().getId(),
                 page);
-        return new ResponseEntity<>(new ResponseDto<>(1, "계좌상세보기 성공", accountDetailRespDto), HttpStatus.OK);
+        return new ResponseEntity<>(new ResponseDto<>(1, "계좌상세보기 성공", accountDetailResponse), HttpStatus.OK);
     }
 
 }

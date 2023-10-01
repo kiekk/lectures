@@ -214,12 +214,17 @@ public class AccountResponse {
         }
     }
 
+    @Schema(title = "계좌 상세 조회 응답", description = "계좌 상세 조회 응답")
     @Getter
     @Setter
     public static class AccountDetailResponse {
+        @Schema(title = "id", description = "id")
         private Long id; // 계좌 ID
+        @Schema(title = "계좌번호", description = "계좌번호")
         private Long number; // 계좌번호
+        @Schema(title = "잔액", description = "잔액")
         private Long balance; // 그 계좌의 최종 잔액
+        @Schema(title = "거래 내역 목록", description = "거래 내역 목록")
         private List<TransactionDetail> transactions;
 
         public AccountDetailResponse(Account account, List<Transaction> transactions) {
@@ -231,19 +236,27 @@ public class AccountResponse {
                     .toList();
         }
 
+        @Schema(title = "거래 내역 상세", description = "거래 내역 상세")
         @Getter
         @Setter
         public class TransactionDetail {
-
+            @Schema(title = "id", description = "id")
             private Long id;
+            @Schema(title = "구분", description = "구분", example = "DEPOSIT|WITHDRAW|TRANSFER")
             private String gubun;
+            @Schema(title = "금액", description = "금액")
             private Long amount;
 
+            @Schema(title = "송금자", description = "송금자")
             private String sender;
+            @Schema(title = "수금자", description = "수금자")
             private String receiver;
 
+            @Schema(title = "전화번호", description = "전화번호")
             private String tel;
+            @Schema(title = "거래일시", description = "거래일시", example = "yyyy-MM-dd HH:mm:ss")
             private String createdAt;
+            @Schema(title = "잔액", description = "잔액")
             private Long balance;
 
             public TransactionDetail(Transaction transaction, Long accountNumber) {
