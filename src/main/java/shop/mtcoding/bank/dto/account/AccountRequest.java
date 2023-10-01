@@ -12,7 +12,7 @@ import shop.mtcoding.bank.domain.user.User;
 
 public class AccountRequest {
 
-    @Schema(description = "계좌 등록 요청")
+    @Schema(title = "계좌 등록 요청", description = "계좌 등록 요청")
     @Getter
     @Setter
     public static class AccountSaveRequest {
@@ -35,7 +35,7 @@ public class AccountRequest {
         }
     }
 
-    @Schema(description = "계좌 입금 요청")
+    @Schema(title = "계좌 입금 요청", description = "계좌 입금 요청")
     @Getter
     @Setter
     public static class AccountDepositRequest {
@@ -59,7 +59,7 @@ public class AccountRequest {
         private String tel;
     }
 
-    @Schema(description = "계좌 출금 요청")
+    @Schema(title = "계좌 출금 요청", description = "계좌 출금 요청")
     @Getter
     @Setter
     public static class AccountWithdrawRequest {
@@ -83,7 +83,7 @@ public class AccountRequest {
         private String gubun;
     }
 
-    @Schema(description = "계좌 이체 요청")
+    @Schema(title = "계좌 이체 요청", description = "계좌 이체 요청")
     @Setter
     @Getter
     public static class AccountTransferRequest {
