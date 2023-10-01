@@ -39,7 +39,9 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .cors(cors -> cors.configurationSource(configurationSource()))
                 .authorizeHttpRequests(authz ->
-                        authz.requestMatchers(new MvcRequestMatcher(introspector, "/api/s/**")).authenticated()
+                        authz
+                                .requestMatchers(new MvcRequestMatcher(introspector, "/swagger-ui/**"), new MvcRequestMatcher(introspector, "/swagger-resources/**")).permitAll()
+                                .requestMatchers(new MvcRequestMatcher(introspector, "/api/s/**")).authenticated()
                                 .requestMatchers(new MvcRequestMatcher(introspector, "/api/admin/**")).hasRole(String.valueOf(UserEnum.ADMIN))
                                 .anyRequest().permitAll()
                 )
