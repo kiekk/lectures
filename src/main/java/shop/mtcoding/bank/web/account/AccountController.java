@@ -6,6 +6,7 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.media.SchemaProperty;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.tags.Tags;
 import jakarta.validation.Valid;
@@ -64,7 +65,8 @@ public class AccountController {
                     @SchemaProperty(name = "msg", schema = @Schema(title = "응답 메세지", type = "string", description = "응답 메세지", example = "해당 계좌가 이미 존재합니다.")),
                     @SchemaProperty(name = "data", schema = @Schema(example = "null"))
             }))
-    })
+    },
+            security = {@SecurityRequirement(name = "bearer-key")})
     @PostMapping("/s/account")
     public ResponseEntity<?> saveAccount(@RequestBody @Valid AccountSaveRequest accountSaveRequest,
                                          BindingResult bindingResult,
@@ -89,7 +91,8 @@ public class AccountController {
                     @SchemaProperty(name = "msg", schema = @Schema(title = "응답 메세지", type = "string", description = "응답 메세지", example = "유저를 찾을 수 없습니다.")),
                     @SchemaProperty(name = "data", schema = @Schema(example = "null"))
             }))
-    })
+    },
+            security = {@SecurityRequirement(name = "bearer-key")})
     @GetMapping("/s/account/my")
     public ResponseEntity<?> findUserAccounts(@AuthenticationPrincipal LoginUser loginUser) {
         AccountListResponse accountsByUser = accountService.getAccountsByUser(loginUser.getUser().getId());
@@ -117,7 +120,8 @@ public class AccountController {
                     @SchemaProperty(name = "msg", schema = @Schema(title = "응답 메세지", type = "string", description = "응답 메세지", example = "계좌 소유주가 아닙니다.")),
                     @SchemaProperty(name = "data", schema = @Schema(example = "null"))
             }))
-    })
+    },
+            security = {@SecurityRequirement(name = "bearer-key")})
     @DeleteMapping("/s/account/{accountNumber}")
     public ResponseEntity<?> deleteAccount(@Parameter(name = "accountNumber", description = "계좌 번호") @PathVariable Long accountNumber,
                                            @AuthenticationPrincipal LoginUser loginUser) {
@@ -198,7 +202,8 @@ public class AccountController {
                     @SchemaProperty(name = "msg", schema = @Schema(title = "응답 메세지", type = "string", description = "응답 메세지", example = "0원 이하의 금액을 출금할 수 없습니다.")),
                     @SchemaProperty(name = "data", schema = @Schema(example = "null"))
             }))
-    })
+    },
+            security = {@SecurityRequirement(name = "bearer-key")})
     @PostMapping("/s/account/withdraw")
     public ResponseEntity<?> withdrawAccount(@RequestBody @Valid AccountWithdrawRequest accountWithdrawRequest,
                                              BindingResult bindingResult,
@@ -245,7 +250,8 @@ public class AccountController {
                     @SchemaProperty(name = "msg", schema = @Schema(title = "응답 메세지", type = "string", description = "응답 메세지", example = "입출금계좌가 동일할 수 없습니다")),
                     @SchemaProperty(name = "data", schema = @Schema(example = "null"))
             }))
-    })
+    },
+            security = {@SecurityRequirement(name = "bearer-key")})
     @PostMapping("/s/account/transfer")
     public ResponseEntity<?> transferAccount(@RequestBody @Valid AccountRequest.AccountTransferRequest accountTransferRequest,
                                              BindingResult bindingResult,
@@ -275,7 +281,8 @@ public class AccountController {
                     @SchemaProperty(name = "msg", schema = @Schema(title = "응답 메세지", type = "string", description = "응답 메세지", example = "계좌 소유주가 아닙니다.")),
                     @SchemaProperty(name = "data", schema = @Schema(example = "null"))
             }))
-    })
+    },
+            security = {@SecurityRequirement(name = "bearer-key")})
     @GetMapping("/s/account/{number}")
     public ResponseEntity<?> findDetailAccount(@Parameter(name = "number", description = "계좌 번호") @PathVariable Long number,
                                                @Parameter(name = "page", description = "페이지 번호") @RequestParam(value = "page", defaultValue = "0") Integer page,

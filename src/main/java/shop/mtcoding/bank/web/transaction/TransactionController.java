@@ -7,6 +7,7 @@ import io.swagger.v3.oas.annotations.media.ExampleObject;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.media.SchemaProperty;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.tags.Tags;
 import lombok.RequiredArgsConstructor;
@@ -38,7 +39,8 @@ public class TransactionController {
                     @SchemaProperty(name = "msg", schema = @Schema(title = "응답 메세지", type = "string", description = "응답 메세지", example = "해당 계좌를 찾을 수 없습니다.")),
                     @SchemaProperty(name = "data", schema = @Schema(example = "null"))
             }))
-    })
+    },
+            security = {@SecurityRequirement(name = "bearer-key")})
     @GetMapping("/s/account/{number}/transaction")
     public ResponseEntity<?> findTransactionList(@Parameter(name = "number", description = "계좌 번호") @PathVariable Long number,
                                                  @Parameter(name = "gubun", description = "구분", examples = {
