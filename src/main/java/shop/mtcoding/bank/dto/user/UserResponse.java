@@ -1,5 +1,6 @@
 package shop.mtcoding.bank.dto.user;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.Setter;
 import shop.mtcoding.bank.auth.LoginUser;
@@ -24,9 +25,13 @@ public class UserResponse {
 
     @Getter
     @Setter
+    @Schema(title = "회원 가입 응답 DTO")
     public static class JoinResponse {
+        @Schema(title = "아이디", description = "아이디")
         private Long id;
+        @Schema(title = "사용자명", description = "사용자명")
         private String username;
+        @Schema(title = "풀네임", description = "풀네임")
         private String fullname;
 
         public JoinResponse(User user) {
