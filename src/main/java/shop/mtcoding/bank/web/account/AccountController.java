@@ -73,7 +73,7 @@ public class AccountController {
                     @SchemaProperty(name = "code", schema = @Schema(title = "응답 코드", type = "int", description = "응답 코드", example = "-1")),
                     @SchemaProperty(name = "msg", schema = @Schema(title = "응답 메세지", type = "string", description = "응답 메세지", example = "인증안됨")),
                     @SchemaProperty(name = "data", schema = @Schema(example = "null"))
-            })),
+            }))
     })
     @GetMapping("/s/account/my")
     public ResponseEntity<?> findUserAccounts(@AuthenticationPrincipal LoginUser loginUser) {
@@ -101,7 +101,7 @@ public class AccountController {
                     @SchemaProperty(name = "code", schema = @Schema(title = "응답 코드", type = "int", description = "응답 코드", example = "-1")),
                     @SchemaProperty(name = "msg", schema = @Schema(title = "응답 메세지", type = "string", description = "응답 메세지", example = "계좌 소유주가 아닙니다.")),
                     @SchemaProperty(name = "data", schema = @Schema(example = "null"))
-            })),
+            }))
     })
     @DeleteMapping("/s/account/{accountNumber}")
     public ResponseEntity<?> deleteAccount(@Parameter(name = "accountNumber", description = "계좌 번호") @PathVariable Long accountNumber,
@@ -142,7 +142,7 @@ public class AccountController {
                     @SchemaProperty(name = "code", schema = @Schema(title = "응답 코드", type = "int", description = "응답 코드", example = "-1")),
                     @SchemaProperty(name = "msg", schema = @Schema(title = "응답 메세지", type = "string", description = "응답 메세지", example = "0원 이하의 금액을 입금할 수 없습니다.")),
                     @SchemaProperty(name = "data", schema = @Schema(example = "null"))
-            })),
+            }))
     })
     @PostMapping("/account/deposit")
     public ResponseEntity<?> depositAccount(@RequestBody @Valid AccountDepositRequest accountDepositRequest, BindingResult bindingResult) {
@@ -182,7 +182,7 @@ public class AccountController {
                     @SchemaProperty(name = "code", schema = @Schema(title = "응답 코드", type = "int", description = "응답 코드", example = "-1")),
                     @SchemaProperty(name = "msg", schema = @Schema(title = "응답 메세지", type = "string", description = "응답 메세지", example = "0원 이하의 금액을 출금할 수 없습니다.")),
                     @SchemaProperty(name = "data", schema = @Schema(example = "null"))
-            })),
+            }))
     })
     @PostMapping("/s/account/withdraw")
     public ResponseEntity<?> withdrawAccount(@RequestBody @Valid AccountWithdrawRequest accountWithdrawRequest,
