@@ -100,9 +100,9 @@ public class AccountService {
 
     @Transactional
     public AccountWithdrawResponse withdrawAccount(AccountWithdrawRequest accountWithdrawRequest, Long userId) {
-        // 입금액 0원 확인
+        // 출금액 0원 확인
         if (accountWithdrawRequest.getAmount() <= 0L) {
-            throw new CustomApiException("0원 이하의 금액을 입금할 수 없습니다.");
+            throw new CustomApiException("0원 이하의 금액을 출금할 수 없습니다.");
         }
 
         // 출금계좌 확인
