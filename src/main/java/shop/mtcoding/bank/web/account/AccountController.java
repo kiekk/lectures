@@ -192,7 +192,45 @@ public class AccountController {
         return new ResponseEntity<>(new ResponseDto<>(1, "계좌 출금 완료", accountWithdrawResponse), HttpStatus.CREATED);
     }
 
-    @Operation(summary = "계좌 이체")
+    @Operation(summary = "계좌 이체", responses = {
+            @ApiResponse(responseCode = "200", description = "계좌 이체 완료", content = @Content(schemaProperties = {
+                    @SchemaProperty(name = "code", schema = @Schema(title = "응답 코드", type = "int", description = "응답 코드", example = "1")),
+                    @SchemaProperty(name = "msg", schema = @Schema(title = "응답 메세지", type = "string", description = "응답 메세지", example = "계좌 이체 완료")),
+                    @SchemaProperty(name = "data", schema = @Schema(implementation = AccountTransferResponse.class))
+            })),
+            @ApiResponse(responseCode = "401", description = "인증안됨", content = @Content(schemaProperties = {
+                    @SchemaProperty(name = "code", schema = @Schema(title = "응답 코드", type = "int", description = "응답 코드", example = "-1")),
+                    @SchemaProperty(name = "msg", schema = @Schema(title = "응답 메세지", type = "string", description = "응답 메세지", example = "인증안됨")),
+                    @SchemaProperty(name = "data", schema = @Schema(example = "null"))
+            })),
+            @ApiResponse(responseCode = "Validation Fail", description = "파라미터 검증 오류", content = @Content(
+                    schemaProperties = {
+                            @SchemaProperty(name = "code", schema = @Schema(title = "응답 코드", type = "int", description = "응답 코드", example = "-1")),
+                            @SchemaProperty(name = "msg", schema = @Schema(title = "응답 메세지", type = "string", description = "응답 메세지", example = "유효성검사 실패")),
+                            @SchemaProperty(name = "data", schema = @Schema(title = "응답 데이터", type = "object", description = "응답 데이터", example = """
+                                        {
+                                        "number": "4자리로 입력해주세요.",
+                                        "password": "4자리로 입력해주세요.",
+                                        "gubun": "WITHDRAW만 가능합니다."
+                                        }                           
+                                    """))
+                    })),
+            @ApiResponse(responseCode = "Not Found", description = "Not Found", content = @Content(schemaProperties = {
+                    @SchemaProperty(name = "code", schema = @Schema(title = "응답 코드", type = "int", description = "응답 코드", example = "-1")),
+                    @SchemaProperty(name = "msg", schema = @Schema(title = "응답 메세지", type = "string", description = "응답 메세지", example = "계좌를 찾을 수 없습니다.")),
+                    @SchemaProperty(name = "data", schema = @Schema(example = "null"))
+            })),
+            @ApiResponse(responseCode = "Minus Amount", description = "입금 금액 검사 실패", content = @Content(schemaProperties = {
+                    @SchemaProperty(name = "code", schema = @Schema(title = "응답 코드", type = "int", description = "응답 코드", example = "-1")),
+                    @SchemaProperty(name = "msg", schema = @Schema(title = "응답 메세지", type = "string", description = "응답 메세지", example = "0원 이하의 금액을 입금할 수 없습니다.")),
+                    @SchemaProperty(name = "data", schema = @Schema(example = "null"))
+            })),
+            @ApiResponse(responseCode = "Check Sender & Receiver Account", description = "송금 계좌와 수금 계좌가 동일한 경우", content = @Content(schemaProperties = {
+                    @SchemaProperty(name = "code", schema = @Schema(title = "응답 코드", type = "int", description = "응답 코드", example = "-1")),
+                    @SchemaProperty(name = "msg", schema = @Schema(title = "응답 메세지", type = "string", description = "응답 메세지", example = "입출금계좌가 동일할 수 없습니다")),
+                    @SchemaProperty(name = "data", schema = @Schema(example = "null"))
+            }))
+    })
     @PostMapping("/s/account/transfer")
     public ResponseEntity<?> transferAccount(@RequestBody @Valid AccountRequest.AccountTransferRequest accountTransferRequest,
                                              BindingResult bindingResult,

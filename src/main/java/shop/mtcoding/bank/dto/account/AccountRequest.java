@@ -83,24 +83,30 @@ public class AccountRequest {
         private String gubun;
     }
 
+    @Schema(description = "계좌 이체 요청")
     @Setter
     @Getter
     public static class AccountTransferRequest {
+        @Schema(title = "출금 계좌 번호", description = "출금 계좌 번호")
         @NotNull
-        @Digits(integer = 4, fraction = 4)
+        @Digits(integer = 4, fraction = 4, message = "4자리로 입력해주세요.")
         private Long withdrawNumber;
 
+        @Schema(title = "입금 계좌 번호", description = "입금 계좌 번호")
         @NotNull
-        @Digits(integer = 4, fraction = 4)
+        @Digits(integer = 4, fraction = 4, message = "4자리로 입력해주세요.")
         private Long depositNumber;
 
+        @Schema(title = "출금 계좌 비밀번호", description = "출금 계좌 비밀번호")
         @NotNull
-        @Digits(integer = 4, fraction = 4)
+        @Digits(integer = 4, fraction = 4, message = "4자리로 입력해주세요.")
         private Long withdrawPassword;
 
+        @Schema(title = "금액", description = "금액")
         @NotNull
         private Long amount;
 
+        @Schema(title = "구분", description = "구분", allowableValues = "TRANSFER")
         @NotEmpty
         @Pattern(regexp = "TRANSFER")
         private String gubun;

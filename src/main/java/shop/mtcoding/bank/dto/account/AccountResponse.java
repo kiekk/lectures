@@ -73,17 +73,18 @@ public class AccountResponse {
         @Schema(title = "계좌 번호", description = "계좌 번호")
         private Long number;
         @Schema(title = "거래 내역", description = "거래 내역")
-        private TransactionDto transaction;
+        private TransactionDepositDetail transaction;
 
         public AccountDepositResponse(Account account, Transaction transaction) {
             this.id = account.getId();
             this.number = account.getNumber();
-            this.transaction = new TransactionDto(transaction);
+            this.transaction = new TransactionDepositDetail(transaction);
         }
 
+        @Schema(title = "계좌 입금 내역")
         @Getter
         @Setter
-        public class TransactionDto {
+        public class TransactionDepositDetail {
             @Schema(title = "id", description = "id")
             private Long id;
             @Schema(title = "구분", description = "구분", example = "DEPOSIT")
@@ -101,7 +102,7 @@ public class AccountResponse {
             @Schema(title = "거래일시", description = "거래일시", example = "yyyy-MM-dd HH:mm:ss")
             private String createdAt;
 
-            public TransactionDto(Transaction transaction) {
+            public TransactionDepositDetail(Transaction transaction) {
                 this.id = transaction.getId();
                 this.gubun = transaction.getGubun().getValue();
                 this.sender = transaction.getSender();
@@ -125,19 +126,19 @@ public class AccountResponse {
         @Schema(title = "잔액", description = "잔액")
         private Long balance;
         @Schema(title = "거래 내역", description = "거래 내역")
-        private TransactionDto transaction;
+        private TransactionWithdrawDetail transaction;
 
         public AccountWithdrawResponse(Account account, Transaction transaction) {
             this.id = account.getId();
             this.number = account.getNumber();
             this.balance = account.getBalance();
-            this.transaction = new TransactionDto(transaction);
+            this.transaction = new TransactionWithdrawDetail(transaction);
         }
 
-        @Schema(title = "거래 내역", description = "거래 내역")
+        @Schema(title = "거래 출금 내역", description = "거래 출금 내역")
         @Getter
         @Setter
-        public class TransactionDto {
+        public class TransactionWithdrawDetail {
             @Schema(title = "id", description = "id")
             private Long id;
             @Schema(title = "구분", description = "구분", example = "WITHDRAW")
@@ -151,7 +152,7 @@ public class AccountResponse {
             @Schema(title = "거래일시", description = "거래일시", example = "yyyy-MM-dd HH:mm:ss")
             private String createdAt;
 
-            public TransactionDto(Transaction transaction) {
+            public TransactionWithdrawDetail(Transaction transaction) {
                 this.id = transaction.getId();
                 this.gubun = transaction.getGubun().getValue();
                 this.sender = transaction.getSender();
@@ -162,38 +163,50 @@ public class AccountResponse {
         }
     }
 
+    @Schema(title = "거래 이체 응답", description = "거래 이체 응답")
     @Setter
     @Getter
     public static class AccountTransferResponse {
+        @Schema(title = "id", description = "id")
         private Long id; // 계좌 ID
+        @Schema(title = "계좌 번호", description = "계좌 번호")
         private Long number; // 계좌번호
+        @Schema(title = "잔액", description = "잔액")
         private Long balance; // 출금 계좌 잔액
-        private TransactionDto transaction;
+        @Schema(title = "거래 이체 내역", description = "거래 이체 내역")
+        private TransactionTransferDetail transaction;
 
         public AccountTransferResponse(Account account, Transaction transaction) {
             this.id = account.getId();
             this.number = account.getNumber();
             this.balance = account.getBalance();
-            this.transaction = new TransactionDto(transaction);
+            this.transaction = new TransactionTransferDetail(transaction);
         }
 
+        @Schema(title = "거래 이체 내역", description = "거래 이체 내역")
         @Setter
         @Getter
-        public class TransactionDto {
+        public class TransactionTransferDetail {
+            @Schema(title = "id", description = "id")
             private Long id;
+            @Schema(title = "구분", description = "구분", example = "TRANSFER")
             private String gubun;
+            @Schema(title = "송금자", description = "송금자")
             private String sender;
-            private String reciver;
+            @Schema(title = "수금자", description = "수금자")
+            private String receiver;
+            @Schema(title = "금액", description = "금액")
             private Long amount;
             @JsonIgnore
             private Long depositAccountBalance;
+            @Schema(title = "거래일시", description = "거래일시", example = "yyyy-MM-dd HH:mm:ss")
             private String createdAt;
 
-            public TransactionDto(Transaction transaction) {
+            public TransactionTransferDetail(Transaction transaction) {
                 this.id = transaction.getId();
                 this.gubun = transaction.getGubun().getValue();
                 this.sender = transaction.getSender();
-                this.reciver = transaction.getReceiver();
+                this.receiver = transaction.getReceiver();
                 this.amount = transaction.getAmount();
                 this.depositAccountBalance = transaction.getDepositAccountBalance();
                 this.createdAt = CustomDateUtil.toStringFormat(transaction.getCreatedAt());
@@ -207,20 +220,20 @@ public class AccountResponse {
         private Long id; // 계좌 ID
         private Long number; // 계좌번호
         private Long balance; // 그 계좌의 최종 잔액
-        private List<TransactionDto> transactions;
+        private List<TransactionDetail> transactions;
 
         public AccountDetailResponse(Account account, List<Transaction> transactions) {
             this.id = account.getId();
             this.number = account.getNumber();
             this.balance = account.getBalance();
             this.transactions = transactions.stream()
-                    .map((transaction) -> new TransactionDto(transaction, account.getNumber()))
+                    .map((transaction) -> new TransactionDetail(transaction, account.getNumber()))
                     .toList();
         }
 
         @Getter
         @Setter
-        public class TransactionDto {
+        public class TransactionDetail {
 
             private Long id;
             private String gubun;
@@ -233,7 +246,7 @@ public class AccountResponse {
             private String createdAt;
             private Long balance;
 
-            public TransactionDto(Transaction transaction, Long accountNumber) {
+            public TransactionDetail(Transaction transaction, Long accountNumber) {
                 this.id = transaction.getId();
                 this.gubun = transaction.getGubun().getValue();
                 this.amount = transaction.getAmount();

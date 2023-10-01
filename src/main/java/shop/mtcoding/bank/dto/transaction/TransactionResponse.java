@@ -7,7 +7,6 @@ import shop.mtcoding.bank.domain.account.Account;
 import shop.mtcoding.bank.domain.transaction.Transaction;
 import shop.mtcoding.bank.util.CustomDateUtil;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class TransactionResponse {
@@ -18,18 +17,18 @@ public class TransactionResponse {
     public static class TransactionListResponse {
 
         @Schema(title = "거래 내역 목록", description = "거래 내역 목록")
-        private List<TransactionDto> transactions;
+        private List<TransactionItem> transactions;
 
         public TransactionListResponse(List<Transaction> transactions, Account account) {
             this.transactions = transactions.stream()
-                    .map((transaction) -> new TransactionDto(transaction, account.getNumber()))
+                    .map((transaction) -> new TransactionItem(transaction, account.getNumber()))
                     .toList();
         }
 
         @Schema(title = "거래 내역", description = "거래 내역")
         @Getter
         @Setter
-        public class TransactionDto {
+        public class TransactionItem {
             @Schema(title = "id", description = "id")
             private Long id;
             @Schema(title = "구분", description = "구분", example = "DEPOSIT|WITHDRAW")
@@ -47,7 +46,7 @@ public class TransactionResponse {
             @Schema(title = "잔액", description = "잔액")
             private Long balance;
 
-            public TransactionDto(Transaction transaction, Long accountNumber) {
+            public TransactionItem(Transaction transaction, Long accountNumber) {
                 this.id = transaction.getId();
                 this.gubun = transaction.getGubun().getValue();
                 this.amount = transaction.getAmount();
