@@ -25,7 +25,7 @@ public class UserResponse {
 
     @Getter
     @Setter
-    @Schema(title = "회원 가입 응답 DTO")
+    @Schema(title = "회원 가입 응답")
     public static class JoinResponse {
         @Schema(title = "아이디", description = "아이디")
         private Long id;

@@ -19,7 +19,7 @@ public class UserRequest {
         private String password;
     }
 
-    @Schema(description = "회원 가입 요청 DTO")
+    @Schema(description = "회원 가입 요청")
     @Getter
     @Setter
     public static class JoinRequest {

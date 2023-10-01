@@ -12,7 +12,7 @@ import java.util.List;
 
 public class TransactionResponse {
 
-    @Schema(title = "거래 내역 조회 응답 DTO")
+    @Schema(title = "거래 내역 조회 응답")
     @Getter
     @Setter
     public static class TransactionListResponse {
@@ -26,7 +26,7 @@ public class TransactionResponse {
                     .toList();
         }
 
-        @Schema(title = "거래 내역 DTO", description = "거래 내역 DTO")
+        @Schema(title = "거래 내역", description = "거래 내역")
         @Getter
         @Setter
         public class TransactionDto {
