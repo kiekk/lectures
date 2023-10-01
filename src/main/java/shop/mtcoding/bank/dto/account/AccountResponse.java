@@ -1,6 +1,7 @@
 package shop.mtcoding.bank.dto.account;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.Setter;
 import shop.mtcoding.bank.domain.account.Account;
@@ -12,11 +13,15 @@ import java.util.List;
 
 public class AccountResponse {
 
+    @Schema(title = "계좌 등록 응답")
     @Getter
     @Setter
     public static class AccountSaveResponse {
+        @Schema(title = "id", description = "id")
         private Long id;
+        @Schema(title = "계좌 번호", description = "계좌 번호")
         private Long number;
+        @Schema(title = "잔액", description = "잔액")
         private Long balance;
 
         public AccountSaveResponse(Account account) {

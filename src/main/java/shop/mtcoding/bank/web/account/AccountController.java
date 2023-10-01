@@ -1,6 +1,10 @@
 package shop.mtcoding.bank.web.account;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.media.SchemaProperty;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.tags.Tags;
 import jakarta.validation.Valid;
@@ -27,7 +31,24 @@ import static shop.mtcoding.bank.dto.account.AccountResponse.*;
 public class AccountController {
     private final AccountService accountService;
 
-    @Operation(summary = "계좌 등록")
+    @Operation(summary = "계좌 등록", responses = {
+            @ApiResponse(responseCode = "201", description = "계좌등록 성공", content = @Content(schemaProperties = {
+                    @SchemaProperty(name = "code", schema = @Schema(title = "응답 코드", type = "int", description = "응답 코드", example = "1")),
+                    @SchemaProperty(name = "msg", schema = @Schema(title = "응답 메세지", type = "string", description = "응답 메세지", example = "계좌등록 성공")),
+                    @SchemaProperty(name = "data", schema = @Schema(implementation = AccountSaveResponse.class))
+            })),
+            @ApiResponse(responseCode = "400", description = "파라미터 검증 오류", content = @Content(
+                    schemaProperties = {
+                            @SchemaProperty(name = "code", schema = @Schema(title = "응답 코드", type = "int", description = "응답 코드", example = "-1")),
+                            @SchemaProperty(name = "msg", schema = @Schema(title = "응답 메세지", type = "string", description = "응답 메세지", example = "유효성검사 실패")),
+                            @SchemaProperty(name = "data", schema = @Schema(title = "응답 데이터", type = "object", description = "응답 데이터", example = """
+                                        {
+                                        "number": "4자리로 입력해주세요.",
+                                        "password": "4자리로 입력해주세요."
+                                        }                           
+                                    """))
+                    }))
+    })
     @PostMapping("/s/account")
     public ResponseEntity<?> saveAccount(@RequestBody @Valid AccountSaveRequest accountSaveRequest,
                                          BindingResult bindingResult,

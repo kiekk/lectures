@@ -1,5 +1,6 @@
 package shop.mtcoding.bank.dto.account;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
@@ -11,14 +12,17 @@ import shop.mtcoding.bank.domain.user.User;
 
 public class AccountRequest {
 
+    @Schema(description = "계좌 등록 요청")
     @Getter
     @Setter
     public static class AccountSaveRequest {
+        @Schema(title = "계좌 번호", description = "계좌 번호", minLength = 4, maxLength = 4)
         @NotNull
-        @Digits(integer = 4, fraction = 4)
+        @Digits(integer = 4, fraction = 4, message = "4자리로 입력해주세요.")
         private Long number;
+        @Schema(title = "비밀번호", description = "비밀번호", minLength = 4, maxLength = 4)
         @NotNull
-        @Digits(integer = 4, fraction = 4)
+        @Digits(integer = 4, fraction = 4, message = "4자리로 입력해주세요.")
         private Long password;
 
         public Account toEntity(User user) {
