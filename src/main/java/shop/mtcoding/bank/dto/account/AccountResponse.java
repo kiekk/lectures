@@ -140,7 +140,7 @@ public class AccountResponse {
         public class TransactionDto {
             @Schema(title = "id", description = "id")
             private Long id;
-            @Schema(title = "구분", description = "구분", example = "DEPOSIT|WITHDRAW")
+            @Schema(title = "구분", description = "구분", example = "WITHDRAW")
             private String gubun;
             @Schema(title = "송금자", description = "송금자")
             private String sender;
