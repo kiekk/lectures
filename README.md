@@ -17,8 +17,6 @@
 
 ## 기술 세부 스펙
 
-Spring Boot
-
 * Spring Web
 * Spring Data JPA
 * Spring Validation
