@@ -9,7 +9,9 @@ import lombok.RequiredArgsConstructor;
 import org.springdoc.core.models.GroupedOpenApi;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 
+@Profile({"dev"})
 @OpenAPIDefinition(
         info = @Info(title = "Bank Account API",
                 description = "Bank Account API 명세",
