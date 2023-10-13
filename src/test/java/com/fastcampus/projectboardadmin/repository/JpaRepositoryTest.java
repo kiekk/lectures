@@ -61,7 +61,7 @@ class JpaRepositoryTest {
     @Test
     void givenUserAccountAndRoleType_whenUpdating_thenWorksFine() {
         // Given
-        UserAccount userAccount = userAccountRepository.getReferenceById("uno");
+        UserAccount userAccount = userAccountRepository.getReferenceById("soono");
         userAccount.addRoleType(RoleType.DEVELOPER);
         userAccount.addRoleTypes(List.of(RoleType.USER, RoleType.USER));
         userAccount.removeRoleType(RoleType.ADMIN);
@@ -71,7 +71,7 @@ class JpaRepositoryTest {
 
         // Then
         assertThat(updatedAccount)
-                .hasFieldOrPropertyWithValue("userId", "uno")
+                .hasFieldOrPropertyWithValue("userId", "soono")
                 .hasFieldOrPropertyWithValue("roleTypes", Set.of(RoleType.DEVELOPER, RoleType.USER));
     }
 
@@ -80,7 +80,7 @@ class JpaRepositoryTest {
     void givenUserAccount_whenDeleting_thenWorksFine() {
         // Given
         long previousCount = userAccountRepository.count();
-        UserAccount userAccount = userAccountRepository.getReferenceById("uno");
+        UserAccount userAccount = userAccountRepository.getReferenceById("soono");
 
         // When
         userAccountRepository.delete(userAccount);
@@ -95,7 +95,7 @@ class JpaRepositoryTest {
     static class TestJpaConfig {
         @Bean
         AuditorAware<String> auditorAware() {
-            return () -> Optional.of("uno");
+            return () -> Optional.of("soono");
         }
     }
 
