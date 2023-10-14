@@ -1,6 +1,6 @@
 package com.fastcampus.projectboardadmin.controller;
 
-import org.apache.catalina.security.SecurityConfig;
+import com.fastcampus.projectboardadmin.config.SecurityConfig;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
