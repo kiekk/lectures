@@ -1,7 +1,5 @@
 package com.fastcampus.projectboardadmin.config;
 
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -22,6 +20,7 @@ public class ThymeleafConfig {
 
 
     @ConfigurationProperties("spring.thymeleaf3")
-    public record Thymeleaf3Properties(boolean decoupledLogic) {}
+    public record Thymeleaf3Properties(boolean decoupledLogic) {
+    }
 
 }

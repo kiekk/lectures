@@ -20,24 +20,32 @@ import java.time.LocalDateTime;
 @EntityListeners(AuditingEntityListener.class)
 public abstract class AuditingFields {
 
-    /** 생성일시 */
+    /**
+     * 생성일시
+     */
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     @CreatedDate
     @Column(nullable = false, updatable = false)
     protected LocalDateTime createdAt;
 
-    /** 생성자 */
+    /**
+     * 생성자
+     */
     @CreatedBy
     @Column(nullable = false, length = 100, updatable = false)
     protected String createdBy;
 
-    /** 수정일시 */
+    /**
+     * 수정일시
+     */
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     @LastModifiedDate
     @Column(nullable = false)
     protected LocalDateTime modifiedAt;
 
-    /** 수정자 */
+    /**
+     * 수정자
+     */
     @LastModifiedBy
     @Column(nullable = false, length = 100)
     protected String modifiedBy;
