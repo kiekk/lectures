@@ -1,8 +1,6 @@
 package com.fastcampus.projectboardadmin.controller;
 
 import com.fastcampus.projectboardadmin.config.SecurityConfig;
-import com.fastcampus.projectboardadmin.domain.contant.RoleType;
-import com.fastcampus.projectboardadmin.dto.AdminAccountDto;
 import com.fastcampus.projectboardadmin.dto.UserAccountDto;
 import com.fastcampus.projectboardadmin.dto.article.ArticleCommentDto;
 import com.fastcampus.projectboardadmin.service.ArticleCommentManagementService;
@@ -17,7 +15,6 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Set;
 
 import static org.mockito.BDDMockito.*;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
@@ -108,7 +105,6 @@ class ArticleCommentManagementControllerTest {
     private UserAccountDto createUserAccountDto() {
         return UserAccountDto.of(
                 "soonoTest",
-                Set.of(RoleType.ADMIN),
                 "soono-test@email.com",
                 "soono-test",
                 "test memo"
