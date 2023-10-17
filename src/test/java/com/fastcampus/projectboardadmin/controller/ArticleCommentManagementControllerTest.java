@@ -2,6 +2,7 @@ package com.fastcampus.projectboardadmin.controller;
 
 import com.fastcampus.projectboardadmin.config.SecurityConfig;
 import com.fastcampus.projectboardadmin.domain.contant.RoleType;
+import com.fastcampus.projectboardadmin.dto.AdminAccountDto;
 import com.fastcampus.projectboardadmin.dto.UserAccountDto;
 import com.fastcampus.projectboardadmin.dto.article.ArticleCommentDto;
 import com.fastcampus.projectboardadmin.service.ArticleCommentManagementService;
@@ -107,7 +108,6 @@ class ArticleCommentManagementControllerTest {
     private UserAccountDto createUserAccountDto() {
         return UserAccountDto.of(
                 "soonoTest",
-                "pw",
                 Set.of(RoleType.ADMIN),
                 "soono-test@email.com",
                 "soono-test",
