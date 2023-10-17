@@ -15,11 +15,11 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @DisplayName("View 컨트롤러 - 어드민 회원")
 @Import(SecurityConfig.class)
 @WebMvcTest(AdminUserAccountController.class)
-class AdminUserAccountControllerTest {
+class AdminAdminAccountControllerTest {
 
     private final MockMvc mvc;
 
-    public AdminUserAccountControllerTest(@Autowired MockMvc mvc) {
+    public AdminAdminAccountControllerTest(@Autowired MockMvc mvc) {
         this.mvc = mvc;
     }
 

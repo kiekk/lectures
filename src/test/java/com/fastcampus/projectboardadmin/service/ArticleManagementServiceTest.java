@@ -1,6 +1,7 @@
 package com.fastcampus.projectboardadmin.service;
 
 import com.fastcampus.projectboardadmin.domain.contant.RoleType;
+import com.fastcampus.projectboardadmin.dto.AdminAccountDto;
 import com.fastcampus.projectboardadmin.dto.UserAccountDto;
 import com.fastcampus.projectboardadmin.dto.article.ArticleDto;
 import com.fastcampus.projectboardadmin.dto.properties.ProjectProperties;
@@ -170,7 +171,6 @@ class ArticleManagementServiceTest {
         private UserAccountDto createUserAccountDto() {
             return UserAccountDto.of(
                     "soonoTest",
-                    "pw",
                     Set.of(RoleType.ADMIN),
                     "soono-test@email.com",
                     "soono-test",
