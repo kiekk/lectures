@@ -140,7 +140,7 @@ class ArticleManagementServiceTest {
             // Given
             Long articleId = 1L;
             server
-                    .expect(requestTo(projectProperties.board().url() + "/api/articles/" + articleId))
+                    .expect(requestTo(projectProperties.board().url() + "/api/articles/" + articleId + "?projection=withUserAccount"))
                     .andExpect(method(HttpMethod.DELETE))
                     .andRespond(withSuccess());
 
