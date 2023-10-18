@@ -116,7 +116,7 @@ class ArticleManagementServiceTest {
             Long articleId = 1L;
             ArticleDto expectedArticle = createArticleDto("게시판", "글");
             server
-                    .expect(requestTo(projectProperties.board().url() + "/api/articles/" + articleId))
+                    .expect(requestTo(projectProperties.board().url() + "/api/articles/" + articleId + "?projection=withUserAccount"))
                     .andRespond(withSuccess(
                             mapper.writeValueAsString(expectedArticle),
                             MediaType.APPLICATION_JSON
@@ -140,7 +140,7 @@ class ArticleManagementServiceTest {
             // Given
             Long articleId = 1L;
             server
-                    .expect(requestTo(projectProperties.board().url() + "/api/articles/" + articleId + "?projection=withUserAccount"))
+                    .expect(requestTo(projectProperties.board().url() + "/api/articles/" + articleId))
                     .andExpect(method(HttpMethod.DELETE))
                     .andRespond(withSuccess());
 
