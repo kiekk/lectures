@@ -32,11 +32,11 @@ public class TestSecurityConfig {
 
     private AdminAccountDto createAdminAccountDto() {
         return AdminAccountDto.of(
-                "unoTest",
+                "soonoTest",
                 "pw",
                 Set.of(RoleType.USER),
-                "uno-test@email.com",
-                "uno-test",
+                "soono-test@email.com",
+                "soono-test",
                 "test memo"
         );
     }
