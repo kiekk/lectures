@@ -18,6 +18,7 @@ import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserService;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import java.util.Set;
 import java.util.UUID;
@@ -34,8 +35,8 @@ public class SecurityConfig {
         return http
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
-                        .requestMatchers(HttpMethod.POST, "/**").hasAnyRole(rolesAboveManager)
-                        .requestMatchers(HttpMethod.DELETE, "/**").hasAnyRole(rolesAboveManager)
+                        .requestMatchers(new AntPathRequestMatcher("/**", HttpMethod.POST.name())).hasAnyRole(rolesAboveManager)
+                        .requestMatchers(new AntPathRequestMatcher("/**", HttpMethod.DELETE.name())).hasAnyRole(rolesAboveManager)
                         .anyRequest().authenticated()
                 )
                 .formLogin(withDefaults())
@@ -63,13 +64,11 @@ public class SecurityConfig {
      * 카카오 인증 방식을 선택.
      *
      * @param adminAccountService 게시판 서비스의 사용자 계정을 다루는 서비스 로직
-     * @param passwordEncoder     패스워드 암호화 도구
      * @return {@link OAuth2UserService} OAuth2 인증 사용자 정보를 읽어들이고 처리하는 서비스 인스턴스 반환
      */
     @Bean
     public OAuth2UserService<OAuth2UserRequest, OAuth2User> oAuth2UserService(
-            AdminAccountService adminAccountService,
-            PasswordEncoder passwordEncoder
+            AdminAccountService adminAccountService
     ) {
         final DefaultOAuth2UserService delegate = new DefaultOAuth2UserService();
 
@@ -80,7 +79,7 @@ public class SecurityConfig {
             String registrationId = userRequest.getClientRegistration().getRegistrationId();
             String providerId = String.valueOf(kakaoResponse.id());
             String username = registrationId + "_" + providerId;
-            String dummyPassword = passwordEncoder.encode("{bcrypt}" + UUID.randomUUID());
+            String dummyPassword = UUID.randomUUID().toString();
             Set<RoleType> roleTypes = Set.of(RoleType.USER);
 
             return adminAccountService.searchUser(username)
