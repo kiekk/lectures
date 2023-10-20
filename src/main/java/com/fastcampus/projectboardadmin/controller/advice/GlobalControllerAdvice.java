@@ -1,10 +1,10 @@
-package com.fastcampus.projectboardadmin.advice;
+package com.fastcampus.projectboardadmin.controller.advice;
 
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
-@ControllerAdvice(basePackages = "com.fastcampus.projectboardadmin.controller")
+@ControllerAdvice
 public class GlobalControllerAdvice {
 
     @ModelAttribute("requestUri")
