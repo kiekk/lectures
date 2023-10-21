@@ -24,6 +24,7 @@ Spring Boot
 * Thymeleaf
 * Spring Security
 * Spring Security OAuth 2 Client
+* Spring WebSocket
 * H2 Database
 * MySQL Driver
 * Lombok
