@@ -1,1 +1,3 @@
 rootProject.name = 'fastcampus-multimodule'
+include 'module-api'
+include 'module-common'
