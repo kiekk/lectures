@@ -2,6 +2,7 @@ package dev.be.moduleapi.response;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import dev.be.modulecommon.enums.CodeEnum;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -10,6 +11,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @NoArgsConstructor
+@AllArgsConstructor
 public class CommonResponse<T> {
     private String returnCode;
     private String returnMessage;
