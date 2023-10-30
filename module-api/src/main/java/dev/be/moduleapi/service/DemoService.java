@@ -5,15 +5,19 @@ import dev.be.modulecommon.domain.Member;
 import dev.be.modulecommon.enums.CodeEnum;
 import dev.be.modulecommon.repositories.MemberRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
 public class DemoService {
 
+    @Value("${profile-name}")
+    private String profileName;
     private final MemberRepository memberRepository;
 
     public String save() {
+        System.out.println("profileName: " + profileName);
         memberRepository.save(Member.builder()
                 .name(Thread.currentThread().getName())
                 .build());
