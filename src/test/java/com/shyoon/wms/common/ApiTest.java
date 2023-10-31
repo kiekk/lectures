@@ -1,4 +1,4 @@
-package com.shyoon.wms.product.common;
+package com.shyoon.wms.common;
 
 import io.restassured.RestAssured;
 import org.junit.jupiter.api.BeforeEach;

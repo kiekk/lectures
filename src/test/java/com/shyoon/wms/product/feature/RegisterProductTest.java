@@ -1,6 +1,6 @@
 package com.shyoon.wms.product.feature;
 
-import com.shyoon.wms.product.common.ApiTest;
+import com.shyoon.wms.common.ApiTest;
 import com.shyoon.wms.product.domain.ProductRepository;
 import com.shyoon.wms.product.feature.api.RegisterProductApi;
 import org.junit.jupiter.api.DisplayName;
