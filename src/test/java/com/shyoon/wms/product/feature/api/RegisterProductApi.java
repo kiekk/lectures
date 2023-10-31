@@ -1,5 +1,6 @@
 package com.shyoon.wms.product.feature.api;
 
+import com.shyoon.wms.common.Scenario;
 import com.shyoon.wms.product.domain.Category;
 import com.shyoon.wms.product.domain.TemperatureZone;
 import com.shyoon.wms.product.feature.RegisterProduct;
@@ -69,7 +70,7 @@ public class RegisterProductApi {
         return this;
     }
 
-    public void request() {
+    public Scenario request() {
         RegisterProduct.Request request = new RegisterProduct.Request(
                 name,
                 code,
@@ -93,5 +94,7 @@ public class RegisterProductApi {
                 .then()
                 .log().all()
                 .statusCode(HttpStatus.CREATED.value());
+
+        return new Scenario();
     }
 }
