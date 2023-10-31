@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Objects;
+
 @RestController
 public class RegisterProduct {
     private final ProductRepository productRepository;
@@ -21,7 +23,12 @@ public class RegisterProduct {
     @PostMapping("/products")
     @ResponseStatus(HttpStatus.CREATED)
     public void request(@RequestBody final Request request) {
-        // request에서 필요한 값들을 꺼내서 상품 도메인을 생성하고 저장한다.
+        productRepository.findAll().stream()
+                .filter(product -> Objects.equals(product.getCode(), request.code))
+                .findFirst()
+                .ifPresent(product -> {
+                    throw new IllegalArgumentException("이미 등록된 상품입니다.");
+                });
         Product product = request.toDomain();
         productRepository.save(product);
 

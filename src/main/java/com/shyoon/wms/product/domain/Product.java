@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Comment;
 import org.springframework.util.Assert;
 
+@Getter
 @Entity
 @Table(name = "product")
 @Comment("상품")
