@@ -1,34 +1,22 @@
 package com.shyoon.wms.product.feature;
 
+import com.shyoon.wms.product.common.ApiTest;
 import com.shyoon.wms.product.domain.Category;
 import com.shyoon.wms.product.domain.ProductRepository;
 import com.shyoon.wms.product.domain.TemperatureZone;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.http.HttpStatus;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-class RegisterProductTest {
+class RegisterProductTest extends ApiTest {
 
-    @LocalServerPort
-    private int port;
     @Autowired
     private ProductRepository productRepository;
-
-    @BeforeEach
-    void setUp() {
-        if (RestAssured.UNDEFINED_PORT == RestAssured.port) {
-            RestAssured.port = port;
-        }
-    }
 
     @Test
     @DisplayName("상품을 등록한다.")
