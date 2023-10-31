@@ -1,4 +1,4 @@
-package com.shyoon.wms.product.feature;
+package com.shyoon.wms.product.domain;
 
 public enum Category {
     ELECTRONICS("전자 제품");

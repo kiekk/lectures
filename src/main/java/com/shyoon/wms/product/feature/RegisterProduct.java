@@ -1,5 +1,6 @@
 package com.shyoon.wms.product.feature;
 
+import com.shyoon.wms.product.domain.*;
 import org.springframework.util.Assert;
 
 public class RegisterProduct {

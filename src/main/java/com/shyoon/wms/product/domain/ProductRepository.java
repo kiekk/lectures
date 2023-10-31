@@ -1,4 +1,4 @@
-package com.shyoon.wms.product.feature;
+package com.shyoon.wms.product.domain;
 
 import java.util.ArrayList;
 import java.util.HashMap;

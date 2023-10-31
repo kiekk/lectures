@@ -1,5 +1,8 @@
 package com.shyoon.wms.product.feature;
 
+import com.shyoon.wms.product.domain.Category;
+import com.shyoon.wms.product.domain.ProductRepository;
+import com.shyoon.wms.product.domain.TemperatureZone;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
