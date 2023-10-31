@@ -81,9 +81,9 @@ public class RegisterProductApi {
                 Category.ELECTRONICS,
                 TemperatureZone.ROOM_TEMPERATURE,
                 weightInGrams, // gram
-                widthInMillimeters, // 너비 mm
-                heightInMillimeters, // 높이 mm
-                lengthInMillimeters // 길이 mm
+                widthInMillimeters, // 상품 너비 mm
+                heightInMillimeters, // 상품 높이 mm
+                lengthInMillimeters // 상품 길이 mm
         );
 
         RestAssured.given().log().all()
