@@ -46,7 +46,7 @@ public class Inbound {
     @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false)
     @Comment("입고진행상태")
-    @Getter(AccessLevel.PROTECTED)
+    @Getter
     private InboundStatus status = InboundStatus.REQUESTED;
 
     public Inbound(

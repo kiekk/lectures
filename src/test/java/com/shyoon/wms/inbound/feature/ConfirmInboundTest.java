@@ -1,10 +1,18 @@
 package com.shyoon.wms.inbound.feature;
 
 import com.shyoon.wms.inbound.domain.Inbound;
+import com.shyoon.wms.inbound.domain.InboundItem;
 import com.shyoon.wms.inbound.domain.InboundRepository;
+import com.shyoon.wms.inbound.domain.InboundStatus;
+import com.shyoon.wms.product.fixture.ProductFixture;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
+
+import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -15,24 +23,45 @@ public class ConfirmInboundTest {
 
     @BeforeEach
     void setUp() {
-        confimInbound = new ConfirmInbound();
+        inboundRepository = Mockito.mock(InboundRepository.class);
+        confimInbound = new ConfirmInbound(inboundRepository);
     }
 
     @Test
     @DisplayName("입고를 승인한다.")
     void confirmInbound() {
         // given
-        Long inboundNo = 1L;
+        final Long inboundNo = 1L;
+        final Inbound inbound = new Inbound(
+                "상품명",
+                "상품코드",
+                LocalDateTime.now(),
+                LocalDateTime.now().plusDays(1),
+                List.of(new InboundItem(
+                        ProductFixture.aProduct().build(),
+                        1L,
+                        1500L,
+                        "description"
+                ))
+        );
+        Mockito.when(inboundRepository.findById(inboundNo))
+                .thenReturn(Optional.of(inbound));
 
         // when
         confimInbound.request(inboundNo);
 
         // then
-        // TODO inbound 상태가 승인으로 변경되었는지 확인한다.
-//        assertThat(inboundRepository.findById(inboundNo).get().getStatus()).isEqualTo();
+        assertThat(inbound.getStatus()).isEqualTo(InboundStatus.CONFIRMED);
     }
 
     private class ConfirmInbound {
+
+        private final InboundRepository inboundRepository;
+
+        private ConfirmInbound(InboundRepository inboundRepository) {
+            this.inboundRepository = inboundRepository;
+        }
+
         public void request(final Long inboundNo) {
             final Inbound inbound = inboundRepository.findById(inboundNo).orElseThrow();
 
