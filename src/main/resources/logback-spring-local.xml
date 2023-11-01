@@ -6,10 +6,11 @@
             <level>INFO</level>
         </filter>
 
-        <encoder>
-            <pattern>${CONSOLE_LOG_PATTERN}</pattern>
-            <charset>${CONSOLE_LOG_CHARSET}</charset>
-        </encoder>
+        <layout>
+            <pattern>
+                [CONSOLE2] [%-5level] %d{yyyy-MM-dd HH:mm:ss} [%thread] [%logger{0}:%line] - %msg%n
+            </pattern>
+        </layout>
     </appender>
 
     <root level="DEBUG">
