@@ -2,14 +2,15 @@ package com.shyoon.wms.inbound.feature;
 
 
 import com.shyoon.wms.inbound.domain.InboundRepository;
-import com.shyoon.wms.product.domain.*;
+import com.shyoon.wms.product.domain.ProductRepository;
+import com.shyoon.wms.product.fixture.ProductFixture;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 import java.time.LocalDateTime;
-import java.util.*;
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -31,24 +32,8 @@ class RegisterInboundTest {
     @DisplayName("입고를 등록한다.")
     void registerInbound() {
         // given
-        final Product product = new Product(
-                "name",
-                "code",
-                "description",
-                "brand",
-                "maker",
-                "origin",
-                Category.ELECTRONICS,
-                TemperatureZone.ROOM_TEMPERATURE,
-                1000L,
-                new ProductSize(
-                        100L,
-                        100L,
-                        100L
-                )
-        );
-        Mockito.when(productRepository.findById(Mockito.anyLong()))
-                .thenReturn(Optional.of(product));
+        Mockito.when(productRepository.getBy(Mockito.anyLong()))
+                .thenReturn(ProductFixture.aProduct().build());
 
         final LocalDateTime orderRequestedAt = LocalDateTime.now();
         final LocalDateTime estimatedArrivalAt = LocalDateTime.now().plusDays(1);
