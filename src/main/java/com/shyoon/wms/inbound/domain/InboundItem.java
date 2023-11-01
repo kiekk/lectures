@@ -1,13 +1,44 @@
 package com.shyoon.wms.inbound.domain;
 
 import com.shyoon.wms.product.domain.Product;
+import jakarta.persistence.*;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Comment;
 import org.springframework.util.Assert;
 
+@Entity
+@Table(name = "inobund_item")
+@Comment("입고 상품")
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class InboundItem {
-    private final Product product;
-    private final Long quantity;
-    private final Long unitPrice;
-    private final String description;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "inbound_item_no", nullable = false)
+    @Comment("입고 상품 번호")
+    private Long inboundItemNo;
+
+    @Comment("상품")
+    @JoinColumn(name = "product_no", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Product product;
+
+    @Column(name = "quantity", nullable = false)
+    @Comment("수량")
+    private Long quantity;
+
+    @Column(name = "unit_price", nullable = false)
+    @Comment("단가")
+    private Long unitPrice;
+
+    @Column(name = "description", nullable = false)
+    @Comment("상품 설명")
+    private String description;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "inbound_no", nullable = false)
+    @Comment("입고 번호")
+    private Inbound inbound;
 
     public InboundItem(
             final Product product,
@@ -43,5 +74,9 @@ public class InboundItem {
         }
 
         Assert.hasText(description, "품목 설명은 필수입니다.");
+    }
+
+    public void assignInbound(Inbound inbound) {
+        this.inbound = inbound;
     }
 }
