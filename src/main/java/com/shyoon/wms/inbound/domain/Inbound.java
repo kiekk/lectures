@@ -43,6 +43,12 @@ public class Inbound {
     @OneToMany(mappedBy = "inbound", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     private List<InboundItem> inboundItems = new ArrayList<>();
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status", nullable = false)
+    @Comment("입고진행상태")
+    @Getter(AccessLevel.PROTECTED)
+    private InboundStatus status = InboundStatus.REQUESTED;
+
     public Inbound(
             final String title,
             final String description,
@@ -86,4 +92,10 @@ public class Inbound {
         this.inboundNo = inboundNo;
     }
 
+    public void confirmed() {
+        if (status != InboundStatus.REQUESTED) {
+            throw new IllegalStateException("입고 요청 상태가 아닙니다.");
+        }
+        status = InboundStatus.CONFIRMED;
+    }
 }
