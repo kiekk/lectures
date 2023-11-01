@@ -22,25 +22,34 @@ class RegisterInbound {
 
     public void request(Request request) {
         // TODO: 요청을 도메인으로 변경해서 도메인을 저장
-        final List<InboundItem> inboundItems = request.inboundItems.stream()
-                .map(inboundItem -> new InboundItem(
-                                productRepository.findById(inboundItem.productNo).orElseThrow(),
-                                inboundItem.quantity,
-                                inboundItem.unitPrice,
-                                inboundItem.description
-                        )
-                )
-                .toList();
+        final Inbound inbound = createInbound(request);
 
-        Inbound inbound = new Inbound(
+        inboundRepository.save(inbound);
+    }
+
+    private Inbound createInbound(Request request) {
+        return new Inbound(
                 request.title,
                 request.description,
                 request.orderRequestedAt,
                 request.estimatedArrivalAt,
-                inboundItems
+                mapToInboundItems(request)
         );
+    }
 
-        inboundRepository.save(inbound);
+    private List<InboundItem> mapToInboundItems(Request request) {
+        return request.inboundItems.stream()
+                .map(this::newInboundItem)
+                .toList();
+    }
+
+    private InboundItem newInboundItem(Request.Item inboundItem) {
+        return new InboundItem(
+                productRepository.getBy(inboundItem.productNo),
+                inboundItem.quantity,
+                inboundItem.unitPrice,
+                inboundItem.description
+        );
     }
 
     public record Request(

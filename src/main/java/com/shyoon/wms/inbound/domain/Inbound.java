@@ -1,11 +1,13 @@
 package com.shyoon.wms.inbound.domain;
 
+import lombok.Getter;
 import org.springframework.util.Assert;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
 public class Inbound {
+    @Getter
     private Long id;
     private final String title;
     private final String description;
@@ -50,7 +52,4 @@ public class Inbound {
         this.id = id;
     }
 
-    public Long getId() {
-        return id;
-    }
 }
