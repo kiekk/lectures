@@ -63,6 +63,6 @@ public class RegisterInboundApi {
                 .post("/inbounds")
                 .then().log().all()
                 .statusCode(HttpStatus.CREATED.value());
-        return null;
+        return new Scenario();
     }
 }
