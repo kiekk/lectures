@@ -17,3 +17,12 @@ Part 6의 Logback 강의를 수강하며 만든 프로젝트입니다.
 * Spring Web
 * Lombok
 * Logback
+
+
+## Appender 종류
+
+* ConsoleAppender: 콘솔에 log 출력
+* FileAppender: 파일 단위로 log 저장
+* RollingFileAppender: log 를 여러 파일로 나누어 저장
+* SMTPAppender: log를 메일로 전송하여 기록
+* DBAppender: log를 DB에 저장
