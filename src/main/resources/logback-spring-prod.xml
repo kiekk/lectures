@@ -1,9 +1,16 @@
 <included>
     <include resource="org/springframework/boot/logging/logback/console-appender.xml"/>
 
+    <!-- 로그 변수 파일 경로  -->
+    <property resource="logback-variables.properties" />
+
+    <!-- 아래 방법으로도 변수 사용 가능 -->
+<!--    <property name="LOG_DIR" value="logs"/>-->
+<!--    <property name="LOG_PATTERN" value="[%-5level] %d{yyyy-MM-dd HH:mm:ss} [%thread] [%logger{0}:%line] - %msg%n"/>-->
+
     <appender name="REQUEST1" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <!-- 로그 파일 경로 -->
-        <file>logs/request1.log</file>
+        <file>${LOG_DIR}/request1.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
             <!-- 로그 파일 이름 패턴 -->
             <fileNamePattern>logs/archive/request1.%d{yyyy-MM-dd}_%i.log</fileNamePattern>
@@ -14,7 +21,27 @@
         </rollingPolicy>
         <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
             <pattern>
-                [REQUEST1] [%-5level] %d{yyyy-MM-dd HH:mm:ss} [%thread] [%logger{0}:%line] - %msg%n
+                [REQUEST1] ${LOG_PATTERN}
+            </pattern>
+            <!-- 로그 파일 최상단에 패턴 출력 여부 -->
+            <outputPatternAsHeader>true</outputPatternAsHeader>
+        </encoder>
+    </appender>
+
+    <appender name="REQUEST2" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!-- 로그 파일 경로 -->
+        <file>${LOG_DIR}/request2.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <!-- 로그 파일 이름 패턴 -->
+            <fileNamePattern>logs/archive/request2.%d{yyyy-MM-dd}_%i.log</fileNamePattern>
+            <!-- 로그 파일 최대 크기 -->
+            <maxFileSize>1KB</maxFileSize>
+            <!-- 로그 파일 최대 보관 주기 (단위: 일) -->
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>
+                [REQUEST2] ${LOG_PATTERN}
             </pattern>
             <!-- 로그 파일 최상단에 패턴 출력 여부 -->
             <outputPatternAsHeader>true</outputPatternAsHeader>
@@ -23,5 +50,6 @@
 
     <root level="INFO">
         <appender-ref ref="REQUEST1"/>
+        <appender-ref ref="REQUEST2"/>
     </root>
 </included>
