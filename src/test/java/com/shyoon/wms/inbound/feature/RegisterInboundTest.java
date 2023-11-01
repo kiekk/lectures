@@ -1,32 +1,31 @@
 package com.shyoon.wms.inbound.feature;
 
 
+import com.shyoon.wms.common.ApiTest;
 import com.shyoon.wms.inbound.domain.InboundRepository;
 import com.shyoon.wms.product.domain.ProductRepository;
 import com.shyoon.wms.product.fixture.ProductFixture;
-import org.junit.jupiter.api.BeforeEach;
+import io.restassured.RestAssured;
+import io.restassured.http.ContentType;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.HttpStatus;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class RegisterInboundTest {
+class RegisterInboundTest extends ApiTest {
 
-    private RegisterInbound registerInbound;
+    @MockBean
     private ProductRepository productRepository;
-    private InboundRepository inboundRepository;
 
-    @BeforeEach
-    void setUp() {
-        // Mockito 를 사용하여 stubbing
-        productRepository = Mockito.mock(ProductRepository.class);
-        inboundRepository = new InboundRepository();
-        registerInbound = new RegisterInbound(productRepository, inboundRepository);
-    }
+    @Autowired
+    private InboundRepository inboundRepository;
 
     @Test
     @DisplayName("입고를 등록한다.")
@@ -56,8 +55,13 @@ class RegisterInboundTest {
         );
 
         // when
-        registerInbound.request(request);
-
+        RestAssured.given().log().all()
+                .contentType(ContentType.JSON)
+                .body(request)
+                .when()
+                .post("/inbounds")
+                .then().log().all()
+                .statusCode(HttpStatus.CREATED.value());
 
         // then
         assertThat(inboundRepository.findAll()).hasSize(1);
