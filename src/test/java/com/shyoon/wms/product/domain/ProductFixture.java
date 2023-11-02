@@ -1,8 +1,4 @@
-package com.shyoon.wms.product.fixture;
-
-import com.shyoon.wms.product.domain.Category;
-import com.shyoon.wms.product.domain.Product;
-import com.shyoon.wms.product.domain.TemperatureZone;
+package com.shyoon.wms.product.domain;
 
 public class ProductFixture {
     private String name = "name";

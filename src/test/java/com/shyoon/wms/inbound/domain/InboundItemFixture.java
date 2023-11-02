@@ -1,6 +1,6 @@
 package com.shyoon.wms.inbound.domain;
 
-import com.shyoon.wms.product.fixture.ProductFixture;
+import com.shyoon.wms.product.domain.ProductFixture;
 
 public class InboundItemFixture {
 

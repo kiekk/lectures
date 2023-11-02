@@ -1,6 +1,4 @@
-package com.shyoon.wms.product.fixture;
-
-import com.shyoon.wms.product.domain.ProductSize;
+package com.shyoon.wms.product.domain;
 
 public class ProductSizeFixture {
     private Long widthInMillimeters = 100L;
