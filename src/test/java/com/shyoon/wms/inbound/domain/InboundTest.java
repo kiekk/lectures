@@ -12,7 +12,7 @@ class InboundTest {
     @DisplayName("입고를 승인한다.")
     void confirmed() {
         // given
-        final Inbound inbound = new Inbound();
+        final Inbound inbound = InboundFixture.anInbound().build();
         final InboundStatus beforeStatus = inbound.getStatus();
 
         // when
@@ -27,13 +27,10 @@ class InboundTest {
     @DisplayName("입고 승인을 실패한다. 입고의 상태가 요청이 아닌 경우 예외가 발생한다.")
     void fail_invalid_status_confirmed() {
         // given
-        final Inbound inbound = new Inbound();
+        final Inbound confirmedInbound = InboundFixture.anInboundWithConfirmed().build();
 
-        // when
-        inbound.confirmed();
-
-        // then
-        assertThatThrownBy(inbound::confirmed)
+        // when & then
+        assertThatThrownBy(confirmedInbound::confirmed)
                 .isInstanceOf(IllegalStateException.class)
                 .hasMessageContaining("입고 요청 상태가 아닙니다.");
     }

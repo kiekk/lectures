@@ -83,9 +83,11 @@ public class Inbound {
             String description,
             LocalDateTime orderRequestedAt,
             LocalDateTime estimatedArrivalAt,
-            List<InboundItem> inboundItems) {
+            List<InboundItem> inboundItems,
+            InboundStatus status) {
         this(title, description, orderRequestedAt, estimatedArrivalAt, inboundItems);
         this.inboundNo = inboundNo;
+        this.status = status;
     }
 
     private static void validateConstructor(
