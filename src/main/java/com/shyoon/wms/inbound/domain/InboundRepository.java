@@ -1,6 +1,7 @@
 package com.shyoon.wms.inbound.domain;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.transaction.annotation.Transactional;
 
 public interface InboundRepository extends JpaRepository<Inbound, Long> {
     default Inbound getBy(Long inboundNo) {
