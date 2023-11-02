@@ -69,9 +69,62 @@
         </encoder>
     </appender>
 
+    <appender name="ERROR" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!-- 로그 파일 경로 -->
+        <file>${LOG_DIR}/error.log</file>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>ERROR</level>
+            <!-- 해당 Level 의 log 만 기록 -->
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <!-- 로그 파일 이름 패턴 -->
+            <fileNamePattern>logs/archive/error.%d{yyyy-MM-dd}_%i.log</fileNamePattern>
+            <!-- 로그 파일 최대 크기 -->
+            <maxFileSize>1KB</maxFileSize>
+            <!-- 로그 파일 최대 보관 주기 (단위: 일) -->
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <!-- %X 를 사용하면 MDC 안에 있는 key로 조회 가능 -->
+            <pattern>
+                [ERROR] ${LOG_PATTERN}
+            </pattern>
+            <!-- 로그 파일 최상단에 패턴 출력 여부 -->
+            <outputPatternAsHeader>true</outputPatternAsHeader>
+        </encoder>
+    </appender>
+
+    <appender name="WARN" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!-- 로그 파일 경로 -->
+        <file>${LOG_DIR}/warn.log</file>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>WARN</level>
+            <!-- 해당 Level 의 log 만 기록 -->
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <!-- 로그 파일 이름 패턴 -->
+            <fileNamePattern>logs/archive/warn.%d{yyyy-MM-dd}_%i.log</fileNamePattern>
+            <!-- 로그 파일 최대 크기 -->
+            <maxFileSize>1KB</maxFileSize>
+            <!-- 로그 파일 최대 보관 주기 (단위: 일) -->
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <!-- %X 를 사용하면 MDC 안에 있는 key로 조회 가능 -->
+            <pattern>
+                [WARN] ${LOG_PATTERN}
+            </pattern>
+            <!-- 로그 파일 최상단에 패턴 출력 여부 -->
+            <outputPatternAsHeader>true</outputPatternAsHeader>
+        </encoder>
+    </appender>
+
     <root level="INFO">
-<!--        <appender-ref ref="REQUEST1"/>-->
-<!--        <appender-ref ref="REQUEST2"/>-->
-        <appender-ref ref="MDC"/>
+        <appender-ref ref="ERROR"/>
+        <appender-ref ref="WARN"/>
     </root>
 </included>
