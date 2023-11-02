@@ -123,8 +123,34 @@
         </encoder>
     </appender>
 
+    <appender name="QUERY" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!-- 로그 파일 경로 -->
+        <file>${LOG_DIR}/query.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <!-- 로그 파일 이름 패턴 -->
+            <fileNamePattern>logs/archive/query.%d{yyyy-MM-dd}_%i.log</fileNamePattern>
+            <!-- 로그 파일 최대 크기 -->
+            <maxFileSize>1KB</maxFileSize>
+            <!-- 로그 파일 최대 보관 주기 (단위: 일) -->
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>
+                [QUERY] ${LOG_PATTERN}
+            </pattern>
+            <!-- 로그 파일 최상단에 패턴 출력 여부 -->
+            <outputPatternAsHeader>true</outputPatternAsHeader>
+        </encoder>
+    </appender>
+
     <root level="INFO">
-        <appender-ref ref="ERROR"/>
-        <appender-ref ref="WARN"/>
     </root>
+
+    <logger name="SQL_LOG1" level="INFO" additivity="false">
+        <appender-ref ref="QUERY"/>
+    </logger>
+
+    <logger name="SQL_LOG2" level="INFO" additivity="false">
+        <appender-ref ref="QUERY"/>
+    </logger>
 </included>
