@@ -29,7 +29,7 @@ public class RegisterProduct {
                 .ifPresent(product -> {
                     throw new IllegalArgumentException("이미 등록된 상품입니다.");
                 });
-        Product product = request.toDomain();
+        final Product product = request.toDomain();
         productRepository.save(product);
 
     }

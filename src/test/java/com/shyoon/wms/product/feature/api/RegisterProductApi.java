@@ -20,52 +20,52 @@ public class RegisterProductApi {
     private Long heightInMillimeters = 100L;
     private Long lengthInMillimeters = 100L;
 
-    public RegisterProductApi name(String name) {
+    public RegisterProductApi name(final String name) {
         this.name = name;
         return this;
     }
 
-    public RegisterProductApi code(String code) {
+    public RegisterProductApi code(final String code) {
         this.code = code;
         return this;
     }
 
-    public RegisterProductApi description(String description) {
+    public RegisterProductApi description(final String description) {
         this.description = description;
         return this;
     }
 
-    public RegisterProductApi brand(String brand) {
+    public RegisterProductApi brand(final String brand) {
         this.brand = brand;
         return this;
     }
 
-    public RegisterProductApi maker(String maker) {
+    public RegisterProductApi maker(final String maker) {
         this.maker = maker;
         return this;
     }
 
-    public RegisterProductApi origin(String origin) {
+    public RegisterProductApi origin(final String origin) {
         this.origin = origin;
         return this;
     }
 
-    public RegisterProductApi weightInGrams(Long weightInGrams) {
+    public RegisterProductApi weightInGrams(final Long weightInGrams) {
         this.weightInGrams = weightInGrams;
         return this;
     }
 
-    public RegisterProductApi widthInMillimeters(Long widthInMillimeters) {
+    public RegisterProductApi widthInMillimeters(final Long widthInMillimeters) {
         this.widthInMillimeters = widthInMillimeters;
         return this;
     }
 
-    public RegisterProductApi heightInMillimeters(Long heightInMillimeters) {
+    public RegisterProductApi heightInMillimeters(final Long heightInMillimeters) {
         this.heightInMillimeters = heightInMillimeters;
         return this;
     }
 
-    public RegisterProductApi lengthInMillimeters(Long lengthInMillimeters) {
+    public RegisterProductApi lengthInMillimeters(final Long lengthInMillimeters) {
         this.lengthInMillimeters = lengthInMillimeters;
         return this;
     }

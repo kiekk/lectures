@@ -14,27 +14,27 @@ public class InboundItemFixture {
         return new InboundItemFixture();
     }
 
-    public InboundItemFixture inboundItemNo(Long inboundItemNo) {
+    public InboundItemFixture inboundItemNo(final Long inboundItemNo) {
         this.inboundItemNo = inboundItemNo;
         return this;
     }
 
-    public InboundItemFixture product(ProductFixture product) {
+    public InboundItemFixture product(final ProductFixture product) {
         this.product = product;
         return this;
     }
 
-    public InboundItemFixture quantity(Long quantity) {
+    public InboundItemFixture quantity(final Long quantity) {
         this.quantity = quantity;
         return this;
     }
 
-    public InboundItemFixture unitPrice(Long unitPrice) {
+    public InboundItemFixture unitPrice(final Long unitPrice) {
         this.unitPrice = unitPrice;
         return this;
     }
 
-    public InboundItemFixture description(String description) {
+    public InboundItemFixture description(final String description) {
         this.description = description;
         return this;
     }

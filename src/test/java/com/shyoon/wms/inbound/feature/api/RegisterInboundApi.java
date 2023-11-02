@@ -21,27 +21,27 @@ public class RegisterInboundApi {
             "description"
     ));
 
-    public RegisterInboundApi title(String title) {
+    public RegisterInboundApi title(final String title) {
         this.title = title;
         return this;
     }
 
-    public RegisterInboundApi description(String description) {
+    public RegisterInboundApi description(final String description) {
         this.description = description;
         return this;
     }
 
-    public RegisterInboundApi orderRequestedAt(LocalDateTime orderRequestedAt) {
+    public RegisterInboundApi orderRequestedAt(final LocalDateTime orderRequestedAt) {
         this.orderRequestedAt = orderRequestedAt;
         return this;
     }
 
-    public RegisterInboundApi estimatedArrivalAt(LocalDateTime estimatedArrivalAt) {
+    public RegisterInboundApi estimatedArrivalAt(final LocalDateTime estimatedArrivalAt) {
         this.estimatedArrivalAt = estimatedArrivalAt;
         return this;
     }
 
-    public RegisterInboundApi estimatedArrivalAt(RegisterInbound.Request.Item... inboundItems) {
+    public RegisterInboundApi estimatedArrivalAt(final RegisterInbound.Request.Item... inboundItems) {
         this.inboundItems = List.of(inboundItems);
         return this;
     }
@@ -55,7 +55,6 @@ public class RegisterInboundApi {
                 inboundItems
         );
 
-        // when
         RestAssured.given().log().all()
                 .contentType(ContentType.JSON)
                 .body(request)

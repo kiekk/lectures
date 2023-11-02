@@ -29,7 +29,6 @@ public class RegisterInbound {
     @PostMapping("/inbounds")
     @ResponseStatus(HttpStatus.CREATED)
     public void request(@RequestBody @Valid Request request) {
-        // TODO: 요청을 도메인으로 변경해서 도메인을 저장
         final Inbound inbound = createInbound(request);
 
         inboundRepository.save(inbound);

@@ -20,37 +20,37 @@ public class InboundFixture {
         return anInbound().inboundStatus(InboundStatus.CONFIRMED);
     }
 
-    public InboundFixture inboundNo(Long inboundNo) {
+    public InboundFixture inboundNo(final Long inboundNo) {
         this.inboundNo = inboundNo;
         return this;
     }
 
-    public InboundFixture title(String title) {
+    public InboundFixture title(final String title) {
         this.title = title;
         return this;
     }
 
-    public InboundFixture description(String description) {
+    public InboundFixture description(final String description) {
         this.description = description;
         return this;
     }
 
-    public InboundFixture orderRequestedAt(LocalDateTime orderRequestedAt) {
+    public InboundFixture orderRequestedAt(final LocalDateTime orderRequestedAt) {
         this.orderRequestedAt = orderRequestedAt;
         return this;
     }
 
-    public InboundFixture estimatedArrivalAt(LocalDateTime estimatedArrivalAt) {
+    public InboundFixture estimatedArrivalAt(final LocalDateTime estimatedArrivalAt) {
         this.estimatedArrivalAt = estimatedArrivalAt;
         return this;
     }
 
-    public InboundFixture inboundItems(InboundItemFixture... inboundItems) {
+    public InboundFixture inboundItems(final InboundItemFixture... inboundItems) {
         this.inboundItems = List.of(inboundItems);
         return this;
     }
 
-    public InboundFixture inboundStatus(InboundStatus inboundStatus) {
+    public InboundFixture inboundStatus(final InboundStatus inboundStatus) {
         this.inboundStatus = inboundStatus;
         return this;
     }

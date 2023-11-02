@@ -24,9 +24,9 @@ public class ProductSize {
     private Long lengthInMillimeters;
 
     public ProductSize(
-            Long widthInMillimeters,
-            Long heightInMillimeters,
-            Long lengthInMillimeters) {
+            final Long widthInMillimeters,
+            final Long heightInMillimeters,
+            final Long lengthInMillimeters) {
         validateProductSize(
                 widthInMillimeters,
                 heightInMillimeters,
@@ -38,9 +38,9 @@ public class ProductSize {
     }
 
     private void validateProductSize(
-            Long widthInMillimeters,
-            Long heightInMillimeters,
-            Long lengthInMillimeters) {
+            final Long widthInMillimeters,
+            final Long heightInMillimeters,
+            final Long lengthInMillimeters) {
         Assert.notNull(widthInMillimeters, "상품 너비는 필수입니다.");
         if (0 > widthInMillimeters) {
             throw new IllegalArgumentException("상품 너비는 0보다 작을 수 없습니다.");

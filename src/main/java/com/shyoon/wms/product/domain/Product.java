@@ -62,16 +62,16 @@ public class Product {
     private ProductSize productSize;
 
     public Product(
-            String name,
-            String code,
-            String description,
-            String brand,
-            String maker,
-            String origin,
-            Category category,
-            TemperatureZone temperatureZone,
-            Long weightInGrams,
-            ProductSize productSize) {
+            final String name,
+            final String code,
+            final String description,
+            final String brand,
+            final String maker,
+            final String origin,
+            final Category category,
+            final TemperatureZone temperatureZone,
+            final Long weightInGrams,
+            final ProductSize productSize) {
         validateConstructor(
                 name,
                 code,
@@ -97,16 +97,16 @@ public class Product {
     }
 
     private void validateConstructor(
-            String name,
-            String code,
-            String description,
-            String brand,
-            String maker,
-            String origin,
-            Category category,
-            TemperatureZone temperatureZone,
-            Long weightInGrams,
-            ProductSize productSize) {
+            final String name,
+            final String code,
+            final String description,
+            final String brand,
+            final String maker,
+            final String origin,
+            final Category category,
+            final TemperatureZone temperatureZone,
+            final Long weightInGrams,
+            final ProductSize productSize) {
         Assert.hasText(name, "상품명은 필수입니다.");
         Assert.hasText(code, "상품코드는 필수입니다.");
         Assert.hasText(description, "상품설명은 필수입니다.");

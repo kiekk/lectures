@@ -78,13 +78,13 @@ public class Inbound {
 
     @VisibleForTesting
     Inbound(
-            Long inboundNo,
-            String title,
-            String description,
-            LocalDateTime orderRequestedAt,
-            LocalDateTime estimatedArrivalAt,
-            List<InboundItem> inboundItems,
-            InboundStatus status) {
+            final Long inboundNo,
+            final String title,
+            final String description,
+            final LocalDateTime orderRequestedAt,
+            final LocalDateTime estimatedArrivalAt,
+            final List<InboundItem> inboundItems,
+            final InboundStatus status) {
         this(title, description, orderRequestedAt, estimatedArrivalAt, inboundItems);
         this.inboundNo = inboundNo;
         this.status = status;

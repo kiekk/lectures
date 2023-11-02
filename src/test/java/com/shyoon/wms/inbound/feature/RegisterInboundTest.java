@@ -21,7 +21,6 @@ class RegisterInboundTest extends ApiTest {
         Scenario.registerProduct().request()
                 .registerInbound().request();
 
-        // then
         assertThat(inboundRepository.findAll()).hasSize(1);
     }
 
