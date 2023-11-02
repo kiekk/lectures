@@ -1,5 +1,6 @@
 package com.shyoon.wms.inbound.domain;
 
+import com.google.common.annotations.VisibleForTesting;
 import com.shyoon.wms.product.domain.Product;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
@@ -55,6 +56,19 @@ public class InboundItem {
         this.quantity = quantity;
         this.unitPrice = unitPrice;
         this.description = description;
+    }
+
+    // 테스트용 생성자
+    // 같은 패키지 내에서는 default 생성자 접근 가능
+    @VisibleForTesting
+    InboundItem(
+            final Long inboundItemNo,
+            final Product product,
+            final Long quantity,
+            final Long unitPrice,
+            final String description) {
+        this(product, quantity, unitPrice, description);
+        this.inboundItemNo = inboundItemNo;
     }
 
     private static void validateConstructor(

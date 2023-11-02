@@ -1,5 +1,6 @@
 package com.shyoon.wms.inbound.domain;
 
+import com.google.common.annotations.VisibleForTesting;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -43,6 +44,12 @@ public class Inbound {
     @OneToMany(mappedBy = "inbound", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     private List<InboundItem> inboundItems = new ArrayList<>();
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status", nullable = false)
+    @Comment("입고진행상태")
+    @Getter
+    private InboundStatus status = InboundStatus.REQUESTED;
+
     public Inbound(
             final String title,
             final String description,
@@ -69,6 +76,20 @@ public class Inbound {
         this.inboundItems = inboundItems;
     }
 
+    @VisibleForTesting
+    Inbound(
+            Long inboundNo,
+            String title,
+            String description,
+            LocalDateTime orderRequestedAt,
+            LocalDateTime estimatedArrivalAt,
+            List<InboundItem> inboundItems,
+            InboundStatus status) {
+        this(title, description, orderRequestedAt, estimatedArrivalAt, inboundItems);
+        this.inboundNo = inboundNo;
+        this.status = status;
+    }
+
     private static void validateConstructor(
             final String title,
             final String description,
@@ -86,4 +107,14 @@ public class Inbound {
         this.inboundNo = inboundNo;
     }
 
+    public void confirmed() {
+        validateConfirmStatus();
+        status = InboundStatus.CONFIRMED;
+    }
+
+    private void validateConfirmStatus() {
+        if (status != InboundStatus.REQUESTED) {
+            throw new IllegalStateException("입고 요청 상태가 아닙니다.");
+        }
+    }
 }

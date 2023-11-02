@@ -1,6 +1,11 @@
 package com.shyoon.wms.inbound.domain;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.transaction.annotation.Transactional;
 
 public interface InboundRepository extends JpaRepository<Inbound, Long> {
+    default Inbound getBy(Long inboundNo) {
+        return findById(inboundNo)
+                .orElseThrow(() -> new IllegalArgumentException("해당 입고가 존재하지 않습니다. %d".formatted(inboundNo)));
+    }
 }
