@@ -9,7 +9,7 @@ Part 6의 AWS & Github Action 강의를 수강하며 만든 프로젝트입니�
 
 * Intellij IDEA Ultimate 2023.2.3
 * Java 17
-* Gradle 8.3
+* Gradle 8.4
 * Spring Boot 3.1.5
 
 ## 기술 세부 스펙
