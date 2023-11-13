@@ -19,11 +19,11 @@ public class Scenario {
         return new ConfirmInboundApi();
     }
 
-    public RejectInboundApi rejectInbound() {
+    public static RejectInboundApi rejectInbound() {
         return new RejectInboundApi();
     }
 
-    public RegisterLPNApi registerLPN() {
+    public static RegisterLPNApi registerLPN() {
         return new RegisterLPNApi();
     }
 }

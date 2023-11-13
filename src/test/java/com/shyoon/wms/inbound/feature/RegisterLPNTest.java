@@ -6,6 +6,7 @@ import com.shyoon.wms.inbound.domain.Inbound;
 import com.shyoon.wms.inbound.domain.InboundItem;
 import com.shyoon.wms.inbound.domain.InboundRepository;
 import com.shyoon.wms.inbound.domain.LPN;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,11 @@ class RegisterLPNTest extends ApiTest {
 
     @Autowired
     private InboundRepository inboundRepository;
+
+    @BeforeEach
+    void setUp() {
+
+    }
 
     @Test
     @DisplayName("LPN을 등록한다.")
