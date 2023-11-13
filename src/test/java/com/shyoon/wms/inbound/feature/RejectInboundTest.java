@@ -5,12 +5,9 @@ import com.shyoon.wms.common.Scenario;
 import com.shyoon.wms.inbound.domain.Inbound;
 import com.shyoon.wms.inbound.domain.InboundRepository;
 import com.shyoon.wms.inbound.domain.InboundStatus;
-import io.restassured.RestAssured;
-import io.restassured.http.ContentType;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
