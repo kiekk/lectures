@@ -107,7 +107,7 @@ public class Inbound {
         Assert.notEmpty(inboundItems, "입고 품목은 필수입니다.");
     }
 
-    public void assignInboundNo(Long inboundNo) {
+    public void assignInboundNo(final Long inboundNo) {
         this.inboundNo = inboundNo;
     }
 
@@ -122,16 +122,57 @@ public class Inbound {
         }
     }
 
-    public void reject(String rejectionReason) {
+    public void reject(final String rejectionReason) {
         validateRejectStatus(rejectionReason);
         status = InboundStatus.REJECTED;
         this.rejectionReason = rejectionReason;
     }
 
-    private void validateRejectStatus(String rejectionReason) {
+    private void validateRejectStatus(final String rejectionReason) {
         Assert.hasText(rejectionReason, "반려 사유는 필수입니다.");
         if (status != InboundStatus.REQUESTED) {
             throw new IllegalStateException("입고 요청 상태가 아닙니다.");
         }
+    }
+
+    public void registerLPN(
+            final Long inboundItemNo,
+            final String lpnBarcode,
+            final LocalDateTime expirationAt) {
+        validateRegisterLPN(inboundItemNo, lpnBarcode, expirationAt);
+
+        final InboundItem inboundItem = getInboundItemBy(inboundItemNo);
+        inboundItem.registerLPN(lpnBarcode, expirationAt);
+    }
+
+    private void validateRegisterLPN(
+            final Long inboundItemNo,
+            final String lpnBarcode,
+            final LocalDateTime expirationAt) {
+        if (InboundStatus.CONFIRMED != status) {
+            throw new IllegalStateException("입고 확정 상태가 아닙니다.");
+        }
+        Assert.notNull(inboundItemNo, "입고 품목 번호는 필수입니다.");
+        Assert.hasText(lpnBarcode, "LPN 바코드는 필수입니다.");
+        Assert.notNull(expirationAt, "유통 기한은 필수입니다.");
+
+        if (expirationAt.isBefore(LocalDateTime.now())) {
+            throw new IllegalArgumentException("유통기한은 현재 시간보다 이전일 수 없습니다.");
+        }
+    }
+
+    private InboundItem getInboundItemBy(final Long inboundItemNo) {
+        return inboundItems.stream()
+                .filter(ii -> ii.getInboundItemNo().equals(inboundItemNo))
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("해당 품목이 없습니다. %d".formatted(inboundItemNo)));
+    }
+
+    @VisibleForTesting
+    public InboundItem testingGetInboundItemBy(final Long inboundItemNo) {
+        return inboundItems.stream()
+                .filter(ii -> ii.getInboundItemNo().equals(inboundItemNo))
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("해당 품목이 없습니다. %d".formatted(inboundItemNo)));
     }
 }

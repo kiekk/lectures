@@ -2,6 +2,7 @@ package com.shyoon.wms.common;
 
 import com.shyoon.wms.inbound.feature.api.ConfirmInboundApi;
 import com.shyoon.wms.inbound.feature.api.RegisterInboundApi;
+import com.shyoon.wms.inbound.feature.api.RegisterLPNApi;
 import com.shyoon.wms.inbound.feature.api.RejectInboundApi;
 import com.shyoon.wms.product.feature.api.RegisterProductApi;
 
@@ -18,7 +19,11 @@ public class Scenario {
         return new ConfirmInboundApi();
     }
 
-    public RejectInboundApi rejectInbound() {
+    public static RejectInboundApi rejectInbound() {
         return new RejectInboundApi();
+    }
+
+    public static RegisterLPNApi registerLPN() {
+        return new RegisterLPNApi();
     }
 }
