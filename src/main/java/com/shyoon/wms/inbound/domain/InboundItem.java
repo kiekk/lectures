@@ -4,9 +4,14 @@ import com.google.common.annotations.VisibleForTesting;
 import com.shyoon.wms.product.domain.Product;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Comment;
 import org.springframework.util.Assert;
+
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "inobund_item")
@@ -17,6 +22,7 @@ public class InboundItem {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "inbound_item_no", nullable = false)
     @Comment("입고 상품 번호")
+    @Getter
     private Long inboundItemNo;
 
     @Comment("상품")
@@ -40,6 +46,9 @@ public class InboundItem {
     @JoinColumn(name = "inbound_no", nullable = false)
     @Comment("입고 번호")
     private Inbound inbound;
+
+    @OneToMany(mappedBy = "inboundItem", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<LPN> lpnList = new ArrayList<>();
 
     public InboundItem(
             final Product product,
@@ -92,5 +101,34 @@ public class InboundItem {
 
     public void assignInbound(Inbound inbound) {
         this.inbound = inbound;
+    }
+
+    public void registerLPN(
+            final String lpnBarcode,
+            final LocalDateTime expirationAt) {
+        validateRegisterLPN(lpnBarcode, expirationAt);
+        lpnList.add(newLPN(lpnBarcode, expirationAt));
+    }
+
+    private void validateRegisterLPN(
+            final String lpnBarcode,
+            final LocalDateTime expirationAt) {
+        Assert.hasText(lpnBarcode, "LPN 바코드는 필수입니다.");
+        Assert.notNull(expirationAt, "유통 기한은 필수입니다.");
+    }
+
+    private LPN newLPN(
+            final String lpnBarcode,
+            final LocalDateTime expirationAt) {
+        return new LPN(
+                lpnBarcode,
+                expirationAt,
+                this
+        );
+    }
+
+    @VisibleForTesting
+    public List<LPN> testingGetLpnList() {
+        return lpnList;
     }
 }
