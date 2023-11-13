@@ -5,16 +5,22 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.util.Assert;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 class RegisterLocationTest {
 
     private RegisterLocation registerLocation;
+    private LocationRepository locationRepository;
 
     @BeforeEach
     void setUp() {
-        registerLocation = new RegisterLocation();
+        locationRepository = new LocationRepository();
+        registerLocation = new RegisterLocation(locationRepository);
     }
 
     @Test
@@ -29,10 +35,16 @@ class RegisterLocationTest {
                 usagePurpose
         );
         registerLocation.request(request);
+
+        assertThat(locationRepository.findAll()).hasSize(1);
     }
 
     private class RegisterLocation {
-        private LocationRepository locationRepository;
+        private final LocationRepository locationRepository;
+
+        private RegisterLocation(LocationRepository locationRepository) {
+            this.locationRepository = locationRepository;
+        }
 
         public void request(final Request request) {
             final Location location = request.toDomain();
@@ -121,6 +133,10 @@ class RegisterLocationTest {
         public void save(final Location location) {
             location.assignNo(sequence++);
             locations.put(location.getLocationNo(), location);
+        }
+
+        public List<Location> findAll() {
+            return new ArrayList<>(locations.values());
         }
     }
 }
