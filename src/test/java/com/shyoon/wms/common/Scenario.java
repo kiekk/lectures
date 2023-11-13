@@ -4,6 +4,7 @@ import com.shyoon.wms.inbound.feature.api.ConfirmInboundApi;
 import com.shyoon.wms.inbound.feature.api.RegisterInboundApi;
 import com.shyoon.wms.inbound.feature.api.RegisterLPNApi;
 import com.shyoon.wms.inbound.feature.api.RejectInboundApi;
+import com.shyoon.wms.location.feature.api.RegisterLocationApi;
 import com.shyoon.wms.product.feature.api.RegisterProductApi;
 
 public class Scenario {
@@ -25,5 +26,9 @@ public class Scenario {
 
     public static RegisterLPNApi registerLPN() {
         return new RegisterLPNApi();
+    }
+
+    public static RegisterLocationApi registerLocation() {
+        return new RegisterLocationApi();
     }
 }

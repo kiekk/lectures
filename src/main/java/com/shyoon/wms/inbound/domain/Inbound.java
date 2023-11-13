@@ -6,7 +6,6 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Comment;
-import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
 
 import java.time.LocalDateTime;
@@ -16,7 +15,7 @@ import java.util.List;
 @Getter
 @Entity
 @Table(name = "inbound")
-@Component("입고")
+@Comment("입고")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Inbound {
     @Id
