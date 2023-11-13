@@ -1,5 +1,6 @@
 package com.shyoon.wms.location.domain;
 
+import com.shyoon.wms.inbound.domain.LPN;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -54,4 +55,7 @@ public class Location {
         this.locationNo = locationNo;
     }
 
+    public void assignLPN(LPN lpn) {
+
+    }
 }
