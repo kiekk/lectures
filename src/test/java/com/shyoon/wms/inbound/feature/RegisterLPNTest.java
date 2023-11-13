@@ -21,11 +21,6 @@ class RegisterLPNTest extends ApiTest {
     @Autowired
     private InboundRepository inboundRepository;
 
-    @BeforeEach
-    void setUp() {
-
-    }
-
     @Test
     @DisplayName("LPN을 등록한다.")
     @Transactional
