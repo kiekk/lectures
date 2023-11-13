@@ -1,12 +1,34 @@
 package com.shyoon.wms.location.domain;
 
+import jakarta.persistence.*;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Comment;
 import org.springframework.util.Assert;
 
+@Entity
+@Table(name = "location")
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Location {
+    @Getter
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "location_no", nullable = false)
+    @Comment("")
     private Long locationNo;
-    private final String locationBarcode;
-    private final StorageType storageType;
-    private final UsagePurpose usagePurpose;
+
+    @Column(name = "location_barcode", nullable = false)
+    @Comment("")
+    private String locationBarcode;
+
+    @Column(name = "storage_type", nullable = false)
+    @Comment("")
+    private StorageType storageType;
+
+    @Column(name = "usage_purpose", nullable = false)
+    @Comment("")
+    private UsagePurpose usagePurpose;
 
     public Location(
             String locationBarcode,
@@ -29,7 +51,4 @@ public class Location {
         this.locationNo = locationNo;
     }
 
-    public Long getLocationNo() {
-        return locationNo;
-    }
 }
