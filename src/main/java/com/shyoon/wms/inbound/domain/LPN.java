@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Comment;
-import org.springframework.data.annotation.TypeAlias;
 import org.springframework.util.Assert;
 
 import java.time.LocalDateTime;

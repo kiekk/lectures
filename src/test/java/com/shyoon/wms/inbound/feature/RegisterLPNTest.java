@@ -6,9 +6,12 @@ import com.shyoon.wms.inbound.domain.Inbound;
 import com.shyoon.wms.inbound.domain.InboundItem;
 import com.shyoon.wms.inbound.domain.InboundRepository;
 import com.shyoon.wms.inbound.domain.LPN;
+import io.restassured.RestAssured;
+import io.restassured.http.ContentType;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
@@ -38,12 +41,17 @@ class RegisterLPNTest extends ApiTest {
         final LocalDateTime expirationAt = LocalDateTime.now().plusDays(1L);
 
         RegisterLPN.Request request = new RegisterLPN.Request(
-                inboundItemNo,
                 lpnBarcode,
                 expirationAt
         );
 
-        registerLPN.request(request);
+        RestAssured.given().log().all()
+                .contentType(ContentType.JSON)
+                .body(request)
+                .when()
+                .post("/inbounds/inbound-items/{inboundItemNo}/lpns", inboundItemNo)
+                .then().log().all()
+                .statusCode(HttpStatus.OK.value());
 
         final Inbound inbound = inboundRepository.findByInboundItemNo(inboundItemNo).get();
         final InboundItem inboundItem = inbound.testingGetInboundItemBy(inboundItemNo);
