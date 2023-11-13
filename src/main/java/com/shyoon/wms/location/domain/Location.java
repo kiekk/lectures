@@ -9,25 +9,26 @@ import org.springframework.util.Assert;
 
 @Entity
 @Table(name = "location")
+@Comment("로케이션")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Location {
     @Getter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "location_no", nullable = false)
-    @Comment("")
+    @Comment("로케이션 번호")
     private Long locationNo;
 
     @Column(name = "location_barcode", nullable = false)
-    @Comment("")
+    @Comment("로케이션 바코드")
     private String locationBarcode;
 
     @Column(name = "storage_type", nullable = false)
-    @Comment("")
+    @Comment("보관 타입")
     private StorageType storageType;
 
     @Column(name = "usage_purpose", nullable = false)
-    @Comment("")
+    @Comment("보관 목적")
     private UsagePurpose usagePurpose;
 
     public Location(
