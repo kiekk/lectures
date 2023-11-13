@@ -20,6 +20,10 @@ public class InboundFixture {
         return anInbound().inboundStatus(InboundStatus.CONFIRMED);
     }
 
+    public static InboundFixture anInboundWithRejected() {
+        return anInbound().inboundStatus(InboundStatus.REJECTED);
+    }
+
     public InboundFixture inboundNo(final Long inboundNo) {
         this.inboundNo = inboundNo;
         return this;
