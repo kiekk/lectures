@@ -23,10 +23,12 @@ public class Location {
     @Comment("로케이션 바코드")
     private String locationBarcode;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "storage_type", nullable = false)
     @Comment("보관 타입")
     private StorageType storageType;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "usage_purpose", nullable = false)
     @Comment("보관 목적")
     private UsagePurpose usagePurpose;
