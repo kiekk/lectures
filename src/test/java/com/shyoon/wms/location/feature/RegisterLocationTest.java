@@ -1,5 +1,8 @@
 package com.shyoon.wms.location.feature;
 
+import com.shyoon.wms.location.domain.LocationRepository;
+import com.shyoon.wms.location.domain.StorageType;
+import com.shyoon.wms.location.domain.UsagePurpose;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

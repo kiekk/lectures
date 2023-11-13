@@ -1,6 +1,6 @@
-package com.shyoon.wms.location.feature;
+package com.shyoon.wms.location.domain;
 
-enum UsagePurpose {
+public enum UsagePurpose {
     MOVE("이동 목적");
 
     private final String description;

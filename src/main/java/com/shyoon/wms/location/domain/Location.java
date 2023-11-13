@@ -1,8 +1,8 @@
-package com.shyoon.wms.location.feature;
+package com.shyoon.wms.location.domain;
 
 import org.springframework.util.Assert;
 
-class Location {
+public class Location {
     private Long locationNo;
     private final String locationBarcode;
     private final StorageType storageType;
