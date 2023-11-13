@@ -11,4 +11,9 @@ public interface LocationRepository extends JpaRepository<Location, Long> {
                 WHERE l.locationBarcode = :locationBarCode
             """)
     Optional<Location> findByLocationBarcode(String locationBarcode);
+
+    default Location getByLocationBarcode(String locationBarcode) {
+        return findByLocationBarcode(locationBarcode)
+                .orElseThrow(() -> new IllegalArgumentException("해당 로케이션을 찾을 수 없습니다. %s".formatted(locationBarcode)));
+    }
 }

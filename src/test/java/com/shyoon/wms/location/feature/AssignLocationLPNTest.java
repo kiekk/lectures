@@ -35,8 +35,7 @@ class AssignLocationLPNTest {
         private LocationRepository locationRepository;
 
         public void request(final Request request) {
-            Location location = locationRepository.findByLocationBarcode(request.locationBarcode)
-                    .orElseThrow();
+            final Location location = locationRepository.getByLocationBarcode(request.locationBarcode);
         }
 
         public record Request(
