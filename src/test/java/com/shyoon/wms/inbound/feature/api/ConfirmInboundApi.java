@@ -1,4 +1,4 @@
-package com.shyoon.wms.inbound.domain;
+package com.shyoon.wms.inbound.feature.api;
 
 import com.shyoon.wms.common.Scenario;
 import io.restassured.RestAssured;

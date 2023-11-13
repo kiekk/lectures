@@ -1,39 +1,33 @@
 package com.shyoon.wms.inbound.feature;
 
+import com.shyoon.wms.common.ApiTest;
+import com.shyoon.wms.common.Scenario;
 import com.shyoon.wms.inbound.domain.Inbound;
-import com.shyoon.wms.inbound.domain.InboundFixture;
 import com.shyoon.wms.inbound.domain.InboundRepository;
 import com.shyoon.wms.inbound.domain.InboundStatus;
-import org.junit.jupiter.api.BeforeEach;
+import io.restassured.RestAssured;
+import io.restassured.http.ContentType;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class RejectInboundTest {
+class RejectInboundTest extends ApiTest {
 
-    private RejectInbound rejectInbound;
+    @Autowired
     private InboundRepository inboundRepository;
-
-    @BeforeEach
-    void setUp() {
-        inboundRepository = Mockito.mock(InboundRepository.class);
-        rejectInbound = new RejectInbound(inboundRepository);
-    }
 
     @Test
     @DisplayName("입고를 반려/거부한다.")
     void rejectInbound() {
-        final Inbound inbound = InboundFixture.anInbound().build();
-        final Long inboundNo = 1L;
-        final String rejectionReason = "반려 사유";
-        RejectInbound.Request request = new RejectInbound.Request(rejectionReason);
-        Mockito.when(inboundRepository.getBy(inboundNo))
-                .thenReturn(inbound);
+        Scenario
+                .registerProduct().request()
+                .registerInbound().request()
+                .rejectInbound().request();
 
-        rejectInbound.request(inboundNo, request);
-
+        final Inbound inbound = inboundRepository.getBy(1L);
         assertThat(inbound.getStatus()).isEqualTo(InboundStatus.REJECTED);
     }
 
