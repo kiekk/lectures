@@ -10,6 +10,7 @@ import org.springframework.util.Assert;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Getter
 @Entity
@@ -66,13 +67,17 @@ public class Location {
         // 1. 로케이션 LPN 목록에 등록하려는 LPN이 없으면 새로 등록한다.
         //      새로 등록한 로케이션 LPN은 재고가 1이다.
         // 2. 로케이션 LPN 목록에 등록하려는 LPN이 존재하면 재고를 1 증가시킨다.
-        locationLPNList.stream()
-                .filter(locationLPN -> locationLPN.matchLPNToLocation(lpn))
-                .findFirst()
+        findLocationLPNBy(lpn)
                 .ifPresentOrElse(
                         LocationLPN::increaseQuantity,
                         () -> locationLPNList.add(new LocationLPN(this, lpn))
                 );
+    }
+
+    private Optional<LocationLPN> findLocationLPNBy(LPN lpn) {
+        return locationLPNList.stream()
+                .filter(locationLPN -> locationLPN.matchLPNToLocation(lpn))
+                .findFirst();
     }
 
 }
