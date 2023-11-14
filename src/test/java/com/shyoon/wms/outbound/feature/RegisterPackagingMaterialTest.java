@@ -103,8 +103,23 @@ class RegisterPackagingMaterialTest {
             }
 
             public PackagingMaterial toDomain() {
-                return new PackagingMaterial();
+                return new PackagingMaterial(
+                        name,
+                        code,
+                        new PackagingMaterialDemension(
+                                innerWidthInMillimeters,
+                                innerHeightInMillimeters,
+                                innerLengthInMillimeters,
+                                outerWidthInMillimeters,
+                                outerHeightInMillimeters,
+                                outerLengthInMillimeters
+                        ),
+                        weightInGrams,
+                        maxWeightInGrams,
+                        materialType
+                );
             }
+
         }
 
 
@@ -121,5 +136,108 @@ class RegisterPackagingMaterialTest {
     }
 
     private static class PackagingMaterial {
+        private final String name;
+        private final String code;
+        private final PackagingMaterialDemension packagingMaterialDemension;
+        private final Long weightInGrams;
+        private final Long maxWeightInGrams;
+        private final MaterialType materialType;
+
+        public PackagingMaterial(
+                final String name,
+                final String code,
+                final PackagingMaterialDemension packagingMaterialDemension,
+                final Long weightInGrams,
+                final Long maxWeightInGrams,
+                final MaterialType materialType) {
+            validateConstructor(name, code, packagingMaterialDemension, weightInGrams, maxWeightInGrams, materialType);
+
+            this.name = name;
+            this.code = code;
+            this.packagingMaterialDemension = packagingMaterialDemension;
+            this.weightInGrams = weightInGrams;
+            this.maxWeightInGrams = maxWeightInGrams;
+            this.materialType = materialType;
+        }
+
+        private void validateConstructor(
+                final String name,
+                final String code,
+                final PackagingMaterialDemension packagingMaterialDemension,
+                final Long weightInGrams,
+                final Long maxWeightInGrams,
+                final MaterialType materialType) {
+            Assert.hasText(name, "포장재 이름은 필수입니다.");
+            Assert.hasText(code, "포장재 코드는 필수입니다.");
+            Assert.notNull(packagingMaterialDemension, "포장재 치수는 필수입니다.");
+            Assert.notNull(weightInGrams, "무게는 필수입니다.");
+            Assert.notNull(maxWeightInGrams, "최대 무게는 필수입니다.");
+            Assert.notNull(materialType, "포장재 종류는 필수입니다.");
+        }
+    }
+
+    private static class PackagingMaterialDemension {
+        private final Long innerWidthInMillimeters;
+        private final Long innerHeightInMillimeters;
+        private final Long innerLengthInMillimeters;
+        private final Long outerWidthInMillimeters;
+        private final Long outerHeightInMillimeters;
+        private final Long outerLengthInMillimeters;
+
+        public PackagingMaterialDemension(
+                final Long innerWidthInMillimeters,
+                final Long innerHeightInMillimeters,
+                final Long innerLengthInMillimeters,
+                final Long outerWidthInMillimeters,
+                final Long outerHeightInMillimeters,
+                final Long outerLengthInMillimeters) {
+            validateConstructor(
+                    innerWidthInMillimeters,
+                    innerHeightInMillimeters,
+                    innerLengthInMillimeters,
+                    outerWidthInMillimeters,
+                    outerHeightInMillimeters,
+                    outerLengthInMillimeters);
+
+            this.innerWidthInMillimeters = innerWidthInMillimeters;
+            this.innerHeightInMillimeters = innerHeightInMillimeters;
+            this.innerLengthInMillimeters = innerLengthInMillimeters;
+            this.outerWidthInMillimeters = outerWidthInMillimeters;
+            this.outerHeightInMillimeters = outerHeightInMillimeters;
+            this.outerLengthInMillimeters = outerLengthInMillimeters;
+        }
+
+        private void validateConstructor(
+                final Long innerWidthInMillimeters,
+                final Long innerHeightInMillimeters,
+                final Long innerLengthInMillimeters,
+                final Long outerWidthInMillimeters,
+                final Long outerHeightInMillimeters,
+                final Long outerLengthInMillimeters) {
+            Assert.notNull(innerWidthInMillimeters, "내부 폭은 필수입니다.");
+            if (innerWidthInMillimeters < 1) {
+                throw new IllegalArgumentException("내부 폭은 1mm 이상이어야 합니다.");
+            }
+            Assert.notNull(innerHeightInMillimeters, "내부 높이는 필수입니다.");
+            if (innerHeightInMillimeters < 1) {
+                throw new IllegalArgumentException("내부 높이는 1mm 이상이어야 합니다.");
+            }
+            Assert.notNull(innerLengthInMillimeters, "내부 길이는 필수입니다.");
+            if (innerLengthInMillimeters < 1) {
+                throw new IllegalArgumentException("내부 길이는 1mm 이상이어야 합니다.");
+            }
+            Assert.notNull(outerWidthInMillimeters, "외부 폭은 필수입니다.");
+            if (outerWidthInMillimeters < 1) {
+                throw new IllegalArgumentException("외부 폭은 1mm 이상이어야 합니다.");
+            }
+            Assert.notNull(outerHeightInMillimeters, "외부 높이는 필수입니다.");
+            if (outerHeightInMillimeters < 1) {
+                throw new IllegalArgumentException("외부 높이는 1mm 이상이어야 합니다.");
+            }
+            Assert.notNull(outerLengthInMillimeters, "외부 길이는 필수입니다.");
+            if (outerLengthInMillimeters < 1) {
+                throw new IllegalArgumentException("외부 길이는 1mm 이상이어야 합니다.");
+            }
+        }
     }
 }
