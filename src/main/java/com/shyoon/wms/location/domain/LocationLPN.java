@@ -46,7 +46,7 @@ public class LocationLPN {
         this.inventoryQuantity = 1L;
     }
 
-    public void increaseQuantity() {
+    void increaseQuantity() {
         inventoryQuantity++;
     }
 
