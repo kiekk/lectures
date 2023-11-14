@@ -18,6 +18,7 @@ class LocationTest {
         location.assignLPN(lpn);
 
         assertThat(location.getLocationLPNList()).hasSize(1);
+        assertThat(location.getLocationLPNList().get(0).getInventoryQuantity()).isEqualTo(1);
     }
 
 }

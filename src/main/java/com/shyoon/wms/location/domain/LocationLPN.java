@@ -1,11 +1,14 @@
 package com.shyoon.wms.location.domain;
 
 import com.shyoon.wms.inbound.domain.LPN;
+import lombok.Getter;
 import org.springframework.util.Assert;
 
 public class LocationLPN {
     private final Location location;
+    @Getter
     private final LPN lpn;
+    @Getter
     private Long inventoryQuantity;
 
     public LocationLPN(
@@ -22,7 +25,4 @@ public class LocationLPN {
         inventoryQuantity++;
     }
 
-    public LPN getLpn() {
-        return lpn;
-    }
 }
