@@ -1,10 +1,13 @@
 package com.shyoon.wms.product.feature;
 
 import com.shyoon.wms.product.domain.*;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -13,16 +16,14 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Objects;
 
 @RestController
+@RequiredArgsConstructor
 public class RegisterProduct {
     private final ProductRepository productRepository;
 
-    public RegisterProduct(ProductRepository productRepository) {
-        this.productRepository = productRepository;
-    }
-
     @PostMapping("/products")
     @ResponseStatus(HttpStatus.CREATED)
-    public void request(@RequestBody final Request request) {
+    @Transactional
+    public void request(@RequestBody @Valid final Request request) {
         productRepository.findAll().stream()
                 .filter(product -> Objects.equals(product.getCode(), request.code))
                 .findFirst()

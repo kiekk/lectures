@@ -1,7 +1,9 @@
 package com.shyoon.wms.inbound.domain;
 
+import com.shyoon.wms.location.domain.Location;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Comment;
 import org.springframework.util.Assert;
@@ -22,6 +24,7 @@ import java.time.LocalDateTime;
 @Table(name = "lpn")
 @Comment("LPN")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@EqualsAndHashCode(of = "lpnBarcode", callSuper = false)
 public class LPN {
 
     @Id
@@ -60,5 +63,9 @@ public class LPN {
         Assert.hasText(lpnBarcode, "LPN 바코드는 필수입니다.");
         Assert.notNull(expirationAt, "유통 기한은 필수입니다.");
         Assert.notNull(inboundItem, "입고 상품은 필수입니다.");
+    }
+
+    public void assignLocation(final Location location) {
+
     }
 }
