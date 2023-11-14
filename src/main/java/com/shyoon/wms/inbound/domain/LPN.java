@@ -1,5 +1,6 @@
 package com.shyoon.wms.inbound.domain;
 
+import com.shyoon.wms.location.domain.Location;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
@@ -60,5 +61,9 @@ public class LPN {
         Assert.hasText(lpnBarcode, "LPN 바코드는 필수입니다.");
         Assert.notNull(expirationAt, "유통 기한은 필수입니다.");
         Assert.notNull(inboundItem, "입고 상품은 필수입니다.");
+    }
+
+    public void assignLocation(final Location location) {
+
     }
 }

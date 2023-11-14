@@ -14,6 +14,8 @@ class LocationTest {
         final LPN lpn = LPNFixture.anLPN().build();
 
         location.assignLPN(lpn);
+
+
     }
 
 }

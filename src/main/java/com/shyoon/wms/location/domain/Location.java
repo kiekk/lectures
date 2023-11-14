@@ -8,6 +8,9 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Comment;
 import org.springframework.util.Assert;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Table(name = "location")
 @Comment("로케이션")
@@ -33,6 +36,7 @@ public class Location {
     @Column(name = "usage_purpose", nullable = false)
     @Comment("보관 목적")
     private UsagePurpose usagePurpose;
+    private List<LocationLPN> locationLPNList = new ArrayList<>();
 
     public Location(
             String locationBarcode,
@@ -55,7 +59,12 @@ public class Location {
         this.locationNo = locationNo;
     }
 
-    public void assignLPN(LPN lpn) {
+    public void assignLPN(final LPN lpn) {
+        Assert.notNull(lpn, "LPN은 필수입니다.");
 
+        // 1. 로케이션 LPN 목록에 등록하려는 LPN이 없으면 새로 등록한다.
+        //      새로 등록한 로케이션 LPN은 재고가 1이다.
+        // 2. 로케이션 LPN 목록에 등록하려는 LPN이 존재하면 재고를 1 증가시킨다.
+        lpn.assignLocation(this);
     }
 }
