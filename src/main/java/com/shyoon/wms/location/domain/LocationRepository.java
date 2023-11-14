@@ -8,7 +8,7 @@ import java.util.Optional;
 public interface LocationRepository extends JpaRepository<Location, Long> {
     @Query("""
                 SELECT l FROM Location l
-                WHERE l.locationBarcode = :locationBarCode
+                WHERE l.locationBarcode = :locationBarcode
             """)
     Optional<Location> findByLocationBarcode(String locationBarcode);
 
