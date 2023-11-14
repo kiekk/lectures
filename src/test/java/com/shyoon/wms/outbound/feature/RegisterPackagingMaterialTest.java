@@ -1,5 +1,6 @@
 package com.shyoon.wms.outbound.feature;
 
+import org.antlr.v4.runtime.misc.LogManager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -47,8 +48,13 @@ class RegisterPackagingMaterialTest {
     }
 
     private class RegistetPackagingMaterial {
+
+        private PackagingMaterialRepository packagingMaterialRepository;
+
         public void request(final Request request) {
-            PackagingMaterial packagingMaterial = request.toDomain();
+            final PackagingMaterial packagingMaterial = request.toDomain();
+
+            packagingMaterialRepository.save(packagingMaterial);
         }
 
         public record Request(
@@ -238,6 +244,12 @@ class RegisterPackagingMaterialTest {
             if (outerLengthInMillimeters < 1) {
                 throw new IllegalArgumentException("외부 길이는 1mm 이상이어야 합니다.");
             }
+        }
+    }
+
+    private class PackagingMaterialRepository {
+        public void save(PackagingMaterial packagingMaterial) {
+
         }
     }
 }
