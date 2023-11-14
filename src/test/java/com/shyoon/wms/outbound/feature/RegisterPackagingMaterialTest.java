@@ -1,18 +1,26 @@
 package com.shyoon.wms.outbound.feature;
 
-import org.antlr.v4.runtime.misc.LogManager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.util.Assert;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import static org.assertj.core.api.Assertions.assertThat;
+
 class RegisterPackagingMaterialTest {
 
-    private RegistetPackagingMaterial registetPackagingMaterial;
+    private RegisterPackagingMaterial registerPackagingMaterial;
+    private PackagingMaterialRepository packagingMaterialRepository;
 
     @BeforeEach
     void setUp() {
-        registetPackagingMaterial = new RegistetPackagingMaterial();
+        packagingMaterialRepository = new PackagingMaterialRepository();
+        registerPackagingMaterial = new RegisterPackagingMaterial(packagingMaterialRepository);
     }
 
     @Test
@@ -29,7 +37,7 @@ class RegisterPackagingMaterialTest {
         final Long weightInGrams = 100L;
         final Long maxWeightInGrams = 10000L;
 
-        final RegistetPackagingMaterial.Request request = new RegistetPackagingMaterial.Request(
+        final RegisterPackagingMaterial.Request request = new RegisterPackagingMaterial.Request(
                 name,
                 code,
                 innerWidthInMillimeters,
@@ -42,14 +50,18 @@ class RegisterPackagingMaterialTest {
                 maxWeightInGrams,
                 MaterialType.CORRUGATED_BOX
         );
-        registetPackagingMaterial.request(request);
+        registerPackagingMaterial.request(request);
 
-//        assertThat(packagingMaterialRepository.findAll()).hasSize();
+        assertThat(packagingMaterialRepository.findAll()).hasSize(1);
     }
 
-    private class RegistetPackagingMaterial {
+    private class RegisterPackagingMaterial {
 
-        private PackagingMaterialRepository packagingMaterialRepository;
+        private final PackagingMaterialRepository packagingMaterialRepository;
+
+        private RegisterPackagingMaterial(PackagingMaterialRepository packagingMaterialRepository) {
+            this.packagingMaterialRepository = packagingMaterialRepository;
+        }
 
         public void request(final Request request) {
             final PackagingMaterial packagingMaterial = request.toDomain();
@@ -142,6 +154,7 @@ class RegisterPackagingMaterialTest {
     }
 
     private static class PackagingMaterial {
+        private Long packagingMaterialNo;
         private final String name;
         private final String code;
         private final PackagingMaterialDemension packagingMaterialDemension;
@@ -179,6 +192,14 @@ class RegisterPackagingMaterialTest {
             Assert.notNull(weightInGrams, "무게는 필수입니다.");
             Assert.notNull(maxWeightInGrams, "최대 무게는 필수입니다.");
             Assert.notNull(materialType, "포장재 종류는 필수입니다.");
+        }
+
+        public void assignNo(Long packagingMaterialNo) {
+            this.packagingMaterialNo = packagingMaterialNo;
+        }
+
+        public Long getPackagingMaterialNo() {
+            return packagingMaterialNo;
         }
     }
 
@@ -248,8 +269,17 @@ class RegisterPackagingMaterialTest {
     }
 
     private class PackagingMaterialRepository {
-        public void save(PackagingMaterial packagingMaterial) {
 
+        private final Map<Long, PackagingMaterial> packagingMaterialMap = new HashMap<>();
+        private Long sequence = 1L;
+
+        public void save(PackagingMaterial packagingMaterial) {
+            packagingMaterial.assignNo(sequence++);
+            packagingMaterialMap.put(packagingMaterial.getPackagingMaterialNo(), packagingMaterial);
+        }
+
+        public List<PackagingMaterial> findAll() {
+            return new ArrayList<>(packagingMaterialMap.values());
         }
     }
 }
