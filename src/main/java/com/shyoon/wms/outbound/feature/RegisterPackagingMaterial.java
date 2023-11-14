@@ -1,5 +1,9 @@
 package com.shyoon.wms.outbound.feature;
 
+import com.shyoon.wms.outbound.domain.MaterialType;
+import com.shyoon.wms.outbound.domain.PackagingMaterial;
+import com.shyoon.wms.outbound.domain.PackagingMaterialDemension;
+import com.shyoon.wms.outbound.domain.PackagingMaterialRepository;
 import org.springframework.util.Assert;
 
 class RegisterPackagingMaterial {

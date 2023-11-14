@@ -1,11 +1,11 @@
-package com.shyoon.wms.outbound.feature;
+package com.shyoon.wms.outbound.domain;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-class PackagingMaterialRepository {
+public class PackagingMaterialRepository {
 
     private final Map<Long, PackagingMaterial> packagingMaterialMap = new HashMap<>();
     private Long sequence = 1L;

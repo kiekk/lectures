@@ -1,8 +1,8 @@
-package com.shyoon.wms.outbound.feature;
+package com.shyoon.wms.outbound.domain;
 
 import org.springframework.util.Assert;
 
-class PackagingMaterialDemension {
+public class PackagingMaterialDemension {
     private final Long innerWidthInMillimeters;
     private final Long innerHeightInMillimeters;
     private final Long innerLengthInMillimeters;

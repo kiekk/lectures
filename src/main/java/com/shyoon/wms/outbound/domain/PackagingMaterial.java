@@ -1,8 +1,8 @@
-package com.shyoon.wms.outbound.feature;
+package com.shyoon.wms.outbound.domain;
 
 import org.springframework.util.Assert;
 
-class PackagingMaterial {
+public class PackagingMaterial {
     private Long packagingMaterialNo;
     private final String name;
     private final String code;

@@ -1,5 +1,7 @@
 package com.shyoon.wms.outbound.feature;
 
+import com.shyoon.wms.outbound.domain.MaterialType;
+import com.shyoon.wms.outbound.domain.PackagingMaterialRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

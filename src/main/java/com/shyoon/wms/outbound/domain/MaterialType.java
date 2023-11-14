@@ -1,6 +1,6 @@
-package com.shyoon.wms.outbound.feature;
+package com.shyoon.wms.outbound.domain;
 
-enum MaterialType {
+public enum MaterialType {
     CORRUGATED_BOX("완충재가 있는 골판지 상자");
 
     private final String description;
