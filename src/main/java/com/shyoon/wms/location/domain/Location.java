@@ -11,6 +11,7 @@ import org.springframework.util.Assert;
 import java.util.ArrayList;
 import java.util.List;
 
+@Getter
 @Entity
 @Table(name = "location")
 @Comment("로케이션")
@@ -65,6 +66,12 @@ public class Location {
         // 1. 로케이션 LPN 목록에 등록하려는 LPN이 없으면 새로 등록한다.
         //      새로 등록한 로케이션 LPN은 재고가 1이다.
         // 2. 로케이션 LPN 목록에 등록하려는 LPN이 존재하면 재고를 1 증가시킨다.
-        lpn.assignLocation(this);
+        locationLPNList.stream()
+                .filter(locationLPN -> locationLPN.getLpn().equals(lpn))
+                .findFirst()
+                .ifPresentOrElse(
+                        LocationLPN::increaseQuantity,
+                        () -> locationLPNList.add(new LocationLPN(this, lpn))
+                );
     }
 }
