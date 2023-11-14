@@ -5,7 +5,6 @@ import com.shyoon.wms.common.Scenario;
 import com.shyoon.wms.location.domain.Location;
 import com.shyoon.wms.location.domain.LocationLPN;
 import com.shyoon.wms.location.domain.LocationRepository;
-import com.shyoon.wms.location.feature.api.AssignLocationLPNApi;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -35,8 +34,10 @@ class AssignLocationLPNTest extends ApiTest {
     @DisplayName("로케이션에 LPN을 할당한다.")
     @Transactional
     void assignLocationLPN() {
-        final String locationBarcode = AssignLocationLPNApi.getString();
+        Scenario
+                .assignLocationLPN().request();
 
+        final String locationBarcode = "A-1-1";
         final Location location = locationRepository.getByLocationBarcode(locationBarcode);
         final List<LocationLPN> locationLPNList = location.getLocationLPNList();
         final LocationLPN locationLPN = locationLPNList.get(0);
