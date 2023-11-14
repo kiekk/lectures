@@ -42,11 +42,13 @@ class RegisterPackagingMaterialTest {
                 MaterialType.CORRUGATED_BOX
         );
         registetPackagingMaterial.request(request);
+
+//        assertThat(packagingMaterialRepository.findAll()).hasSize();
     }
 
     private class RegistetPackagingMaterial {
-        public void request(Request request) {
-
+        public void request(final Request request) {
+            PackagingMaterial packagingMaterial = request.toDomain();
         }
 
         public record Request(
@@ -99,6 +101,10 @@ class RegisterPackagingMaterialTest {
                 }
                 Assert.notNull(materialType, "포장재 종류는 필수입니다.");
             }
+
+            public PackagingMaterial toDomain() {
+                return new PackagingMaterial();
+            }
         }
 
 
@@ -112,5 +118,8 @@ class RegisterPackagingMaterialTest {
         MaterialType(String description) {
             this.description = description;
         }
+    }
+
+    private static class PackagingMaterial {
     }
 }
