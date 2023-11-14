@@ -16,8 +16,12 @@ class RegisterPackagingMaterialTest {
     @Test
     @DisplayName("포장재를 등록한다.")
     void registerPackagingMaterial() {
+        registetPackagingMaterial.request();
     }
 
     private class RegistetPackagingMaterial {
+        public void request() {
+
+        }
     }
 }
