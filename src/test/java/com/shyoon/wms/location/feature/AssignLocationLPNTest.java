@@ -5,13 +5,11 @@ import com.shyoon.wms.common.Scenario;
 import com.shyoon.wms.location.domain.Location;
 import com.shyoon.wms.location.domain.LocationLPN;
 import com.shyoon.wms.location.domain.LocationRepository;
-import io.restassured.RestAssured;
-import io.restassured.http.ContentType;
+import com.shyoon.wms.location.feature.api.AssignLocationLPNApi;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -37,20 +35,7 @@ class AssignLocationLPNTest extends ApiTest {
     @DisplayName("로케이션에 LPN을 할당한다.")
     @Transactional
     void assignLocationLPN() {
-        final String locationBarcode = "A-1-1";
-        final String lpnBarcode = "LPN-0001";
-        final AssignLocationLPN.Request request = new AssignLocationLPN.Request(
-                locationBarcode,
-                lpnBarcode
-        );
-
-        RestAssured.given().log().all()
-                .contentType(ContentType.JSON)
-                .body(request)
-                .when()
-                .post("/locations/assign-lpn")
-                .then().log().all()
-                .statusCode(HttpStatus.OK.value());
+        final String locationBarcode = AssignLocationLPNApi.getString();
 
         final Location location = locationRepository.getByLocationBarcode(locationBarcode);
         final List<LocationLPN> locationLPNList = location.getLocationLPNList();

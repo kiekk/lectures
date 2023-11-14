@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
-class AssignLocationLPN {
+public class AssignLocationLPN {
 
     private final LocationRepository locationRepository;
     private final LPNRepository lpnRepository;
