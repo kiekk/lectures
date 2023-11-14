@@ -4,7 +4,7 @@ import com.shyoon.wms.inbound.feature.api.ConfirmInboundApi;
 import com.shyoon.wms.inbound.feature.api.RegisterInboundApi;
 import com.shyoon.wms.inbound.feature.api.RegisterLPNApi;
 import com.shyoon.wms.inbound.feature.api.RejectInboundApi;
-import com.shyoon.wms.location.feature.api.AssignLocationLPNApi;
+import com.shyoon.wms.location.feature.api.AssignInventoryApi;
 import com.shyoon.wms.location.feature.api.RegisterLocationApi;
 import com.shyoon.wms.product.feature.api.RegisterProductApi;
 
@@ -33,7 +33,7 @@ public class Scenario {
         return new RegisterLocationApi();
     }
 
-    public static AssignLocationLPNApi assignLocationLPN() {
-        return new AssignLocationLPNApi();
+    public static AssignInventoryApi assignInventory() {
+        return new AssignInventoryApi();
     }
 }

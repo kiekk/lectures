@@ -6,7 +6,6 @@ import com.shyoon.wms.location.domain.Location;
 import com.shyoon.wms.location.domain.LocationRepository;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,18 +14,18 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
-public class AssignLocationLPN {
+public class AssignInventory {
 
     private final LocationRepository locationRepository;
     private final LPNRepository lpnRepository;
 
-    @PostMapping("/locations/assign-lpn")
+    @PostMapping("/locations/assign-inventory")
     @Transactional
     public void request(@RequestBody @Valid final Request request) {
         final Location location = locationRepository.getByLocationBarcode(request.locationBarcode);
         final LPN lpn = lpnRepository.getByLPNBarcode(request.lpnBarcode);
 
-        location.assignLPN(lpn);
+        location.assignInventory(lpn);
     }
 
     public record Request(

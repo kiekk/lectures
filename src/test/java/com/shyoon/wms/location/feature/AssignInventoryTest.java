@@ -3,7 +3,7 @@ package com.shyoon.wms.location.feature;
 import com.shyoon.wms.common.ApiTest;
 import com.shyoon.wms.common.Scenario;
 import com.shyoon.wms.location.domain.Location;
-import com.shyoon.wms.location.domain.LocationLPN;
+import com.shyoon.wms.location.domain.Inventory;
 import com.shyoon.wms.location.domain.LocationRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -15,10 +15,10 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class AssignLocationLPNTest extends ApiTest {
+class AssignInventoryTest extends ApiTest {
 
     @BeforeEach
-    void assignLocationLPNSetup() {
+    void assignInventorySetup() {
         Scenario
                 .registerProduct().request()
                 .registerInbound().request()
@@ -33,17 +33,17 @@ class AssignLocationLPNTest extends ApiTest {
     @Test
     @DisplayName("로케이션에 LPN을 할당한다.")
     @Transactional
-    void assignLocationLPN() {
+    void assignInventory() {
         Scenario
-                .assignLocationLPN().request();
+                .assignInventory().request();
 
         final String locationBarcode = "A-1-1";
         final Location location = locationRepository.getByLocationBarcode(locationBarcode);
-        final List<LocationLPN> locationLPNList = location.getLocationLPNList();
-        final LocationLPN locationLPN = locationLPNList.get(0);
+        final List<Inventory> inventoryList = location.getInventories();
+        final Inventory inventory = inventoryList.get(0);
 
-        assertThat(locationLPNList).hasSize(1);
-        assertThat(locationLPN.getInventoryQuantity()).isEqualTo(1L);
+        assertThat(inventoryList).hasSize(1);
+        assertThat(inventory.getInventoryQuantity()).isEqualTo(1L);
     }
 
 }

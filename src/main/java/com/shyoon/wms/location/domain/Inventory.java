@@ -9,16 +9,16 @@ import org.hibernate.annotations.Comment;
 import org.springframework.util.Assert;
 
 @Entity
-@Table(name = "location_lpn")
+@Table(name = "inventory")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Comment("로케이션 LPN")
-public class LocationLPN {
+@Comment("재고")
+public class Inventory {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "location_lpn_no")
-    @Comment("로케이션 LPN 번호")
-    private Long locationLPNNo;
+    @Column(name = "inventory_no")
+    @Comment("재고 번호")
+    private Long inventoryNo;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "location_no", nullable = false)
@@ -36,7 +36,7 @@ public class LocationLPN {
     @Comment("재고")
     private Long inventoryQuantity;
 
-    public LocationLPN(
+    public Inventory(
             final Location location,
             final LPN lpn) {
         Assert.notNull(location, "로케이션은 필수입니다.");

@@ -15,10 +15,10 @@ class LocationTest {
         final Location location = LocationFixture.aLocation().build();
         final LPN lpn = LPNFixture.anLPN().build();
 
-        location.assignLPN(lpn);
+        location.assignInventory(lpn);
 
-        assertThat(location.getLocationLPNList()).hasSize(1);
-        assertThat(location.getLocationLPNList().get(0).getInventoryQuantity()).isEqualTo(1);
+        assertThat(location.getInventories()).hasSize(1);
+        assertThat(location.getInventories().get(0).getInventoryQuantity()).isEqualTo(1);
     }
 
     @Test
@@ -27,11 +27,11 @@ class LocationTest {
         final Location location = LocationFixture.aLocation().build();
         final LPN lpn = LPNFixture.anLPN().build();
 
-        location.assignLPN(lpn);
-        location.assignLPN(lpn); // 로케이션을 생성하지 않고 재고 1 증가
+        location.assignInventory(lpn);
+        location.assignInventory(lpn); // 로케이션을 생성하지 않고 재고 1 증가
 
-        assertThat(location.getLocationLPNList()).hasSize(1);
-        assertThat(location.getLocationLPNList().get(0).getInventoryQuantity()).isEqualTo(2);
+        assertThat(location.getInventories()).hasSize(1);
+        assertThat(location.getInventories().get(0).getInventoryQuantity()).isEqualTo(2);
     }
 
     @Test
@@ -41,11 +41,11 @@ class LocationTest {
         final LPN lpn = LPNFixture.anLPN().lpnBarcode("LPNBARCODE").build();
         final LPN lpn2 = LPNFixture.anLPN().lpnBarcode("LPNBARCODE").build();
 
-        location.assignLPN(lpn);
-        location.assignLPN(lpn2); // 로케이션을 생성하지 않고 재고 1 증가
+        location.assignInventory(lpn);
+        location.assignInventory(lpn2); // 로케이션을 생성하지 않고 재고 1 증가
 
-        assertThat(location.getLocationLPNList()).hasSize(1);
-        assertThat(location.getLocationLPNList().get(0).getInventoryQuantity()).isEqualTo(2);
+        assertThat(location.getInventories()).hasSize(1);
+        assertThat(location.getInventories().get(0).getInventoryQuantity()).isEqualTo(2);
     }
 
 }

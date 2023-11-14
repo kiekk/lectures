@@ -40,7 +40,7 @@ public class Location {
     private UsagePurpose usagePurpose;
 
     @OneToMany(mappedBy = "location", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<LocationLPN> locationLPNList = new ArrayList<>();
+    private List<Inventory> inventories = new ArrayList<>();
 
     public Location(
             String locationBarcode,
@@ -63,22 +63,22 @@ public class Location {
         this.locationNo = locationNo;
     }
 
-    public void assignLPN(final LPN lpn) {
+    public void assignInventory(final LPN lpn) {
         Assert.notNull(lpn, "LPN은 필수입니다.");
 
         // 1. 로케이션 LPN 목록에 등록하려는 LPN이 없으면 새로 등록한다.
         //      새로 등록한 로케이션 LPN은 재고가 1이다.
         // 2. 로케이션 LPN 목록에 등록하려는 LPN이 존재하면 재고를 1 증가시킨다.
-        findLocationLPNBy(lpn)
+        findInventoryBy(lpn)
                 .ifPresentOrElse(
-                        LocationLPN::increaseQuantity,
-                        () -> locationLPNList.add(new LocationLPN(this, lpn))
+                        Inventory::increaseQuantity,
+                        () -> inventories.add(new Inventory(this, lpn))
                 );
     }
 
-    private Optional<LocationLPN> findLocationLPNBy(LPN lpn) {
-        return locationLPNList.stream()
-                .filter(locationLPN -> locationLPN.matchLPNToLocation(lpn))
+    private Optional<Inventory> findInventoryBy(LPN lpn) {
+        return inventories.stream()
+                .filter(inventory -> inventory.matchLPNToLocation(lpn))
                 .findFirst();
     }
 
