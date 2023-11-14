@@ -3,6 +3,7 @@ package com.shyoon.wms.outbound.feature;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.springframework.util.Assert;
 
 class RegisterPackagingMaterialTest {
 
@@ -60,7 +61,47 @@ class RegisterPackagingMaterialTest {
                 Long weightInGrams,
                 Long maxWeightInGrams,
                 MaterialType materialType) {
+
+            public Request {
+                Assert.hasText(name, "포장재 이름은 필수입니다.");
+                Assert.hasText(code, "포장재 코드는 필수입니다.");
+                Assert.notNull(innerWidthInMillimeters, "내부 폭은 필수입니다.");
+                if (innerWidthInMillimeters < 1) {
+                    throw new IllegalArgumentException("내부 폭은 1mm 이상이어야 합니다.");
+                }
+                Assert.notNull(innerHeightInMillimeters, "내부 높이는 필수입니다.");
+                if (innerHeightInMillimeters < 1) {
+                    throw new IllegalArgumentException("내부 높이는 1mm 이상이어야 합니다.");
+                }
+                Assert.notNull(innerLengthInMillimeters, "내부 길이는 필수입니다.");
+                if (innerLengthInMillimeters < 1) {
+                    throw new IllegalArgumentException("내부 길이는 1mm 이상이어야 합니다.");
+                }
+                Assert.notNull(outerWidthInMillimeters, "외부 폭은 필수입니다.");
+                if (outerWidthInMillimeters < 1) {
+                    throw new IllegalArgumentException("외부 폭은 1mm 이상이어야 합니다.");
+                }
+                Assert.notNull(outerHeightInMillimeters, "외부 높이는 필수입니다.");
+                if (outerHeightInMillimeters < 1) {
+                    throw new IllegalArgumentException("외부 높이는 1mm 이상이어야 합니다.");
+                }
+                Assert.notNull(outerLengthInMillimeters, "외부 길이는 필수입니다.");
+                if (outerLengthInMillimeters < 1) {
+                    throw new IllegalArgumentException("외부 길이는 1mm 이상이어야 합니다.");
+                }
+                Assert.notNull(weightInGrams, "무게는 필수입니다.");
+                if (weightInGrams < 1) {
+                    throw new IllegalArgumentException("무게는 1g 이상이어야 합니다.");
+                }
+                Assert.notNull(maxWeightInGrams, "최대 무게는 필수입니다.");
+                if (maxWeightInGrams < 1) {
+                    throw new IllegalArgumentException("최대 무게는 1g 이상이어야 합니다.");
+                }
+                Assert.notNull(materialType, "포장재 종류는 필수입니다.");
+            }
         }
+
+
     }
 
     enum MaterialType {
