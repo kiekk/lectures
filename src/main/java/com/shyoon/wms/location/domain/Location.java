@@ -38,6 +38,8 @@ public class Location {
     @Column(name = "usage_purpose", nullable = false)
     @Comment("보관 목적")
     private UsagePurpose usagePurpose;
+
+    @OneToMany(mappedBy = "location", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<LocationLPN> locationLPNList = new ArrayList<>();
 
     public Location(

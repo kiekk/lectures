@@ -45,7 +45,7 @@ class LocationTest {
         location.assignLPN(lpn2); // 로케이션을 생성하지 않고 재고 1 증가
 
         assertThat(location.getLocationLPNList()).hasSize(1);
-        assertThat(location.getLocationLPNList().get(0).getInventoryQuantity()).isEqualTo(1);
+        assertThat(location.getLocationLPNList().get(0).getInventoryQuantity()).isEqualTo(2);
     }
 
 }

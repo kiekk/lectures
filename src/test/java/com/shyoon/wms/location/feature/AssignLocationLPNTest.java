@@ -1,36 +1,63 @@
 package com.shyoon.wms.location.feature;
 
-import com.shyoon.wms.inbound.domain.LPNRepository;
+import com.shyoon.wms.common.ApiTest;
+import com.shyoon.wms.common.Scenario;
+import com.shyoon.wms.location.domain.Location;
+import com.shyoon.wms.location.domain.LocationLPN;
 import com.shyoon.wms.location.domain.LocationRepository;
+import io.restassured.RestAssured;
+import io.restassured.http.ContentType;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.transaction.annotation.Transactional;
 
-class AssignLocationLPNTest {
+import java.util.List;
 
-    private AssignLocationLPN assignLocationLPN;
-    private LocationRepository locationRepository;
-    private LPNRepository lpnRepository;
+import static org.assertj.core.api.Assertions.assertThat;
+
+class AssignLocationLPNTest extends ApiTest {
 
     @BeforeEach
-    void setUp() {
-        assignLocationLPN = new AssignLocationLPN(
-                locationRepository,
-                lpnRepository);
+    void assignLocationLPNSetup() {
+        Scenario
+                .registerProduct().request()
+                .registerInbound().request()
+                .confirmInbound().request()
+                .registerLPN().request()
+                .registerLocation().request();
     }
+
+    @Autowired
+    private LocationRepository locationRepository;
 
     @Test
     @DisplayName("로케이션에 LPN을 할당한다.")
+    @Transactional
     void assignLocationLPN() {
         final String locationBarcode = "A-1-1";
-        final String lpnBarcode = "LPN-1";
+        final String lpnBarcode = "LPN-0001";
         final AssignLocationLPN.Request request = new AssignLocationLPN.Request(
                 locationBarcode,
                 lpnBarcode
         );
-        assignLocationLPN.request(request);
 
+        RestAssured.given().log().all()
+                .contentType(ContentType.JSON)
+                .body(request)
+                .when()
+                .post("/locations/assign-lpn")
+                .then().log().all()
+                .statusCode(HttpStatus.OK.value());
 
+        final Location location = locationRepository.getByLocationBarcode(locationBarcode);
+        final List<LocationLPN> locationLPNList = location.getLocationLPNList();
+        final LocationLPN locationLPN = locationLPNList.get(0);
+
+        assertThat(locationLPNList).hasSize(1);
+        assertThat(locationLPN.getInventoryQuantity()).isEqualTo(1L);
     }
 
 }

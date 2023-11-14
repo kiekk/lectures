@@ -1,14 +1,39 @@
 package com.shyoon.wms.location.domain;
 
 import com.shyoon.wms.inbound.domain.LPN;
+import jakarta.persistence.*;
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Comment;
 import org.springframework.util.Assert;
 
+@Entity
+@Table(name = "location_lpn")
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Comment("로케이션 LPN")
 public class LocationLPN {
-    private final Location location;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "location_lpn_no")
+    @Comment("로케이션 LPN 번호")
+    private Long locationLPNNo;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "location_no", nullable = false)
+    @Comment("로케이션 번호")
+    private Location location;
+
     @Getter
-    private final LPN lpn;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "lpn_no", nullable = false)
+    @Comment("LPN 번호")
+    private LPN lpn;
+
     @Getter
+    @Column(name = "inventory_quantity", nullable = false)
+    @Comment("재고")
     private Long inventoryQuantity;
 
     public LocationLPN(
