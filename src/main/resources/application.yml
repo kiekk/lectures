@@ -18,8 +18,10 @@ spring:
     username: ${MAIL_USERNAME}
     password: ${MAIL_PASSWORD}
     properties:
-      smtp:
-        auth: true
-        timeout: 5000
-        starttls:
-          enable: true
+      mail:
+        smtp:
+          auth: true
+          timeout: 5000
+          starttls:
+            enable: true
+
