@@ -1,15 +1,48 @@
 package com.shyoon.wms.outbound.domain;
 
+import jakarta.persistence.*;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Comment;
 import org.springframework.util.Assert;
 
+@Entity
+@Table(name = "packaging_material")
+@Comment("포장재")
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class PackagingMaterial {
+
+    @Getter
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "packaging_material_no")
+    @Comment("포장재 번호")
     private Long packagingMaterialNo;
-    private final String name;
-    private final String code;
-    private final PackagingMaterialDemension packagingMaterialDemension;
-    private final Long weightInGrams;
-    private final Long maxWeightInGrams;
-    private final MaterialType materialType;
+
+    @Column(name = "name", nullable = false)
+    @Comment("포장재 이름")
+    private String name;
+
+    @Column(name = "code", nullable = false)
+    @Comment("포장재 코드")
+    private String code;
+
+    @Embedded
+    @Comment("포장재 치수")
+    private PackagingMaterialDemension packagingMaterialDemension;
+
+    @Column(name = "weight", nullable = false)
+    @Comment("무게")
+    private Long weightInGrams;
+
+    @Column(name = "max_weight", nullable = false)
+    @Comment("최대 무게")
+    private Long maxWeightInGrams;
+
+    @Column(name = "material_type", nullable = false)
+    @Comment("포장재 종류")
+    private MaterialType materialType;
 
     public PackagingMaterial(
             final String name,
@@ -47,7 +80,4 @@ public class PackagingMaterial {
         this.packagingMaterialNo = packagingMaterialNo;
     }
 
-    public Long getPackagingMaterialNo() {
-        return packagingMaterialNo;
-    }
 }
