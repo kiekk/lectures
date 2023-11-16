@@ -1,5 +1,6 @@
 package com.example.inflearn.service;
 
+import com.example.inflearn.exception.CertificationCodeNotMatchedException;
 import com.example.inflearn.exception.ResourceNotFoundException;
 import com.example.inflearn.model.UserStatus;
 import com.example.inflearn.model.dto.user.UserCreateDto;
@@ -134,5 +135,30 @@ class UserServiceTest {
         UserEntity user = userService.getById(userId);
         // 마지막 로그인 시간을 가져올 수 없기 때문에 단순하게 0 이상인지만 판단
         assertThat(user.getLastLoginAt()).isGreaterThan(0L); // FIXME
+    }
+
+    @Test
+    void PENDING_상태의_사용자는_인증_코드로_ACTIVE_시킬_수_있다() {
+        // given
+        // when
+        final Long userId = 2L;
+        final String certificationCode = "aaaa-aaa-aaa-aaaaab";
+        userService.verifyEmail(userId, certificationCode);
+
+        // then
+        UserEntity user = userService.getById(userId);
+        assertThat(user.getStatus()).isEqualTo(UserStatus.ACTIVE);
+    }
+
+    @Test
+    void PENDING_상태의_사용자는_잘못된_인증_코드를_받으면_에러를_던진다() {
+        // given
+        // when
+        final Long userId = 2L;
+        final String failCertificationCode = "aaaa-aaa-aaa-aaaaabddd";
+
+        assertThatThrownBy(() -> userService.verifyEmail(userId, failCertificationCode))
+                .isInstanceOf(CertificationCodeNotMatchedException.class)
+                .hasMessage("자격 증명에 실패하였습니다.");
     }
 }
