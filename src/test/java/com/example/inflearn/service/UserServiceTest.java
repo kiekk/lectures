@@ -3,19 +3,25 @@ package com.example.inflearn.service;
 import com.example.inflearn.exception.ResourceNotFoundException;
 import com.example.inflearn.model.UserStatus;
 import com.example.inflearn.model.dto.user.UserCreateDto;
+import com.example.inflearn.model.dto.user.UserUpdateDto;
 import com.example.inflearn.repository.user.UserEntity;
 import com.example.inflearn.service.user.UserService;
 import org.junit.jupiter.api.Test;
+import org.mockito.BDDMockito;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.SqlGroup;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.mockito.ArgumentMatchers.any;
 
-@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
+@ActiveProfiles("test")
 @SpringBootTest
 @SqlGroup({
         @Sql(value = "/sql/user-service-test-data.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD),
@@ -25,6 +31,9 @@ class UserServiceTest {
 
     @Autowired
     private UserService userService;
+
+    @MockBean
+    private JavaMailSender mailSender;
 
     @Test
     void getByEmail은_ACTIVE_상태인_유저를_찾아올_수_있다() {
@@ -82,6 +91,7 @@ class UserServiceTest {
                 .address("Gyeongi")
                 .nickname("soono3")
                 .build();
+        BDDMockito.doNothing().when(mailSender).send(any(SimpleMailMessage.class));
 
         // when
         final UserEntity createUser = userService.create(userCreateDto);
