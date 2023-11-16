@@ -100,7 +100,7 @@ class UserServiceTest {
         assertThat(createUser.getId()).isNotNull();
         assertThat(createUser.getStatus()).isEqualTo(UserStatus.PENDING);
         // TODO : 현재는 certificationCode를 검증할 방법이 없다.
-//        assertThat(createUser.getCertificationCode()).isEqualTo(???);
+//        assertThat(createUser.getCertificationCode()).isEqualTo(???); // FIXME
     }
 
     @Test
@@ -121,5 +121,18 @@ class UserServiceTest {
         assertThat(user.getId()).isNotNull();
         assertThat(user.getAddress()).isEqualTo("Incheon");
         assertThat(user.getNickname()).isEqualTo("soono3 update");
+    }
+
+    @Test
+    void user를_로그인_시키면_마지막_로그인_시간이_변경된다() {
+        // given
+        // when
+        final Long userId = 1L;
+        userService.login(userId);
+
+        // then
+        UserEntity user = userService.getById(userId);
+        // 마지막 로그인 시간을 가져올 수 없기 때문에 단순하게 0 이상인지만 판단
+        assertThat(user.getLastLoginAt()).isGreaterThan(0L); // FIXME
     }
 }
