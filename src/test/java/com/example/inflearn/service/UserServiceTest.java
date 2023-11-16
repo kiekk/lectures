@@ -1,10 +1,13 @@
 package com.example.inflearn.service;
 
 import com.example.inflearn.exception.ResourceNotFoundException;
+import com.example.inflearn.model.UserStatus;
+import com.example.inflearn.model.dto.user.UserCreateDto;
 import com.example.inflearn.repository.user.UserEntity;
 import com.example.inflearn.service.user.UserService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.SqlGroup;
@@ -12,6 +15,7 @@ import org.springframework.test.context.jdbc.SqlGroup;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
+@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @SpringBootTest
 @SqlGroup({
         @Sql(value = "/sql/user-service-test-data.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD),
@@ -68,5 +72,24 @@ class UserServiceTest {
         assertThatThrownBy(() -> userService.getById(id))
                 .isInstanceOf(ResourceNotFoundException.class)
                 .hasMessage("Users에서 ID %d를 찾을 수 없습니다.".formatted(id));
+    }
+
+    @Test
+    void userCreateDto를_이용하여_유저를_생성할_수_있다() {
+        // given
+        final UserCreateDto userCreateDto = UserCreateDto.builder()
+                .email("shyoon993@gmail.com")
+                .address("Gyeongi")
+                .nickname("soono3")
+                .build();
+
+        // when
+        final UserEntity createUser = userService.create(userCreateDto);
+
+        // then
+        assertThat(createUser.getId()).isNotNull();
+        assertThat(createUser.getStatus()).isEqualTo(UserStatus.PENDING);
+        // TODO : 현재는 certificationCode를 검증할 방법이 없다.
+//        assertThat(createUser.getCertificationCode()).isEqualTo(???);
     }
 }
