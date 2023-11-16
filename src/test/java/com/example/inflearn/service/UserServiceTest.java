@@ -102,4 +102,24 @@ class UserServiceTest {
         // TODO : 현재는 certificationCode를 검증할 방법이 없다.
 //        assertThat(createUser.getCertificationCode()).isEqualTo(???);
     }
+
+    @Test
+    void userUpdateDto를_이용하여_유저를_수정할_수_있다() {
+        // given
+        final UserUpdateDto userUpdateDto = UserUpdateDto.builder()
+                .address("Incheon")
+                .nickname("soono3 update")
+                .build();
+
+        final Long userId = 1L;
+
+        // when
+        userService.update(userId, userUpdateDto);
+
+        // then
+        UserEntity user = userService.getById(userId);
+        assertThat(user.getId()).isNotNull();
+        assertThat(user.getAddress()).isEqualTo("Incheon");
+        assertThat(user.getNickname()).isEqualTo("soono3 update");
+    }
 }
