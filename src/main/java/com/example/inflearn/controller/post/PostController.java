@@ -18,12 +18,12 @@ public class PostController {
 
     @GetMapping("/{id}")
     public PostResponse getPostById(@PathVariable Long id) {
-        return toResponse(postService.getPostById(id));
+        return toResponse(postService.getById(id));
     }
 
     @PutMapping("/{id}")
     public PostResponse updatePost(@PathVariable Long id, @RequestBody PostUpdateDto postUpdateDto) {
-        return toResponse(postService.updatePost(id, postUpdateDto));
+        return toResponse(postService.update(id, postUpdateDto));
     }
 
     public PostResponse toResponse(PostEntity postEntity) {
