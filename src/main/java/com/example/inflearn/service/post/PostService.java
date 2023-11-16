@@ -19,7 +19,7 @@ public class PostService {
     private final PostRepository postRepository;
     private final UserService userService;
 
-    public PostEntity getPostById(long id) {
+    public PostEntity getById(long id) {
         return postRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Posts", id));
     }
 
@@ -33,7 +33,7 @@ public class PostService {
     }
 
     public PostEntity update(Long id, PostUpdateDto postUpdateDto) {
-        PostEntity postEntity = getPostById(id);
+        PostEntity postEntity = getById(id);
         postEntity.setContent(postUpdateDto.getContent());
         postEntity.setModifiedAt(Clock.systemUTC().millis());
         return postRepository.save(postEntity);
