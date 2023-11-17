@@ -1,6 +1,6 @@
 package com.example.inflearn.controller.post;
 
-import com.example.inflearn.model.dto.post.PostUpdateDto;
+import com.example.inflearn.post.domain.PostUpdate;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,7 +58,7 @@ class PostControllerTest {
     @Test
     void 사용자는_게시물을_수정할_수_있다() throws Exception {
         // given
-        final PostUpdateDto postUpdateDto = PostUpdateDto.builder()
+        final PostUpdate postUpdate = PostUpdate.builder()
                 .content("foobar")
                 .build();
 
@@ -66,7 +66,7 @@ class PostControllerTest {
         // then
         mockMvc.perform(put("/api/posts/1")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(postUpdateDto)))
+                        .content(objectMapper.writeValueAsString(postUpdate)))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").isNumber())
                 .andExpect(jsonPath("$.content").value("foobar"))

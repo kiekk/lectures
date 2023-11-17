@@ -1,10 +1,10 @@
 package com.example.inflearn.service;
 
-import com.example.inflearn.exception.ResourceNotFoundException;
-import com.example.inflearn.model.UserStatus;
-import com.example.inflearn.model.dto.user.UserCreateDto;
-import com.example.inflearn.repository.user.UserEntity;
-import com.example.inflearn.service.user.UserService;
+import com.example.inflearn.common.domain.exception.ResourceNotFoundException;
+import com.example.inflearn.user.domain.UserStatus;
+import com.example.inflearn.user.domain.UserCreate;
+import com.example.inflearn.user.infrastructure.UserEntity;
+import com.example.inflearn.user.service.UserService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -77,14 +77,14 @@ class UserServiceTest {
     @Test
     void userCreateDto를_이용하여_유저를_생성할_수_있다() {
         // given
-        final UserCreateDto userCreateDto = UserCreateDto.builder()
+        final UserCreate userCreate = UserCreate.builder()
                 .email("shyoon993@gmail.com")
                 .address("Gyeongi")
                 .nickname("soono3")
                 .build();
 
         // when
-        final UserEntity createUser = userService.create(userCreateDto);
+        final UserEntity createUser = userService.create(userCreate);
 
         // then
         assertThat(createUser.getId()).isNotNull();
