@@ -1,8 +1,8 @@
 package com.example.inflearn.repository;
 
-import com.example.inflearn.model.UserStatus;
-import com.example.inflearn.repository.user.UserEntity;
-import com.example.inflearn.repository.user.UserRepository;
+import com.example.inflearn.user.domain.UserStatus;
+import com.example.inflearn.user.infrastructure.UserEntity;
+import com.example.inflearn.user.infrastructure.UserRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;

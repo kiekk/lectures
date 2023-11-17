@@ -1,9 +1,9 @@
 package com.example.inflearn.controller.user;
 
-import com.example.inflearn.model.UserStatus;
-import com.example.inflearn.model.dto.user.UserUpdateDto;
-import com.example.inflearn.repository.user.UserEntity;
-import com.example.inflearn.repository.user.UserRepository;
+import com.example.inflearn.user.domain.UserStatus;
+import com.example.inflearn.user.domain.UserUpdate;
+import com.example.inflearn.user.infrastructure.UserEntity;
+import com.example.inflearn.user.infrastructure.UserRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -84,7 +84,7 @@ class UserControllerTest {
     @Test
     @DisplayName("사용자는 내 정보를 수정할 수 있다.")
     void userUpdateMeTest() throws Exception {
-        final UserUpdateDto userUpdateDto = UserUpdateDto.builder()
+        final UserUpdate userUpdate = UserUpdate.builder()
                 .nickname("soono update")
                 .address("Pangyo")
                 .build();
@@ -92,7 +92,7 @@ class UserControllerTest {
         mockMvc.perform(put("/api/users/me")
                         .header("EMAIL", "shyoon991@gmail.com")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(userUpdateDto)))
+                        .content(objectMapper.writeValueAsString(userUpdate)))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").value(1))
                 .andExpect(jsonPath("$.email").value("shyoon991@gmail.com"))

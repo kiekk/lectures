@@ -1,7 +1,7 @@
 package com.example.inflearn.controller.user;
 
-import com.example.inflearn.model.UserStatus;
-import com.example.inflearn.model.dto.user.UserCreateDto;
+import com.example.inflearn.user.domain.UserStatus;
+import com.example.inflearn.user.domain.UserCreate;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -42,7 +42,7 @@ class UserCreateControllerTest {
     @Test
     @DisplayName("사용자를 등록한다. 회원가입 후 반환되는 사용자는 PENDING 상태이며 개인정보는 제외하고 반환된다.")
     void userCreateTest() throws Exception {
-        final UserCreateDto userCreateDto = UserCreateDto.builder()
+        final UserCreate userCreate = UserCreate.builder()
                 .email("shyoon993@gmail.com")
                 .nickname("soono333")
                 .address("Pangyo")
@@ -52,7 +52,7 @@ class UserCreateControllerTest {
 
         mockMvc.perform(post("/api/users")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(userCreateDto)))
+                        .content(objectMapper.writeValueAsString(userCreate)))
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.id").isNumber())
                 .andExpect(jsonPath("$.email").value("shyoon993@gmail.com"))
