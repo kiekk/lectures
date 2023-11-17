@@ -4,7 +4,7 @@ import com.example.inflearn.common.domain.exception.ResourceNotFoundException;
 import com.example.inflearn.post.domain.PostCreate;
 import com.example.inflearn.post.domain.PostUpdate;
 import com.example.inflearn.post.infrastructure.PostEntity;
-import com.example.inflearn.post.infrastructure.PostRepository;
+import com.example.inflearn.post.service.port.PostRepository;
 import com.example.inflearn.user.infrastructure.UserEntity;
 import com.example.inflearn.user.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -19,7 +19,7 @@ public class PostService {
     private final PostRepository postRepository;
     private final UserService userService;
 
-    public PostEntity getById(long id) {
+    public PostEntity getById(Long id) {
         return postRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Posts", id));
     }
 

@@ -1,8 +1,6 @@
 package com.example.inflearn.user.infrastructure;
 
 import com.example.inflearn.user.domain.UserStatus;
-import com.example.inflearn.user.infrastructure.UserEntity;
-import com.example.inflearn.user.infrastructure.UserRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
@@ -14,16 +12,16 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @DataJpaTest
 @Sql("/sql/user-repository-test-data.sql")
-class UserRepositoryTest {
+class UserJpaRepositoryTest {
 
     @Autowired
-    private UserRepository userRepository;
+    private UserJpaRepository userJpaRepository;
 
     @Test
     void findByIdAndStatus() {
         // given
         // when
-        final Optional<UserEntity> findUser = userRepository.findByIdAndStatus(1L, UserStatus.ACTIVE);
+        final Optional<UserEntity> findUser = userJpaRepository.findByIdAndStatus(1L, UserStatus.ACTIVE);
 
         // then
         assertThat(findUser).isPresent();
@@ -33,7 +31,7 @@ class UserRepositoryTest {
     void findByIdAndStatus는_데이터가_없으면_Optional_empty를_반환한다() {
         // given
         // when
-        final Optional<UserEntity> findUser = userRepository.findByIdAndStatus(1L, UserStatus.PENDING);
+        final Optional<UserEntity> findUser = userJpaRepository.findByIdAndStatus(1L, UserStatus.PENDING);
 
         // then
         assertThat(findUser).isNotPresent();
@@ -44,7 +42,7 @@ class UserRepositoryTest {
     void findByEmailAndStatus() {
         // given
         // when
-        final Optional<UserEntity> findUser = userRepository.findByEmailAndStatus("shyoon991@gmail.com", UserStatus.ACTIVE);
+        final Optional<UserEntity> findUser = userJpaRepository.findByEmailAndStatus("shyoon991@gmail.com", UserStatus.ACTIVE);
 
         // then
         assertThat(findUser).isPresent();
@@ -54,7 +52,7 @@ class UserRepositoryTest {
     void findByEmailAndStatus는_데이터가_없으면_Optional_empty를_반환한다() {
         // given
         // when
-        final Optional<UserEntity> findUser = userRepository.findByEmailAndStatus("shyoon991@gmail.com", UserStatus.PENDING);
+        final Optional<UserEntity> findUser = userJpaRepository.findByEmailAndStatus("shyoon991@gmail.com", UserStatus.PENDING);
 
         // then
         assertThat(findUser).isNotPresent();
