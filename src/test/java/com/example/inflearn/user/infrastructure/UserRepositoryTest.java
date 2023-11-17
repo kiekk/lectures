@@ -1,4 +1,4 @@
-package com.example.inflearn.repository;
+package com.example.inflearn.user.infrastructure;
 
 import com.example.inflearn.user.domain.UserStatus;
 import com.example.inflearn.user.infrastructure.UserEntity;

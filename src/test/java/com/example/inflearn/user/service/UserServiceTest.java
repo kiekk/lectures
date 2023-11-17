@@ -1,4 +1,4 @@
-package com.example.inflearn.service;
+package com.example.inflearn.user.service;
 
 import com.example.inflearn.common.domain.exception.ResourceNotFoundException;
 import com.example.inflearn.user.domain.UserStatus;

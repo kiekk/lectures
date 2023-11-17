@@ -1,4 +1,4 @@
-package com.example.inflearn.controller.post;
+package com.example.inflearn.post.controller;
 
 import com.example.inflearn.post.domain.PostUpdate;
 import com.fasterxml.jackson.databind.ObjectMapper;
