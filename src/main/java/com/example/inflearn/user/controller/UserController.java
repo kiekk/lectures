@@ -2,8 +2,8 @@ package com.example.inflearn.user.controller;
 
 import com.example.inflearn.user.controller.response.MyProfileResponse;
 import com.example.inflearn.user.controller.response.UserResponse;
+import com.example.inflearn.user.domain.User;
 import com.example.inflearn.user.domain.UserUpdate;
-import com.example.inflearn.user.infrastructure.UserEntity;
 import com.example.inflearn.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -22,7 +22,7 @@ public class UserController {
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/{id}")
     public UserResponse getUserById(@PathVariable Long id) {
-        return toResponse(userService.getById(id));
+        return UserResponse.from(userService.getById(id));
     }
 
     @GetMapping("/{id}/verify")
@@ -37,42 +37,19 @@ public class UserController {
 
     @GetMapping("/me")
     public MyProfileResponse getMyInfo(@RequestHeader("EMAIL") String email) {
-        UserEntity userEntity = userService.getByEmail(email);
-        userService.login(userEntity.getId());
-        return toMyProfileResponse(userEntity);
+        User user = userService.getByEmail(email);
+        userService.login(user.getId());
+        return MyProfileResponse.from(user);
     }
 
     @PutMapping("/me")
-    public ResponseEntity<MyProfileResponse> updateMyInfo(
+    public MyProfileResponse updateMyInfo(
             @RequestHeader("EMAIL") String email,
             @RequestBody UserUpdate userUpdate
     ) {
-        UserEntity userEntity = userService.getByEmail(email);
-        userEntity = userService.update(userEntity.getId(), userUpdate);
-        return ResponseEntity
-                .ok()
-                .body(toMyProfileResponse(userEntity));
-    }
-
-    public UserResponse toResponse(UserEntity userEntity) {
-        UserResponse userResponse = new UserResponse();
-        userResponse.setId(userEntity.getId());
-        userResponse.setEmail(userEntity.getEmail());
-        userResponse.setNickname(userEntity.getNickname());
-        userResponse.setStatus(userEntity.getStatus());
-        userResponse.setLastLoginAt(userEntity.getLastLoginAt());
-        return userResponse;
-    }
-
-    public MyProfileResponse toMyProfileResponse(UserEntity userEntity) {
-        MyProfileResponse myProfileResponse = new MyProfileResponse();
-        myProfileResponse.setId(userEntity.getId());
-        myProfileResponse.setEmail(userEntity.getEmail());
-        myProfileResponse.setNickname(userEntity.getNickname());
-        myProfileResponse.setStatus(userEntity.getStatus());
-        myProfileResponse.setAddress(userEntity.getAddress());
-        myProfileResponse.setLastLoginAt(userEntity.getLastLoginAt());
-        return myProfileResponse;
+        User user = userService.getByEmail(email);
+        user = userService.update(user.getId(), userUpdate);
+        return MyProfileResponse.from(user);
     }
 
 }

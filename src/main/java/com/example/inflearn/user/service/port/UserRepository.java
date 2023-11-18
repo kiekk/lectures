@@ -1,17 +1,17 @@
 package com.example.inflearn.user.service.port;
 
+import com.example.inflearn.user.domain.User;
 import com.example.inflearn.user.domain.UserStatus;
-import com.example.inflearn.user.infrastructure.UserEntity;
 
 import java.util.Optional;
 
 public interface UserRepository {
 
-    Optional<UserEntity> findByIdAndStatus(Long id, UserStatus userStatus);
+    Optional<User> findByIdAndStatus(Long id, UserStatus userStatus);
 
-    Optional<UserEntity> findByEmailAndStatus(String email, UserStatus userStatus);
+    Optional<User> findByEmailAndStatus(String email, UserStatus userStatus);
 
-    UserEntity save(UserEntity userEntity);
+    User save(User user);
 
-    Optional<UserEntity> findById(Long id);
+    Optional<User> findById(Long id);
 }

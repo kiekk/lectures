@@ -1,5 +1,6 @@
 package com.example.inflearn.post.service;
 
+import com.example.inflearn.post.domain.Post;
 import com.example.inflearn.post.domain.PostCreate;
 import com.example.inflearn.post.domain.PostUpdate;
 import com.example.inflearn.post.infrastructure.PostEntity;
@@ -30,11 +31,11 @@ class PostServiceTest {
         final Long postId = 1L;
 
         // when
-        final PostEntity postEntity = postService.getById(postId);
+        final Post post = postService.getById(postId);
 
         // then
-        assertThat(postEntity.getContent()).isEqualTo("helloworld");
-        assertThat(postEntity.getWriter().getEmail()).isEqualTo("shyoon991@gmail.com");
+        assertThat(post.getContent()).isEqualTo("helloworld");
+        assertThat(post.getWriter().getEmail()).isEqualTo("shyoon991@gmail.com");
     }
 
     @Test
@@ -47,13 +48,13 @@ class PostServiceTest {
                 .build();
 
         // when
-        PostEntity postEntity = postService.create(postCreate);
+        final Post post = postService.create(postCreate);
 
         // then
-        assertThat(postEntity.getId()).isNotNull();
-        assertThat(postEntity.getContent()).isEqualTo("foobar");
-        assertThat(postEntity.getWriter().getEmail()).isEqualTo("shyoon991@gmail.com");
-        assertThat(postEntity.getCreatedAt()).isGreaterThan(0L);
+        assertThat(post.getId()).isNotNull();
+        assertThat(post.getContent()).isEqualTo("foobar");
+        assertThat(post.getWriter().getEmail()).isEqualTo("shyoon991@gmail.com");
+        assertThat(post.getCreatedAt()).isGreaterThan(0L);
     }
 
     @Test
@@ -68,11 +69,12 @@ class PostServiceTest {
         postService.update(postId, postUpdate);
 
         // then
-        PostEntity postEntity = postService.getById(postId);
-        assertThat(postEntity.getId()).isNotNull();
-        assertThat(postEntity.getContent()).isEqualTo("update content");
-        assertThat(postEntity.getWriter().getEmail()).isEqualTo("shyoon991@gmail.com");
-        assertThat(postEntity.getCreatedAt()).isGreaterThan(0L);
-        assertThat(postEntity.getModifiedAt()).isGreaterThan(0L);
+        final Post post = postService.getById(postId);
+
+        assertThat(post.getId()).isNotNull();
+        assertThat(post.getContent()).isEqualTo("update content");
+        assertThat(post.getWriter().getEmail()).isEqualTo("shyoon991@gmail.com");
+        assertThat(post.getCreatedAt()).isGreaterThan(0L);
+        assertThat(post.getModifiedAt()).isGreaterThan(0L);
     }
 }
