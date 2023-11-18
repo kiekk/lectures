@@ -1,6 +1,7 @@
 package com.example.inflearn.user.domain;
 
 import com.example.inflearn.common.domain.exception.CertificationCodeNotMatchedException;
+import com.example.inflearn.mock.TestClockHolder;
 import com.example.inflearn.mock.TestUuidHolder;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -69,7 +70,22 @@ class UserTest {
     @Test
     @DisplayName("로그인을 할 수 있고 로그인 시 마지막 로그인 시간이 변경된다.")
     void userLogin() {
-        // TODO: 마지막 로그인 시간 검증 로직 추가
+        // given
+        final User user = User.builder()
+                .id(1L)
+                .email("kok202@kakao.com")
+                .nickname("kok202")
+                .address("Seoul")
+                .status(UserStatus.ACTIVE)
+                .lastLoginAt(100L)
+                .certificationCode("aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa")
+                .build();
+
+        // when
+        final User loginUser = user.login(new TestClockHolder(1678530673958L));
+
+        // then
+        assertThat(loginUser.getLastLoginAt()).isEqualTo(1678530673958L);
     }
 
     @Test

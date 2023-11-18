@@ -1,5 +1,6 @@
 package com.example.inflearn.post.domain;
 
+import com.example.inflearn.mock.TestClockHolder;
 import com.example.inflearn.user.domain.User;
 import com.example.inflearn.user.domain.UserStatus;
 import org.junit.jupiter.api.DisplayName;
@@ -41,7 +42,32 @@ class PostTest {
     @Test
     @DisplayName("PostUpdate로 게시물을 수정할 수 있다.")
     void postUpdate() {
+        // given
+        final PostUpdate postUpdate = PostUpdate.builder()
+                .content("foobar")
+                .build();
+        final User writer = User.builder()
+                .id(1L)
+                .email("shyoon991@gmail.com")
+                .nickname("soono")
+                .address("Seoul")
+                .status(UserStatus.ACTIVE)
+                .certificationCode("aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaab")
+                .build();
+        final Post post = Post.builder()
+                .id(1L)
+                .content("helloworld")
+                .createdAt(1678530673958L)
+                .modifiedAt(0L)
+                .writer(writer)
+                .build();
 
+        // when
+        final Post updatedPost = post.update(postUpdate, new TestClockHolder(1679530673958L));
+
+        // then
+        assertThat(updatedPost.getContent()).isEqualTo("foobar");
+        assertThat(updatedPost.getModifiedAt()).isEqualTo(1679530673958L);
     }
 
 }

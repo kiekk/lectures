@@ -2,6 +2,7 @@ package com.example.inflearn.user.service;
 
 import com.example.inflearn.common.domain.exception.CertificationCodeNotMatchedException;
 import com.example.inflearn.common.domain.exception.ResourceNotFoundException;
+import com.example.inflearn.common.service.port.ClockHolder;
 import com.example.inflearn.common.service.port.UuidHolder;
 import com.example.inflearn.user.domain.User;
 import com.example.inflearn.user.domain.UserCreate;
@@ -19,6 +20,7 @@ public class UserService {
     private final UserRepository userRepository;
     private final CertificationService certificationService;
     private final UuidHolder uuidHolder;
+    private final ClockHolder clockHolder;
 
     public User getByEmail(String email) {
         return userRepository.findByEmailAndStatus(email, UserStatus.ACTIVE)
@@ -50,7 +52,7 @@ public class UserService {
     public void login(Long id) {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Users", id));
-        user = user.login();
+        user = user.login(clockHolder);
         userRepository.save(user);
     }
 

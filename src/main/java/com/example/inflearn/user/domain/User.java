@@ -1,12 +1,10 @@
 package com.example.inflearn.user.domain;
 
 import com.example.inflearn.common.domain.exception.CertificationCodeNotMatchedException;
+import com.example.inflearn.common.service.port.ClockHolder;
 import com.example.inflearn.common.service.port.UuidHolder;
 import lombok.Builder;
 import lombok.Getter;
-
-import java.time.Clock;
-import java.util.UUID;
 
 @Getter
 public class User {
@@ -51,7 +49,7 @@ public class User {
                 .build();
     }
 
-    public User login() {
+    public User login(ClockHolder clockHolder) {
         return User.builder()
                 .id(id)
                 .email(email)
@@ -59,7 +57,7 @@ public class User {
                 .address(address)
                 .certificationCode(certificationCode)
                 .status(status)
-                .lastLoginAt(Clock.systemUTC().millis())
+                .lastLoginAt(clockHolder.millis())
                 .build();
     }
 

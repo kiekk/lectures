@@ -1,5 +1,6 @@
 package com.example.inflearn.post.domain;
 
+import com.example.inflearn.common.service.port.ClockHolder;
 import com.example.inflearn.user.domain.User;
 import lombok.Builder;
 import lombok.Getter;
@@ -31,12 +32,12 @@ public class Post {
                 .build();
     }
 
-    public Post update(PostUpdate postUpdate) {
+    public Post update(PostUpdate postUpdate, ClockHolder clockHolder) {
         return Post.builder()
                 .id(id)
                 .content(postUpdate.getContent())
                 .createdAt(createdAt)
-                .modifiedAt(Clock.systemUTC().millis())
+                .modifiedAt(clockHolder.millis())
                 .writer(writer)
                 .build();
     }
