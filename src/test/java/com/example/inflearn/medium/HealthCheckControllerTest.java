@@ -1,4 +1,4 @@
-package com.example.inflearn.common.controller;
+package com.example.inflearn.medium;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

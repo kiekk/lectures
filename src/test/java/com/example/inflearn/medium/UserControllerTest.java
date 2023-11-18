@@ -1,4 +1,4 @@
-package com.example.inflearn.user.controller;
+package com.example.inflearn.medium;
 
 import com.example.inflearn.user.domain.UserStatus;
 import com.example.inflearn.user.domain.UserUpdate;

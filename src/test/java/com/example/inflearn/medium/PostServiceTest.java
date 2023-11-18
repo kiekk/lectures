@@ -1,4 +1,4 @@
-package com.example.inflearn.post.service;
+package com.example.inflearn.medium;
 
 import com.example.inflearn.post.domain.Post;
 import com.example.inflearn.post.domain.PostCreate;

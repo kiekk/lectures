@@ -1,6 +1,7 @@
 package com.example.inflearn.user.service;
 
 import com.example.inflearn.mock.FakeMailSender;
+import com.example.inflearn.user.service.CertificationService;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
