@@ -28,7 +28,7 @@ class PostTest {
                 .build();
 
         // when
-        final Post post = Post.from(postCreate, writer);
+        final Post post = Post.from(postCreate, writer, new TestClockHolder(1678530673958L));
 
         // then
         assertThat(post.getContent()).isEqualTo("helloworld");

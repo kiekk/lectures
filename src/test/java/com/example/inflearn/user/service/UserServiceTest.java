@@ -6,7 +6,6 @@ import com.example.inflearn.mock.FakeMailSender;
 import com.example.inflearn.mock.FakeUserRepository;
 import com.example.inflearn.mock.TestClockHolder;
 import com.example.inflearn.mock.TestUuidHolder;
-import com.example.inflearn.user.controller.port.UserService;
 import com.example.inflearn.user.domain.User;
 import com.example.inflearn.user.domain.UserCreate;
 import com.example.inflearn.user.domain.UserStatus;
@@ -19,7 +18,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 class UserServiceTest {
 
-    private UserService userService;
+    private UserServiceImpl userService;
 
     @BeforeEach
     void setUp() {
@@ -28,7 +27,7 @@ class UserServiceTest {
         this.userService = UserServiceImpl.builder()
                 .uuidHolder(new TestUuidHolder("aaaa-aaa-aaaa"))
                 .clockHolder(new TestClockHolder(1678530673958L))
-                .certificationService(new CertificationServiceImpl(fakeMailSender))
+                .certificationService(new CertificationService(fakeMailSender))
                 .userRepository(fakeUserRepository)
                 .build();
 

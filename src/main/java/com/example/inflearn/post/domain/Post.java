@@ -5,8 +5,6 @@ import com.example.inflearn.user.domain.User;
 import lombok.Builder;
 import lombok.Getter;
 
-import java.time.Clock;
-
 @Getter
 public class Post {
     private final Long id;
@@ -24,10 +22,10 @@ public class Post {
         this.writer = writer;
     }
 
-    public static Post from(PostCreate postCreate, User writer) {
+    public static Post from(PostCreate postCreate, User writer, ClockHolder clockHolder) {
         return Post.builder()
                 .content(postCreate.getContent())
-                .createdAt(Clock.systemUTC().millis())
+                .createdAt(clockHolder.millis())
                 .writer(writer)
                 .build();
     }

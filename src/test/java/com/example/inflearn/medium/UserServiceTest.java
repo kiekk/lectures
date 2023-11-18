@@ -2,11 +2,11 @@ package com.example.inflearn.medium;
 
 import com.example.inflearn.common.domain.exception.CertificationCodeNotMatchedException;
 import com.example.inflearn.common.domain.exception.ResourceNotFoundException;
-import com.example.inflearn.user.controller.port.UserService;
 import com.example.inflearn.user.domain.User;
 import com.example.inflearn.user.domain.UserCreate;
 import com.example.inflearn.user.domain.UserStatus;
 import com.example.inflearn.user.domain.UserUpdate;
+import com.example.inflearn.user.service.UserServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.mockito.BDDMockito;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +31,7 @@ import static org.mockito.ArgumentMatchers.any;
 class UserServiceTest {
 
     @Autowired
-    private UserService userService;
+    private UserServiceImpl userService;
 
     @MockBean
     private JavaMailSender mailSender;

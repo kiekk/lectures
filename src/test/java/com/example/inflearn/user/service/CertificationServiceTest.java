@@ -11,7 +11,7 @@ class CertificationServiceTest {
     void 이메일과_컨텐츠가_제대로_만들어져서_보내지는지_테스트한다() {
         // given
         final FakeMailSender mailSender = new FakeMailSender();
-        final CertificationServiceImpl certificationService = new CertificationServiceImpl(mailSender);
+        final CertificationService certificationService = new CertificationService(mailSender);
 
         // when
         final String email = "shyoon991@gmail.com";

@@ -3,7 +3,10 @@ package com.example.inflearn.user.service;
 import com.example.inflearn.common.domain.exception.ResourceNotFoundException;
 import com.example.inflearn.common.service.port.ClockHolder;
 import com.example.inflearn.common.service.port.UuidHolder;
-import com.example.inflearn.user.controller.port.UserService;
+import com.example.inflearn.user.controller.port.AuthenticationService;
+import com.example.inflearn.user.controller.port.UserCreateService;
+import com.example.inflearn.user.controller.port.UserReadService;
+import com.example.inflearn.user.controller.port.UserUpdateService;
 import com.example.inflearn.user.domain.User;
 import com.example.inflearn.user.domain.UserCreate;
 import com.example.inflearn.user.domain.UserStatus;
@@ -17,10 +20,10 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @Builder
 @RequiredArgsConstructor
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl implements UserCreateService, UserReadService, UserUpdateService, AuthenticationService {
 
     private final UserRepository userRepository;
-    private final CertificationServiceImpl certificationService;
+    private final CertificationService certificationService;
     private final UuidHolder uuidHolder;
     private final ClockHolder clockHolder;
 

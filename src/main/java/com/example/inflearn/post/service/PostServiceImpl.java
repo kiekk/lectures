@@ -31,7 +31,7 @@ public class PostServiceImpl implements PostService {
     @Override
     public Post create(PostCreate postCreate) {
         User user = userRepository.getById(postCreate.getWriterId());
-        Post post = Post.from(postCreate, user);
+        Post post = Post.from(postCreate, user, clockHolder);
         return postRepository.save(post);
     }
 
