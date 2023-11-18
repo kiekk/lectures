@@ -1,9 +1,9 @@
 package com.example.inflearn.service;
 
-import com.example.inflearn.model.dto.post.PostCreateDto;
-import com.example.inflearn.model.dto.post.PostUpdateDto;
-import com.example.inflearn.repository.post.PostEntity;
-import com.example.inflearn.service.post.PostService;
+import com.example.inflearn.post.domain.PostCreate;
+import com.example.inflearn.post.domain.PostUpdate;
+import com.example.inflearn.post.infrastructure.PostEntity;
+import com.example.inflearn.post.service.PostService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -41,13 +41,13 @@ class PostServiceTest {
     void postCreateDto를_이용하여_게시물을_생성할_수_있다() {
         // given
         final Long writerId = 1L;
-        final PostCreateDto postCreateDto = PostCreateDto.builder()
+        final PostCreate postCreate = PostCreate.builder()
                 .writerId(writerId)
                 .content("foobar")
                 .build();
 
         // when
-        PostEntity postEntity = postService.create(postCreateDto);
+        PostEntity postEntity = postService.create(postCreate);
 
         // then
         assertThat(postEntity.getId()).isNotNull();
@@ -60,12 +60,12 @@ class PostServiceTest {
     void postUpdateDto를_이용하여_게시물을_수정할_수_있다() {
         // given
         final Long postId = 1L;
-        final PostUpdateDto postUpdateDto = PostUpdateDto.builder()
+        final PostUpdate postUpdate = PostUpdate.builder()
                 .content("update content")
                 .build();
 
         // when
-        postService.update(postId, postUpdateDto);
+        postService.update(postId, postUpdate);
 
         // then
         PostEntity postEntity = postService.getById(postId);
