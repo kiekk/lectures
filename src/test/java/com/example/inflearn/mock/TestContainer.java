@@ -9,10 +9,6 @@ import com.example.inflearn.post.service.PostServiceImpl;
 import com.example.inflearn.post.service.port.PostRepository;
 import com.example.inflearn.user.controller.UserController;
 import com.example.inflearn.user.controller.UserCreateController;
-import com.example.inflearn.user.controller.port.AuthenticationService;
-import com.example.inflearn.user.controller.port.UserCreateService;
-import com.example.inflearn.user.controller.port.UserReadService;
-import com.example.inflearn.user.controller.port.UserUpdateService;
 import com.example.inflearn.user.service.CertificationService;
 import com.example.inflearn.user.service.UserServiceImpl;
 import com.example.inflearn.user.service.port.MailSender;
@@ -24,10 +20,6 @@ public class TestContainer {
     public final UserRepository userRepository;
     public final PostRepository postRepository;
     public final PostService postService;
-    public final UserReadService userReadService;
-    public final UserCreateService userCreateService;
-    public final UserUpdateService userUpdateService;
-    public final AuthenticationService authenticationService;
     public final CertificationService certificationService;
     public final UserController userController;
     public final UserCreateController userCreateController;
@@ -53,18 +45,11 @@ public class TestContainer {
                 .certificationService(this.certificationService)
                 .build();
 
-        this.userReadService = userService;
-        this.userCreateService = userService;
-        this.userUpdateService = userService;
-        this.authenticationService = userService;
         this.userController = UserController.builder()
-                .userReadService(userReadService)
-                .userCreateService(userCreateService)
-                .userUpdateService(userUpdateService)
-                .authenticationService(authenticationService)
+                .userService(userService)
                 .build();
         this.userCreateController = UserCreateController.builder()
-                .userCreateService(userCreateService)
+                .userService(userService)
                 .build();
         this.postController = PostController.builder()
                 .postService(postService)

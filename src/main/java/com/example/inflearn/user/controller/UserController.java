@@ -1,9 +1,6 @@
 package com.example.inflearn.user.controller;
 
-import com.example.inflearn.user.controller.port.AuthenticationService;
-import com.example.inflearn.user.controller.port.UserCreateService;
-import com.example.inflearn.user.controller.port.UserReadService;
-import com.example.inflearn.user.controller.port.UserUpdateService;
+import com.example.inflearn.user.controller.port.UserService;
 import com.example.inflearn.user.controller.response.MyProfileResponse;
 import com.example.inflearn.user.controller.response.UserResponse;
 import com.example.inflearn.user.domain.User;
@@ -22,22 +19,19 @@ import java.net.URI;
 @Builder
 public class UserController {
 
-    private final UserCreateService userCreateService;
-    private final UserUpdateService userUpdateService;
-    private final UserReadService userReadService;
-    private final AuthenticationService authenticationService;
+    private final UserService userService;
 
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/{id}")
     public UserResponse getById(@PathVariable Long id) {
-        return UserResponse.from(userReadService.getById(id));
+        return UserResponse.from(userService.getById(id));
     }
 
     @GetMapping("/{id}/verify")
     public ResponseEntity<Void> verifyEmail(
             @PathVariable Long id,
             @RequestParam String certificationCode) {
-        authenticationService.verifyEmail(id, certificationCode);
+        userService.verifyEmail(id, certificationCode);
         return ResponseEntity.status(HttpStatus.FOUND)
                 .location(URI.create("http://localhost:3000"))
                 .build();
@@ -45,9 +39,9 @@ public class UserController {
 
     @GetMapping("/me")
     public MyProfileResponse getMyInfo(@RequestHeader("EMAIL") String email) {
-        User user = userReadService.getByEmail(email);
-        authenticationService.login(user.getId());
-        return MyProfileResponse.from(userReadService.getById(user.getId()));
+        User user = userService.getByEmail(email);
+        userService.login(user.getId());
+        return MyProfileResponse.from(userService.getById(user.getId()));
     }
 
     @PutMapping("/me")
@@ -55,8 +49,8 @@ public class UserController {
             @RequestHeader("EMAIL") String email,
             @RequestBody UserUpdate userUpdate
     ) {
-        User user = userReadService.getByEmail(email);
-        user = userUpdateService.update(user.getId(), userUpdate);
+        User user = userService.getByEmail(email);
+        user = userService.update(user.getId(), userUpdate);
         return MyProfileResponse.from(user);
     }
 
