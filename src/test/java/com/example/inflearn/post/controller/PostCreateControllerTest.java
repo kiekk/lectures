@@ -33,7 +33,7 @@ class PostCreateControllerTest {
                 .build();
 
         // when
-        final PostResponse post = testContainer.postCreateController.createPost(postCreate);
+        final PostResponse post = testContainer.postCreateController.create(postCreate);
 
         // then
         assertThat(post.getContent()).isEqualTo("helloworld");

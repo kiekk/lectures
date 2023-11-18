@@ -26,7 +26,7 @@ class UserCreateControllerTest {
                 .nickname("soono")
                 .address("Seoul")
                 .build();
-        final UserResponse user = testContainer.userCreateController.createUser(userCreate);
+        final UserResponse user = testContainer.userCreateController.create(userCreate);
 
         // then
         assertThat(user.getEmail()).isEqualTo("shyoon991@gmail.com");

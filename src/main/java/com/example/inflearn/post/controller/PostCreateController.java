@@ -18,7 +18,7 @@ public class PostCreateController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public PostResponse createPost(@RequestBody PostCreate postCreate) {
+    public PostResponse create(@RequestBody PostCreate postCreate) {
         return PostResponse.from(postService.create(postCreate));
     }
 
