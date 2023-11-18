@@ -1,6 +1,7 @@
 package com.example.inflearn.user.domain;
 
 import com.example.inflearn.common.domain.exception.CertificationCodeNotMatchedException;
+import com.example.inflearn.mock.TestUuidHolder;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -20,7 +21,8 @@ class UserTest {
                 .build();
 
         // when
-        User user = User.from(userCreate);
+        final String uuid = "aaaa-aaa-aaaa";
+        User user = User.from(userCreate, new TestUuidHolder(uuid));
 
         // then
         assertThat(user.getId()).isNull();
@@ -28,20 +30,21 @@ class UserTest {
         assertThat(user.getNickname()).isEqualTo("soono");
         assertThat(user.getAddress()).isEqualTo("Pangyo");
         assertThat(user.getStatus()).isEqualTo(UserStatus.PENDING);
-
-        // TODO: certificationCode 검증 로직 추가
+        assertThat(user.getCertificationCode()).isEqualTo(uuid);
     }
 
     @Test
     @DisplayName("UserUpdate 객체로 수정할 수 있다.")
     void userUpdate() {
         // given
+        final String certificationCode = "aaaa-aaa-aaaa";
         final User user = User.builder()
                 .id(1L)
                 .email("shyoon991@gmail.com")
                 .nickname("soono")
                 .address("Seoul")
                 .status(UserStatus.ACTIVE)
+                .certificationCode(certificationCode)
                 .lastLoginAt(100L)
                 .build();
 
@@ -60,8 +63,7 @@ class UserTest {
         assertThat(updateUser.getAddress()).isEqualTo("Pangyo");
         assertThat(updateUser.getStatus()).isEqualTo(UserStatus.ACTIVE);
         assertThat(updateUser.getLastLoginAt()).isEqualTo(100L);
-
-        // TODO: certificationCode 검증 로직 추가
+        assertThat(updateUser.getCertificationCode()).isEqualTo(certificationCode);
     }
 
     @Test
