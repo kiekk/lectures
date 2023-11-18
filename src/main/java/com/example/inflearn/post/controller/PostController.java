@@ -16,12 +16,12 @@ public class PostController {
     private final PostService postService;
 
     @GetMapping("/{id}")
-    public PostResponse getPostById(@PathVariable Long id) {
+    public PostResponse getById(@PathVariable Long id) {
         return PostResponse.from(postService.getById(id));
     }
 
     @PutMapping("/{id}")
-    public PostResponse updatePost(@PathVariable Long id, @RequestBody PostUpdate postUpdate) {
+    public PostResponse update(@PathVariable Long id, @RequestBody PostUpdate postUpdate) {
         return PostResponse.from(postService.update(id, postUpdate));
     }
 

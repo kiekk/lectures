@@ -34,7 +34,7 @@ class UserControllerTest {
 
 
         // when
-        final UserResponse result = testContainer.userController.getUserById(1L);
+        final UserResponse result = testContainer.userController.getById(1L);
 
         // then
         assertThat(result.getId()).isEqualTo(1L);
@@ -51,7 +51,7 @@ class UserControllerTest {
 
         // when
         final Long userId = 1L;
-        assertThatThrownBy(() -> testContainer.userController.getUserById(userId))
+        assertThatThrownBy(() -> testContainer.userController.getById(userId))
                 .isInstanceOf(ResourceNotFoundException.class)
                 .hasMessage("Users에서 ID %s를 찾을 수 없습니다.".formatted(userId));
     }
@@ -126,7 +126,7 @@ class UserControllerTest {
                 .address("Pangyo")
                 .nickname("soono update")
                 .build();
-        final MyProfileResponse myProfileResponse = testContainer.userController.updateMyInfo("shyoon991@gmail.com", userUpdate);
+        final MyProfileResponse myProfileResponse = testContainer.userController.update("shyoon991@gmail.com", userUpdate);
 
         // then
         assertThat(myProfileResponse.getAddress()).isEqualTo("Pangyo");

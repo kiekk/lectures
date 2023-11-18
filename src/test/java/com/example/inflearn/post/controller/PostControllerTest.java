@@ -36,7 +36,7 @@ class PostControllerTest {
                 .build());
 
         // when
-        final PostResponse postResponse = testContainer.postController.getPostById(1L);
+        final PostResponse postResponse = testContainer.postController.getById(1L);
 
         // then
         assertThat(postResponse.getContent()).isEqualTo("helloworld");
@@ -52,7 +52,7 @@ class PostControllerTest {
 
         // when
         // then
-        assertThatThrownBy(() -> testContainer.postController.getPostById(1L))
+        assertThatThrownBy(() -> testContainer.postController.getById(1L))
                 .isInstanceOf(ResourceNotFoundException.class);
     }
 
@@ -80,7 +80,7 @@ class PostControllerTest {
                 .build());
 
         // when
-        final PostResponse postResponse = testContainer.postController.updatePost(1L, PostUpdate.builder()
+        final PostResponse postResponse = testContainer.postController.update(1L, PostUpdate.builder()
                 .content("foobar")
                 .build());
 

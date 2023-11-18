@@ -29,7 +29,7 @@ public class UserController {
 
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/{id}")
-    public UserResponse getUserById(@PathVariable Long id) {
+    public UserResponse getById(@PathVariable Long id) {
         return UserResponse.from(userReadService.getById(id));
     }
 
@@ -51,7 +51,7 @@ public class UserController {
     }
 
     @PutMapping("/me")
-    public MyProfileResponse updateMyInfo(
+    public MyProfileResponse update(
             @RequestHeader("EMAIL") String email,
             @RequestBody UserUpdate userUpdate
     ) {
