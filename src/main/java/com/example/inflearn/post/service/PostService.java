@@ -8,15 +8,18 @@ import com.example.inflearn.post.domain.PostUpdate;
 import com.example.inflearn.post.service.port.PostRepository;
 import com.example.inflearn.user.domain.User;
 import com.example.inflearn.user.service.UserService;
+import com.example.inflearn.user.service.port.UserRepository;
+import lombok.Builder;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
+@Builder
 @RequiredArgsConstructor
 public class PostService {
 
     private final PostRepository postRepository;
-    private final UserService userService;
+    private final UserRepository userRepository;
     private final ClockHolder clockHolder;
 
     public Post getById(Long id) {
@@ -25,7 +28,7 @@ public class PostService {
     }
 
     public Post create(PostCreate postCreate) {
-        User user = userService.getById(postCreate.getWriterId());
+        User user = userRepository.getById(postCreate.getWriterId());
         Post post = Post.from(postCreate, user);
         return postRepository.save(post);
     }

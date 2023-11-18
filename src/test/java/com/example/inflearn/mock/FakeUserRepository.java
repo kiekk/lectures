@@ -1,5 +1,6 @@
 package com.example.inflearn.mock;
 
+import com.example.inflearn.common.domain.exception.ResourceNotFoundException;
 import com.example.inflearn.user.domain.User;
 import com.example.inflearn.user.domain.UserStatus;
 import com.example.inflearn.user.service.port.UserRepository;
@@ -54,5 +55,12 @@ public class FakeUserRepository implements UserRepository {
     public Optional<User> findById(Long id) {
         return data.stream().filter(item -> Objects.equals(item.getId(), id))
                 .findFirst();
+    }
+
+    @Override
+    public User getById(Long id) {
+        return data.stream().filter(item -> Objects.equals(item.getId(), id))
+                .findFirst()
+                .orElseThrow(() -> new ResourceNotFoundException("Users", id));
     }
 }

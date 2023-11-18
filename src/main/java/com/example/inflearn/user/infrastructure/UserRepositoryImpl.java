@@ -1,5 +1,6 @@
 package com.example.inflearn.user.infrastructure;
 
+import com.example.inflearn.common.domain.exception.ResourceNotFoundException;
 import com.example.inflearn.user.domain.User;
 import com.example.inflearn.user.domain.UserStatus;
 import com.example.inflearn.user.service.port.UserRepository;
@@ -32,6 +33,13 @@ public class UserRepositoryImpl implements UserRepository {
     @Override
     public Optional<User> findById(Long id) {
         return userJpaRepository.findById(id).map(UserEntity::toModel);
+    }
+
+    @Override
+    public User getById(Long id) {
+        return userJpaRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Users", id))
+                .toModel();
     }
 
 }
