@@ -4,7 +4,7 @@ import com.example.inflearn.user.controller.response.MyProfileResponse;
 import com.example.inflearn.user.controller.response.UserResponse;
 import com.example.inflearn.user.domain.User;
 import com.example.inflearn.user.domain.UserUpdate;
-import com.example.inflearn.user.service.UserService;
+import com.example.inflearn.user.service.UserServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +17,7 @@ import java.net.URI;
 @RequiredArgsConstructor
 public class UserController {
 
-    private final UserService userService;
+    private final UserServiceImpl userService;
 
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/{id}")

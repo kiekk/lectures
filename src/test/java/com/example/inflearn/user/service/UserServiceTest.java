@@ -6,6 +6,7 @@ import com.example.inflearn.mock.FakeMailSender;
 import com.example.inflearn.mock.FakeUserRepository;
 import com.example.inflearn.mock.TestClockHolder;
 import com.example.inflearn.mock.TestUuidHolder;
+import com.example.inflearn.user.controller.port.UserService;
 import com.example.inflearn.user.domain.User;
 import com.example.inflearn.user.domain.UserCreate;
 import com.example.inflearn.user.domain.UserStatus;
@@ -24,10 +25,10 @@ class UserServiceTest {
     void setUp() {
         FakeMailSender fakeMailSender = new FakeMailSender();
         FakeUserRepository fakeUserRepository = new FakeUserRepository();
-        this.userService = UserService.builder()
+        this.userService = UserServiceImpl.builder()
                 .uuidHolder(new TestUuidHolder("aaaa-aaa-aaaa"))
                 .clockHolder(new TestClockHolder(1678530673958L))
-                .certificationService(new CertificationService(fakeMailSender))
+                .certificationService(new CertificationServiceImpl(fakeMailSender))
                 .userRepository(fakeUserRepository)
                 .build();
 

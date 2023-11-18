@@ -1,9 +1,9 @@
 package com.example.inflearn.user.service;
 
-import com.example.inflearn.common.domain.exception.CertificationCodeNotMatchedException;
 import com.example.inflearn.common.domain.exception.ResourceNotFoundException;
 import com.example.inflearn.common.service.port.ClockHolder;
 import com.example.inflearn.common.service.port.UuidHolder;
+import com.example.inflearn.user.controller.port.UserService;
 import com.example.inflearn.user.domain.User;
 import com.example.inflearn.user.domain.UserCreate;
 import com.example.inflearn.user.domain.UserStatus;
@@ -17,23 +17,26 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @Builder
 @RequiredArgsConstructor
-public class UserService {
+public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
-    private final CertificationService certificationService;
+    private final CertificationServiceImpl certificationService;
     private final UuidHolder uuidHolder;
     private final ClockHolder clockHolder;
 
+    @Override
     public User getByEmail(String email) {
         return userRepository.findByEmailAndStatus(email, UserStatus.ACTIVE)
                 .orElseThrow(() -> new ResourceNotFoundException("Users", email));
     }
 
+    @Override
     public User getById(Long id) {
         return userRepository.findByIdAndStatus(id, UserStatus.ACTIVE)
                 .orElseThrow(() -> new ResourceNotFoundException("Users", id));
     }
 
+    @Override
     @Transactional
     public User create(UserCreate userCreate) {
         User user = User.from(userCreate, uuidHolder);
@@ -42,6 +45,7 @@ public class UserService {
         return user;
     }
 
+    @Override
     @Transactional
     public User update(Long id, UserUpdate userUpdate) {
         User user = getById(id);
@@ -50,6 +54,7 @@ public class UserService {
         return user;
     }
 
+    @Override
     @Transactional
     public void login(Long id) {
         User user = userRepository.findById(id)
@@ -58,6 +63,7 @@ public class UserService {
         userRepository.save(user);
     }
 
+    @Override
     @Transactional
     public void verifyEmail(Long id, String certificationCode) {
         User user = userRepository.findById(id)

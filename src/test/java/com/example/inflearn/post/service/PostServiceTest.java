@@ -3,6 +3,7 @@ package com.example.inflearn.post.service;
 import com.example.inflearn.mock.FakePostRepository;
 import com.example.inflearn.mock.FakeUserRepository;
 import com.example.inflearn.mock.TestClockHolder;
+import com.example.inflearn.post.controller.port.PostService;
 import com.example.inflearn.post.domain.Post;
 import com.example.inflearn.post.domain.PostCreate;
 import com.example.inflearn.post.domain.PostUpdate;
@@ -21,7 +22,7 @@ class PostServiceTest {
     void setUp() {
         FakePostRepository fakePostRepository = new FakePostRepository();
         FakeUserRepository fakeUserRepository = new FakeUserRepository();
-        this.postService = PostService.builder()
+        this.postService = PostServiceImpl.builder()
                 .postRepository(fakePostRepository)
                 .userRepository(fakeUserRepository)
                 .clockHolder(new TestClockHolder(1679530673958L))

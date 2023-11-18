@@ -1,8 +1,8 @@
 package com.example.inflearn.post.controller;
 
+import com.example.inflearn.post.controller.port.PostService;
 import com.example.inflearn.post.controller.response.PostResponse;
 import com.example.inflearn.post.domain.PostUpdate;
-import com.example.inflearn.post.service.PostService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 

@@ -1,7 +1,6 @@
 package com.example.inflearn.user.service;
 
 import com.example.inflearn.mock.FakeMailSender;
-import com.example.inflearn.user.service.CertificationService;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -12,7 +11,7 @@ class CertificationServiceTest {
     void 이메일과_컨텐츠가_제대로_만들어져서_보내지는지_테스트한다() {
         // given
         final FakeMailSender mailSender = new FakeMailSender();
-        final CertificationService certificationService = new CertificationService(mailSender);
+        final CertificationServiceImpl certificationService = new CertificationServiceImpl(mailSender);
 
         // when
         final String email = "shyoon991@gmail.com";
