@@ -6,7 +6,7 @@ import com.shyoon.wms.inbound.feature.api.RegisterLPNApi;
 import com.shyoon.wms.inbound.feature.api.RejectInboundApi;
 import com.shyoon.wms.location.feature.api.AssignInventoryApi;
 import com.shyoon.wms.location.feature.api.RegisterLocationApi;
-import com.shyoon.wms.outbound.api.RegisterPackagingMaterialApi;
+import com.shyoon.wms.outbound.feature.api.RegisterPackagingMaterialApi;
 import com.shyoon.wms.product.feature.api.RegisterProductApi;
 
 public class Scenario {

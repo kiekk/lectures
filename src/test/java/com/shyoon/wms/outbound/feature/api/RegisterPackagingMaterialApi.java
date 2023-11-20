@@ -1,4 +1,4 @@
-package com.shyoon.wms.outbound.api;
+package com.shyoon.wms.outbound.feature.api;
 
 import com.shyoon.wms.common.Scenario;
 import com.shyoon.wms.outbound.domain.MaterialType;
