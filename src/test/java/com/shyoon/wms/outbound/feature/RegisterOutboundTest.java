@@ -1,5 +1,6 @@
 package com.shyoon.wms.outbound.feature;
 
+import com.shyoon.wms.inbound.domain.InboundRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -28,12 +29,16 @@ class RegisterOutboundTest {
                 desiredDeliveryAt
         );
         registerOutbound.request(request);
+
+        // TODO: 출고 등록 여부 검증
     }
 
     private class RegisterOutbound {
 
-        public void request(final Request request) {
+        private OrderRepository orderRepository;
 
+        public void request(final Request request) {
+            orderRepository.getBy(request.orderNo);
         }
 
         public static class Request {
@@ -53,6 +58,12 @@ class RegisterOutboundTest {
                 this.isPriorityDelivery = isPriorityDelivery;
                 this.desiredDeliveryAt = desiredDeliveryAt;
             }
+        }
+    }
+
+    private class OrderRepository {
+        public void getBy(final Long orderNo) {
+
         }
     }
 }
