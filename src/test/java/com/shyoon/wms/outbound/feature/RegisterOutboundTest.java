@@ -1,5 +1,7 @@
 package com.shyoon.wms.outbound.feature;
 
+import com.shyoon.wms.product.domain.Product;
+import com.shyoon.wms.product.domain.ProductRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -38,7 +40,20 @@ class RegisterOutboundTest {
         private OrderRepository orderRepository;
 
         public void request(final Request request) {
-            orderRepository.getBy(request.orderNo);
+            // 주문 정보 조회
+            final Order order = orderRepository.getBy(request.orderNo);
+
+            // 주문 정보에 맞는 상품의 재고가 충분한지 확인
+            // 충분하지 않으면 예외
+
+            // 출고에 사용할 포장재를 선택
+
+            // 출고 생성
+            for (OrderProduct orderProduct : order.orderProducts) {
+
+            }
+
+            // 출고 등록
         }
 
         public static class Request {
@@ -62,6 +77,9 @@ class RegisterOutboundTest {
     }
 
     private class OrderRepository {
+
+        private ProductRepository productRepository;
+
         public Order getBy(final Long orderNo) {
             final OrderCustomer orderCustomer = new OrderCustomer(
                     "name",
@@ -77,7 +95,7 @@ class RegisterOutboundTest {
             final Long unitPrice = 1L;
 
             final OrderProduct orderProduct = new OrderProduct(
-                    productNo,
+                    productRepository.getBy(productNo),
                     orderQuantity,
                     unitPrice
             );
@@ -88,16 +106,26 @@ class RegisterOutboundTest {
                     orderCustomer,
                     deliveryRequirements,
                     orderProducts
-                    );
+            );
         }
 
-        private class Order {
-            public Order(
-                    final Long orderNo,
-                    final OrderCustomer orderCustomer,
-                    final String deliveryRequirements,
-                    final List<OrderProduct> orderProducts) {
-            }
+    }
+
+    private class Order {
+        private final Long orderNo;
+        private final OrderCustomer orderCustomer;
+        private final String deliveryRequirements;
+        private final List<OrderProduct> orderProducts;
+
+        public Order(
+                final Long orderNo,
+                final OrderCustomer orderCustomer,
+                final String deliveryRequirements,
+                final List<OrderProduct> orderProducts) {
+            this.orderNo = orderNo;
+            this.orderCustomer = orderCustomer;
+            this.deliveryRequirements = deliveryRequirements;
+            this.orderProducts = orderProducts;
         }
     }
 
@@ -124,16 +152,16 @@ class RegisterOutboundTest {
     }
 
     private class OrderProduct {
-        private final Long productNo;
+        private final Product product;
         private final Long orderQuantity;
         private final Long unitPrice;
 
         public OrderProduct(
-                final Long productNo,
+                final Product product,
                 final Long orderQuantity,
                 final Long unitPrice) {
 
-            this.productNo = productNo;
+            this.product = product;
             this.orderQuantity = orderQuantity;
             this.unitPrice = unitPrice;
         }
