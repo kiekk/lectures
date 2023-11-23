@@ -8,7 +8,9 @@ import org.junit.jupiter.api.Test;
 import org.springframework.util.Assert;
 
 import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 class RegisterOutboundTest {
 
@@ -38,6 +40,7 @@ class RegisterOutboundTest {
     private class RegisterOutbound {
 
         private OrderRepository orderRepository;
+        private OutboundRepository outboundRepository;
 
         public void request(final Request request) {
             // 주문 정보 조회
@@ -66,6 +69,7 @@ class RegisterOutboundTest {
             );
 
             // 출고 등록
+            outboundRepository.save(outbound);
         }
 
         public static class Request {
@@ -195,7 +199,10 @@ class RegisterOutboundTest {
             this.unitPrice = unitPrice;
         }
 
-        private void validateConstructor(Product product, Long orderQuantity, Long unitPrice) {
+        private void validateConstructor(
+                final Product product,
+                final Long orderQuantity,
+                final Long unitPrice) {
             Assert.notNull(product, "상품은 필수입니다.");
             Assert.notNull(product, "주문 수량은 필수입니다.");
             if (orderQuantity < 1) {
@@ -210,6 +217,8 @@ class RegisterOutboundTest {
     }
 
     private class Outbound {
+
+        private Long outboundNo;
         private final Long orderNo;
         private final OrderCustomer orderCustomer;
         private final String deliveryRequirements;
@@ -234,13 +243,38 @@ class RegisterOutboundTest {
             this.desiredDeliveryAt = desiredDeliveryAt;
         }
 
-        private void validateConstructor(Long orderNo, OrderCustomer orderCustomer, String deliveryRequirements, List<OutboundProduct> outboundProducts, Boolean isPriorityDelivery, LocalDate desiredDeliveryAt) {
+        private void validateConstructor(
+                final Long orderNo,
+                final OrderCustomer orderCustomer,
+                final String deliveryRequirements,
+                final List<OutboundProduct> outboundProducts,
+                final Boolean isPriorityDelivery,
+                final LocalDate desiredDeliveryAt) {
             Assert.notNull(orderNo, "주문번호는 필수입니다.");
             Assert.notNull(orderCustomer, "주문고객은 필수입니다.");
             Assert.notNull(deliveryRequirements, "배송요구사항은 필수입니다.");
             Assert.notEmpty(outboundProducts, "출고상품은 필수입니다.");
             Assert.notNull(isPriorityDelivery, "우선출고여부는 필수입니다.");
             Assert.notNull(desiredDeliveryAt, "희망출고일은 필수입니다.");
+        }
+
+        public void assignNo(final Long outboundNo) {
+            this.outboundNo = outboundNo;
+        }
+
+        public Long getOutboundNo() {
+            return outboundNo;
+        }
+    }
+
+    private class OutboundRepository {
+
+        private final Map<Long, Outbound> outbounds = new HashMap<>();
+        private Long sequence = 1L;
+
+        public void save(final Outbound outbound) {
+            outbound.assignNo(sequence++);
+            outbounds.put(outbound.getOutboundNo(), outbound);
         }
     }
 }
