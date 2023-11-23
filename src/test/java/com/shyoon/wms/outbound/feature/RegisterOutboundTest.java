@@ -1,29 +1,42 @@
 package com.shyoon.wms.outbound.feature;
 
 import com.shyoon.wms.product.domain.Product;
+import com.shyoon.wms.product.domain.ProductFixture;
 import com.shyoon.wms.product.domain.ProductRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 import org.springframework.util.Assert;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.ArgumentMatchers.anyLong;
+
 class RegisterOutboundTest {
 
     private RegisterOutbound registerOutbound;
+    private OrderRepository orderRepository;
+    private OutboundRepository outboundRepository;
+    private ProductRepository productRepository;
 
     @BeforeEach
     void setUp() {
-        registerOutbound = new RegisterOutbound();
+        productRepository = Mockito.mock(ProductRepository.class);
+        orderRepository = new OrderRepository(productRepository);
+        outboundRepository = new OutboundRepository();
+        registerOutbound = new RegisterOutbound(orderRepository, outboundRepository);
     }
 
     @Test
     @DisplayName("출고를 등록한다.")
     void registerOutboundTest() {
+        // given
         final Long orderNo = 1L;
         final Boolean isPriorityDelivery = false;
         final LocalDate desiredDeliveryAt = LocalDate.now();
@@ -32,15 +45,26 @@ class RegisterOutboundTest {
                 isPriorityDelivery,
                 desiredDeliveryAt
         );
+        Mockito.when(productRepository.getBy(anyLong()))
+                .thenReturn(ProductFixture.aProduct().build());
+
+        // when
         registerOutbound.request(request);
 
+        // then
         // TODO: 출고 등록 여부 검증
+        assertThat(outboundRepository.findAll()).hasSize(1);
     }
 
     private class RegisterOutbound {
 
-        private OrderRepository orderRepository;
-        private OutboundRepository outboundRepository;
+        private final OrderRepository orderRepository;
+        private final OutboundRepository outboundRepository;
+
+        private RegisterOutbound(OrderRepository orderRepository, OutboundRepository outboundRepository) {
+            this.orderRepository = orderRepository;
+            this.outboundRepository = outboundRepository;
+        }
 
         public void request(final Request request) {
             // 주문 정보 조회
@@ -94,7 +118,11 @@ class RegisterOutboundTest {
 
     private class OrderRepository {
 
-        private ProductRepository productRepository;
+        private final ProductRepository productRepository;
+
+        private OrderRepository(ProductRepository productRepository) {
+            this.productRepository = productRepository;
+        }
 
         public Order getBy(final Long orderNo) {
             final OrderCustomer orderCustomer = new OrderCustomer(
@@ -275,6 +303,10 @@ class RegisterOutboundTest {
         public void save(final Outbound outbound) {
             outbound.assignNo(sequence++);
             outbounds.put(outbound.getOutboundNo(), outbound);
+        }
+
+        public List<Outbound> findAll() {
+            return new ArrayList<>(outbounds.values());
         }
     }
 }
