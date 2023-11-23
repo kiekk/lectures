@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.util.Assert;
 
 import java.time.LocalDate;
+import java.util.List;
 
 class RegisterOutboundTest {
 
@@ -61,13 +62,32 @@ class RegisterOutboundTest {
     }
 
     private class OrderRepository {
-        public void getBy(final Long orderNo) {
-            final OrderCustomer orderCustomer = new OrderCustomer();
+        public Order getBy(final Long orderNo) {
+            final OrderCustomer orderCustomer = new OrderCustomer(
+                    "name",
+                    "email",
+                    "phone",
+                    "zipNo",
+                    "address"
+            );
             final String deliveryRequirements = "배송 요구사항";
-            new Order(
+
+            final Long productNo = 1L;
+            final Long orderQuantity = 1500L;
+            final Long unitPrice = 1L;
+
+            final OrderProduct orderProduct = new OrderProduct(
+                    productNo,
+                    orderQuantity,
+                    unitPrice
+            );
+            final List<OrderProduct> orderProducts = List.of(orderProduct);
+
+            return new Order(
                     orderNo,
                     orderCustomer,
-                    deliveryRequirements
+                    deliveryRequirements,
+                    orderProducts
                     );
         }
 
@@ -75,11 +95,47 @@ class RegisterOutboundTest {
             public Order(
                     final Long orderNo,
                     final OrderCustomer orderCustomer,
-                    final String deliveryRequirements) {
+                    final String deliveryRequirements,
+                    final List<OrderProduct> orderProducts) {
             }
         }
     }
 
     private class OrderCustomer {
+        private final String name;
+        private final String email;
+        private final String phone;
+        private final String zipNo;
+        private final String address;
+
+        public OrderCustomer(
+                final String name,
+                final String email,
+                final String phone,
+                final String zipNo,
+                final String address) {
+
+            this.name = name;
+            this.email = email;
+            this.phone = phone;
+            this.zipNo = zipNo;
+            this.address = address;
+        }
+    }
+
+    private class OrderProduct {
+        private final Long productNo;
+        private final Long orderQuantity;
+        private final Long unitPrice;
+
+        public OrderProduct(
+                final Long productNo,
+                final Long orderQuantity,
+                final Long unitPrice) {
+
+            this.productNo = productNo;
+            this.orderQuantity = orderQuantity;
+            this.unitPrice = unitPrice;
+        }
     }
 }
