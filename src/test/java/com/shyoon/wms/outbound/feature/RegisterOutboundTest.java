@@ -1,6 +1,5 @@
 package com.shyoon.wms.outbound.feature;
 
-import com.shyoon.wms.inbound.domain.InboundRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -63,7 +62,24 @@ class RegisterOutboundTest {
 
     private class OrderRepository {
         public void getBy(final Long orderNo) {
-
+            final OrderCustomer orderCustomer = new OrderCustomer();
+            final String deliveryRequirements = "배송 요구사항";
+            new Order(
+                    orderNo,
+                    orderCustomer,
+                    deliveryRequirements
+                    );
         }
+
+        private class Order {
+            public Order(
+                    final Long orderNo,
+                    final OrderCustomer orderCustomer,
+                    final String deliveryRequirements) {
+            }
+        }
+    }
+
+    private class OrderCustomer {
     }
 }
