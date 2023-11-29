@@ -4,6 +4,7 @@ import com.shyoon.wms.location.domain.Location;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Comment;
 import org.springframework.util.Assert;
@@ -38,6 +39,7 @@ public class LPN {
 
     @Column(name = "expiration_at", nullable = false)
     @Comment("유통기한")
+    @Getter
     private LocalDateTime expirationAt;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -67,5 +69,9 @@ public class LPN {
 
     public void assignLocation(final Location location) {
 
+    }
+
+    public Long getProductNo() {
+        return inboundItem.getProductNo();
     }
 }

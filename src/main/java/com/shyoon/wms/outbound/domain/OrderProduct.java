@@ -19,4 +19,7 @@ public class OrderProduct {
         this.unitPrice = unitPrice;
     }
 
+    public Long getProductNo() {
+        return product.getProductNo();
+    }
 }

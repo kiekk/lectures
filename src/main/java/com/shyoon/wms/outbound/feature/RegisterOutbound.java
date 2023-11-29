@@ -1,5 +1,6 @@
 package com.shyoon.wms.outbound.feature;
 
+import com.shyoon.wms.location.domain.InventoryRepository;
 import com.shyoon.wms.outbound.domain.*;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
@@ -20,37 +21,49 @@ public class RegisterOutbound {
 
     private final OrderRepository orderRepository;
     private final OutboundRepository outboundRepository;
+    private final InventoryRepository inventoryRepository;
 
     @PostMapping("/outbounds")
     @ResponseStatus(HttpStatus.CREATED)
     public void request(@RequestBody @Valid final Request request) {
         // 주문 정보 조회
         final Order order = orderRepository.getBy(request.orderNo);
+        final List<Inventories> inventoriesList = getInventoriesList(order.getOrderProducts());
 
         // 주문 정보에 맞는 상품의 재고가 충분한지 확인
         // 충분하지 않으면 예외
-
-        // 출고에 사용할 포장재를 선택
+        inventoriesList.forEach(Inventories::validateInventory);
 
         // 출고 생성
-        final List<OutboundProduct> outboundProducts = order.getOrderProducts().stream()
-                .map(orderProduct -> new OutboundProduct(
-                        orderProduct.getProduct(),
-                        orderProduct.getOrderQuantity(),
-                        orderProduct.getUnitPrice()))
-                .toList();
-
-        final Outbound outbound = new Outbound(
-                order.getOrderNo(),
-                order.getOrderCustomer(),
-                order.getDeliveryRequirements(),
-                outboundProducts,
-                request.isPriorityDelivery,
-                request.desiredDeliveryAt
-        );
+        final Outbound outbound = createOutbound(request, order);
 
         // 출고 등록
         outboundRepository.save(outbound);
+    }
+
+    private static Outbound createOutbound(final Request request,
+                                           final Order order) {
+        return new Outbound(
+                order.getOrderNo(),
+                order.getOrderCustomer(),
+                order.getDeliveryRequirements(),
+                order.getOrderProducts().stream()
+                        .map(orderProduct -> new OutboundProduct(
+                                orderProduct.getProduct(),
+                                orderProduct.getOrderQuantity(),
+                                orderProduct.getUnitPrice()))
+                        .toList(),
+                request.isPriorityDelivery,
+                request.desiredDeliveryAt
+        );
+    }
+
+    private List<Inventories> getInventoriesList(final List<OrderProduct> orderProducts) {
+        return orderProducts.stream()
+                .map(orderProduct -> new Inventories(
+                        inventoryRepository.findByProductNo(orderProduct.getProductNo())
+                        , orderProduct.getOrderQuantity()))
+                .toList();
     }
 
     public record Request(

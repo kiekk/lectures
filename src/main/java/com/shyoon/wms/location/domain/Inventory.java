@@ -36,6 +36,10 @@ public class Inventory {
     @Comment("재고")
     private Long inventoryQuantity;
 
+    @Column(name = "product_no", nullable = false)
+    @Comment("상품 번호")
+    private Long productNo;
+
     public Inventory(
             final Location location,
             final LPN lpn) {
@@ -44,6 +48,7 @@ public class Inventory {
         this.location = location;
         this.lpn = lpn;
         this.inventoryQuantity = 1L;
+        this.productNo = lpn.getProductNo();
     }
 
     void increaseQuantity() {
