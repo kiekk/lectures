@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -35,9 +34,10 @@ public class RegisterOutbound {
         // 충분하지 않으면 예외
         for (OrderProduct orderProduct : order.getOrderProducts()) {
             // 해당 상품의 재고를 전부 가져온다.
-            final List<Inventory> inventories = inventoryRepository.findByProductNo(orderProduct.getProductNo());
-
-            validateInventory(inventories, orderProduct.getOrderQuantity());
+            final Inventories inventories = new Inventories(
+                    inventoryRepository.findByProductNo(orderProduct.getProductNo())
+                    , orderProduct.getOrderQuantity());
+            inventories.validateInventory();
         }
 
         // 출고에 사용할 포장재를 선택
@@ -61,22 +61,6 @@ public class RegisterOutbound {
 
         // 출고 등록
         outboundRepository.save(outbound);
-    }
-
-    void validateInventory(final List<Inventory> inventories,
-                           final Long orderQuantity) {
-        final long totalInventoryQuantity = inventories.stream()
-                .filter(i -> 0L < i.getInventoryQuantity())
-                .filter(i -> i.getLpn().getExpirationAt().isAfter(LocalDateTime.now()))
-                .mapToLong(Inventory::getInventoryQuantity)
-                .sum();
-
-        // 재고가 주문한 수량보다 적을 경우 예외
-        if (totalInventoryQuantity < orderQuantity) {
-            throw new IllegalArgumentException(
-                    "재고가 부족합니다. 재고 수량:%d, 주문 수량:%d".formatted(totalInventoryQuantity, orderQuantity)
-            );
-        }
     }
 
     public record Request(
