@@ -1,6 +1,5 @@
 package com.shyoon.wms.outbound.feature;
 
-import com.shyoon.wms.location.domain.Inventory;
 import com.shyoon.wms.location.domain.InventoryRepository;
 import com.shyoon.wms.outbound.domain.*;
 import jakarta.validation.Valid;
@@ -32,13 +31,7 @@ public class RegisterOutbound {
 
         // 주문 정보에 맞는 상품의 재고가 충분한지 확인
         // 충분하지 않으면 예외
-        for (OrderProduct orderProduct : order.getOrderProducts()) {
-            // 해당 상품의 재고를 전부 가져온다.
-            final Inventories inventories = new Inventories(
-                    inventoryRepository.findByProductNo(orderProduct.getProductNo())
-                    , orderProduct.getOrderQuantity());
-            inventories.validateInventory();
-        }
+        validateInventory(order.getOrderProducts());
 
         // 출고에 사용할 포장재를 선택
 
@@ -61,6 +54,14 @@ public class RegisterOutbound {
 
         // 출고 등록
         outboundRepository.save(outbound);
+    }
+
+    private void validateInventory(final List<OrderProduct> orderProducts) {
+        orderProducts.stream()
+                .map(orderProduct -> new Inventories(
+                        inventoryRepository.findByProductNo(orderProduct.getProductNo())
+                        , orderProduct.getOrderQuantity()))
+                .forEach(Inventories::validateInventory);
     }
 
     public record Request(
