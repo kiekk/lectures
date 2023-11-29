@@ -131,4 +131,8 @@ public class InboundItem {
     public List<LPN> testingGetLpnList() {
         return lpnList;
     }
+
+    public Long getProductNo() {
+        return product.getProductNo();
+    }
 }
