@@ -23,7 +23,7 @@ public class OutboundProduct {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "product_no", nullable = false)
-    @Comment("출고 번호")
+    @Comment("출고 상품")
     private Product product;
 
     @Column(name = "order_quantity", nullable = false)
