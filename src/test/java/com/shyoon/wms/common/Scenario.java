@@ -6,6 +6,8 @@ import com.shyoon.wms.inbound.feature.api.RegisterLPNApi;
 import com.shyoon.wms.inbound.feature.api.RejectInboundApi;
 import com.shyoon.wms.location.feature.api.AssignInventoryApi;
 import com.shyoon.wms.location.feature.api.RegisterLocationApi;
+import com.shyoon.wms.outbound.feature.RegisterOutbound;
+import com.shyoon.wms.outbound.feature.api.RegisterOutboundApi;
 import com.shyoon.wms.outbound.feature.api.RegisterPackagingMaterialApi;
 import com.shyoon.wms.product.feature.api.RegisterProductApi;
 
@@ -40,5 +42,9 @@ public class Scenario {
 
     public static RegisterPackagingMaterialApi registerPackagingMaterial() {
         return new RegisterPackagingMaterialApi();
+    }
+
+    public RegisterOutboundApi registerOutbound() {
+        return new RegisterOutboundApi();
     }
 }
