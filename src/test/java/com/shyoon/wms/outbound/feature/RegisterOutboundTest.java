@@ -1,38 +1,38 @@
 package com.shyoon.wms.outbound.feature;
 
+import com.shyoon.wms.common.ApiTest;
+import com.shyoon.wms.common.Scenario;
 import com.shyoon.wms.outbound.domain.OrderRepository;
 import com.shyoon.wms.outbound.domain.OutboundRepository;
-import com.shyoon.wms.product.domain.ProductFixture;
 import com.shyoon.wms.product.domain.ProductRepository;
-import org.junit.jupiter.api.BeforeEach;
+import io.restassured.RestAssured;
+import io.restassured.http.ContentType;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 
 import java.time.LocalDate;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.ArgumentMatchers.anyLong;
 
-class RegisterOutboundTest {
+class RegisterOutboundTest extends ApiTest {
 
-    private RegisterOutbound registerOutbound;
+    @Autowired
     private OrderRepository orderRepository;
-    private OutboundRepository outboundRepository;
-    private ProductRepository productRepository;
 
-    @BeforeEach
-    void setUp() {
-        productRepository = Mockito.mock(ProductRepository.class);
-        orderRepository = new OrderRepository(productRepository);
-        outboundRepository = new OutboundRepository();
-        registerOutbound = new RegisterOutbound(orderRepository, outboundRepository);
-    }
+    @Autowired
+    private OutboundRepository outboundRepository;
+
+    @Autowired
+    private ProductRepository productRepository;
 
     @Test
     @DisplayName("출고를 등록한다.")
     void registerOutboundTest() {
         // given
+        Scenario.registerProduct().request();
+
         final Long orderNo = 1L;
         final Boolean isPriorityDelivery = false;
         final LocalDate desiredDeliveryAt = LocalDate.now();
@@ -41,11 +41,15 @@ class RegisterOutboundTest {
                 isPriorityDelivery,
                 desiredDeliveryAt
         );
-        Mockito.when(productRepository.getBy(anyLong()))
-                .thenReturn(ProductFixture.aProduct().build());
 
         // when
-        registerOutbound.request(request);
+        RestAssured.given().log().all()
+                .contentType(ContentType.JSON)
+                .body(request)
+                .when()
+                .post("/outbounds")
+                .then().log().all()
+                .statusCode(HttpStatus.CREATED.value());
 
         // then
         assertThat(outboundRepository.findAll()).hasSize(1);

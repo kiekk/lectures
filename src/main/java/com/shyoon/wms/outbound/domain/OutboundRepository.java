@@ -1,10 +1,13 @@
 package com.shyoon.wms.outbound.domain;
 
+import org.springframework.stereotype.Component;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@Component
 public class OutboundRepository {
 
     private final Map<Long, Outbound> outbounds = new HashMap<>();

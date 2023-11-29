@@ -1,22 +1,29 @@
 package com.shyoon.wms.outbound.feature;
 
 import com.shyoon.wms.outbound.domain.*;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.util.Assert;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDate;
 import java.util.List;
 
+@RestController
+@RequiredArgsConstructor
 public class RegisterOutbound {
 
     private final OrderRepository orderRepository;
     private final OutboundRepository outboundRepository;
 
-    public RegisterOutbound(OrderRepository orderRepository, OutboundRepository outboundRepository) {
-        this.orderRepository = orderRepository;
-        this.outboundRepository = outboundRepository;
-    }
-
-    public void request(final Request request) {
+    @PostMapping("/outbounds")
+    @ResponseStatus(HttpStatus.CREATED)
+    public void request(@RequestBody @Valid final Request request) {
         // 주문 정보 조회
         final Order order = orderRepository.getBy(request.orderNo);
 
@@ -46,22 +53,18 @@ public class RegisterOutbound {
         outboundRepository.save(outbound);
     }
 
-    public static class Request {
-        private final Long orderNo;
-        private final Boolean isPriorityDelivery;
-        private final LocalDate desiredDeliveryAt;
-
-        public Request(
-                final Long orderNo,
-                final Boolean isPriorityDelivery,
-                final LocalDate desiredDeliveryAt) {
+    public record Request(
+            @NotNull(message = "주문번호는 필수입니다.")
+            Long orderNo,
+            @NotNull(message = "우선출고여부는 필수입니다.")
+            Boolean isPriorityDelivery,
+            @NotNull(message = "희망출고일은 필수입니다.")
+            LocalDate desiredDeliveryAt
+    ) {
+        public Request {
             Assert.notNull(orderNo, "주문번호는 필수입니다.");
             Assert.notNull(isPriorityDelivery, "우선출고여부는 필수입니다.");
             Assert.notNull(desiredDeliveryAt, "희망출고일은 필수입니다.");
-
-            this.orderNo = orderNo;
-            this.isPriorityDelivery = isPriorityDelivery;
-            this.desiredDeliveryAt = desiredDeliveryAt;
         }
     }
 }

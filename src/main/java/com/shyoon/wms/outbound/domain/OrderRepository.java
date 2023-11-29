@@ -1,9 +1,12 @@
 package com.shyoon.wms.outbound.domain;
 
 import com.shyoon.wms.product.domain.ProductRepository;
+import org.hibernate.annotations.Comment;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+@Component
 public class OrderRepository {
 
     private final ProductRepository productRepository;
