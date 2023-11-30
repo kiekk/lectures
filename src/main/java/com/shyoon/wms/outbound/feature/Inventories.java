@@ -2,14 +2,13 @@ package com.shyoon.wms.outbound.feature;
 
 import com.shyoon.wms.location.domain.Inventory;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 public record Inventories(List<Inventory> inventories, Long orderQuantity) {
     void validateInventory() {
         final long totalInventoryQuantity = inventories().stream()
-                .filter(this::hasInventory)
-                .filter(this::isFresh)
+                .filter(Inventory::hasInventory)
+                .filter(Inventory::isFresh)
                 .mapToLong(Inventory::getInventoryQuantity)
                 .sum();
 
@@ -21,11 +20,4 @@ public record Inventories(List<Inventory> inventories, Long orderQuantity) {
         }
     }
 
-    private boolean isFresh(Inventory i) {
-        return i.getLpn().getExpirationAt().isAfter(LocalDateTime.now());
-    }
-
-    private boolean hasInventory(Inventory i) {
-        return 0L < i.getInventoryQuantity();
-    }
 }

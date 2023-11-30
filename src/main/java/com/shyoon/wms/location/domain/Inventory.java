@@ -8,6 +8,8 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Comment;
 import org.springframework.util.Assert;
 
+import java.time.LocalDateTime;
+
 @Entity
 @Table(name = "inventory")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -57,5 +59,13 @@ public class Inventory {
 
     boolean matchLPNToLocation(LPN lpn) {
         return this.lpn.equals(lpn);
+    }
+
+    public boolean isFresh() {
+        return lpn.isFresh();
+    }
+
+    public boolean hasInventory() {
+        return 0L < getInventoryQuantity();
     }
 }
