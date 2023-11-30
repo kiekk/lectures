@@ -1,7 +1,8 @@
 package com.shyoon.wms.outbound.feature;
 
 import com.shyoon.wms.inbound.domain.LPNFixture;
-import com.shyoon.wms.location.domain.Inventory;
+import com.shyoon.wms.location.domain.InventoriesFixture;
+import com.shyoon.wms.location.domain.InventoryFixture;
 import com.shyoon.wms.location.domain.LocationFixture;
 import com.shyoon.wms.outbound.domain.*;
 import org.junit.jupiter.api.BeforeEach;
@@ -48,12 +49,9 @@ class RegisterOutboundUnitTest {
 
     @Test
     void createOutbound() {
-        final Inventory inventory = new Inventory(LocationFixture.aLocation().build(), LPNFixture.anLPN().build());
         final Order order = OrderFixture.anOrder().build();
-        final Inventories inventories = new Inventories(List.of(inventory), 1L);
+        final Inventories inventories = InventoriesFixture.anInventories().build();
         final PackagingMaterial packagingMaterial = PackagingMaterialFixture.aPackagingMaterial().build();
-
-
         final List<Inventories> inventoriesList = List.of(inventories);
         final List<PackagingMaterial> packagingMaterials = List.of(packagingMaterial);
         final Outbound outbound = registerOutbound.createOutbound(
@@ -68,20 +66,13 @@ class RegisterOutboundUnitTest {
 
     @Test
     void fail_over_quantity_createOutbound() {
-        final Inventory inventory = new Inventory(LocationFixture.aLocation().build(), LPNFixture.anLPN().build());
-        final Order order = OrderFixture.anOrder().build();
-        final Inventories inventories = new Inventories(List.of(inventory), 3L);
-        final PackagingMaterial packagingMaterial = PackagingMaterialFixture.aPackagingMaterial().build();
-
-
-        final List<Inventories> inventoriesList = List.of(inventories);
-        final List<PackagingMaterial> packagingMaterials = List.of(packagingMaterial);
-
         assertThatThrownBy(() ->
                 registerOutbound.createOutbound(
-                        inventoriesList,
-                        packagingMaterials,
-                        order,
+                        List.of(InventoriesFixture.anInventories().build()),
+                        List.of(PackagingMaterialFixture.aPackagingMaterial().build()),
+                        OrderFixture.anOrder().orderProduct(
+                                OrderProductFixture.anOrderProduct().orderQuantity(3L)
+                        ).build(),
                         false,
                         LocalDate.now()))
                 .isInstanceOf(IllegalArgumentException.class)
@@ -90,12 +81,14 @@ class RegisterOutboundUnitTest {
 
     @Test
     void expire_createOutbound() {
-        final Inventory inventory = new Inventory(LocationFixture.aLocation().build(), LPNFixture.anLPN().expirationAt(LocalDateTime.now().minusDays(1)).build());
         final Order order = OrderFixture.anOrder().build();
-        final Inventories inventories = new Inventories(List.of(inventory), 1L);
+        final Inventories inventories = InventoriesFixture.anInventories()
+                .inventories(
+                        InventoryFixture.anInventory()
+                                .lpn(LPNFixture.anLPN().expirationAt(LocalDateTime.now().minusDays(1)))
+                                .location(LocationFixture.aLocation()))
+                .build();
         final PackagingMaterial packagingMaterial = PackagingMaterialFixture.aPackagingMaterial().build();
-
-
         final List<Inventories> inventoriesList = List.of(inventories);
         final List<PackagingMaterial> packagingMaterials = List.of(packagingMaterial);
 
@@ -112,12 +105,9 @@ class RegisterOutboundUnitTest {
 
     @Test
     void over_max_weight_createOutbound() {
-        final Inventory inventory = new Inventory(LocationFixture.aLocation().build(), LPNFixture.anLPN().build());
         final Order order = OrderFixture.anOrder().build();
-        final Inventories inventories = new Inventories(List.of(inventory), 1L);
+        final Inventories inventories = InventoriesFixture.anInventories().build();
         final PackagingMaterial packagingMaterial = PackagingMaterialFixture.aPackagingMaterial().maxWeightInGrams(1L).build();
-
-
         final List<Inventories> inventoriesList = List.of(inventories);
         final List<PackagingMaterial> packagingMaterials = List.of(packagingMaterial);
 

@@ -1,5 +1,6 @@
 package com.shyoon.wms.location.domain;
 
+import com.google.common.annotations.VisibleForTesting;
 import com.shyoon.wms.inbound.domain.LPN;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
@@ -7,8 +8,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Comment;
 import org.springframework.util.Assert;
-
-import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "inventory")
@@ -52,6 +51,16 @@ public class Inventory {
         this.lpn = lpn;
         this.inventoryQuantity = 1L;
         this.productNo = lpn.getProductNo();
+    }
+
+    @VisibleForTesting
+    Inventory(final Long inventoryNo,
+              final Location location,
+              final LPN lpn,
+              final Long inventoryQuantity) {
+        this(location, lpn);
+        this.inventoryNo = inventoryNo;
+        this.inventoryQuantity = inventoryQuantity;
     }
 
     void increaseQuantity() {

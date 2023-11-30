@@ -6,11 +6,9 @@ import java.util.List;
 
 public final class Inventories {
     private final List<Inventory> inventories;
-    private final Long orderQuantity;
 
-    public Inventories(List<Inventory> inventories, Long orderQuantity) {
+    public Inventories(List<Inventory> inventories) {
         this.inventories = inventories;
-        this.orderQuantity = orderQuantity;
     }
 
     void validateInventory(Long orderQuantity) {
