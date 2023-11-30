@@ -43,13 +43,18 @@ public class Outbound {
     @Comment("희망 출고일")
     private LocalDate desiredDeliveryAt;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "packaging_material_no")
+    private PackagingMaterial recommendedPackagingMaterial;
+
     public Outbound(
             final Long orderNo,
             final OrderCustomer orderCustomer,
             final String deliveryRequirements,
             final List<OutboundProduct> outboundProducts,
             final Boolean isPriorityDelivery,
-            final LocalDate desiredDeliveryAt) {
+            final LocalDate desiredDeliveryAt,
+            final PackagingMaterial recommendedPackagingMaterial) {
         validateConstructor(orderNo, orderCustomer, deliveryRequirements, outboundProducts, isPriorityDelivery, desiredDeliveryAt);
 
         this.orderNo = orderNo;
@@ -58,6 +63,7 @@ public class Outbound {
         this.outboundProducts = outboundProducts;
         this.isPriorityDelivery = isPriorityDelivery;
         this.desiredDeliveryAt = desiredDeliveryAt;
+        this.recommendedPackagingMaterial = recommendedPackagingMaterial;
         outboundProducts.forEach(outboundProduct -> outboundProduct.assignOutbound(this));
     }
 

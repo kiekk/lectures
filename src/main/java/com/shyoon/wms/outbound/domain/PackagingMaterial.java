@@ -30,7 +30,7 @@ public class PackagingMaterial {
 
     @Embedded
     @Comment("포장재 치수")
-    private PackagingMaterialDemension packagingMaterialDemension;
+    private PackagingMaterialDimension packagingMaterialDimension;
 
     @Column(name = "weight", nullable = false)
     @Comment("무게")
@@ -47,15 +47,15 @@ public class PackagingMaterial {
     public PackagingMaterial(
             final String name,
             final String code,
-            final PackagingMaterialDemension packagingMaterialDemension,
+            final PackagingMaterialDimension packagingMaterialDimension,
             final Long weightInGrams,
             final Long maxWeightInGrams,
             final MaterialType materialType) {
-        validateConstructor(name, code, packagingMaterialDemension, weightInGrams, maxWeightInGrams, materialType);
+        validateConstructor(name, code, packagingMaterialDimension, weightInGrams, maxWeightInGrams, materialType);
 
         this.name = name;
         this.code = code;
-        this.packagingMaterialDemension = packagingMaterialDemension;
+        this.packagingMaterialDimension = packagingMaterialDimension;
         this.weightInGrams = weightInGrams;
         this.maxWeightInGrams = maxWeightInGrams;
         this.materialType = materialType;
@@ -64,13 +64,13 @@ public class PackagingMaterial {
     private void validateConstructor(
             final String name,
             final String code,
-            final PackagingMaterialDemension packagingMaterialDemension,
+            final PackagingMaterialDimension packagingMaterialDimension,
             final Long weightInGrams,
             final Long maxWeightInGrams,
             final MaterialType materialType) {
         Assert.hasText(name, "포장재 이름은 필수입니다.");
         Assert.hasText(code, "포장재 코드는 필수입니다.");
-        Assert.notNull(packagingMaterialDemension, "포장재 치수는 필수입니다.");
+        Assert.notNull(packagingMaterialDimension, "포장재 치수는 필수입니다.");
         Assert.notNull(weightInGrams, "무게는 필수입니다.");
         Assert.notNull(maxWeightInGrams, "최대 무게는 필수입니다.");
         Assert.notNull(materialType, "포장재 종류는 필수입니다.");
@@ -80,4 +80,11 @@ public class PackagingMaterial {
         this.packagingMaterialNo = packagingMaterialNo;
     }
 
+    public boolean isAvailable(Long totalWeight, Long totalVolume) {
+        return maxWeightInGrams >= totalWeight && packagingMaterialDimension.isAvailable(totalVolume);
+    }
+
+    public Long outerVolume() {
+        return packagingMaterialDimension.outerVolume();
+    }
 }
