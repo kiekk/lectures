@@ -4,8 +4,16 @@ import com.shyoon.wms.location.domain.Inventory;
 
 import java.util.List;
 
-public record Inventories(List<Inventory> inventories, Long orderQuantity) {
-    void validateInventory() {
+public final class Inventories {
+    private final List<Inventory> inventories;
+    private final Long orderQuantity;
+
+    public Inventories(List<Inventory> inventories, Long orderQuantity) {
+        this.inventories = inventories;
+        this.orderQuantity = orderQuantity;
+    }
+
+    void validateInventory(Long orderQuantity) {
         final long totalInventoryQuantity = calculateTotalFreshInventory();
         // 재고가 주문한 수량보다 적을 경우 예외
         if (totalInventoryQuantity < orderQuantity) {
@@ -16,7 +24,7 @@ public record Inventories(List<Inventory> inventories, Long orderQuantity) {
     }
 
     private long calculateTotalFreshInventory() {
-        return inventories().stream()
+        return inventories.stream()
                 .filter(Inventory::hasInventory)
                 .filter(Inventory::isFresh)
                 .mapToLong(Inventory::getInventoryQuantity)
@@ -27,4 +35,5 @@ public record Inventories(List<Inventory> inventories, Long orderQuantity) {
         return inventories.stream()
                 .anyMatch(i -> i.getProductNo().equals(productNo));
     }
+
 }

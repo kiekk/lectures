@@ -45,13 +45,10 @@ public class RegisterOutbound {
                             final Boolean isPriorityDelivery,
                             final LocalDate desiredDeliveryAt) {
         for (OrderProduct orderProduct : order.getOrderProducts()) {
-            final Inventories inventories = inventoriesList.stream()
-                    .filter(i -> i.equalsProductNo(orderProduct.getProductNo()))
-                    .findFirst()
-                    .orElseThrow();
-            inventories.validateInventory();
+            final Inventories inventories = getInventories(inventoriesList, orderProduct);
+            inventories.validateInventory(orderProduct.getOrderQuantity());
         }
-        inventoriesList.forEach(Inventories::validateInventory);
+
         final PackagingMaterial optimalPackagingMaterial = new PackagingMaterials(packagingMaterials)
                 .getOptimalPackagingMaterial(order.totalWeight(), order.totalVolume());
         return createOutbound(
@@ -59,6 +56,14 @@ public class RegisterOutbound {
                 optimalPackagingMaterial,
                 isPriorityDelivery,
                 desiredDeliveryAt);
+    }
+
+    private Inventories getInventories(final List<Inventories> inventoriesList,
+                                       final OrderProduct orderProduct) {
+        return inventoriesList.stream()
+                .filter(i -> i.equalsProductNo(orderProduct.getProductNo()))
+                .findFirst()
+                .orElseThrow();
     }
 
     Outbound createOutbound(final Order order,

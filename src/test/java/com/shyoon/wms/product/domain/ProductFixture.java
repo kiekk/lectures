@@ -1,6 +1,8 @@
 package com.shyoon.wms.product.domain;
 
 public class ProductFixture {
+
+    private Long productNo = 1L;
     private String name = "name";
     private String code = "code";
     private String description = "description";
@@ -14,6 +16,11 @@ public class ProductFixture {
 
     public static ProductFixture aProduct() {
         return new ProductFixture();
+    }
+
+    public ProductFixture productNo(final Long productNo) {
+        this.productNo = productNo;
+        return this;
     }
 
     public ProductFixture name(final String name) {
@@ -68,6 +75,7 @@ public class ProductFixture {
 
     public Product build() {
         return new Product(
+                productNo,
                 name,
                 code,
                 description,

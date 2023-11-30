@@ -10,7 +10,6 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.junit.jupiter.api.Assertions.*;
 
 class InventoriesTest {
 
@@ -21,7 +20,7 @@ class InventoriesTest {
                 LocationFixture.aLocation().build(),
                 LPNFixture.anLPN().build()
         );
-        new Inventories(List.of(inventory), 1L).validateInventory();
+        new Inventories(List.of(inventory), 1L).validateInventory(1L);
     }
 
     @Test
@@ -31,7 +30,7 @@ class InventoriesTest {
                 LocationFixture.aLocation().build(),
                 LPNFixture.anLPN().build()
         );
-        assertThatThrownBy(() -> new Inventories(List.of(inventory), 2L).validateInventory())
+        assertThatThrownBy(() -> new Inventories(List.of(inventory), 2L).validateInventory(2L))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessageContaining("재고가 부족합니다.");
 
@@ -44,7 +43,7 @@ class InventoriesTest {
                 LocationFixture.aLocation().build(),
                 LPNFixture.anLPN().expirationAt(LocalDateTime.now().minusDays(1)).build()
         );
-        assertThatThrownBy(() -> new Inventories(List.of(inventory), 1L).validateInventory())
+        assertThatThrownBy(() -> new Inventories(List.of(inventory), 1L).validateInventory(1L))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessageContaining("재고가 부족합니다.");
     }

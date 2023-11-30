@@ -1,5 +1,6 @@
 package com.shyoon.wms.product.domain;
 
+import com.google.common.annotations.VisibleForTesting;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -94,6 +95,23 @@ public class Product {
         this.temperatureZone = temperatureZone;
         this.weightInGrams = weightInGrams;
         this.productSize = productSize;
+    }
+
+    @VisibleForTesting
+    Product(
+            final Long productNo,
+            final String name,
+            final String code,
+            final String description,
+            final String brand,
+            final String maker,
+            final String origin,
+            final Category category,
+            final TemperatureZone temperatureZone,
+            final Long weightInGrams,
+            final ProductSize productSize) {
+        this(name, code, description, brand, maker, origin, category, temperatureZone, weightInGrams, productSize);
+        this.productNo = productNo;
     }
 
     private void validateConstructor(
