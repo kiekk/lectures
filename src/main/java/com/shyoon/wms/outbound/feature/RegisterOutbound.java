@@ -44,6 +44,13 @@ public class RegisterOutbound {
                             final Order order,
                             final Boolean isPriorityDelivery,
                             final LocalDate desiredDeliveryAt) {
+        for (OrderProduct orderProduct : order.getOrderProducts()) {
+            final Inventories inventories = inventoriesList.stream()
+                    .filter(i -> i.equalsProductNo(orderProduct.getProductNo()))
+                    .findFirst()
+                    .orElseThrow();
+            inventories.validateInventory();
+        }
         inventoriesList.forEach(Inventories::validateInventory);
         final PackagingMaterial optimalPackagingMaterial = new PackagingMaterials(packagingMaterials)
                 .getOptimalPackagingMaterial(order.totalWeight(), order.totalVolume());
