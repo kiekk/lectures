@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDate;
-import java.util.Comparator;
 import java.util.List;
 
 @RestController
@@ -33,33 +32,32 @@ public class RegisterOutbound {
         // 주문 정보 조회
         final Order order = orderRepository.getBy(request.orderNo);
         final List<Inventories> inventoriesList = getInventoriesList(order.getOrderProducts());
-
-        // 주문 정보에 맞는 상품의 재고가 충분한지 확인
-        // 충분하지 않으면 예외
-        inventoriesList.forEach(Inventories::validateInventory);
-
-        // 주문에 맞는 포장재를 추천한다.
         final List<PackagingMaterial> packagingMaterials = packagingMaterialRepository.findAll();
-        final PackagingMaterial optimalPackagingMaterial = getOptimalPackagingMaterial(packagingMaterials, order);
-
-        // 출고 생성
-        final Outbound outbound = createOutbound(request, order, optimalPackagingMaterial);
+        final Outbound outbound = createOutbound(inventoriesList, packagingMaterials, order, request.isPriorityDelivery, request.desiredDeliveryAt);
 
         // 출고 등록
         outboundRepository.save(outbound);
     }
 
-    PackagingMaterial getOptimalPackagingMaterial(final List<PackagingMaterial> packagingMaterials,
-                                                  final Order order) {
-        return packagingMaterials.stream()
-                .filter(pm -> pm.isAvailable(order.totalWeight(), order.totalVolume()))
-                .min(Comparator.comparingLong(PackagingMaterial::outerVolume))
-                .orElse(null);
+    Outbound createOutbound(final List<Inventories> inventoriesList,
+                            final List<PackagingMaterial> packagingMaterials,
+                            final Order order,
+                            final Boolean isPriorityDelivery,
+                            final LocalDate desiredDeliveryAt) {
+        inventoriesList.forEach(Inventories::validateInventory);
+        final PackagingMaterial optimalPackagingMaterial = new PackagingMaterials(packagingMaterials)
+                .getOptimalPackagingMaterial(order.totalWeight(), order.totalVolume());
+        return createOutbound(
+                order,
+                optimalPackagingMaterial,
+                isPriorityDelivery,
+                desiredDeliveryAt);
     }
 
-    private static Outbound createOutbound(final Request request,
-                                           final Order order,
-                                           final PackagingMaterial recommendedPackagingMaterial) {
+    Outbound createOutbound(final Order order,
+                            final PackagingMaterial recommendedPackagingMaterial,
+                            final Boolean isPriorityDelivery,
+                            final LocalDate desiredDeliveryAt) {
         return new Outbound(
                 order.getOrderNo(),
                 order.getOrderCustomer(),
@@ -70,8 +68,8 @@ public class RegisterOutbound {
                                 orderProduct.getOrderQuantity(),
                                 orderProduct.getUnitPrice()))
                         .toList(),
-                request.isPriorityDelivery,
-                request.desiredDeliveryAt,
+                isPriorityDelivery,
+                desiredDeliveryAt,
                 recommendedPackagingMaterial
         );
     }

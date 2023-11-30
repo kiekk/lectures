@@ -32,12 +32,12 @@ public class PackagingMaterialFixture {
         return this;
     }
 
-    public PackagingMaterialFixture name(final Long maxWeightInGrams) {
+    public PackagingMaterialFixture maxWeightInGrams(final Long maxWeightInGrams) {
         this.maxWeightInGrams = maxWeightInGrams;
         return this;
     }
 
-    public PackagingMaterialFixture name(final MaterialType materialType) {
+    public PackagingMaterialFixture materialType(final MaterialType materialType) {
         this.materialType = materialType;
         return this;
     }
