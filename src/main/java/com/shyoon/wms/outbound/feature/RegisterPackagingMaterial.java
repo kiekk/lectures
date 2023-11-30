@@ -2,7 +2,7 @@ package com.shyoon.wms.outbound.feature;
 
 import com.shyoon.wms.outbound.domain.MaterialType;
 import com.shyoon.wms.outbound.domain.PackagingMaterial;
-import com.shyoon.wms.outbound.domain.PackagingMaterialDemension;
+import com.shyoon.wms.outbound.domain.PackagingMaterialDimension;
 import com.shyoon.wms.outbound.domain.PackagingMaterialRepository;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
@@ -65,7 +65,7 @@ public class RegisterPackagingMaterial {
             return new PackagingMaterial(
                     name,
                     code,
-                    new PackagingMaterialDemension(
+                    new PackagingMaterialDimension(
                             innerWidthInMillimeters,
                             innerHeightInMillimeters,
                             innerLengthInMillimeters,

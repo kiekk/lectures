@@ -9,7 +9,7 @@ import org.springframework.util.Assert;
 
 @Embeddable
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class PackagingMaterialDemension {
+public class PackagingMaterialDimension {
 
     @Column(name = "inner_width", nullable = false)
     @Comment("내부 폭 (mm)")
@@ -35,7 +35,7 @@ public class PackagingMaterialDemension {
     @Comment("외부 길이 (mm)")
     private Long outerLengthInMillimeters;
 
-    public PackagingMaterialDemension(
+    public PackagingMaterialDimension(
             final Long innerWidthInMillimeters,
             final Long innerHeightInMillimeters,
             final Long innerLengthInMillimeters,
@@ -89,5 +89,17 @@ public class PackagingMaterialDemension {
         if (outerLengthInMillimeters < 1) {
             throw new IllegalArgumentException("외부 길이는 1mm 이상이어야 합니다.");
         }
+    }
+
+    public boolean isAvailable(Long totalVolume) {
+        return totalVolume <= getInnerVolume();
+    }
+
+    private Long getInnerVolume() {
+        return innerWidthInMillimeters * innerHeightInMillimeters * innerLengthInMillimeters;
+    }
+
+    public Long outerVolume() {
+        return outerWidthInMillimeters * outerHeightInMillimeters * outerLengthInMillimeters;
     }
 }

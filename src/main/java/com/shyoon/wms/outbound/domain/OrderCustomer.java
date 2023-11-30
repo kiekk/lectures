@@ -9,7 +9,7 @@ import org.hibernate.annotations.Comment;
 
 @Embeddable
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-class OrderCustomer {
+public class OrderCustomer {
 
     @Column(name = "order_customer_name",nullable = false)
     @Comment("주문고객 이름")

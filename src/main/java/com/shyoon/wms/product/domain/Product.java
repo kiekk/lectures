@@ -123,4 +123,7 @@ public class Product {
         this.productNo = productNo;
     }
 
+    public Long getVolume() {
+        return productSize.getVolume();
+    }
 }
