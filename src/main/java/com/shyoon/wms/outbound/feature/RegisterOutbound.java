@@ -44,19 +44,9 @@ public class RegisterOutbound {
         outboundRepository.save(outbound);
     }
 
-    Outbound createOutbound(final List<Inventories> inventoriesList,
-                            final List<PackagingMaterial> packagingMaterials,
-                            final Order order,
-                            final Boolean isPriorityDelivery,
-                            final LocalDate desiredDeliveryAt) {
-
-        return constructOutbound.create(inventoriesList, new PackagingMaterials(packagingMaterials), order, isPriorityDelivery, desiredDeliveryAt);
-    }
-
     private List<Inventories> inventoriesList(final List<OrderProduct> orderProducts) {
         return orderProducts.stream()
-                .map(orderProduct -> inventoryRepository.findByProductNo(orderProduct.getProductNo()))
-                .map(Inventories::new)
+                .map(orderProduct -> inventoryRepository.inventoriesBy(orderProduct))
                 .toList();
     }
 
