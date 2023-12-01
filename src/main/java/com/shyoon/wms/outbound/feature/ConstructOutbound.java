@@ -7,11 +7,11 @@ import java.util.List;
 
 public class ConstructOutbound {
 
-    Outbound createOutbound(final List<Inventories> inventoriesList,
-                            final List<PackagingMaterial> packagingMaterials,
-                            final Order order,
-                            final Boolean isPriorityDelivery,
-                            final LocalDate desiredDeliveryAt) {
+    Outbound create(final List<Inventories> inventoriesList,
+                    final List<PackagingMaterial> packagingMaterials,
+                    final Order order,
+                    final Boolean isPriorityDelivery,
+                    final LocalDate desiredDeliveryAt) {
         for (OrderProduct orderProduct : order.getOrderProducts()) {
             final Inventories inventories = getInventories(inventoriesList, orderProduct.getProductNo());
             inventories.validateInventory(orderProduct.getOrderQuantity());
@@ -19,7 +19,7 @@ public class ConstructOutbound {
 
         final PackagingMaterial optimalPackagingMaterial = new PackagingMaterials(packagingMaterials)
                 .getOptimalPackagingMaterial(order.totalWeight(), order.totalVolume());
-        return createOutbound(
+        return create(
                 order,
                 optimalPackagingMaterial,
                 isPriorityDelivery,
@@ -34,10 +34,10 @@ public class ConstructOutbound {
                 .orElseThrow();
     }
 
-    Outbound createOutbound(final Order order,
-                            final PackagingMaterial recommendedPackagingMaterial,
-                            final Boolean isPriorityDelivery,
-                            final LocalDate desiredDeliveryAt) {
+    Outbound create(final Order order,
+                    final PackagingMaterial recommendedPackagingMaterial,
+                    final Boolean isPriorityDelivery,
+                    final LocalDate desiredDeliveryAt) {
         return new Outbound(
                 order.getOrderNo(),
                 order.getOrderCustomer(),

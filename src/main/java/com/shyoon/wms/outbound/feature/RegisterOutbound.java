@@ -34,7 +34,7 @@ public class RegisterOutbound {
         final Order order = orderRepository.getBy(request.orderNo);
         final List<Inventories> inventoriesList = getInventoriesList(order.getOrderProducts());
         final List<PackagingMaterial> packagingMaterials = packagingMaterialRepository.findAll();
-        final Outbound outbound = constructOutbound.createOutbound(inventoriesList, packagingMaterials, order, request.isPriorityDelivery, request.desiredDeliveryAt);
+        final Outbound outbound = constructOutbound.create(inventoriesList, packagingMaterials, order, request.isPriorityDelivery, request.desiredDeliveryAt);
 
         // 출고 등록
         outboundRepository.save(outbound);
@@ -46,7 +46,7 @@ public class RegisterOutbound {
                             final Boolean isPriorityDelivery,
                             final LocalDate desiredDeliveryAt) {
 
-        return constructOutbound.createOutbound(inventoriesList, packagingMaterials, order, isPriorityDelivery, desiredDeliveryAt);
+        return constructOutbound.create(inventoriesList, packagingMaterials, order, isPriorityDelivery, desiredDeliveryAt);
     }
 
     private Inventories getInventories(final List<Inventories> inventoriesList,
@@ -58,7 +58,7 @@ public class RegisterOutbound {
                             final PackagingMaterial recommendedPackagingMaterial,
                             final Boolean isPriorityDelivery,
                             final LocalDate desiredDeliveryAt) {
-        return constructOutbound.createOutbound(order, recommendedPackagingMaterial, isPriorityDelivery, desiredDeliveryAt);
+        return constructOutbound.create(order, recommendedPackagingMaterial, isPriorityDelivery, desiredDeliveryAt);
     }
 
     private List<Inventories> getInventoriesList(final List<OrderProduct> orderProducts) {
