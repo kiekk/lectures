@@ -84,11 +84,4 @@ public class Outbound {
         Assert.notNull(desiredDeliveryAt, "희망출고일은 필수입니다.");
     }
 
-    public void assignNo(final Long outboundNo) {
-        this.outboundNo = outboundNo;
-    }
-
-    public Long getOutboundNo() {
-        return outboundNo;
-    }
 }
