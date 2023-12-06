@@ -1,5 +1,8 @@
 package com.shyoon.wms.outbound.feature;
 
+import com.shyoon.wms.outbound.domain.Outbound;
+import com.shyoon.wms.outbound.domain.OutboundProduct;
+import com.shyoon.wms.outbound.domain.OutboundRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -35,7 +38,21 @@ class SplitOutboundTest {
     }
 
     private class SplitOutbound {
+
+        private OutboundRepository outboundRepository;
+
         public void request(final Request request) {
+            final Outbound outbound = outboundRepository.findById(request.outboundNo).orElseThrow();
+            final List<OutboundProduct> splitOutboundProducts = request.products.stream()
+                    .map(product -> outbound.splitOutboundProducts(product.productNo, product.quantity))
+                    .toList();
+
+            final Outbound splitted = outbound.split(splitOutboundProducts);
+
+            // 기존 출고에 새로운 포장재를 할당
+            // 분할된 출고에 포장재를 할당
+
+            // 분할된 출고를 저장
         }
 
         public record Request(

@@ -50,6 +50,10 @@ public class OutboundProduct {
         this.unitPrice = unitPrice;
     }
 
+    public boolean isSameProductNo(Long productNo) {
+        return getProductNo().equals(productNo);
+    }
+
     private void validateConstructor(
             final Product product,
             final Long orderQuantity,
@@ -68,5 +72,20 @@ public class OutboundProduct {
 
     public void assignOutbound(final Outbound outbound) {
         this.outbound = outbound;
+    }
+
+    public Long getProductNo() {
+        return product.getProductNo();
+    }
+
+    public OutboundProduct split(final Long splitQuantity) {
+        if (splitQuantity > orderQuantity) {
+            throw new IllegalArgumentException("분할 수량은 주문 수량보다 작아야 합니다.");
+        }
+        return new OutboundProduct(
+                product,
+                splitQuantity,
+                unitPrice
+        );
     }
 }
