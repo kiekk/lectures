@@ -4,6 +4,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
+
 class SplitOutboundTest {
 
     private SplitOutbound splitOutbound;
@@ -23,7 +25,11 @@ class SplitOutboundTest {
               productNo,
               quantity
         );
-        final SplitOutbound.Request request = new SplitOutbound.Request();
+        final List<SplitOutbound.Request.Product> products = List.of(product);
+        final SplitOutbound.Request request = new SplitOutbound.Request(
+                outboundNo,
+                products
+        );
         splitOutbound.request(request);
     }
 
@@ -31,7 +37,9 @@ class SplitOutboundTest {
         public void request(final Request request) {
         }
 
-        public record Request() {
+        public record Request(
+                Long outboundNo,
+                List<Product> products) {
             public record Product(
                     Long productNo,
                     Long quantity) {
