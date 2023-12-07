@@ -34,7 +34,7 @@ public class Outbound {
     private String deliveryRequirements;
 
     @Embedded
-    private OutboundProducts outboundProducts;
+    public OutboundProducts outboundProducts;
 
     @Column(name = "is_priority_delivery", nullable = false)
     @Comment("우선 출고 여부")
@@ -81,13 +81,6 @@ public class Outbound {
         Assert.notEmpty(outboundProducts, "출고상품은 필수입니다.");
         Assert.notNull(isPriorityDelivery, "우선출고여부는 필수입니다.");
         Assert.notNull(desiredDeliveryAt, "희망출고일은 필수입니다.");
-    }
-
-    public OutboundProduct splitOutboundProducts(final Long productNo,
-                                                 final Long quantity) {
-        final OutboundProduct outboundProduct = outboundProducts.getOutboundProductBy(productNo);
-
-        return outboundProduct.split(quantity);
     }
 
     public Outbound split(final OutboundProducts splitOutboundProducts) {

@@ -3,7 +3,6 @@ package com.shyoon.wms.outbound.feature;
 import com.shyoon.wms.outbound.domain.*;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -38,7 +37,7 @@ public class SplitOutbound {
             final List<Request.Product> products) {
         return new OutboundProducts(
                 products.stream()
-                        .map(product -> outbound.splitOutboundProducts(product.productNo, product.quantity))
+                        .map(product -> outbound.outboundProducts.splitOutboundProducts(product.productNo, product.quantity))
                         .toList()
         );
     }
