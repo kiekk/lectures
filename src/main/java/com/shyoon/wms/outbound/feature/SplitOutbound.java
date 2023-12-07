@@ -1,13 +1,18 @@
 package com.shyoon.wms.outbound.feature;
 
 import com.shyoon.wms.outbound.domain.*;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-@Component
+@RestController
 @RequiredArgsConstructor
 class SplitOutbound {
 
@@ -15,7 +20,9 @@ class SplitOutbound {
     private final OutboundRepository outboundRepository;
     private final PackagingMaterialRepository packagingMaterialRepository;
 
-    public void request(final Request request) {
+    @PostMapping("/outbounds/split")
+    @Transactional
+    public void request(@RequestBody @Valid final Request request) {
         final Outbound outbound = outboundRepository.getBy(request.outboundNo);
         final OutboundProducts splitOutboundProducts = splitOutboundProducts(outbound, request.products);
         final PackagingMaterials packagingMaterials = new PackagingMaterials(packagingMaterialRepository.findAll());

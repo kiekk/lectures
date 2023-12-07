@@ -5,6 +5,8 @@ import com.shyoon.wms.common.Scenario;
 import com.shyoon.wms.inbound.feature.RegisterInbound;
 import com.shyoon.wms.outbound.domain.*;
 import com.shyoon.wms.product.domain.ProductRepository;
+import io.restassured.RestAssured;
+import io.restassured.http.ContentType;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -12,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Primary;
+import org.springframework.http.HttpStatus;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -59,8 +62,11 @@ class SplitOutboundTest extends ApiTest {
 
     @Test
     @DisplayName("출고를 분할한다.")
-    @Transactional
     void splitOutbound() {
+        final Outbound target = outboundRepository.getBy(1L);
+        assertThat(target.getOutboundProducts()).hasSize(2);
+
+
         final Long outboundNo = 1L;
         final Long productNo = 1L;
         final Long quantity = 1L;
@@ -74,14 +80,23 @@ class SplitOutboundTest extends ApiTest {
                 products
         );
 
-        final Outbound target = outboundRepository.getBy(outboundNo);
-        assertThat(target.getOutboundProducts()).hasSize(2);
 
-        splitOutbound.request(request);
+        RestAssured.given().log().all()
+                .contentType(ContentType.JSON)
+                .body(request)
+                .when()
+                .post("/outbounds/split")
+                .then().log().all()
+                .statusCode(HttpStatus.OK.value());
 
-        assertThat(target.getOutboundProducts()).hasSize(1);
-        assertThat(target.getOutboundProducts().get(0).getProductNo()).isEqualTo(2L);
-        assertThat(target.getRecommendedPackagingMaterial()).isNotNull();
+        validateSplit(outboundNo);
+    }
+
+    private void validateSplit(Long outboundNo) {
+        final Outbound refresh = outboundRepository.getBy(outboundNo);
+        assertThat(refresh.getOutboundProducts()).hasSize(1);
+        assertThat(refresh.getOutboundProducts().get(0).getProductNo()).isEqualTo(2L);
+        assertThat(refresh.getRecommendedPackagingMaterial()).isNotNull();
 
         final Outbound splitted = outboundRepository.getBy(2L);
         assertThat(splitted.getOutboundProducts().get(0).getProductNo()).isEqualTo(1L);
