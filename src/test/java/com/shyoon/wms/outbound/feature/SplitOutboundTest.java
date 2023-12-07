@@ -1,26 +1,65 @@
 package com.shyoon.wms.outbound.feature;
 
-import com.shyoon.wms.outbound.domain.Outbound;
-import com.shyoon.wms.outbound.domain.OutboundProduct;
-import com.shyoon.wms.outbound.domain.OutboundRepository;
+import com.shyoon.wms.common.ApiTest;
+import com.shyoon.wms.common.Scenario;
+import com.shyoon.wms.inbound.feature.RegisterInbound;
+import com.shyoon.wms.outbound.domain.*;
+import com.shyoon.wms.product.domain.ProductRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.springframework.util.Assert;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.TestConfiguration;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Primary;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-class SplitOutboundTest {
+import static org.assertj.core.api.Assertions.assertThat;
 
+class SplitOutboundTest extends ApiTest {
+
+    @Autowired
     private SplitOutbound splitOutbound;
 
+    @Autowired
+    private OutboundRepository outboundRepository;
+
     @BeforeEach
-    void setUp() {
-        splitOutbound = new SplitOutbound();
+    void setUpSplitOutbound() {
+        Scenario
+                .registerProduct().code("code").request()
+                .registerProduct().code("code1").request()
+                .registerInbound()
+                .inboundItems(
+                        new RegisterInbound.Request.Item(
+                                1L,
+                                1L,
+                                1500L,
+                                "description"
+                        ),
+                        new RegisterInbound.Request.Item(
+                                2L,
+                                1L,
+                                1500L,
+                                "description"
+                        )
+                )
+                .request()
+                .confirmInbound().request()
+                .registerLPN().request()
+                .registerLPN().inboundItemNo(2L).lpnBarcode("A-1-2").request()
+                .registerLocation().request()
+                .registerPackagingMaterial().request()
+                .assignInventory().request()
+                .assignInventory().lpnBarcode("A-1-2").request()
+                .registerOutbound().request();
     }
 
     @Test
     @DisplayName("출고를 분할한다.")
+    @Transactional
     void splitOutbound() {
         final Long outboundNo = 1L;
         final Long productNo = 1L;
@@ -34,47 +73,52 @@ class SplitOutboundTest {
                 outboundNo,
                 products
         );
+
+        final Outbound target = outboundRepository.getBy(outboundNo);
+        assertThat(target.getOutboundProducts()).hasSize(2);
+
         splitOutbound.request(request);
+
+        assertThat(target.getOutboundProducts()).hasSize(1);
+        assertThat(target.getOutboundProducts().get(0).getProductNo()).isEqualTo(2L);
+        assertThat(target.getRecommendedPackagingMaterial()).isNotNull();
+
+        final Outbound splitted = outboundRepository.getBy(2L);
+        assertThat(splitted.getOutboundProducts().get(0).getProductNo()).isEqualTo(1L);
+        assertThat(splitted.getOutboundProducts()).hasSize(1);
+        assertThat(splitted.getRecommendedPackagingMaterial()).isNotNull();
     }
 
-    private class SplitOutbound {
+    @TestConfiguration
+    static class SplitOutboundTestConfiguration {
 
-        private OutboundRepository outboundRepository;
-
-        public void request(final Request request) {
-            final Outbound outbound = outboundRepository.findById(request.outboundNo).orElseThrow();
-            final List<OutboundProduct> splitOutboundProducts = request.products.stream()
-                    .map(product -> outbound.splitOutboundProducts(product.productNo, product.quantity))
-                    .toList();
-
-            final Outbound splitted = outbound.split(splitOutboundProducts);
-
-            // 기존 출고에 새로운 포장재를 할당
-            // 분할된 출고에 포장재를 할당
-
-            // 분할된 출고를 저장
-        }
-
-        public record Request(
-                Long outboundNo,
-                List<Product> products) {
-
-            public Request {
-                Assert.notNull(outboundNo, "출고번호는 필수입니다.");
-                Assert.notEmpty(products, "상품은 필수입니다.");
-            }
-
-            public record Product(
-                    Long productNo,
-                    Long quantity) {
-                public Product {
-                    Assert.notNull(productNo, "상품번호는 필수입니다.");
-                    Assert.notNull(quantity, "수량은 필수입니다.");
-                    if (quantity < 1) {
-                        throw new IllegalArgumentException("수량은 1 이상이어야 합니다.");
-                    }
-                }
-            }
+        @Bean
+        @Primary
+        public OrderRepository orderRepository(final ProductRepository productRepository) {
+            return orderNo -> new Order(
+                    orderNo,
+                    new OrderCustomer(
+                            "name",
+                            "email",
+                            "phone",
+                            "zipNo",
+                            "address"
+                    ),
+                    "배송 요구사항",
+                    List.of(
+                            new OrderProduct(
+                                    productRepository.getBy(1L),
+                                    1L,
+                                    1500L
+                            ),
+                            new OrderProduct(
+                                    productRepository.getBy(2L),
+                                    1L,
+                                    1500L
+                            )
+                    )
+            );
         }
     }
+
 }

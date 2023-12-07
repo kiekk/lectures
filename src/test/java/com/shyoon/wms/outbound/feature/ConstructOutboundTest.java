@@ -65,22 +65,21 @@ class ConstructOutboundTest {
     @Test
     @DisplayName("출고를 생선한다. - 주문을 포장할 포장재를 찾을 수 없다. - 제한 무게를 초과")
     void over_max_weight_createOutbound() {
-        final Outbound outbound = sut.create(
+        assertThatThrownBy(() -> sut.create(
                 List.of(InventoriesFixture.anInventories().build()),
                 PackagingMaterialsFixture.aPackagingMaterials().packagingMaterials(
                         PackagingMaterialFixture.aPackagingMaterial().maxWeightInGrams(1L)
                 ).build(),
                 OrderFixture.anOrder().build(),
                 false,
-                LocalDate.now());
-
-        assertThat(outbound.getRecommendedPackagingMaterial()).isNull();
+                LocalDate.now()))
+                .isInstanceOf(IllegalArgumentException.class);
     }
 
     @Test
     @DisplayName("출고를 생선한다. - 주문을 포장할 포장재를 찾을 수 없다. - 허용 가능한 부피 초과")
     void over_volume_createOutbound() {
-        final Outbound outbound = sut.create(
+        assertThatThrownBy(() -> sut.create(
                 List.of(InventoriesFixture.anInventories().build()),
                 PackagingMaterialsFixture.aPackagingMaterials().packagingMaterials(
                         PackagingMaterialFixture.aPackagingMaterial().packagingMaterialDimension(
@@ -91,9 +90,9 @@ class ConstructOutboundTest {
                 ).build(),
                 OrderFixture.anOrder().build(),
                 false,
-                LocalDate.now());
-
-        assertThat(outbound.getRecommendedPackagingMaterial()).isNull();
+                LocalDate.now()))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessageContaining("적합한 포장재가 없습니다.");
     }
 
 }

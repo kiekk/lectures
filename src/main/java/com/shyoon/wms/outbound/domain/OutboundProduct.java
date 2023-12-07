@@ -1,5 +1,6 @@
 package com.shyoon.wms.outbound.domain;
 
+import com.google.common.annotations.VisibleForTesting;
 import com.shyoon.wms.product.domain.Product;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
@@ -50,6 +51,16 @@ public class OutboundProduct {
         this.unitPrice = unitPrice;
     }
 
+    @VisibleForTesting
+    OutboundProduct(
+            final Long outboundProductNo,
+            final Product product,
+            final Long orderQuantity,
+            final Long unitPrice) {
+        this(product, orderQuantity, unitPrice);
+        this.outboundProductNo = outboundProductNo;
+    }
+
     public boolean isSameProductNo(Long productNo) {
         return getProductNo().equals(productNo);
     }
@@ -87,5 +98,25 @@ public class OutboundProduct {
                 splitQuantity,
                 unitPrice
         );
+    }
+
+    public Long calculateOutboundProductWeight() {
+        return product.getWeightInGrams() * orderQuantity;
+    }
+
+    public Long calculateOutboundProductVolume() {
+        return product.getProductSize().getVolume() * orderQuantity;
+    }
+
+    public void decreaseOrderQuantity(final Long quantity) {
+        if (quantity > this.orderQuantity) {
+            throw new IllegalArgumentException("주문 수량보다 많은 수량을 출고할 수 없습니다.");
+        }
+
+        this.orderQuantity -= quantity;
+    }
+
+    boolean isZeroQuantity() {
+        return getOrderQuantity() == 0;
     }
 }

@@ -91,41 +91,71 @@ public class Outbound {
         return outboundProduct.split(quantity);
     }
 
-    private OutboundProduct getOutboundProductBy(Long productNo) {
+    private OutboundProduct getOutboundProductBy(final Long productNo) {
         return outboundProducts.stream()
                 .filter(op -> op.isSameProductNo(productNo))
                 .findFirst()
                 .orElseThrow();
     }
 
-    public Outbound split(final List<OutboundProduct> splitOutboundProducts) {
+    public Outbound split(final OutboundProducts splitOutboundProducts) {
         // 분할할 상품 목록의 수량이 기존 출고 상품 목록의 수량보다 많으면 예외를 던진다.
-        final Long totalOrderQuantity = calculateTotalOrderQuantity();
-        final Long splitTotalQuantity = splitTotalQuantity(splitOutboundProducts);
-        if (totalOrderQuantity <= splitTotalQuantity) {
-            throw new IllegalArgumentException("분할할 수량이 출고 수량보다 같거나 많습니다.");
-        }
+        validateSplit(splitOutboundProducts);
 
         return new Outbound(
                 orderNo,
                 orderCustomer,
                 deliveryRequirements,
-                splitOutboundProducts,
+                splitOutboundProducts.outboundProducts(),
                 isPriorityDelivery,
                 desiredDeliveryAt,
                 null
         );
     }
 
-    private Long splitTotalQuantity(final List<OutboundProduct> splitOutboundProducts) {
-        return splitOutboundProducts.stream()
-                .mapToLong(OutboundProduct::getOrderQuantity)
-                .sum();
+    private void validateSplit(final OutboundProducts outboundProducts) {
+        final Long totalOrderQuantity = calculateTotalOrderQuantity();
+        final Long splitTotalQuantity = outboundProducts.splitTotalQuantity();
+        if (totalOrderQuantity <= splitTotalQuantity) {
+            throw new IllegalArgumentException("분할할 수량이 출고 수량보다 같거나 많습니다.");
+        }
     }
 
     private Long calculateTotalOrderQuantity() {
         return outboundProducts.stream()
                 .mapToLong(OutboundProduct::getOrderQuantity)
                 .sum();
+    }
+
+    public Long totalWeight() {
+        return outboundProducts.stream()
+                .mapToLong(OutboundProduct::calculateOutboundProductWeight)
+                .sum();
+    }
+
+    public Long totalVolume() {
+        return outboundProducts.stream()
+                .mapToLong(OutboundProduct::calculateOutboundProductVolume)
+                .sum();
+    }
+
+    public void assignPackagingMaterial(final PackagingMaterial packagingMaterial) {
+        this.recommendedPackagingMaterial = packagingMaterial;
+    }
+
+    public void decreaseQuantity(final OutboundProducts outboundProducts) {
+        decreaseOrderQuantity(outboundProducts);
+        removeZeroQuantityProducts();
+    }
+
+    private void decreaseOrderQuantity(final OutboundProducts splitOutboundProducts) {
+        for (OutboundProduct splitProduct : splitOutboundProducts.outboundProducts()) {
+            final OutboundProduct target = getOutboundProductBy(splitProduct.getProductNo());
+            target.decreaseOrderQuantity(splitProduct.getOrderQuantity());
+        }
+    }
+
+    private void removeZeroQuantityProducts() {
+        outboundProducts.removeIf(OutboundProduct::isZeroQuantity);
     }
 }

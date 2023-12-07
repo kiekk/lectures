@@ -24,15 +24,19 @@ public class RegisterProduct {
     @ResponseStatus(HttpStatus.CREATED)
     @Transactional
     public void request(@RequestBody @Valid final Request request) {
-        productRepository.findAll().stream()
-                .filter(product -> Objects.equals(product.getCode(), request.code))
-                .findFirst()
-                .ifPresent(product -> {
-                    throw new IllegalArgumentException("이미 등록된 상품입니다.");
-                });
+        validateProductCodeExists(request.code);
         final Product product = request.toDomain();
         productRepository.save(product);
 
+    }
+
+    private void validateProductCodeExists(final String code) {
+        productRepository.findAll().stream()
+                .filter(product -> Objects.equals(product.getCode(), code))
+                .findFirst()
+                .ifPresent(product -> {
+                    throw new IllegalArgumentException("이미 등록된 상품코드입니다. %s".formatted(code));
+                });
     }
 
     public record Request(

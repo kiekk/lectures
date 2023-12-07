@@ -41,7 +41,7 @@ public class RegisterInboundApi {
         return this;
     }
 
-    public RegisterInboundApi estimatedArrivalAt(final RegisterInbound.Request.Item... inboundItems) {
+    public RegisterInboundApi inboundItems(final RegisterInbound.Request.Item... inboundItems) {
         this.inboundItems = List.of(inboundItems);
         return this;
     }
