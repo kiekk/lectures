@@ -8,7 +8,6 @@ import org.hibernate.annotations.Comment;
 import org.springframework.util.Assert;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -34,8 +33,8 @@ public class Outbound {
     @Comment("배송 요구사항")
     private String deliveryRequirements;
 
-    @OneToMany(mappedBy = "outbound", orphanRemoval = true, cascade = CascadeType.ALL)
-    private List<OutboundProduct> outboundProducts = new ArrayList<>();
+    @Embedded
+    private OutboundProducts outboundProducts;
 
     @Column(name = "is_priority_delivery", nullable = false)
     @Comment("우선 출고 여부")
@@ -62,7 +61,7 @@ public class Outbound {
         this.orderNo = orderNo;
         this.orderCustomer = orderCustomer;
         this.deliveryRequirements = deliveryRequirements;
-        this.outboundProducts = outboundProducts;
+        this.outboundProducts = new OutboundProducts(outboundProducts);
         this.isPriorityDelivery = isPriorityDelivery;
         this.desiredDeliveryAt = desiredDeliveryAt;
         this.recommendedPackagingMaterial = recommendedPackagingMaterial;
@@ -86,16 +85,9 @@ public class Outbound {
 
     public OutboundProduct splitOutboundProducts(final Long productNo,
                                                  final Long quantity) {
-        final OutboundProduct outboundProduct = getOutboundProductBy(productNo);
+        final OutboundProduct outboundProduct = outboundProducts.getOutboundProductBy(productNo);
 
         return outboundProduct.split(quantity);
-    }
-
-    private OutboundProduct getOutboundProductBy(final Long productNo) {
-        return outboundProducts.stream()
-                .filter(op -> op.isSameProductNo(productNo))
-                .findFirst()
-                .orElseThrow();
     }
 
     public Outbound split(final OutboundProducts splitOutboundProducts) {
@@ -106,7 +98,7 @@ public class Outbound {
                 orderNo,
                 orderCustomer,
                 deliveryRequirements,
-                splitOutboundProducts.outboundProducts(),
+                splitOutboundProducts.toList(),
                 isPriorityDelivery,
                 desiredDeliveryAt,
                 null
@@ -114,48 +106,15 @@ public class Outbound {
     }
 
     private void validateSplit(final OutboundProducts outboundProducts) {
-        final Long totalOrderQuantity = calculateTotalOrderQuantity();
+        final Long totalOrderQuantity = outboundProducts.calculateTotalOrderQuantity();
         final Long splitTotalQuantity = outboundProducts.splitTotalQuantity();
         if (totalOrderQuantity <= splitTotalQuantity) {
             throw new IllegalArgumentException("분할할 수량이 출고 수량보다 같거나 많습니다.");
         }
     }
 
-    private Long calculateTotalOrderQuantity() {
-        return outboundProducts.stream()
-                .mapToLong(OutboundProduct::getOrderQuantity)
-                .sum();
-    }
-
-    public Long totalWeight() {
-        return outboundProducts.stream()
-                .mapToLong(OutboundProduct::calculateOutboundProductWeight)
-                .sum();
-    }
-
-    public Long totalVolume() {
-        return outboundProducts.stream()
-                .mapToLong(OutboundProduct::calculateOutboundProductVolume)
-                .sum();
-    }
-
     public void assignPackagingMaterial(final PackagingMaterial packagingMaterial) {
         this.recommendedPackagingMaterial = packagingMaterial;
     }
 
-    public void decreaseQuantity(final OutboundProducts outboundProducts) {
-        decreaseOrderQuantity(outboundProducts);
-        removeZeroQuantityProducts();
-    }
-
-    private void decreaseOrderQuantity(final OutboundProducts splitOutboundProducts) {
-        for (OutboundProduct splitProduct : splitOutboundProducts.outboundProducts()) {
-            final OutboundProduct target = getOutboundProductBy(splitProduct.getProductNo());
-            target.decreaseOrderQuantity(splitProduct.getOrderQuantity());
-        }
-    }
-
-    private void removeZeroQuantityProducts() {
-        outboundProducts.removeIf(OutboundProduct::isZeroQuantity);
-    }
 }

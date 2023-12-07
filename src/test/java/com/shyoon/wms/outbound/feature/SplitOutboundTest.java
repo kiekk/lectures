@@ -58,7 +58,7 @@ class SplitOutboundTest extends ApiTest {
     void splitOutbound() {
         final Long outboundNo = 1L;
         final Outbound target = outboundRepository.getBy(1L);
-        assertThat(target.getOutboundProducts()).hasSize(2);
+        assertThat(target.getOutboundProducts().toList()).hasSize(2);
 
         Scenario
                 .splitOutbound().request();
@@ -69,13 +69,13 @@ class SplitOutboundTest extends ApiTest {
 
     private void validateSplit(Long outboundNo) {
         final Outbound refresh = outboundRepository.getBy(outboundNo);
-        assertThat(refresh.getOutboundProducts()).hasSize(1);
-        assertThat(refresh.getOutboundProducts().get(0).getProductNo()).isEqualTo(2L);
+        assertThat(refresh.getOutboundProducts().toList()).hasSize(1);
+        assertThat(refresh.getOutboundProducts().toList().get(0).getProductNo()).isEqualTo(2L);
         assertThat(refresh.getRecommendedPackagingMaterial()).isNotNull();
 
         final Outbound splitted = outboundRepository.getBy(2L);
-        assertThat(splitted.getOutboundProducts().get(0).getProductNo()).isEqualTo(1L);
-        assertThat(splitted.getOutboundProducts()).hasSize(1);
+        assertThat(splitted.getOutboundProducts().toList().get(0).getProductNo()).isEqualTo(1L);
+        assertThat(splitted.getOutboundProducts().toList()).hasSize(1);
         assertThat(splitted.getRecommendedPackagingMaterial()).isNotNull();
     }
 
