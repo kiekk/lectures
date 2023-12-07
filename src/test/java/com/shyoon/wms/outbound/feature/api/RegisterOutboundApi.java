@@ -23,7 +23,7 @@ public class RegisterOutboundApi {
         return this;
     }
 
-    public RegisterOutboundApi orderNo(final LocalDate desiredDeliveryAt) {
+    public RegisterOutboundApi desiredDeliveryAt(final LocalDate desiredDeliveryAt) {
         this.desiredDeliveryAt = desiredDeliveryAt;
         return this;
     }

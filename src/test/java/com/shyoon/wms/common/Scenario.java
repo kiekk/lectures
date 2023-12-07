@@ -1,5 +1,6 @@
 package com.shyoon.wms.common;
 
+import com.shyoon.wms.inbound.feature.RegisterInbound;
 import com.shyoon.wms.inbound.feature.api.ConfirmInboundApi;
 import com.shyoon.wms.inbound.feature.api.RegisterInboundApi;
 import com.shyoon.wms.inbound.feature.api.RegisterLPNApi;
@@ -7,8 +8,10 @@ import com.shyoon.wms.inbound.feature.api.RejectInboundApi;
 import com.shyoon.wms.location.feature.api.AssignInventoryApi;
 import com.shyoon.wms.location.feature.api.RegisterLocationApi;
 import com.shyoon.wms.outbound.feature.RegisterOutbound;
+import com.shyoon.wms.outbound.feature.SplitOutbound;
 import com.shyoon.wms.outbound.feature.api.RegisterOutboundApi;
 import com.shyoon.wms.outbound.feature.api.RegisterPackagingMaterialApi;
+import com.shyoon.wms.outbound.feature.api.SplitOutboundApi;
 import com.shyoon.wms.product.feature.api.RegisterProductApi;
 
 public class Scenario {
@@ -42,6 +45,10 @@ public class Scenario {
 
     public static RegisterPackagingMaterialApi registerPackagingMaterial() {
         return new RegisterPackagingMaterialApi();
+    }
+
+    public static SplitOutboundApi splitOutbound() {
+        return new SplitOutboundApi();
     }
 
     public RegisterOutboundApi registerOutbound() {

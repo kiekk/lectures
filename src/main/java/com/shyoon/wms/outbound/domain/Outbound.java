@@ -8,7 +8,6 @@ import org.hibernate.annotations.Comment;
 import org.springframework.util.Assert;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -34,8 +33,8 @@ public class Outbound {
     @Comment("배송 요구사항")
     private String deliveryRequirements;
 
-    @OneToMany(mappedBy = "outbound", orphanRemoval = true, cascade = CascadeType.ALL)
-    private List<OutboundProduct> outboundProducts = new ArrayList<>();
+    @Embedded
+    public OutboundProducts outboundProducts;
 
     @Column(name = "is_priority_delivery", nullable = false)
     @Comment("우선 출고 여부")
@@ -62,7 +61,7 @@ public class Outbound {
         this.orderNo = orderNo;
         this.orderCustomer = orderCustomer;
         this.deliveryRequirements = deliveryRequirements;
-        this.outboundProducts = outboundProducts;
+        this.outboundProducts = new OutboundProducts(outboundProducts);
         this.isPriorityDelivery = isPriorityDelivery;
         this.desiredDeliveryAt = desiredDeliveryAt;
         this.recommendedPackagingMaterial = recommendedPackagingMaterial;
@@ -84,11 +83,31 @@ public class Outbound {
         Assert.notNull(desiredDeliveryAt, "희망출고일은 필수입니다.");
     }
 
-    public void assignNo(final Long outboundNo) {
-        this.outboundNo = outboundNo;
+    public Outbound split(final OutboundProducts splitOutboundProducts) {
+        // 분할할 상품 목록의 수량이 기존 출고 상품 목록의 수량보다 많으면 예외를 던진다.
+        validateSplit(splitOutboundProducts);
+
+        return new Outbound(
+                orderNo,
+                orderCustomer,
+                deliveryRequirements,
+                splitOutboundProducts.toList(),
+                isPriorityDelivery,
+                desiredDeliveryAt,
+                null
+        );
     }
 
-    public Long getOutboundNo() {
-        return outboundNo;
+    private void validateSplit(final OutboundProducts outboundProducts) {
+        final Long totalOrderQuantity = outboundProducts.calculateTotalOrderQuantity();
+        final Long splitTotalQuantity = outboundProducts.splitTotalQuantity();
+        if (totalOrderQuantity <= splitTotalQuantity) {
+            throw new IllegalArgumentException("분할할 수량이 출고 수량보다 같거나 많습니다.");
+        }
     }
+
+    public void assignPackagingMaterial(final PackagingMaterial packagingMaterial) {
+        this.recommendedPackagingMaterial = packagingMaterial;
+    }
+
 }

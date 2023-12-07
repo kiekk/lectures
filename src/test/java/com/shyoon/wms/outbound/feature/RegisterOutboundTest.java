@@ -23,6 +23,7 @@ class RegisterOutboundTest extends ApiTest {
                 .confirmInbound().request()
                 .registerLPN().request()
                 .registerLocation().request()
+                .registerPackagingMaterial().request()
                 .assignInventory().request()
                 .registerOutbound().request();
     }
@@ -32,7 +33,5 @@ class RegisterOutboundTest extends ApiTest {
     void registerOutboundTest() {
         assertThat(outboundRepository.findAll()).hasSize(1);
     }
-
-
 
 }
