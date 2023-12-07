@@ -14,7 +14,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-class SplitOutbound {
+public class SplitOutbound {
 
     private final OutboundSplitter outboundSplitter = new OutboundSplitter();
     private final OutboundRepository outboundRepository;

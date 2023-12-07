@@ -5,8 +5,6 @@ import com.shyoon.wms.common.Scenario;
 import com.shyoon.wms.inbound.feature.RegisterInbound;
 import com.shyoon.wms.outbound.domain.*;
 import com.shyoon.wms.product.domain.ProductRepository;
-import io.restassured.RestAssured;
-import io.restassured.http.ContentType;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -14,17 +12,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Primary;
-import org.springframework.http.HttpStatus;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 class SplitOutboundTest extends ApiTest {
-
-    @Autowired
-    private SplitOutbound splitOutbound;
 
     @Autowired
     private OutboundRepository outboundRepository;
@@ -63,31 +56,13 @@ class SplitOutboundTest extends ApiTest {
     @Test
     @DisplayName("출고를 분할한다.")
     void splitOutbound() {
+        final Long outboundNo = 1L;
         final Outbound target = outboundRepository.getBy(1L);
         assertThat(target.getOutboundProducts()).hasSize(2);
 
+        Scenario
+                .splitOutbound().request();
 
-        final Long outboundNo = 1L;
-        final Long productNo = 1L;
-        final Long quantity = 1L;
-        final SplitOutbound.Request.Product product = new SplitOutbound.Request.Product(
-                productNo,
-                quantity
-        );
-        final List<SplitOutbound.Request.Product> products = List.of(product);
-        final SplitOutbound.Request request = new SplitOutbound.Request(
-                outboundNo,
-                products
-        );
-
-
-        RestAssured.given().log().all()
-                .contentType(ContentType.JSON)
-                .body(request)
-                .when()
-                .post("/outbounds/split")
-                .then().log().all()
-                .statusCode(HttpStatus.OK.value());
 
         validateSplit(outboundNo);
     }
