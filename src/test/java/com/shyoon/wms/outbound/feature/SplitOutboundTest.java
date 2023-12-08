@@ -25,8 +25,8 @@ class SplitOutboundTest extends ApiTest {
     @BeforeEach
     void setUpSplitOutbound() {
         Scenario
-                .registerProduct().code("code").request()
-                .registerProduct().code("code1").request()
+                .registerProduct().request()
+                .registerProduct().code("code2").request()
                 .registerInbound()
                 .inboundItems(
                         new RegisterInbound.Request.Item(
@@ -57,7 +57,7 @@ class SplitOutboundTest extends ApiTest {
     @DisplayName("출고를 분할한다.")
     void splitOutbound() {
         final Long outboundNo = 1L;
-        final Outbound target = outboundRepository.getBy(1L);
+        final Outbound target = outboundRepository.getBy(outboundNo);
         assertThat(target.getOutboundProducts().toList()).hasSize(2);
 
         Scenario

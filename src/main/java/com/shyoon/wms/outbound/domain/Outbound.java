@@ -98,9 +98,9 @@ public class Outbound {
         );
     }
 
-    private void validateSplit(final OutboundProducts outboundProducts) {
+    private void validateSplit(final OutboundProducts splitOutboundProducts) {
         final Long totalOrderQuantity = outboundProducts.calculateTotalOrderQuantity();
-        final Long splitTotalQuantity = outboundProducts.splitTotalQuantity();
+        final Long splitTotalQuantity = splitOutboundProducts.splitTotalQuantity();
         if (totalOrderQuantity <= splitTotalQuantity) {
             throw new IllegalArgumentException("분할할 수량이 출고 수량보다 같거나 많습니다.");
         }

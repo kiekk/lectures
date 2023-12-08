@@ -24,13 +24,14 @@ class RegisterOutboundTest extends ApiTest {
                 .registerLPN().request()
                 .registerLocation().request()
                 .registerPackagingMaterial().request()
-                .assignInventory().request()
-                .registerOutbound().request();
+                .assignInventory().request();
     }
 
     @Test
     @DisplayName("출고를 등록한다.")
     void registerOutboundTest() {
+        Scenario
+                .registerOutbound().request();
         assertThat(outboundRepository.findAll()).hasSize(1);
     }
 

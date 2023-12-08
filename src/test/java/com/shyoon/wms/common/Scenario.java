@@ -51,7 +51,7 @@ public class Scenario {
         return new SplitOutboundApi();
     }
 
-    public RegisterOutboundApi registerOutbound() {
+    public static RegisterOutboundApi registerOutbound() {
         return new RegisterOutboundApi();
     }
 }

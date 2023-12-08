@@ -46,7 +46,7 @@ public class RegisterOutbound {
 
     private List<Inventories> inventoriesList(final List<OrderProduct> orderProducts) {
         return orderProducts.stream()
-                .map(orderProduct -> inventoryRepository.inventoriesBy(orderProduct))
+                .map(inventoryRepository::inventoriesBy)
                 .toList();
     }
 
