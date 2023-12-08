@@ -16,12 +16,16 @@ class AllocatePickingToteTest {
     @Test
     @DisplayName("출고 상품을 집품할 토트에 할당한다.")
     void allocatePickingTote() {
-        allocatePickingTote.request();
+        final AllocatePickingTote.Request request = new AllocatePickingTote.Request();
+        allocatePickingTote.request(request);
     }
 
     private class AllocatePickingTote {
-        public void request() {
+        public void request(final Request request) {
 
+        }
+
+        public record Request() {
         }
     }
 }
