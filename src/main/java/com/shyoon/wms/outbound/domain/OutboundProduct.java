@@ -1,6 +1,7 @@
 package com.shyoon.wms.outbound.domain;
 
 import com.google.common.annotations.VisibleForTesting;
+import com.shyoon.wms.outbound.feature.Inventories;
 import com.shyoon.wms.product.domain.Product;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
@@ -118,5 +119,9 @@ public class OutboundProduct {
 
     boolean isZeroQuantity() {
         return getOrderQuantity() == 0;
+    }
+
+    public void allocatePicking(Inventories inventories) {
+
     }
 }

@@ -1,15 +1,17 @@
 package com.shyoon.wms.outbound.domain;
 
+import com.shyoon.wms.location.domain.InventoriesFixture;
 import com.shyoon.wms.location.domain.Location;
 import com.shyoon.wms.location.domain.StorageType;
+import com.shyoon.wms.outbound.feature.Inventories;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import static com.shyoon.wms.location.domain.InventoriesFixture.*;
 import static com.shyoon.wms.location.domain.InventoryFixture.anInventory;
 import static com.shyoon.wms.location.domain.LocationFixture.aLocation;
 import static com.shyoon.wms.outbound.domain.OutboundFixture.anOutbound;
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.assertj.core.api.Assertions.*;
 
 class OutboundTest {
 
@@ -86,5 +88,19 @@ class OutboundTest {
         assertThatThrownBy(() -> outbound.allocatePickingTote(tote))
                 .isInstanceOf(IllegalStateException.class)
                 .hasMessageContaining("포장재가 할당되어 있지 않습니다.");
+    }
+
+    @Test
+    @DisplayName("출고 상품을 집품할 집품 목록을 할당한다.")
+    void allocatePicking() {
+        // given
+        final Outbound outbound = anOutbound().build();
+        final Inventories inventories = anInventories().build();
+
+        // when
+        outbound.allocatePicking(inventories);
+
+        // then
+        assertThat(outbound.getOutboundProducts().toList().get(0).getPickings()).isNotNull();
     }
 }

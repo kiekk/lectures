@@ -2,6 +2,7 @@ package com.shyoon.wms.outbound.domain;
 
 import com.google.common.annotations.VisibleForTesting;
 import com.shyoon.wms.location.domain.Location;
+import com.shyoon.wms.outbound.feature.Inventories;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -157,6 +158,16 @@ public class Outbound {
         // 5. 포장재가 할당되어있는지 (포장재가 할당이 되어 있지 않으면 출고 불가능)
         if (recommendedPackagingMaterial == null) {
             throw new IllegalStateException("포장재가 할당되어 있지 않습니다.");
+        }
+    }
+
+    public void allocatePicking(final Inventories inventories) {
+        // 재고중에 유통기한이 지나지 않은 것으로 필터링
+        // 필터링된 재고목록중 유통기한이 가장 적게 남은 것을 먼저 집품
+        // 수량이 가장 많이 남은 로케이션으로 가서 집품할 토트를 할당
+        // 로케이션 순서로 정렬
+        for (OutboundProduct outboundProduct : outboundProducts.toList()) {
+            outboundProduct.allocatePicking(inventories);
         }
     }
 }
