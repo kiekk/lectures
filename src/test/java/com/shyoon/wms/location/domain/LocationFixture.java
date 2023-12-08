@@ -1,10 +1,14 @@
 package com.shyoon.wms.location.domain;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class LocationFixture {
 
     private String locationBarcode = "A-1-1";
     private StorageType storageType = StorageType.TOTE;
     private UsagePurpose usagePurpose = UsagePurpose.MOVE;
+    private List<InventoryFixture> inventories = new ArrayList<>();
 
     public static LocationFixture aLocation() {
         return new LocationFixture();
@@ -25,11 +29,23 @@ public class LocationFixture {
         return this;
     }
 
+    public LocationFixture inventories(final InventoryFixture... inventories) {
+        this.inventories = List.of(inventories);
+        return this;
+    }
+
     public Location build() {
         return new Location(
                 locationBarcode,
                 storageType,
-                usagePurpose
+                usagePurpose,
+                buildInventories()
         );
+    }
+
+    private List<Inventory> buildInventories() {
+        return inventories.stream()
+                .map(InventoryFixture::build)
+                .toList();
     }
 }

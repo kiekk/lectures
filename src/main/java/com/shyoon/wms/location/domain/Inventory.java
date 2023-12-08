@@ -78,4 +78,8 @@ public class Inventory {
     public boolean hasInventory() {
         return 0L < getInventoryQuantity();
     }
+
+    public boolean hasAvailableQuantity() {
+        return inventoryQuantity > 0L;
+    }
 }
