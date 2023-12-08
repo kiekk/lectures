@@ -1,5 +1,6 @@
 package com.shyoon.wms.location.domain;
 
+import com.google.common.annotations.VisibleForTesting;
 import com.shyoon.wms.inbound.domain.LPN;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
@@ -43,14 +44,24 @@ public class Location {
     private List<Inventory> inventories = new ArrayList<>();
 
     public Location(
-            String locationBarcode,
-            StorageType storageType,
-            UsagePurpose usagePurpose) {
+            final String locationBarcode,
+            final StorageType storageType,
+            final UsagePurpose usagePurpose) {
         validateConstructor(locationBarcode, storageType, usagePurpose);
 
         this.locationBarcode = locationBarcode;
         this.storageType = storageType;
         this.usagePurpose = usagePurpose;
+    }
+
+    @VisibleForTesting
+    Location(
+            final String locationBarcode,
+            final StorageType storageType,
+            final UsagePurpose usagePurpose,
+            final List<Inventory> inventories) {
+        this(locationBarcode, storageType, usagePurpose);
+        this.inventories = inventories;
     }
 
     private void validateConstructor(String locationBarcode, StorageType storageType, UsagePurpose usagePurpose) {
@@ -82,4 +93,13 @@ public class Location {
                 .findFirst();
     }
 
+    public boolean isTote() {
+        return storageType == StorageType.TOTE;
+    }
+
+    public boolean hasAvailableInventory() {
+        return !inventories.isEmpty() &&
+                inventories.stream()
+                        .anyMatch(Inventory::hasAvailableQuantity);
+    }
 }

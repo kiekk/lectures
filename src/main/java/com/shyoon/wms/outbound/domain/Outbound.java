@@ -1,5 +1,7 @@
 package com.shyoon.wms.outbound.domain;
 
+import com.google.common.annotations.VisibleForTesting;
+import com.shyoon.wms.location.domain.Location;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -48,6 +50,11 @@ public class Outbound {
     @JoinColumn(name = "packaging_material_no")
     private PackagingMaterial recommendedPackagingMaterial;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "picking_tote_no")
+    @Comment("피킹 토트 번호")
+    private Location pikingTote;
+
     public Outbound(
             final Long orderNo,
             final OrderCustomer orderCustomer,
@@ -66,6 +73,20 @@ public class Outbound {
         this.desiredDeliveryAt = desiredDeliveryAt;
         this.recommendedPackagingMaterial = recommendedPackagingMaterial;
         outboundProducts.forEach(outboundProduct -> outboundProduct.assignOutbound(this));
+    }
+
+    @VisibleForTesting
+    Outbound(
+            final Long orderNo,
+            final OrderCustomer orderCustomer,
+            final String deliveryRequirements,
+            final List<OutboundProduct> outboundProducts,
+            final Boolean isPriorityDelivery,
+            final LocalDate desiredDeliveryAt,
+            final PackagingMaterial packagingMaterial,
+            final Location pikingTote) {
+        this(orderNo, orderCustomer, deliveryRequirements, outboundProducts, isPriorityDelivery, desiredDeliveryAt, packagingMaterial);
+        this.pikingTote = pikingTote;
     }
 
     private void validateConstructor(
@@ -110,4 +131,32 @@ public class Outbound {
         this.recommendedPackagingMaterial = packagingMaterial;
     }
 
+    public void allocatePickingTote(final Location tote) {
+        validateToteAllocation(tote);
+        pikingTote = tote;
+    }
+
+    private void validateToteAllocation(Location tote) {
+        // 1. null 체크
+        Assert.notNull(tote, "출고에 할닫할 토트는 필수 입니다.");
+
+        // 2. 로케이션 토트가 맞는지
+        if (!tote.isTote()) {
+            throw new IllegalArgumentException("할당하려는 로케이션이 토트가 아닙니다.");
+        }
+
+        // 3. 토트에 상품이 담겨있지는 않은지
+        if (tote.hasAvailableInventory()) {
+            throw new IllegalArgumentException("할당하려는 토트에 상품이 존재합니다.");
+        }
+
+        // 4. 이미 출고에 토트가 할당되어 있는지
+        if (pikingTote != null) {
+            throw new IllegalStateException("이미 출고에 토트가 할당되어 있습니다.");
+        }
+        // 5. 포장재가 할당되어있는지 (포장재가 할당이 되어 있지 않으면 출고 불가능)
+        if (recommendedPackagingMaterial == null) {
+            throw new IllegalStateException("포장재가 할당되어 있지 않습니다.");
+        }
+    }
 }
