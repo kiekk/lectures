@@ -6,10 +6,8 @@ import com.shyoon.wms.inbound.feature.api.RegisterLPNApi;
 import com.shyoon.wms.inbound.feature.api.RejectInboundApi;
 import com.shyoon.wms.location.feature.api.AssignInventoryApi;
 import com.shyoon.wms.location.feature.api.RegisterLocationApi;
-import com.shyoon.wms.outbound.feature.api.AllocatePickingToteApi;
-import com.shyoon.wms.outbound.feature.api.RegisterOutboundApi;
-import com.shyoon.wms.outbound.feature.api.RegisterPackagingMaterialApi;
-import com.shyoon.wms.outbound.feature.api.SplitOutboundApi;
+import com.shyoon.wms.outbound.feature.AllocatePicking;
+import com.shyoon.wms.outbound.feature.api.*;
 import com.shyoon.wms.product.feature.api.RegisterProductApi;
 
 public class Scenario {
@@ -55,5 +53,9 @@ public class Scenario {
 
     public static AllocatePickingToteApi allocatePickingTote() {
         return new AllocatePickingToteApi();
+    }
+
+    public static AllocatePickingToteApi allocatePicking() {
+        return new AllocatePickingApi();
     }
 }

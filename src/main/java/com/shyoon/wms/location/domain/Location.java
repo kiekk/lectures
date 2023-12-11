@@ -70,10 +70,6 @@ public class Location {
         Assert.notNull(usagePurpose, "보관 목적은 필수입니다.");
     }
 
-    public void assignNo(final Long locationNo) {
-        this.locationNo = locationNo;
-    }
-
     public void assignInventory(final LPN lpn) {
         Assert.notNull(lpn, "LPN은 필수입니다.");
 
@@ -83,14 +79,17 @@ public class Location {
         findInventoryBy(lpn)
                 .ifPresentOrElse(
                         Inventory::increaseQuantity,
-                        () -> inventories.add(new Inventory(this, lpn))
-                );
+                        () -> assignNewLPN(lpn));
     }
 
-    private Optional<Inventory> findInventoryBy(LPN lpn) {
+    private Optional<Inventory> findInventoryBy(final LPN lpn) {
         return inventories.stream()
                 .filter(inventory -> inventory.matchLPNToLocation(lpn))
                 .findFirst();
+    }
+
+    private void assignNewLPN(final LPN lpn) {
+        inventories.add(new Inventory(this, lpn));
     }
 
     public boolean isTote() {

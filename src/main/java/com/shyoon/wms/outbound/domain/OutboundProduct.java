@@ -45,7 +45,9 @@ public class OutboundProduct {
     @Comment("출고 번호")
     private Outbound outbound;
 
-    private List<Picking> pickings = new ArrayList<>();
+    @Getter
+    @OneToMany(mappedBy = "outboundProduct", cascade = CascadeType.ALL, orphanRemoval = true)
+    private final List<Picking> pickings = new ArrayList<>();
 
     public OutboundProduct(
             final Product product,
@@ -128,7 +130,7 @@ public class OutboundProduct {
     }
 
     public void allocatePicking(final Inventories inventories) {
-        final Inventories inventories1 = inventories.makeEfficientInventoriesForPicking(this.getProductNo());
+        final Inventories inventories1 = inventories.makeEfficientInventoriesForPicking(this.getProductNo(), orderQuantity);
 
         final List<Picking> pickings = createPickings(inventories1);
 
@@ -136,8 +138,9 @@ public class OutboundProduct {
     }
 
     private void allocatePickings(List<Picking> pickings) {
+        this.pickings.clear();
+        this.pickings.addAll(pickings);
         pickings.forEach(picking -> picking.assignOutboundProduct(this));
-        this.pickings = pickings;
     }
 
     private List<Picking> createPickings(final Inventories inventories1) {

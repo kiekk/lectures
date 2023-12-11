@@ -16,10 +16,6 @@ public class SplitOutboundApi {
             1L
     ));
 
-    public static SplitOutboundApi aSplitOutbound() {
-        return new SplitOutboundApi();
-    }
-
     public SplitOutboundApi outboundNo(final Long outboundNo) {
         this.outboundNo = outboundNo;
         return this;

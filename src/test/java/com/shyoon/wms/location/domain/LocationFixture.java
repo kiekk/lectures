@@ -2,6 +2,7 @@ package com.shyoon.wms.location.domain;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class LocationFixture {
 
@@ -46,6 +47,6 @@ public class LocationFixture {
     private List<Inventory> buildInventories() {
         return inventories.stream()
                 .map(InventoryFixture::build)
-                .toList();
+                .collect(Collectors.toList());
     }
 }

@@ -12,6 +12,7 @@ import org.springframework.util.Assert;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Set;
 
 @Getter
 @Entity
@@ -173,5 +174,9 @@ public class Outbound {
 
     public List<Picking> getPickings() {
         return outboundProducts.getPickings();
+    }
+
+    public Set<Long> getProductNos() {
+        return outboundProducts.getProductNos();
     }
 }
