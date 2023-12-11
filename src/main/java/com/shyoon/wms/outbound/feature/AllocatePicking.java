@@ -20,7 +20,7 @@ public class AllocatePicking {
 
     @PostMapping("/outbounds/{outboundNo}/allocate-picking")
     @Transactional
-    public synchronized void request(@PathVariable final Long outboundNo) {
+    public void request(@PathVariable final Long outboundNo) {
         final Outbound outbound = outboundRepository.getBy(outboundNo);
         final Inventories inventories = inventoryRepository.inventoriesBy(outbound.getProductNos());
 
