@@ -64,4 +64,10 @@ public final class OutboundProducts {
 
         return outboundProduct.split(quantity);
     }
+
+    public List<Picking> getPickings() {
+        return outboundProducts.stream()
+                .flatMap(outboundProduct -> outboundProduct.getPickings().stream())
+                .toList();
+    }
 }

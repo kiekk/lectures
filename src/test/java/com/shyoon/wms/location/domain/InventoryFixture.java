@@ -35,7 +35,6 @@ public class InventoryFixture {
 
     public Inventory build() {
         return new Inventory(
-                inventoryNo,
                 location.build(),
                 lpn.build(),
                 inventoryQuantity);

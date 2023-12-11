@@ -5,12 +5,12 @@ import com.shyoon.wms.location.domain.InventoryRepository;
 import com.shyoon.wms.outbound.domain.Outbound;
 import com.shyoon.wms.outbound.domain.OutboundProduct;
 import com.shyoon.wms.outbound.domain.OutboundRepository;
+import com.shyoon.wms.outbound.domain.Picking;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 class AllocatePickingTest {
 
@@ -43,6 +43,17 @@ class AllocatePickingTest {
 
             // 집품을 할당한다.
             outbound.allocatePicking(inventories);
+            deductAllocatedInventories(outbound.getPickings(), inventories);
+
+            // 재고 차감
+        }
+
+        private void deductAllocatedInventories(final List<Picking> pickings,
+                                                final Inventories inventories) {
+            for (Picking picking : pickings) {
+                final Inventory inventory = inventories.getBy(picking.getInventory());
+                inventory.decreaseQuantity(picking.getQuantity());
+            }
         }
     }
 }
