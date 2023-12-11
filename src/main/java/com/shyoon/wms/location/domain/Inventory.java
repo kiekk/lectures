@@ -44,6 +44,10 @@ public class Inventory {
     @Getter
     private Long productNo;
 
+    @Version
+    @Column(name = "version", nullable = false)
+    private Long version;
+
     public Inventory(
             final Location location,
             final LPN lpn) {
