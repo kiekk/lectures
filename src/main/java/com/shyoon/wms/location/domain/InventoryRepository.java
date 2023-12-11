@@ -12,9 +12,9 @@ public interface InventoryRepository extends JpaRepository<Inventory, Long> {
     @Query("""
                 SELECT i FROM Inventory i WHERE i.productNo = :productNo
             """)
-    List<Inventory> findByProductNo(Long productNo);
+    List<Inventory> listBy(Long productNo);
 
     default Inventories inventoriesBy(OrderProduct orderProduct) {
-        return new Inventories(findByProductNo(orderProduct.getProductNo()));
+        return new Inventories(listBy(orderProduct.getProductNo()));
     }
 }

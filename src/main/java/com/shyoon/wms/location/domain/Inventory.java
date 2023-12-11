@@ -9,6 +9,8 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Comment;
 import org.springframework.util.Assert;
 
+import java.time.LocalDateTime;
+
 @Entity
 @Table(name = "inventory")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -54,12 +56,10 @@ public class Inventory {
     }
 
     @VisibleForTesting
-    Inventory(final Long inventoryNo,
-              final Location location,
+    Inventory(final Location location,
               final LPN lpn,
               final Long inventoryQuantity) {
         this(location, lpn);
-        this.inventoryNo = inventoryNo;
         this.inventoryQuantity = inventoryQuantity;
     }
 
@@ -82,4 +82,17 @@ public class Inventory {
     public boolean hasAvailableQuantity() {
         return inventoryQuantity > 0L;
     }
+
+    public LocalDateTime getExpirationAt() {
+        return lpn.getExpirationAt();
+    }
+
+    public String getLocationBarcode() {
+        return location.getLocationBarcode();
+    }
+
+    public void decreaseQuantity(final Long quantityToAllocate) {
+        inventoryQuantity -= quantityToAllocate;
+    }
+
 }
