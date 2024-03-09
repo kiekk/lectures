@@ -2,7 +2,7 @@ import axios from "axios";
 
 const EMPLOYEE_API_BASE_URL = "https://api.fastcampus-soono.net/api/v1/employees";
 
-class EmployeeService {
+export default class EmployeeService {
 
   getEmployees() {
     return axios.get(EMPLOYEE_API_BASE_URL);
@@ -24,5 +24,3 @@ class EmployeeService {
     return axios.delete(EMPLOYEE_API_BASE_URL + "/" + id);
   }
 }
-
-export default new EmployeeService();
