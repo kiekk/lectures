@@ -32,7 +32,6 @@ pipeline {
                     MY_APP_PRIVATE_IP = "" 
 
                     sh  """
-                        git clone https://github.com/kiekk/fastcampus-aws-devops.git
                         cd fastcampus-aws-devops/part2/ansible
 
                         sed -i 's/MY_KEYPAIR_NAME/${MY_KEYPAIR_NAME}/g' hosts/hosts
