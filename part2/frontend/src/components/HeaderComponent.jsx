@@ -12,7 +12,7 @@ export default class HeaderComponent extends Component {
         <header>
           <nav className="navbar navbar-expand-md navbar-dark bg-dark">
             <div>
-              <a href="http://www.fastcampus-dragon.net" className="navbar-brand">
+              <a href="http://www.fastcampus-soono.net" className="navbar-brand">
                 Jenkins Deploy Test!
               </a>
             </div>
