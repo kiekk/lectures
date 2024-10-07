@@ -1,13 +1,12 @@
 package com.example.fastcampusmysql.application.controller;
 
-import com.example.fastcampusmysql.application.usacase.CreatePostLikeUsacase;
+import com.example.fastcampusmysql.application.usacase.CreatePostLikeUsecase;
 import com.example.fastcampusmysql.application.usacase.CreatePostUsecase;
 import com.example.fastcampusmysql.application.usacase.GetTimelinePostsUsecase;
 import com.example.fastcampusmysql.domain.post.dto.DailyPostCount;
 import com.example.fastcampusmysql.domain.post.dto.DailyPostCountRequest;
 import com.example.fastcampusmysql.domain.post.dto.PostCommand;
 import com.example.fastcampusmysql.domain.post.dto.PostDto;
-import com.example.fastcampusmysql.domain.post.entity.Post;
 import com.example.fastcampusmysql.domain.post.service.PostReadService;
 import com.example.fastcampusmysql.domain.post.service.PostWriteService;
 import com.example.fastcampusmysql.util.CursorRequest;
@@ -30,7 +29,7 @@ public class PostController {
 
     final private CreatePostUsecase createPostUsecase;
 
-    final private CreatePostLikeUsacase createPostLikeUsacase;
+    final private CreatePostLikeUsecase createPostLikeUsecase;
 
     @PostMapping("")
     public Long create(@RequestBody PostCommand command) {
@@ -75,7 +74,7 @@ public class PostController {
             @PathVariable Long postId,
             @RequestParam Long memberId
     ) {
-        createPostLikeUsacase.execute(postId, memberId);
+        createPostLikeUsecase.execute(postId, memberId);
     }
 
 }

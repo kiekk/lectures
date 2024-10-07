@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 @RequiredArgsConstructor
 @Service
-public class CreatePostLikeUsacase {
+public class CreatePostLikeUsecase {
     final private PostReadService postReadService;
     final private MemberReadService memberReadService;
     final private PostLikeWriteService postLikeWriteService;
