@@ -6,6 +6,5 @@ public record MemberNicknameHistoryDto(
         Long id,
         Long memberId,
         String nickname,
-        LocalDateTime createdAt
-) {
+        LocalDateTime createdAt) {
 }
