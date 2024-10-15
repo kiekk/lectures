@@ -1,6 +1,9 @@
 # default host, port 가 각각 localhost, 6379이기 때문에
 # 따로 입력하지 않아도 된다.
 spring:
+  # redis session 을 사용하기 위해서는 storage-type을 redis로 지정
+  session:
+    storage-type: redis
   data:
     redis:
       host: localhost

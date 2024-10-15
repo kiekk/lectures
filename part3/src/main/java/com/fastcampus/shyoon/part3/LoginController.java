@@ -5,22 +5,20 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.HashMap;
-
 @RestController
 public class LoginController {
 
-    // 예시를 위해 실제 DB 대신 로컬 변수 사용
-    HashMap<String, String> sessionMap = new HashMap<>();
+    // redis 세션 클러스터링을 사용하여
+    // 분산환경에서도 세션이 공유될 수 있도록 함
 
     @GetMapping("/login")
     public String login(HttpSession session, @RequestParam String name) {
-        sessionMap.put(session.getId(), name);
+        session.setAttribute("name", name);
         return "login";
     }
 
     @GetMapping("/myName")
     public String myName(HttpSession session) {
-        return sessionMap.get(session.getId());
+        return (String) session.getAttribute("name");
     }
 }
