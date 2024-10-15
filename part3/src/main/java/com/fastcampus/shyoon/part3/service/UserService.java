@@ -23,8 +23,8 @@ public class UserService {
         String cachedName = ops.get("nameKey: " + userId);
         String userName = cachedName != null ? cachedName : externalApiService.getUserName(userId);
 
-        String cachedAge = ops.get("ageKey: " + userId);
-        int userAge = cachedAge != null ? Integer.parseInt(cachedAge) : externalApiService.getUserAge(userId);
+        // @Cacheable annotation으로 캐싱
+        int userAge = externalApiService.getUserAge(userId);
 
         return new UserProfile(userName, userAge);
     }

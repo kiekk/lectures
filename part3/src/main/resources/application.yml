@@ -4,6 +4,9 @@ spring:
   # redis session 을 사용하기 위해서는 storage-type을 redis로 지정
   session:
     storage-type: redis
+  # redis cache 구현체를 사용하겠다는 의미
+  cache:
+    type: redis
   data:
     redis:
       host: localhost

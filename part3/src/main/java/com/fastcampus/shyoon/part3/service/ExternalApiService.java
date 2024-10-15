@@ -1,5 +1,6 @@
 package com.fastcampus.shyoon.part3.service;
 
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -22,6 +23,7 @@ public class ExternalApiService {
         }
     }
 
+    @Cacheable(cacheNames = "userAgeCache", key="#userId")
     public int getUserAge(String userId) {
         return 20;
     }
