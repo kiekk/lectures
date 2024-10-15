@@ -1,1 +1,7 @@
-spring.application.name=part3
+# default host, port 가 각각 localhost, 6379이기 때문에
+# 따로 입력하지 않아도 된다.
+spring:
+  data:
+    redis:
+      host: localhost
+      port: 6379
