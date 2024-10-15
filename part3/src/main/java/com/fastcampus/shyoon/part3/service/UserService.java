@@ -5,6 +5,8 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Service;
 
+import java.util.concurrent.TimeUnit;
+
 @Service
 public class UserService {
 
@@ -20,8 +22,14 @@ public class UserService {
     public UserProfile getUserProfile(String userId) {
         ValueOperations<String, String> ops = stringRedisTemplate.opsForValue();
 
+        String userName;
         String cachedName = ops.get("nameKey: " + userId);
-        String userName = cachedName != null ? cachedName : externalApiService.getUserName(userId);
+        if (cachedName != null) {
+            userName = cachedName;
+        } else {
+            userName = externalApiService.getUserName(userId);
+            ops.set("nameKey: " + userId, userName, 5, TimeUnit.SECONDS);
+        }
 
         // @Cacheable annotation으로 캐싱
         int userAge = externalApiService.getUserAge(userId);
