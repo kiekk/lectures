@@ -25,10 +25,10 @@ public class MinesweeperGame {
     public static void main(String[] args) {
         showGameStartComments();
         initializeGame();
-
+        
         while (true) {
             showBoard();
-
+            
             if (doesUserWinTheGame()) {
                 System.out.println("지뢰를 모두 찾았습니다. GAME CLEAR!");
                 break;
@@ -47,13 +47,13 @@ public class MinesweeperGame {
     private static void actOnCell(String cellInput, String userActionInput) {
         int selectedColIndex = getSelectedColIndex(cellInput);
         int selectedRowIndex = getSelectedRowIndex(cellInput);
-
+        
         if (doesUserChooseToPlantFlag(userActionInput)) {
             BOARD[selectedRowIndex][selectedColIndex] = FLAG_SIGN;
             checkIfGameIsOver();
             return;
         }
-
+        
         if (doesUserChooseToOpenCell(userActionInput)) {
             if (isLandMineCell(selectedRowIndex, selectedColIndex)) {
                 BOARD[selectedRowIndex][selectedColIndex] = LAND_MINE_SIGN;
@@ -65,7 +65,7 @@ public class MinesweeperGame {
             checkIfGameIsOver();
             return;
         }
-
+        
         System.out.println("잘못된 번호를 선택하셨습니다.");
     }
 
@@ -127,7 +127,11 @@ public class MinesweeperGame {
     private static boolean isAllCellOpened() {
         return Arrays.stream(BOARD)
                 .flatMap(Arrays::stream)
-                .noneMatch(cell -> cell.equals(CLOSED_CELL_SIGN));
+                .noneMatch(MinesweeperGame::isClosedCellSign);
+    }
+
+    private static boolean isClosedCellSign(String cell) {
+        return cell.equals(CLOSED_CELL_SIGN);
     }
 
     private static int convertRowFrom(char cellInputRow) {
@@ -230,15 +234,15 @@ public class MinesweeperGame {
         if (row < ZERO || row >= BOARD_ROW_SIZE || col < ZERO || col >= BOARD_COL_SIZE) {
             return;
         }
-
-        if (!BOARD[row][col].equals(CLOSED_CELL_SIGN)) {
+        
+        if (!isClosedCellSign(BOARD[row][col])) {
             return;
         }
-
+        
         if (isLandMineCell(row, col)) {
             return;
         }
-
+        
         if (NEARBY_LAND_MINE_COUNTS[row][col] != ZERO) {
             BOARD[row][col] = String.valueOf(NEARBY_LAND_MINE_COUNTS[row][col]);
             return;
