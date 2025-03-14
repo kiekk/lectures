@@ -9,8 +9,8 @@ import cleancode.minesweeper.tobe.gamelevel.GameLevel;
 import java.util.Arrays;
 import java.util.Random;
 
-import static cleancode.minesweeper.tobe.Minesweeper.ONE;
-import static cleancode.minesweeper.tobe.Minesweeper.ZERO;
+import static cleancode.minesweeper.tobe.GameApplication.ONE;
+import static cleancode.minesweeper.tobe.GameApplication.ZERO;
 
 public class GameBoard {
 

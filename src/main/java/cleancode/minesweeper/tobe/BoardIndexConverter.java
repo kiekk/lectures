@@ -1,7 +1,7 @@
 package cleancode.minesweeper.tobe;
 
-import static cleancode.minesweeper.tobe.Minesweeper.ONE;
-import static cleancode.minesweeper.tobe.Minesweeper.ZERO;
+import static cleancode.minesweeper.tobe.GameApplication.ONE;
+import static cleancode.minesweeper.tobe.GameApplication.ZERO;
 
 public class BoardIndexConverter {
 
