@@ -27,7 +27,7 @@ public class LandMineCell implements Cell {
 
     @Override
     public void flag() {
-        cellState.open();
+        cellState.flag();
     }
 
     @Override
@@ -37,7 +37,7 @@ public class LandMineCell implements Cell {
 
     @Override
     public boolean isChecked() {
-        return cellState.isChecked();
+        return cellState.isFlagged();
     }
 
     @Override
