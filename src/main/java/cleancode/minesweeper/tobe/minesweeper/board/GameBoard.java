@@ -11,6 +11,7 @@ import java.util.List;
 
 import static cleancode.minesweeper.tobe.GameApplication.ZERO;
 import static cleancode.minesweeper.tobe.minesweeper.board.position.RelativePosition.SURROUND_RELATIVE_POSITIONS;
+import static java.util.stream.Collectors.summingInt;
 
 public class GameBoard {
 
@@ -163,9 +164,10 @@ public class GameBoard {
         int rowSize = getRowSize();
         int colSize = getColSize();
 
-        return (int) calculateSurroundedPositions(cellPosition, rowSize, colSize).stream()
+        return calculateSurroundedPositions(cellPosition, rowSize, colSize).stream()
                 .filter(this::isLandMineCell)
-                .count();
+                .mapToInt(value -> 1)
+                .sum();
     }
 
     private List<CellPosition> calculateSurroundedPositions(CellPosition cellPosition, int rowSize, int colSize) {
