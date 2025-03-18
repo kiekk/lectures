@@ -16,12 +16,12 @@ public class StudyCafeLockerPass {
         return new StudyCafeLockerPass(passType, duration, price);
     }
 
-    public StudyCafePassType getPassType() {
-        return passType;
+    public boolean isSameDuration(int duration) {
+        return this.duration == duration;
     }
 
-    public int getDuration() {
-        return duration;
+    public boolean isSamePassType(StudyCafePassType passType) {
+        return this.passType == passType;
     }
 
     public int getPrice() {
