@@ -56,4 +56,8 @@ public class CellSnapshot {
     public int hashCode() {
         return Objects.hash(status, nearbyLandMineCount);
     }
+
+    public boolean isSameStatus(CellSnapshotStatus status) {
+        return this.status == status;
+    }
 }
