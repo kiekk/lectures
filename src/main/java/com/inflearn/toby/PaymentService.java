@@ -6,9 +6,9 @@ import java.time.LocalDateTime;
 
 public class PaymentService {
 
-    private final WebApiExRateProvider exRateProvider;
+    private final ExRateProvider exRateProvider;
 
-    public PaymentService(WebApiExRateProvider exRateProvider) {
+    public PaymentService(ExRateProvider exRateProvider) {
         this.exRateProvider = exRateProvider;
     }
 
