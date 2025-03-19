@@ -8,8 +8,8 @@ public class PaymentService {
 
     private final WebApiExRateProvider exRateProvider;
 
-    public PaymentService() {
-        this.exRateProvider = new WebApiExRateProvider();
+    public PaymentService(WebApiExRateProvider exRateProvider) {
+        this.exRateProvider = exRateProvider;
     }
 
     public Payment prepare(Long orderId, String currency, BigDecimal foreignCurrencyAmount) throws IOException {
