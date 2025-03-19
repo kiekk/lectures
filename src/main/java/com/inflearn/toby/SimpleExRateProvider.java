@@ -1,10 +1,8 @@
 package com.inflearn.toby;
 
-import java.io.IOException;
 import java.math.BigDecimal;
 
-public class SimpleExRatePaymentService extends PaymentService {
-    @Override
+public class SimpleExRateProvider {
     BigDecimal getExRate(String currency) {
         if ("USD".equals(currency)) {
             return BigDecimal.valueOf(1000);
