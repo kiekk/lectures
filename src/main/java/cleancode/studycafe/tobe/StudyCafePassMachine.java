@@ -64,16 +64,12 @@ public class StudyCafePassMachine {
 
         Optional<StudyCafeLockerPass> lockerPassCandidate = findLockerPassCandidate(selectedPass);
 
-        if (lockerPassCandidate.isPresent()) {
-            StudyCafeLockerPass lockerPass = lockerPassCandidate.get();
-            boolean isLockerSelected = ioHandler.askLockerPass(lockerPass);
-
-            if (isLockerSelected) {
-                return Optional.of(lockerPass);
-            }
-        }
-
-        return Optional.empty();
+        return lockerPassCandidate
+                .flatMap(studyCafeLockerPass -> {
+                    boolean isLockerSelected = ioHandler.askLockerPass(studyCafeLockerPass);
+                    return isLockerSelected ? Optional.of(studyCafeLockerPass) : Optional.empty();
+                })
+                .or(Optional::empty);
     }
 
     private Optional<StudyCafeLockerPass> findLockerPassCandidate(StudyCafeSeatPass pass) {
