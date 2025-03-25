@@ -1,4 +1,6 @@
-package com.inflearn.toby;
+package com.inflearn.toby.exrate.provider;
+
+import com.inflearn.toby.payment.ExRateProvider;
 
 import java.math.BigDecimal;
 

@@ -1,4 +1,4 @@
-package com.inflearn.toby;
+package com.inflearn.toby.exrate;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 

@@ -1,5 +1,7 @@
 package com.inflearn.toby;
 
+import com.inflearn.toby.payment.Payment;
+import com.inflearn.toby.payment.PaymentService;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 

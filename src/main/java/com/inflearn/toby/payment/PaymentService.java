@@ -1,4 +1,4 @@
-package com.inflearn.toby;
+package com.inflearn.toby.payment;
 
 import org.springframework.stereotype.Component;
 

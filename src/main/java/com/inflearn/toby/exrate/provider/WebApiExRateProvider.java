@@ -1,6 +1,8 @@
-package com.inflearn.toby;
+package com.inflearn.toby.exrate.provider;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.inflearn.toby.exrate.ExRateData;
+import com.inflearn.toby.payment.ExRateProvider;
 
 import java.io.BufferedReader;
 import java.io.IOException;

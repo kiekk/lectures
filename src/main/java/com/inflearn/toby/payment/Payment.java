@@ -1,4 +1,4 @@
-package com.inflearn.toby;
+package com.inflearn.toby.payment;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
