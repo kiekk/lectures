@@ -1,11 +1,13 @@
 package com.inflearn.toby.payment;
 
-import com.inflearn.toby.ObjectFactory;
 import com.inflearn.toby.TestObjectFactory;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.BeanFactory;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -13,12 +15,16 @@ import java.math.BigDecimal;
 import static java.math.BigDecimal.valueOf;
 import static org.assertj.core.api.Assertions.assertThat;
 
+@ExtendWith(SpringExtension.class)
+@ContextConfiguration(classes = TestObjectFactory.class)
 class PaymentServiceSpringTest {
+
+    @Autowired
+    private BeanFactory beanFactory;
 
     @Test
     @DisplayName("AnnotationConfigApplicationContext 객체를 사용하여 PaymentService Bean 주입 테스트")
     void prepare() throws IOException {
-        BeanFactory beanFactory = new AnnotationConfigApplicationContext(TestObjectFactory.class);
         PaymentService paymentService = beanFactory.getBean(PaymentService.class);
         Payment payment = paymentService.prepare(100L, "USD", BigDecimal.TEN);
 
