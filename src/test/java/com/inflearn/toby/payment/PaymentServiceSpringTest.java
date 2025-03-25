@@ -19,13 +19,17 @@ import static org.assertj.core.api.Assertions.assertThat;
 @ContextConfiguration(classes = TestObjectFactory.class)
 class PaymentServiceSpringTest {
 
+//    @Autowired
+//    private BeanFactory beanFactory;
+
     @Autowired
-    private BeanFactory beanFactory;
+    private PaymentService paymentService;
 
     @Test
     @DisplayName("AnnotationConfigApplicationContext 객체를 사용하여 PaymentService Bean 주입 테스트")
     void prepare() throws IOException {
-        PaymentService paymentService = beanFactory.getBean(PaymentService.class);
+        // BeanFactory를 사용하여 PaymentService Bean을 가져오는 방식도 가능하다.
+//        PaymentService paymentService = beanFactory.getBean(PaymentService.class);
         Payment payment = paymentService.prepare(100L, "USD", BigDecimal.TEN);
 
         assertThat(payment.getExRate()).isEqualByComparingTo(valueOf(1_000));
