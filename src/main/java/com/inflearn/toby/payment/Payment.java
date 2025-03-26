@@ -14,7 +14,7 @@ public class Payment {
     private final LocalDateTime validUntil;
 
     private Payment(Long orderId, String currency, BigDecimal foreignCurrencyAmount, BigDecimal exRate,
-                   BigDecimal convertedAmount, LocalDateTime validUntil) {
+                    BigDecimal convertedAmount, LocalDateTime validUntil) {
         this.orderId = orderId;
         this.currency = currency;
         this.foreignCurrencyAmount = foreignCurrencyAmount;
