@@ -1,11 +1,10 @@
 package com.inflearn.toby.exrate.provider;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.inflearn.toby.api.ApiExecutor;
+import com.inflearn.toby.api.ErApiExRateExtractor;
 import com.inflearn.toby.api.ExRateExtractor;
 import com.inflearn.toby.api.SimpleApiExecutor;
-import com.inflearn.toby.exrate.ExRateData;
 import com.inflearn.toby.payment.ExRateProvider;
 
 import java.io.IOException;
@@ -18,11 +17,7 @@ public class WebApiExRateProvider implements ExRateProvider {
     @Override
     public BigDecimal getExRate(String currency) {
         String urlString = "https://open.er-api.com/v6/latest/" + currency;
-        return runApiForExRate(currency, urlString, new SimpleApiExecutor(), (currency1, response) -> {
-            ObjectMapper mapper = new ObjectMapper();
-            ExRateData exRateData = mapper.readValue(response, ExRateData.class);
-            return exRateData.rates().get(currency1);
-        });
+        return runApiForExRate(currency, urlString, new SimpleApiExecutor(), new ErApiExRateExtractor());
     }
 
     private BigDecimal runApiForExRate(String currency, String urlString, ApiExecutor apiExecutor, ExRateExtractor exRateExtractor) {
