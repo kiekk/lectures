@@ -7,24 +7,20 @@ import com.inflearn.toby.api.SimpleApiExecutor;
 import com.inflearn.toby.exrate.ExRateData;
 import com.inflearn.toby.payment.ExRateProvider;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.math.BigDecimal;
-import java.net.HttpURLConnection;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.stream.Collectors;
 
 public class WebApiExRateProvider implements ExRateProvider {
 
     @Override
     public BigDecimal getExRate(String currency) {
         String urlString = "https://open.er-api.com/v6/latest/" + currency;
-        return runApiForExRate(currency, urlString);
+        return runApiForExRate(currency, urlString, new SimpleApiExecutor());
     }
 
-    private BigDecimal runApiForExRate(String currency, String urlString) {
+    private BigDecimal runApiForExRate(String currency, String urlString, ApiExecutor apiExecutor) {
         URI uri;
         try {
             uri = new URI(urlString);
@@ -34,7 +30,7 @@ public class WebApiExRateProvider implements ExRateProvider {
 
         String response;
         try {
-            response = new SimpleApiExecutor().execute(uri);
+            response = apiExecutor.execute(uri);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
