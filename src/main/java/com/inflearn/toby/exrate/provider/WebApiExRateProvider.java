@@ -3,6 +3,7 @@ package com.inflearn.toby.exrate.provider;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.inflearn.toby.api.ApiExecutor;
+import com.inflearn.toby.api.ExRateExtractor;
 import com.inflearn.toby.api.SimpleApiExecutor;
 import com.inflearn.toby.exrate.ExRateData;
 import com.inflearn.toby.payment.ExRateProvider;
@@ -17,10 +18,14 @@ public class WebApiExRateProvider implements ExRateProvider {
     @Override
     public BigDecimal getExRate(String currency) {
         String urlString = "https://open.er-api.com/v6/latest/" + currency;
-        return runApiForExRate(currency, urlString, new SimpleApiExecutor());
+        return runApiForExRate(currency, urlString, new SimpleApiExecutor(), (currency1, response) -> {
+            ObjectMapper mapper = new ObjectMapper();
+            ExRateData exRateData = mapper.readValue(response, ExRateData.class);
+            return exRateData.rates().get(currency1);
+        });
     }
 
-    private BigDecimal runApiForExRate(String currency, String urlString, ApiExecutor apiExecutor) {
+    private BigDecimal runApiForExRate(String currency, String urlString, ApiExecutor apiExecutor, ExRateExtractor exRateExtractor) {
         URI uri;
         try {
             uri = new URI(urlString);
@@ -36,19 +41,9 @@ public class WebApiExRateProvider implements ExRateProvider {
         }
 
         try {
-            return extractExRate(currency, response);
+            return exRateExtractor.extract(currency, response);
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }
-    }
-
-    private BigDecimal extractExRate(String currency, String response) throws JsonProcessingException {
-        ExRateData exRateData = parseExRate(response);
-        return exRateData.rates().get(currency);
-    }
-
-    private ExRateData parseExRate(String response) throws JsonProcessingException {
-        ObjectMapper mapper = new ObjectMapper();
-        return mapper.readValue(response, ExRateData.class);
     }
 }
