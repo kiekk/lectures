@@ -1,5 +1,8 @@
 package com.inflearn.toby;
 
+import com.inflearn.toby.api.ApiTemplate;
+import com.inflearn.toby.api.ErApiExRateExtractor;
+import com.inflearn.toby.api.SimpleApiExecutor;
 import com.inflearn.toby.exrate.provider.WebApiExRateProvider;
 import com.inflearn.toby.payment.ExRateProvider;
 import com.inflearn.toby.payment.PaymentService;
@@ -17,11 +20,18 @@ public class PaymentConfig {
 
     @Bean
     public ExRateProvider exRateProvider() {
-        return new WebApiExRateProvider();
+        return new WebApiExRateProvider(apiTemplate());
     }
 
     @Bean
     public Clock clock() {
         return Clock.systemDefaultZone();
+    }
+
+    @Bean
+    public ApiTemplate apiTemplate() {
+        // 직접 구현체를 지정할 수도 있다.
+//        return new ApiTemplate(new SimpleApiExecutor(), new ErApiExRateExtractor());
+        return new ApiTemplate();
     }
 }
