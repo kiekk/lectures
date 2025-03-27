@@ -30,6 +30,7 @@ public class DataClient {
             });
             // transaction commit
         } catch (DataIntegrityViolationException e) {
+            e.printStackTrace();
             /*
             Order Entity에 ID 생성 전략을 IDENTITY로 설정할 경우 예외가 발생할 때 DataAccessException으로 래핑되지 못한다.
             org.hibernate.exception.ConstraintViolationException 예외가 그대로 발생하는데, 이유는 README.md에 정리 예정.
