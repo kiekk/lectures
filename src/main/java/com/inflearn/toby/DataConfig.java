@@ -45,14 +45,4 @@ public class DataConfig {
         return new JpaTransactionManager(emf);
     }
 
-    @Bean
-    public OrderRepository orderRepository() {
-        return new OrderRepository();
-    }
-
-//    @Bean
-//    public OrderRepository orderRepository() {
-//        return new OrderRepository(entityManagerFactory()); // ERROR 타입 불일치, TODO: 메서드 호출과 파라미터로 받는 방식의 차이 알아보기
-//        return new OrderRepository(emf);
-//    }
 }
