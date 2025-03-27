@@ -1,6 +1,7 @@
 package com.inflearn.toby;
 
-import com.inflearn.toby.data.OrderRepository;
+import com.inflearn.toby.data.JpaOrderRepository;
+import com.inflearn.toby.order.OrderRepository;
 import com.inflearn.toby.order.OrderService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -18,7 +19,7 @@ public class OrderConfig {
 
     @Bean
     public OrderRepository orderRepository() {
-        return new OrderRepository();
+        return new JpaOrderRepository();
     }
 
 }

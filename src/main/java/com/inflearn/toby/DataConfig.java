@@ -1,6 +1,5 @@
 package com.inflearn.toby;
 
-import com.inflearn.toby.data.OrderRepository;
 import jakarta.persistence.EntityManagerFactory;
 import org.springframework.beans.factory.config.BeanPostProcessor;
 import org.springframework.context.annotation.Bean;

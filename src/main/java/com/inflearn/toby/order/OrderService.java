@@ -1,6 +1,5 @@
 package com.inflearn.toby.order;
 
-import com.inflearn.toby.data.OrderRepository;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.support.TransactionTemplate;
