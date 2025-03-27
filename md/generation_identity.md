@@ -79,7 +79,7 @@ PersistenceExceptionTranslationPostProcessor가 전환해주는 예외 종류
 - @Column(nullable = false)로 설정한 필드에 null 값을 저장하려고 할 때
 ```
 
-***그렇기 때문에 JPA의 `TransactionManager` 내부에서 `org.hibernate.exception.ConstraintViolationException`가 발생하게 되면 `DataIntegrityViolationException`으로 전환되어 발생하게 됩니다.***
+***JPA의 `TransactionManager` 내부에서 `org.hibernate.exception.ConstraintViolationException`가 발생하게 되면 `DataIntegrityViolationException`으로 전환되어 발생하게 됩니다.***
 
 이제 에러가 발생한 원인을 살펴보게 되면 `@GeneratedValue`의 strategy를 `GenerationType.AUTO`로 설정할 경우 `SEQUENCE` 또는 `TABLE` 전략을 사용하게 되는데 
 `SEQUENCE` 또는 `TABLE` 전략은 `IDENTITY` 전략과 동작 방식에 차이가 있어 발생한 문제였습니다.
@@ -106,3 +106,61 @@ PersistenceExceptionTranslationPostProcessor가 전환해주는 예외 종류
 
 ### @GeneratedValue(strategy = GenerationType.AUTO) 사용 시 stacktrace
 ![generated_strategy_auto.png](generated_strategy_auto.png)
+
+
+## Appendix
+
+`EntityManager.flush()` 를 직접 호출하여 발생한다면 GeneratedValue 전략이 `AUTO`이어도 직접 `EntityManager.flush()`를 호출하게 되면 `org.hibernate.exception.ConstraintViolationException` 예외가 발생하지 않을까요?
+
+결론부터 말하자면 `AUTO`로 설정하여도 명시적으로 `EntityManager.flush()`를 호출하게 되면 `org.hibernate.exception.ConstraintViolationException` 예외가 발생하게 됩니다.
+
+```java
+@Entity
+@Table(name = "orders")
+public class Order {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO) // strategy를 AUTO로 설정
+    private Long id;
+    
+    ...
+}
+
+public class OrderRepository {
+
+    @PersistenceContext
+    private EntityManager entityManager;
+
+    public void save(Order order) {
+        entityManager.persist(order);
+        entityManager.flush(); // 명시적으로 flush() 호출
+    }
+}
+
+public class DataClient {
+    public static void main(String[] args) {
+        BeanFactory beanFactory = new AnnotationConfigApplicationContext(DataConfig.class);
+        OrderRepository orderRepository = beanFactory.getBean(OrderRepository.class);
+        JpaTransactionManager transactionManager = beanFactory.getBean(JpaTransactionManager.class);
+
+        try {
+            new TransactionTemplate(transactionManager).execute(status -> {
+                Order order = Order.create("100", BigDecimal.TEN);
+                orderRepository.save(order);
+
+                System.out.println("Order saved: " + order);
+
+                Order order2 = Order.create("100", BigDecimal.ONE);
+                /*
+                여기서 에러 발생이지만 DataIntegrityViolationException이 발생하지 않고 
+                org.hibernate.exception.ConstraintViolationException 에러 발생        
+                 */
+                orderRepository.save(order2);
+                return null;
+            });
+        } catch (DataIntegrityViolationException e) {
+            System.out.println("주문번호 중복 복구 작업");
+        }
+    }
+}
+```
+![generated_strategy_auto_2.png](generated_strategy_auto_2.png)
