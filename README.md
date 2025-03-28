@@ -93,3 +93,10 @@
 ## 🗂️ 이슈 정리
 [6. 예외 - DataAccessException과 예외 추상화]
  - [Order entity에 @GeneratedValue의 strategy를 GenerationType.IDENTITY로 설정하면서 발생한 문제](md/generation_identity.md)
+
+## *스프링으로 어떻게 개발할 것인가?* ~~스프링을 어떻게 공부할 것인가?~~
+
+```
+결국 스프링도 개발을 하기 위한 도구일 뿐 우리가 집중해야할 것은 스프링을 이용해서 어떻게 어떤 것을 개발할 것인가.
+이번 강의에서 토비님이 전하고자 하는 핵심 메시지인데 앞으로 개발을 하면서 계속 되새겨야 하는 말인 것 같습니다.
+```
