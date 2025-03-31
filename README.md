@@ -16,11 +16,12 @@
 <summary>섹션 2. 초기화 과정 이해</summary>
 <div markdown="1">
 
-| 강의                                   | 디렉토리 경로                                                                                                |
-|--------------------------------------|--------------------------------------------------------------------------------------------------------|
-| 프로젝트 생성 / 의존성 추가                     | [section02/프로젝트생성_의존성추가](section02/프로젝트생성_의존성추가/README.md)                                             |
-| SecurityBuilder / SecurityConfigurer | [section02/SecurityBuilder_SecurityConfigurer](section02/SecurityBuilder_SecurityConfigurer/README.md) |
-| WebSecurity / HttpSecurity           | [section02/WebSecurity_HttpSecurity](section02/WebSecurity_HttpSecurity/README.md)           |
+| 강의                                       | 디렉토리 경로                                                                                                |
+|------------------------------------------|--------------------------------------------------------------------------------------------------------|
+| 프로젝트 생성 / 의존성 추가                         | [section02/프로젝트생성_의존성추가](section02/프로젝트생성_의존성추가/README.md)                                             |
+| SecurityBuilder / SecurityConfigurer     | [section02/SecurityBuilder_SecurityConfigurer](section02/SecurityBuilder_SecurityConfigurer/README.md) |
+| WebSecurity / HttpSecurity               | [section02/WebSecurity_HttpSecurity](section02/WebSecurity_HttpSecurity/README.md)           |
+| DelegatingFilterProxy / FilterChainProxy | [section02/DelegatingFilterProxy_FilterChainProxy](section02/DelegatingFilterProxy_FilterChainProxy/README.md)           |
 </div>
 </details>
 
