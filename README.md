@@ -19,6 +19,7 @@
 | 강의                            | 디렉토리 경로                                                    |
 |-------------------------------|------------------------------------------------------------|
 | 프로젝트 생성 / 의존성 추가 | [section02/프로젝트생성_의존성추가](section02/프로젝트생성_의존성추가/README.md) |
+| SecurityBuilder / SecurityConfigurer | [section02/SecurityBuilder_SecurityConfigurer](section02/SecurityBuilder_SecurityConfigurer/README.md) |
 </div>
 </details>
 
