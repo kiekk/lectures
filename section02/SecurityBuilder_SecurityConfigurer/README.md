@@ -4,6 +4,7 @@
 
 ## 📖 내용
 ![image_1.png](image_1.png)
+<sub>※ 이미지 출처: [정수원님의 인프런 강의](https://www.inflearn.com/course/%EC%8A%A4%ED%94%84%EB%A7%81-%EC%8B%9C%ED%81%90%EB%A6%AC%ED%8B%B0-%EC%99%84%EC%A0%84%EC%A0%95%EB%B3%B5/dashboard)</sub>
 
 - `SecurityBuilder`
   - Spring Security의 구성 요소를 생성하는 데 사용되는 빌더 패턴을 구현한 인터페이스입니다.
@@ -17,6 +18,7 @@
 ## 초기화 작업 진행 방식
 ![image_2.png](image_2.png)
 ![image_3.png](image_3.png)
+<sub>※ 이미지 출처: [정수원님의 인프런 강의](https://www.inflearn.com/course/%EC%8A%A4%ED%94%84%EB%A7%81-%EC%8B%9C%ED%81%90%EB%A6%AC%ED%8B%B0-%EC%99%84%EC%A0%84%EC%A0%95%EB%B3%B5/dashboard)</sub>
 
 ---
 
