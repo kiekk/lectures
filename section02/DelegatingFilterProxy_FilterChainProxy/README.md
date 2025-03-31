@@ -28,17 +28,7 @@
 ```java
 package org.springframework.web.filter;
 
-import java.io.IOException;
-import javax.servlet.Filter;
-import javax.servlet.FilterChain;
-import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
-import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.lang.Nullable;
-import org.springframework.util.Assert;
-import org.springframework.web.context.WebApplicationContext;
-import org.springframework.web.context.support.WebApplicationContextUtils;
+...
 
 public class DelegatingFilterProxy extends GenericFilterBean {
     @Nullable
@@ -145,21 +135,7 @@ public class DelegatingFilterProxy extends GenericFilterBean {
 ```java
 package org.springframework.boot.autoconfigure.security.servlet;
 
-import java.util.EnumSet;
-import java.util.stream.Collectors;
-import javax.servlet.DispatcherType;
-import org.springframework.boot.autoconfigure.AutoConfiguration;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication.Type;
-import org.springframework.boot.autoconfigure.security.SecurityProperties;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
-import org.springframework.boot.web.servlet.DelegatingFilterProxyRegistrationBean;
-import org.springframework.boot.web.servlet.ServletRegistrationBean;
-import org.springframework.context.annotation.Bean;
-import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.web.context.AbstractSecurityWebApplicationInitializer;
+...
 
 @AutoConfiguration(
     after = {SecurityAutoConfiguration.class}
@@ -195,13 +171,7 @@ public class SecurityFilterAutoConfiguration {
 ```java
 package org.springframework.boot.web.servlet;
 
-import javax.servlet.ServletException;
-import org.springframework.beans.BeansException;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.ApplicationContextAware;
-import org.springframework.util.Assert;
-import org.springframework.web.context.WebApplicationContext;
-import org.springframework.web.filter.DelegatingFilterProxy;
+...
 
 public class DelegatingFilterProxyRegistrationBean extends AbstractFilterRegistrationBean<DelegatingFilterProxy> implements ApplicationContextAware {
     

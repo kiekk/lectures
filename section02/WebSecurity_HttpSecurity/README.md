@@ -161,15 +161,7 @@ public interface SecurityFilterChain {
 ```java
 package org.springframework.security.web;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import javax.servlet.Filter;
-import javax.servlet.http.HttpServletRequest;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.springframework.core.log.LogMessage;
-import org.springframework.security.web.util.matcher.RequestMatcher;
+...
 
 public final class DefaultSecurityFilterChain implements SecurityFilterChain {
     private static final Log logger = LogFactory.getLog(DefaultSecurityFilterChain.class);
