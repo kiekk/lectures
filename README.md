@@ -22,6 +22,7 @@
 | SecurityBuilder / SecurityConfigurer     | [section02/SecurityBuilder_SecurityConfigurer](section02/SecurityBuilder_SecurityConfigurer/README.md) |
 | WebSecurity / HttpSecurity               | [section02/WebSecurity_HttpSecurity](section02/WebSecurity_HttpSecurity/README.md)           |
 | DelegatingFilterProxy / FilterChainProxy | [section02/DelegatingFilterProxy_FilterChainProxy](section02/DelegatingFilterProxy_FilterChainProxy/README.md)           |
+| 사용자 정의 보안 설정하기                           | [section02/사용자_정의_보안_설정하기](section02/사용자_정의_보안_설정하기/README.md)           |
 </div>
 </details>
 
