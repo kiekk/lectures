@@ -38,6 +38,7 @@
 | 기본 인증 필터 - BasicAuthenticationFilter           | [section03/기본인증필터_BasicAuthenticationFilter](section03/기본인증필터_BasicAuthenticationFilter/README.md)                                                     |
 | 기억하기 인증 – rememberMe()           | [section03/기억하기인증_rememberMe()](section03/기억하기인증_rememberMe()/README.md)                                                     |
 | 기억하기 인증 필터 - RememberMeAuthenticationFilter           | [section03/기억하기인증필터_RememberMeAuthenticationFilter](section03/기억하기인증필터_RememberMeAuthenticationFilter/README.md)                                                     |
+| 익명 인증 사용자 - anonymous()           | [section03/익명인증사용자_anonymous()](section03/익명인증사용자_anonymous()/README.md)                                                     |
 </div>
 </details>
 
