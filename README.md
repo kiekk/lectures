@@ -30,15 +30,16 @@
 <summary>섹션 3. 인증 프로세스</summary>
 <div markdown="1">
 
-| 강의                                             | 디렉토리 경로                                                                                                                |
-|------------------------------------------------|------------------------------------------------------------------------------------------------------------------------|
-| 폼 인증 - formLogin()                             | [section03/폼인증_formLogin()](section03/폼인증_formLogin()/README.md)                                                       |
+| 강의                                             | 디렉토리 경로                                                                                                            |
+|------------------------------------------------|--------------------------------------------------------------------------------------------------------------------|
+| 폼 인증 - formLogin()                             | [section03/폼인증_formLogin()](section03/폼인증_formLogin()/README.md)                                                   |
 | 폼 인증 필터 - UsernamePasswordAuthenticationFilter | [section03/폼인증필터_UsernamePasswordAuthenticationFilter](section03/폼인증필터_UsernamePasswordAuthenticationFilter/README.md) |
-| 기본 인증 - httpBasic()                            | [section03/기본인증_httpBasic()](section03/기본인증_httpBasic()/README.md)                                                     |
-| 기본 인증 필터 - BasicAuthenticationFilter           | [section03/기본인증필터_BasicAuthenticationFilter](section03/기본인증필터_BasicAuthenticationFilter/README.md)                                                     |
-| 기억하기 인증 – rememberMe()           | [section03/기억하기인증_rememberMe()](section03/기억하기인증_rememberMe()/README.md)                                                     |
-| 기억하기 인증 필터 - RememberMeAuthenticationFilter           | [section03/기억하기인증필터_RememberMeAuthenticationFilter](section03/기억하기인증필터_RememberMeAuthenticationFilter/README.md)                                                     |
-| 익명 인증 사용자 - anonymous()           | [section03/익명인증사용자_anonymous()](section03/익명인증사용자_anonymous()/README.md)                                                     |
+| 기본 인증 - httpBasic()                            | [section03/기본인증_httpBasic()](section03/기본인증_httpBasic()/README.md)                                                 |
+| 기본 인증 필터 - BasicAuthenticationFilter           | [section03/기본인증필터_BasicAuthenticationFilter](section03/기본인증필터_BasicAuthenticationFilter/README.md)                                                 |
+| 기억하기 인증 – rememberMe()                         | [section03/기억하기인증_rememberMe()](section03/기억하기인증_rememberMe()/README.md)                                                 |
+| 기억하기 인증 필터 - RememberMeAuthenticationFilter    | [section03/기억하기인증필터_RememberMeAuthenticationFilter](section03/기억하기인증필터_RememberMeAuthenticationFilter/README.md)                                                 |
+| 익명 인증 사용자 - anonymous()                        | [section03/익명인증사용자_anonymous()](section03/익명인증사용자_anonymous()/README.md)                                                 |
+| 로그 아웃 - logout() -1~2                          | [section03/로그_아웃_logout()](section03/로그_아웃_logout()/README.md)                                                     |
 </div>
 </details>
 
