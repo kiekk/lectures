@@ -30,10 +30,11 @@
 <summary>섹션 3. 인증 프로세스</summary>
 <div markdown="1">
 
-| 강의                    | 디렉토리 경로                                                          |
-|-----------------------|------------------------------------------------------------------|
-| 폼 인증 - formLogin()    | [section03/폼인증_formLogin()](section03/폼인증_formLogin()/README.md) |
+| 강의                                             | 디렉토리 경로                                                                                                                |
+|------------------------------------------------|------------------------------------------------------------------------------------------------------------------------|
+| 폼 인증 - formLogin()                             | [section03/폼인증_formLogin()](section03/폼인증_formLogin()/README.md)                                                       |
 | 폼 인증 필터 - UsernamePasswordAuthenticationFilter | [section03/폼인증필터_UsernamePasswordAuthenticationFilter](section03/폼인증필터_UsernamePasswordAuthenticationFilter/README.md) |
+| 기본 인증 - httpBasic()                            | [section03/기본인증_httpBasic()](section03/기본인증_httpBasic()/README.md)                                                     |
 </div>
 </details>
 
