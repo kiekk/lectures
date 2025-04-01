@@ -36,6 +36,7 @@
 | 폼 인증 필터 - UsernamePasswordAuthenticationFilter | [section03/폼인증필터_UsernamePasswordAuthenticationFilter](section03/폼인증필터_UsernamePasswordAuthenticationFilter/README.md) |
 | 기본 인증 - httpBasic()                            | [section03/기본인증_httpBasic()](section03/기본인증_httpBasic()/README.md)                                                     |
 | 기본 인증 필터 - BasicAuthenticationFilter           | [section03/기본인증필터_BasicAuthenticationFilter](section03/기본인증필터_BasicAuthenticationFilter/README.md)                                                     |
+| 기억하기 인증 – rememberMe()           | [section03/기억하기인증_rememberMe()](section03/기억하기인증_rememberMe()/README.md)                                                     |
 </div>
 </details>
 
