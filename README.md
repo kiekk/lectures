@@ -44,6 +44,16 @@
 </div>
 </details>
 
+<details>
+<summary>섹션 4. 인증 아키텍처</summary>
+<div markdown="1">
+
+| 강의                  | 디렉토리 경로                                                              |
+|---------------------|----------------------------------------------------------------------|
+| 인증 - Authentication | [section04/인증_Authentication](section04/인증_Authentication/README.md) |
+</div>
+</details>
+
 ---
 
 ## 🛠️ 환경 정보
