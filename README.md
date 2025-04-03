@@ -55,6 +55,7 @@
 | 인증 관리자 - AuthenticationManager - 1 ~ 2                   | [section04/인증_관리자_AuthenticationManager](section04/인증_관리자_AuthenticationManager/README.md) |
 | 인증 제공자 - AuthenticationProvider - 1 ~ 2                  | [section04/인증_관리자_AuthenticationManager](section04/인증_관리자_AuthenticationManager/README.md) |
 | 사용자 상세 서비스 - UserDetailsService                          | [section04/사용자_상세_서비스_UserDetailsService](section04/사용자_상세_서비스_UserDetailsService/README.md) |
+| 사용자 상세 - UserDetails                          | [section04/사용자_상세_UserDetails](section04/사용자_상세_UserDetails/README.md) |
 </div>
 </details>
 
