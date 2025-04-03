@@ -30,14 +30,14 @@ public class SecurityConfig {
     // 2. AuthenticationProvider를 빈으로 등록하여 주입
     // 2-1. 빈을 한 개만 정의
     // AuthenticationProvider를 빈으로 정의하게 되면 authenticationManager의 AnonymousAuthenticationProvider, parent의 DaoAuthenticationProvider를 대체합니다.
-    // parent의 DaoAuthenticationProvider, authenticationManager의 AnonymousAuthenticationProvider는 제거
+    // parent의 DaoAuthenticationProvider, authenticationManager의 AnonymousAuthenticationProvider 제거
     @Bean
     public AuthenticationProvider customAuthenticationProvider() {
         return new CustomAuthenticationProvider();
     }
 
     // 해당 방법으로 AuthenticationProvider를 등록하게 되면 parent가 아닌 authenticationManager에 추가됩니다.
-    // parent의 DaoAuthenticationProvider, authenticationManager의 AnonymousAuthenticationProvider는 유지
+    // parent의 DaoAuthenticationProvider, authenticationManager의 AnonymousAuthenticationProvider 유지
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http, AuthenticationManagerBuilder builder, AuthenticationConfiguration configuration) throws Exception {
         AuthenticationManagerBuilder managerBuilder = http.getSharedObject(AuthenticationManagerBuilder.class);
