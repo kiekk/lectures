@@ -2,8 +2,10 @@ package com.inflearn.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.authentication.AnonymousAuthenticationProvider;
+import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.authentication.ProviderManager;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.userdetails.User;
@@ -13,32 +15,34 @@ import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-//@Configuration
-//@EnableWebSecurity
-public class SecurityConfig {
+import java.util.List;
+
+@Configuration
+@EnableWebSecurity
+public class SecurityConfig2 {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        AuthenticationManagerBuilder authenticationManagerBuilder = http.getSharedObject(AuthenticationManagerBuilder.class);
-        AuthenticationManager authenticationManager = authenticationManagerBuilder.build();
-        // build() 호출 이후에는 getObject()로 AuthenticationManager를 가져올 수 없다.
-//        AuthenticationManager authenticationManager = authenticationManagerBuilder.getObject();
-
         return http
                 .authorizeHttpRequests(auth ->
                         auth.requestMatchers("/api/login").permitAll()
                                 .anyRequest().authenticated()
                 )
-                .authenticationManager(authenticationManager)
-                .addFilterBefore(customFilter(http, authenticationManager), UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(customFilter(http), UsernamePasswordAuthenticationFilter.class)
                 .build();
     }
 
-    // AuthenticationManager는 Bena이 아니기 때문에 customFilter를 @Bean으로 선언하면 주입받지 못해 에러가 발생한다.
-//    @Bean
-    public CustomAuthenticationFilter customFilter(HttpSecurity http, AuthenticationManager authenticationManager) {
+    // 직접 객체를 생성하여 주입하기 때문에 customFilter를 @Bean으로 선언이 가능하다.
+    @Bean
+    public CustomAuthenticationFilter customFilter(HttpSecurity http) {
+        List<AuthenticationProvider> providerList1 = List.of(new DaoAuthenticationProvider());
+        ProviderManager parent = new ProviderManager(providerList1);
+        List<AuthenticationProvider> providerList2 = List.of(new AnonymousAuthenticationProvider("key"), new CustomAuthenticationProvider());
+        ProviderManager authenticationManager = new ProviderManager(providerList2, parent);
+
         CustomAuthenticationFilter customAuthenticationFilter = new CustomAuthenticationFilter(http);
         customAuthenticationFilter.setAuthenticationManager(authenticationManager);
+
         return customAuthenticationFilter;
     }
 
