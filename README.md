@@ -48,9 +48,10 @@
 <summary>섹션 4. 인증 아키텍처</summary>
 <div markdown="1">
 
-| 강의                  | 디렉토리 경로                                                              |
-|---------------------|----------------------------------------------------------------------|
-| 인증 - Authentication | [section04/인증_Authentication](section04/인증_Authentication/README.md) |
+| 강의                                                       | 디렉토리 경로                                                                                                                        |
+|----------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------|
+| 인증 - Authentication                                      | [section04/인증_Authentication](section04/인증_Authentication/README.md)                                                           |
+| 인증 컨텍스트 - SecurityContext / SecurityContextHolder -1 ~ 2 | [section04/인증_컨텍스트_SecurityContext_SecurityContextHolder](section04/인증_컨텍스트_SecurityContext_SecurityContextHolder/README.md) |
 </div>
 </details>
 
