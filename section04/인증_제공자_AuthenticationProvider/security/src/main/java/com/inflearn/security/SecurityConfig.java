@@ -35,19 +35,37 @@ public class SecurityConfig {
     public AuthenticationProvider customAuthenticationProvider() {
         return new CustomAuthenticationProvider();
     }
+//
+//    // 해당 방법으로 AuthenticationProvider를 등록하게 되면 parent가 아닌 authenticationManager에 추가됩니다.
+//    // parent의 DaoAuthenticationProvider, authenticationManager의 AnonymousAuthenticationProvider 유지
+//    @Bean
+//    public SecurityFilterChain securityFilterChain(HttpSecurity http, AuthenticationManagerBuilder builder, AuthenticationConfiguration configuration) throws Exception {
+//        AuthenticationManagerBuilder managerBuilder = http.getSharedObject(AuthenticationManagerBuilder.class);
+//        managerBuilder.authenticationProvider(customAuthenticationProvider());
+//
+//        ProviderManager providerManager = (ProviderManager) configuration.getAuthenticationManager();
+//        providerManager.getProviders().remove(0);
+//        builder.authenticationProvider(new DaoAuthenticationProvider());
+//
+//        return http.build();
+//    }
 
-    // 해당 방법으로 AuthenticationProvider를 등록하게 되면 parent가 아닌 authenticationManager에 추가됩니다.
+    // 3. AuthenticationProvider를 빈으로 등록하여 주입
+    // 2-2. 빈을 여러 개 정의
+    // authenticationManager에 CustomAuthenticationProvider, CustomAuthenticationProvider2가 추가됩니다.
     // parent의 DaoAuthenticationProvider, authenticationManager의 AnonymousAuthenticationProvider 유지
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http, AuthenticationManagerBuilder builder, AuthenticationConfiguration configuration) throws Exception {
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         AuthenticationManagerBuilder managerBuilder = http.getSharedObject(AuthenticationManagerBuilder.class);
         managerBuilder.authenticationProvider(customAuthenticationProvider());
-
-        ProviderManager providerManager = (ProviderManager) configuration.getAuthenticationManager();
-        providerManager.getProviders().remove(0);
-        builder.authenticationProvider(new DaoAuthenticationProvider());
+        managerBuilder.authenticationProvider(customAuthenticationProvider2());
 
         return http.build();
+    }
+
+    @Bean
+    public CustomAuthenticationProvider2 customAuthenticationProvider2() {
+        return new CustomAuthenticationProvider2();
     }
 
 }
