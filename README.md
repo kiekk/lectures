@@ -72,9 +72,10 @@
 <summary>섹션 6. 세션 관리</summary>
 <div markdown="1">
 
-| 강의                                                           | 디렉토리 경로                                                                                                                    |
-|--------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------|
+| 강의                                                | 디렉토리 경로                                                                                                                    |
+|---------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------|
 | 동시 세션 제어 - sessionManagement().maximumSessions()  | [section06/동시세션제어_sessionManagement().maximumSessions()](section06/동시세션제어_sessionManagement().maximumSessions()/README.md) |
+| 세션 고정 보호 - sessionManagement().sessionFixation()  | [section06/세션고정보호_sessionManagement().sessionFixation()](section06/세션고정보호_sessionManagement().sessionFixation()/README.md) |
 </div>
 </details>
 
