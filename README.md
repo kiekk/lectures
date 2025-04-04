@@ -68,6 +68,16 @@
 </div>
 </details>
 
+<details>
+<summary>섹션 6. 세션 관리</summary>
+<div markdown="1">
+
+| 강의                                                           | 디렉토리 경로                                                                                                                    |
+|--------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------|
+| 동시 세션 제어 - sessionManagement().maximumSessions()  | [section06/동시세션제어_sessionManagement().maximumSessions()](section06/동시세션제어_sessionManagement().maximumSessions()/README.md) |
+</div>
+</details>
+
 ---
 
 ## 🛠️ 환경 정보
