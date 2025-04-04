@@ -58,6 +58,16 @@
 </div>
 </details>
 
+<details>
+<summary>섹션 5. 인증 상태 영속성</summary>
+<div markdown="1">
+
+| 강의                                                           | 디렉토리 경로                                                                                                  |
+|--------------------------------------------------------------|----------------------------------------------------------------------------------------------------------|
+| SecurityContextRepository / SecurityContextHolderFilter - 1  | [section05/SecurityContextRepository_SecurityContextHolderFilter](section05/SecurityContextRepository_SecurityContextHolderFilter/README.md) |
+</div>
+</details>
+
 ---
 
 ## 🛠️ 환경 정보
