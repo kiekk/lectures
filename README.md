@@ -88,6 +88,7 @@
 | 강의                          | 디렉토리 경로                                                                                                |
 |-----------------------------|--------------------------------------------------------------------------------------------------------|
 | 예외 처리 - exceptionHandling() | [section07/예외처리_exceptionHandling()](section07/예외처리_exceptionHandling()/README.md) |
+| 예외 필터 - ExceptionTranslationFilter | [section07/예외필터_ExceptionTranslationFilter](section07/예외필터_ExceptionTranslationFilter/README.md) |
 </div>
 </details>
 
