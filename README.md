@@ -96,9 +96,10 @@
 <summary>섹션 8. 악용 보호</summary>
 <div markdown="1">
 
-| 강의                                           | 디렉토리 경로                                                                                       |
-|----------------------------------------------|-----------------------------------------------------------------------------------------------|
+| 강의                                           | 디렉토리 경로                                                                                                  |
+|----------------------------------------------|----------------------------------------------------------------------------------------------------------|
 | CORS (Cross Origin Resource Sharing) - 1 ~ 2 | [section08/CORS(Cross_Origin_Resource_Sharing)](section08/CORS(Cross_Origin_Resource_Sharing)/README.md) |
+| CSRF (Cross Site Request Forgery)            | [section08/CORS(Cross_Origin_Resource_Sharing)](section08/CORS(Cross_Origin_Resource_Sharing)/README.md) |
 </div>
 </details>
 
