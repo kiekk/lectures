@@ -100,6 +100,7 @@
 |----------------------------------------------|----------------------------------------------------------------------------------------------------------|
 | CORS (Cross Origin Resource Sharing) - 1 ~ 2 | [section08/CORS(Cross_Origin_Resource_Sharing)](section08/CORS(Cross_Origin_Resource_Sharing)/README.md) |
 | CSRF (Cross Site Request Forgery)            | [section08/CORS(Cross_Origin_Resource_Sharing)](section08/CORS(Cross_Origin_Resource_Sharing)/README.md) |
+| CSRF 토큰 유지 및 검증 - 1 ~ 3                      | [section08/CSRF_토큰_유지_및_검증](section08/CSRF_토큰_유지_및_검증/README.md) |
 </div>
 </details>
 
