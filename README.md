@@ -102,6 +102,7 @@
 | CSRF (Cross Site Request Forgery)            | [section08/CORS(Cross_Origin_Resource_Sharing)](section08/CORS(Cross_Origin_Resource_Sharing)/README.md) |
 | CSRF 토큰 유지 및 검증 - 1 ~ 3                      | [section08/CSRF_토큰_유지_및_검증](section08/CSRF_토큰_유지_및_검증/README.md)                                         |
 | CSRF 통합                                      | [section08/CSRF_통합](section08/CSRF_통합/README.md)                                                         |
+| SameSite                                     | [section08/SameSite](section08/SameSite/README.md)                                                       |
 </div>
 </details>
 
