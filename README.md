@@ -121,6 +121,16 @@
 </div>
 </details>
 
+<details>
+<summary>섹션 10. 인가 아키텍처</summary>
+<div markdown="1">
+
+| 강의                 | 디렉토리 경로                                                                                         |
+|--------------------|-------------------------------------------------------------------------------------------------|
+| 인가 - Authorization | [section10/인가_Authorization](section10/인가_Authorization/README.md) |
+</div>
+</details>
+
 ---
 
 ## 🛠️ 환경 정보
