@@ -117,6 +117,7 @@
 | 요청 기반 권한 부여 - HttpSecurity.securityMatcher()                                             | [section09/요청기반권한부여_HttpSecurity.securityMatcher()](section09/요청기반권한부여_HttpSecurity.securityMatcher()/README.md) |
 | 메서드 기반 권한 부여 - @PreAuthorize, @PostAuthorize, @PreFilter, @PostFilter, @Secured, JSR-250 | [section09/메서드_기반_권한_부여](section09/메서드_기반_권한_부여/README.md) |
 | 정적 자원 관리                                                                                 | [section09/정적_자원_관리](section09/정적_자원_관리/README.md) |
+| 계층적 권한 - RoleHierarchy                                                                                 | [section09/계층적권한_RoleHierarchy](section09/계층적권한_RoleHierarchy/README.md) |
 </div>
 </details>
 
