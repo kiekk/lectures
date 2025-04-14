@@ -112,7 +112,8 @@
 
 | 강의                                                         | 디렉토리 경로                                                                                                                      |
 |------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------|
-| 요청 기반 권한 부여 - HttpSecurity.authorizeHttpRequests() - 1 ~ 2 | [section08/요청기반권한부여_HttpSecurity.authorizeHttpRequests()](section09/요청기반권한부여_HttpSecurity.authorizeHttpRequests()/README.md) |
+| 요청 기반 권한 부여 - HttpSecurity.authorizeHttpRequests() - 1 ~ 2 | [section09/요청기반권한부여_HttpSecurity.authorizeHttpRequests()](section09/요청기반권한부여_HttpSecurity.authorizeHttpRequests()/README.md) |
+| 표현식 및 커스텀 권한 구현                                            | [section09/요청기반권한부여_HttpSecurity.표현식_및_커스텀_권한_구현](section09/표현식_및_커스텀_권한_구현/README.md) |
 </div>
 </details>
 
