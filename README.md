@@ -128,6 +128,7 @@
 | 강의                 | 디렉토리 경로                                                                                         |
 |--------------------|-------------------------------------------------------------------------------------------------|
 | 인가 - Authorization | [section10/인가_Authorization](section10/인가_Authorization/README.md) |
+| 인가 관리자 이해 - AuthorizationManager | [section10/인가_관리자_이해_AuthorizationManager](section10/인가_관리자_이해_AuthorizationManager/README.md) |
 </div>
 </details>
 
