@@ -106,6 +106,16 @@
 </div>
 </details>
 
+<details>
+<summary>섹션 9. 인가 프로세스</summary>
+<div markdown="1">
+
+| 강의                                                         | 디렉토리 경로                                                                                                                      |
+|------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------|
+| 요청 기반 권한 부여 - HttpSecurity.authorizeHttpRequests() - 1 ~ 2 | [section08/요청기반권한부여_HttpSecurity.authorizeHttpRequests()](section09/요청기반권한부여_HttpSecurity.authorizeHttpRequests()/README.md) |
+</div>
+</details>
+
 ---
 
 ## 🛠️ 환경 정보
