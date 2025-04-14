@@ -110,12 +110,13 @@
 <summary>섹션 9. 인가 프로세스</summary>
 <div markdown="1">
 
-| 강의                                                         | 디렉토리 경로                                                                                                                      |
-|------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------|
-| 요청 기반 권한 부여 - HttpSecurity.authorizeHttpRequests() - 1 ~ 2 | [section09/요청기반권한부여_HttpSecurity.authorizeHttpRequests()](section09/요청기반권한부여_HttpSecurity.authorizeHttpRequests()/README.md) |
-| 표현식 및 커스텀 권한 구현                                            | [section09/요청기반권한부여_HttpSecurity.표현식_및_커스텀_권한_구현](section09/표현식_및_커스텀_권한_구현/README.md) |
-| 요청 기반 권한 부여 - HttpSecurity.securityMatcher()               | [section09/요청기반권한부여_HttpSecurity.securityMatcher()](section09/요청기반권한부여_HttpSecurity.securityMatcher()/README.md) |
-| 메서드 기반 권한 부여 - @PreAuthorize, @PostAuthorize, @PreFilter, @PostFilter, @Secured, JSR-250               | [section09/메서드_기반_권한_부여](section09/메서드_기반_권한_부여/README.md) |
+| 강의                                                                                       | 디렉토리 경로                                                                                                                      |
+|------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------|
+| 요청 기반 권한 부여 - HttpSecurity.authorizeHttpRequests() - 1 ~ 2                               | [section09/요청기반권한부여_HttpSecurity.authorizeHttpRequests()](section09/요청기반권한부여_HttpSecurity.authorizeHttpRequests()/README.md) |
+| 표현식 및 커스텀 권한 구현                                                                          | [section09/요청기반권한부여_HttpSecurity.표현식_및_커스텀_권한_구현](section09/표현식_및_커스텀_권한_구현/README.md) |
+| 요청 기반 권한 부여 - HttpSecurity.securityMatcher()                                             | [section09/요청기반권한부여_HttpSecurity.securityMatcher()](section09/요청기반권한부여_HttpSecurity.securityMatcher()/README.md) |
+| 메서드 기반 권한 부여 - @PreAuthorize, @PostAuthorize, @PreFilter, @PostFilter, @Secured, JSR-250 | [section09/메서드_기반_권한_부여](section09/메서드_기반_권한_부여/README.md) |
+| 정적 자원 관리                                                                                 | [section09/정적_자원_관리](section09/정적_자원_관리/README.md) |
 </div>
 </details>
 
