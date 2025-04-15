@@ -130,6 +130,7 @@
 | 인가 - Authorization | [section10/인가_Authorization](section10/인가_Authorization/README.md) |
 | 인가 관리자 이해 - AuthorizationManager | [section10/인가_관리자_이해_AuthorizationManager](section10/인가_관리자_이해_AuthorizationManager/README.md) |
 | 요청 기반 인가 관리자 - AuthorityAuthorizationManager 외 클래스 구조 이해 - 1 ~ 2 | [section10/요청_기반_인가_관리자_AuthorityAuthorizationManager_외_클래스_구조_이해](section10/요청_기반_인가_관리자_AuthorityAuthorizationManager_외_클래스_구조_이해/README.md) |
+| 요청 기반 Custom AuthorizationManager 구현 | [section10/요청_기반_Custom_AuthorizationManager_구현](section10/요청_기반_Custom_AuthorizationManager_구현/README.md) |
 </div>
 </details>
 
