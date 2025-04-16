@@ -135,6 +135,7 @@
 | 메서드 기반 인가 관리자 - PreAuthorizeAuthorizationManager 외 클래스 구조 이해 - 1 ~ 2                          | [section10/메서드_기반_인가_관리자_PreAuthorizeAuthorizationManager_외_클래스_구조_이해](section10/메서드_기반_인가_관리자_PreAuthorizeAuthorizationManager_외_클래스_구조_이해/README.md) |
 | 메서드 기반 Custom AuthorizationManager 구현                          | [section10/메서드_기반_Custom_AuthorizationManager_구현](section10/메서드_기반_Custom_AuthorizationManager_구현/README.md) |
 | 포인트 컷 메서드 보안 구현하기 - AspectJExpressionPointcut / ComposablePointcut                          | [section10/포인트_컷_메서드_보안_구현하기_AspectJExpressionPointcut_ComposablePointcut](section10/포인트_컷_메서드_보안_구현하기_AspectJExpressionPointcut_ComposablePointcut/README.md) |
+| AOP 메서드 보안 구현하기 - MethodInterceptor, Pointcut, Advisor                          | [section10/AOP_메서드_보안_구현하기_MethodInterceptor_Pointcut_Advisor](section10/AOP_메서드_보안_구현하기_MethodInterceptor_Pointcut_Advisor/README.md) |
 </div>
 </details>
 
