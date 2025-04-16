@@ -158,6 +158,7 @@
 | 강의                 | 디렉토리 경로                                                                                    |
 |--------------------|--------------------------------------------------------------------------------------------|
 | Servlet API 통합 - SecurityContextHolderAwareRequestFilter              | [section12/Servlet_API_통합_SecurityContextHolderAwareRequestFilter](section12/Servlet_API_통합_SecurityContextHolderAwareRequestFilter/README.md) |
+| Spring MVC 통합 - @AuthenticationPrincipal              | [section12/Spring_MVC_통합_@AuthenticationPrincipal](section12/Spring_MVC_통합_@AuthenticationPrincipal/README.md) |
 </div>
 </details>
 
