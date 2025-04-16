@@ -25,7 +25,7 @@
 | 사용자 정의 보안 설정하기                           | [section02/사용자_정의_보안_설정하기](section02/사용자_정의_보안_설정하기/README.md)           |
 </div>
 </details>
-
+<br />
 <details>
 <summary>섹션 3. 인증 프로세스</summary>
 <div markdown="1">
@@ -43,7 +43,7 @@
 | 요청 캐시 RequestCache / SavedRequest| [section03/요청캐시_RequestCache_SavedRequest](section03/요청캐시_RequestCache_SavedRequest/README.md)                                                     |
 </div>
 </details>
-
+<br />
 <details>
 <summary>섹션 4. 인증 아키텍처</summary>
 <div markdown="1">
@@ -57,7 +57,7 @@
 | 사용자 상세 서비스 - UserDetailsService                          | [section04/사용자_상세_서비스_UserDetailsService](section04/사용자_상세_서비스_UserDetailsService/README.md) |
 </div>
 </details>
-
+<br />
 <details>
 <summary>섹션 5. 인증 상태 영속성</summary>
 <div markdown="1">
@@ -67,7 +67,7 @@
 | SecurityContextRepository / SecurityContextHolderFilter - 1  | [section05/SecurityContextRepository_SecurityContextHolderFilter](section05/SecurityContextRepository_SecurityContextHolderFilter/README.md) |
 </div>
 </details>
-
+<br />
 <details>
 <summary>섹션 6. 세션 관리</summary>
 <div markdown="1">
@@ -80,7 +80,7 @@
 | SessionManagementFilter / ConcurrentSessionFilter - 1 ~ 2| [section06/세션생성정책_sessionManagement().sessionCreationPolicy()](section06/세션생성정책_sessionManagement().sessionCreationPolicy()/README.md) |
 </div>
 </details>
-
+<br />
 <details>
 <summary>섹션 7. 예외 처리</summary>
 <div markdown="1">
@@ -91,7 +91,7 @@
 | 예외 필터 - ExceptionTranslationFilter | [section07/예외필터_ExceptionTranslationFilter](section07/예외필터_ExceptionTranslationFilter/README.md) |
 </div>
 </details>
-
+<br />
 <details>
 <summary>섹션 8. 악용 보호</summary>
 <div markdown="1">
@@ -105,7 +105,7 @@
 | SameSite                                     | [section08/SameSite](section08/SameSite/README.md)                                                       |
 </div>
 </details>
-
+<br />
 <details>
 <summary>섹션 9. 인가 프로세스</summary>
 <div markdown="1">
@@ -120,24 +120,35 @@
 | 계층적 권한 - RoleHierarchy                                                                                 | [section09/계층적권한_RoleHierarchy](section09/계층적권한_RoleHierarchy/README.md) |
 </div>
 </details>
-
+<br />
 <details>
 <summary>섹션 10. 인가 아키텍처</summary>
 <div markdown="1">
 
-| 강의                 | 디렉토리 경로                                                                                                                                             |
-|--------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------|
-| 인가 - Authorization | [section10/인가_Authorization](section10/인가_Authorization/README.md)                                                                                  |
-| 인가 관리자 이해 - AuthorizationManager | [section10/인가_관리자_이해_AuthorizationManager](section10/인가_관리자_이해_AuthorizationManager/README.md)                                                      |
-| 요청 기반 인가 관리자 - AuthorityAuthorizationManager 외 클래스 구조 이해 - 1 ~ 2 | [section10/요청_기반_인가_관리자_AuthorityAuthorizationManager_외_클래스_구조_이해](section10/요청_기반_인가_관리자_AuthorityAuthorizationManager_외_클래스_구조_이해/README.md)      |
-| 요청 기반 Custom AuthorizationManager 구현 | [section10/요청_기반_Custom_AuthorizationManager_구현](section10/요청_기반_Custom_AuthorizationManager_구현/README.md)                                          |
-| RequestMatcherDelegatingAuthorizationManager 로 인가 설정 응용하기                          | [section10/RequestMatcherDelegatingAuthorizationManager_로_인가_설정_응용하기](section10/RequestMatcherDelegatingAuthorizationManager_로_인가_설정_응용하기/README.md) |
-| 메서드 기반 인가 관리자 - PreAuthorizeAuthorizationManager 외 클래스 구조 이해 - 1 ~ 2                          | [section10/메서드_기반_인가_관리자_PreAuthorizeAuthorizationManager_외_클래스_구조_이해](section10/메서드_기반_인가_관리자_PreAuthorizeAuthorizationManager_외_클래스_구조_이해/README.md) |
-| 메서드 기반 Custom AuthorizationManager 구현                          | [section10/메서드_기반_Custom_AuthorizationManager_구현](section10/메서드_기반_Custom_AuthorizationManager_구현/README.md) |
-| 포인트 컷 메서드 보안 구현하기 - AspectJExpressionPointcut / ComposablePointcut                          | [section10/포인트_컷_메서드_보안_구현하기_AspectJExpressionPointcut_ComposablePointcut](section10/포인트_컷_메서드_보안_구현하기_AspectJExpressionPointcut_ComposablePointcut/README.md) |
-| AOP 메서드 보안 구현하기 - MethodInterceptor, Pointcut, Advisor                          | [section10/AOP_메서드_보안_구현하기_MethodInterceptor_Pointcut_Advisor](section10/AOP_메서드_보안_구현하기_MethodInterceptor_Pointcut_Advisor/README.md) |
+| 강의                                                                  | 디렉토리 경로                                                                                                                                             |
+|---------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------|
+| 인가 - Authorization                                                  | [section10/인가_Authorization](section10/인가_Authorization/README.md)                                                                                  |
+| 인가 관리자 이해 - AuthorizationManager                                    | [section10/인가_관리자_이해_AuthorizationManager](section10/인가_관리자_이해_AuthorizationManager/README.md)                                                      |
+| 요청 기반 인가 관리자 - AuthorityAuthorizationManager 외 클래스 구조 이해 - 1 ~ 2    | [section10/요청_기반_인가_관리자_AuthorityAuthorizationManager_외_클래스_구조_이해](section10/요청_기반_인가_관리자_AuthorityAuthorizationManager_외_클래스_구조_이해/README.md)      |
+| 요청 기반 Custom AuthorizationManager 구현                                | [section10/요청_기반_Custom_AuthorizationManager_구현](section10/요청_기반_Custom_AuthorizationManager_구현/README.md)                                          |
+| RequestMatcherDelegatingAuthorizationManager 로 인가 설정 응용하기           | [section10/RequestMatcherDelegatingAuthorizationManager_로_인가_설정_응용하기](section10/RequestMatcherDelegatingAuthorizationManager_로_인가_설정_응용하기/README.md) |
+| 메서드 기반 인가 관리자 - PreAuthorizeAuthorizationManager 외 클래스 구조 이해 - 1 ~ 2 | [section10/메서드_기반_인가_관리자_PreAuthorizeAuthorizationManager_외_클래스_구조_이해](section10/메서드_기반_인가_관리자_PreAuthorizeAuthorizationManager_외_클래스_구조_이해/README.md) |
+| 메서드 기반 Custom AuthorizationManager 구현                               | [section10/메서드_기반_Custom_AuthorizationManager_구현](section10/메서드_기반_Custom_AuthorizationManager_구현/README.md) |
+| 포인트 컷 메서드 보안 구현하기 - AspectJExpressionPointcut / ComposablePointcut  | [section10/포인트_컷_메서드_보안_구현하기_AspectJExpressionPointcut_ComposablePointcut](section10/포인트_컷_메서드_보안_구현하기_AspectJExpressionPointcut_ComposablePointcut/README.md) |
+| AOP 메서드 보안 구현하기 - MethodInterceptor, Pointcut, Advisor              | [section10/AOP_메서드_보안_구현하기_MethodInterceptor_Pointcut_Advisor](section10/AOP_메서드_보안_구현하기_MethodInterceptor_Pointcut_Advisor/README.md) |
 </div>
 </details>
+<br />
+<details>
+<summary>섹션 11. 이벤트 처리</summary>
+<div markdown="1">
+
+| 강의                 | 디렉토리 경로                                                                                                          |
+|--------------------|------------------------------------------------------------------------------------------------------------------|
+| 인증 이벤트 - Authentication Events              | [section11/인증_이벤트_Authentication_Events](section11/인증_이벤트_Authentication_Events/README.md) |
+</div>
+</details>
+
 
 ---
 
