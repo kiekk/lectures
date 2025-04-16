@@ -150,6 +150,16 @@
 | 인가 이벤트 - Authorization Events              | [section11/인가_이벤트_Authorization_Events](section11/인가_이벤트_Authorization_Events/README.md) |
 </div>
 </details>
+<br />
+<details>
+<summary>섹션 12. 통합하기</summary>
+<div markdown="1">
+
+| 강의                 | 디렉토리 경로                                                                                    |
+|--------------------|--------------------------------------------------------------------------------------------|
+| Servlet API 통합 - SecurityContextHolderAwareRequestFilter              | [section12/Servlet_API_통합_SecurityContextHolderAwareRequestFilter](section12/Servlet_API_통합_SecurityContextHolderAwareRequestFilter/README.md) |
+</div>
+</details>
 
 
 ---
