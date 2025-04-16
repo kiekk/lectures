@@ -146,6 +146,7 @@
 | 강의                 | 디렉토리 경로                                                                                                          |
 |--------------------|------------------------------------------------------------------------------------------------------------------|
 | 인증 이벤트 - Authentication Events              | [section11/인증_이벤트_Authentication_Events](section11/인증_이벤트_Authentication_Events/README.md) |
+| 인증 이벤트 - AuthenticationEventPublisher 활용              | [section11/인증_이벤트_AuthenticationEventPublisher_활용](section11/인증_이벤트_AuthenticationEventPublisher_활용/README.md) |
 </div>
 </details>
 
