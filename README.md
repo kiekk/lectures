@@ -147,6 +147,7 @@
 |--------------------|------------------------------------------------------------------------------------------------------------------|
 | 인증 이벤트 - Authentication Events              | [section11/인증_이벤트_Authentication_Events](section11/인증_이벤트_Authentication_Events/README.md) |
 | 인증 이벤트 - AuthenticationEventPublisher 활용              | [section11/인증_이벤트_AuthenticationEventPublisher_활용](section11/인증_이벤트_AuthenticationEventPublisher_활용/README.md) |
+| 인가 이벤트 - Authorization Events              | [section11/인가_이벤트_Authorization_Events](section11/인가_이벤트_Authorization_Events/README.md) |
 </div>
 </details>
 
