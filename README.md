@@ -162,6 +162,16 @@
 | Spring MVC 비동기 통합 - WebAsyncManagerIntegrationFilter              | [section12/Spring_MVC_비동기_통합_WebAsyncManagerIntegrationFilter](section12/Spring_MVC_비동기_통합_WebAsyncManagerIntegrationFilter/README.md) |
 </div>
 </details>
+<br />
+<details>
+<summary>섹션 13. 고급설정</summary>
+<div markdown="1">
+
+| 강의                                                   | 디렉토리 경로                                                                                          |
+|------------------------------------------------------|--------------------------------------------------------------------------------------------------|
+| 다중 보안 설정                                             | [section13/다중_보안_설정](section13/다중_보안_설정/README.md) |
+</div>
+</details>
 
 
 ---
