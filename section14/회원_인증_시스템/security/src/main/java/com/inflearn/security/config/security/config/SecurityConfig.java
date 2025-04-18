@@ -39,12 +39,6 @@ public class SecurityConfig {
     }
 
     @Bean
-    public UserDetailsService userDetailsService() {
-        UserDetails user = User.withUsername("user").password("{noop}1111").roles("USER").build();
-        return new InMemoryUserDetailsManager(user);
-    }
-
-    @Bean
     public PasswordEncoder passwordEncoder() {
         // 해당 메서드는 deprecated 되었으므로 사용하지 말 것
 //        return PasswordEncoderFactories.createDelegatingPasswordEncoder();

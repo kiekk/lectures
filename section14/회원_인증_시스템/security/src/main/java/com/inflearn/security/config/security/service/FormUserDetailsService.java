@@ -1,6 +1,5 @@
 package com.inflearn.security.config.security.service;
 
-
 import com.inflearn.security.config.security.dto.AccountContext;
 import com.inflearn.security.domain.dto.AccountDto;
 import com.inflearn.security.domain.entity.Account;
