@@ -1,5 +1,6 @@
 package com.inflearn.security.config.security.config;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,9 +16,12 @@ import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 @EnableWebSecurity
+@RequiredArgsConstructor
 public class SecurityConfig {
 
     private static final String[] PERMIT_ALL_URLS = {"/", "/signup"};
+
+    private final UserDetailsService userDetailsService;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -30,6 +34,7 @@ public class SecurityConfig {
                 .formLogin(form ->
                         form.loginPage("/login").permitAll()
                 )
+                .userDetailsService(userDetailsService)
                 .build();
     }
 
