@@ -1,5 +1,6 @@
 package com.inflearn.security.config.security.config;
 
+import com.inflearn.security.config.security.handler.FormAccessDeniedHandler;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
@@ -10,6 +11,8 @@ import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.WebAuthenticationDetails;
 
 /*
@@ -21,10 +24,12 @@ import org.springframework.security.web.authentication.WebAuthenticationDetails;
 @RequiredArgsConstructor
 public class SecurityConfig {
 
-    private static final String[] PERMIT_ALL_URLS = {"/", "/signup"};
+    private static final String[] PERMIT_ALL_URLS = {"/", "/signup", "/login*"};
 
     private final AuthenticationProvider authenticationProvider;
     private final AuthenticationDetailsSource<HttpServletRequest, WebAuthenticationDetails> authenticationDetailsSource;
+    private final AuthenticationSuccessHandler successHandler;
+    private final AuthenticationFailureHandler failureHandler;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -33,13 +38,20 @@ public class SecurityConfig {
                         // static resources
                         .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
                         .requestMatchers(PERMIT_ALL_URLS).permitAll()
+                        .requestMatchers("/user").hasAuthority("ROLE_USER")
+                        .requestMatchers("/manager").hasAuthority("ROLE_MANAGER")
+                        .requestMatchers("/admin").hasAuthority("ROLE_ADMIN")
                         .anyRequest().authenticated())
                 .formLogin(form ->
-                        form.loginPage("/login")
-                                .permitAll()
+                        form.loginPage("/login").permitAll()
                                 .authenticationDetailsSource(authenticationDetailsSource)
+                                .successHandler(successHandler)
+                                .failureHandler(failureHandler)
                 )
                 .authenticationProvider(authenticationProvider)
+                .exceptionHandling(exception -> exception
+                        .accessDeniedHandler(new FormAccessDeniedHandler("/denied"))
+                )
                 .build();
     }
 }
