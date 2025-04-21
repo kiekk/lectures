@@ -1,7 +1,9 @@
 package com.inflearn.security.config.security.config;
 
+import com.inflearn.security.config.security.entrypoint.RestAuthenticationEntryPoint;
 import com.inflearn.security.config.security.filter.RestAuthenticationFilter;
 import com.inflearn.security.config.security.handler.FormAccessDeniedHandler;
+import com.inflearn.security.config.security.handler.RestAccessDeniedHandler;
 import com.inflearn.security.config.security.handler.RestAuthenticationFailureHandler;
 import com.inflearn.security.config.security.handler.RestAuthenticationSuccessHandler;
 import jakarta.servlet.http.HttpServletRequest;
@@ -82,6 +84,10 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .addFilterBefore(restAuthenticationFilter(http, authenticationManager), UsernamePasswordAuthenticationFilter.class)
                 .authenticationManager(authenticationManager)
+                .exceptionHandling(exception -> exception
+                        .authenticationEntryPoint(new RestAuthenticationEntryPoint()) // 인증을 받지 않은 상태에서 접근을 거부당했을 때
+                        .accessDeniedHandler(new RestAccessDeniedHandler()) // 인증을 받은 상태에서 접근을 거부당했을 때
+                )
                 .build();
     }
 
