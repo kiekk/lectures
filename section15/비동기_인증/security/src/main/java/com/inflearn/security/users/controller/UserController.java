@@ -16,7 +16,7 @@ public class UserController {
     private final UserService userService;
     private final PasswordEncoder passwordEncoder;
 
-    @PostMapping(value="/signup")
+    @PostMapping(value = "/signup")
     public String signup(AccountDto accountDto) {
 
         ModelMapper mapper = new ModelMapper();
