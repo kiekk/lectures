@@ -2,6 +2,8 @@ package com.inflearn.security.config.security.config;
 
 import com.inflearn.security.config.security.filter.RestAuthenticationFilter;
 import com.inflearn.security.config.security.handler.FormAccessDeniedHandler;
+import com.inflearn.security.config.security.handler.RestAuthenticationFailureHandler;
+import com.inflearn.security.config.security.handler.RestAuthenticationSuccessHandler;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
@@ -35,8 +37,10 @@ public class SecurityConfig {
     private final AuthenticationProvider authenticationProvider;
     private final AuthenticationProvider restAuthenticationProvider;
     private final AuthenticationDetailsSource<HttpServletRequest, WebAuthenticationDetails> authenticationDetailsSource;
-    private final AuthenticationSuccessHandler successHandler;
-    private final AuthenticationFailureHandler failureHandler;
+    private final AuthenticationSuccessHandler formSuccessHandler;
+    private final AuthenticationFailureHandler formFailureHandler;
+    private final RestAuthenticationSuccessHandler restSuccessHandler;
+    private final RestAuthenticationFailureHandler restFailureHandler;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -52,8 +56,8 @@ public class SecurityConfig {
                 .formLogin(form ->
                         form.loginPage("/login").permitAll()
                                 .authenticationDetailsSource(authenticationDetailsSource)
-                                .successHandler(successHandler)
-                                .failureHandler(failureHandler)
+                                .successHandler(formSuccessHandler)
+                                .failureHandler(formFailureHandler)
                 )
                 .authenticationProvider(authenticationProvider)
                 .exceptionHandling(exception -> exception
@@ -85,6 +89,8 @@ public class SecurityConfig {
 
         RestAuthenticationFilter restAuthenticationFilter = new RestAuthenticationFilter();
         restAuthenticationFilter.setAuthenticationManager(authenticationManager);
+        restAuthenticationFilter.setAuthenticationSuccessHandler(restSuccessHandler);
+        restAuthenticationFilter.setAuthenticationFailureHandler(restFailureHandler);
 
         return restAuthenticationFilter;
     }
