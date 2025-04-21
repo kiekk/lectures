@@ -6,10 +6,12 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.annotation.Order;
 import org.springframework.security.authentication.AuthenticationDetailsSource;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
@@ -52,6 +54,18 @@ public class SecurityConfig {
                 .exceptionHandling(exception -> exception
                         .accessDeniedHandler(new FormAccessDeniedHandler("/denied"))
                 )
+                .build();
+    }
+
+    @Bean
+    @Order(1)
+    public SecurityFilterChain restSecurityFilterChain(HttpSecurity http) throws Exception {
+        return http
+                .securityMatcher("/api/**")
+                .authorizeHttpRequests(auth -> auth
+                        .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
+                        .anyRequest().permitAll())
+                .csrf(AbstractHttpConfigurer::disable)
                 .build();
     }
 }
