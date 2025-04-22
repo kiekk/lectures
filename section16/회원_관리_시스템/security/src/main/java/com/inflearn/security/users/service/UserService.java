@@ -1,5 +1,6 @@
 package com.inflearn.security.users.service;
 
+import com.inflearn.security.admin.repository.RoleRepository;
 import com.inflearn.security.domain.entity.Account;
 import com.inflearn.security.domain.entity.Role;
 import com.inflearn.security.users.repository.UserRepository;

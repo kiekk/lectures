@@ -1,5 +1,6 @@
-package com.inflearn.security.config.admin.controller;
+package com.inflearn.security.admin.controller;
 
+import com.inflearn.security.admin.service.RoleService;
 import com.inflearn.security.domain.dto.RoleDto;
 import com.inflearn.security.domain.entity.Role;
 import lombok.RequiredArgsConstructor;

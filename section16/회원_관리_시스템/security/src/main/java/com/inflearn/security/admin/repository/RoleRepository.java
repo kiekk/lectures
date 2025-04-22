@@ -1,4 +1,4 @@
-package com.inflearn.security.config.admin.repository;
+package com.inflearn.security.admin.repository;
 
 import com.inflearn.security.domain.entity.Role;
 import org.springframework.data.jpa.repository.JpaRepository;

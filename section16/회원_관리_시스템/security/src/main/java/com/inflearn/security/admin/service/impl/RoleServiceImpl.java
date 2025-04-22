@@ -1,7 +1,7 @@
-package com.inflearn.security.config.admin.service.impl;
+package com.inflearn.security.admin.service.impl;
 
-import com.inflearn.security.config.admin.repository.RoleRepository;
-import com.inflearn.security.config.admin.service.RoleService;
+import com.inflearn.security.admin.repository.RoleRepository;
+import com.inflearn.security.admin.service.RoleService;
 import com.inflearn.security.domain.entity.Role;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

@@ -1,7 +1,7 @@
-package com.inflearn.security.config.admin.service.impl;
+package com.inflearn.security.admin.service.impl;
 
-import com.inflearn.security.config.admin.repository.ResourcesRepository;
-import com.inflearn.security.config.admin.service.ResourcesService;
+import com.inflearn.security.admin.repository.ResourcesRepository;
+import com.inflearn.security.admin.service.ResourcesService;
 import com.inflearn.security.domain.entity.Resources;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

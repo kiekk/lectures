@@ -1,8 +1,8 @@
-package com.inflearn.security.config.admin.service.impl;
+package com.inflearn.security.admin.service.impl;
 
-import com.inflearn.security.config.admin.repository.RoleRepository;
-import com.inflearn.security.config.admin.repository.UserManagementRepository;
-import com.inflearn.security.config.admin.service.UserManagementService;
+import com.inflearn.security.admin.repository.RoleRepository;
+import com.inflearn.security.admin.repository.UserManagementRepository;
+import com.inflearn.security.admin.service.UserManagementService;
 import com.inflearn.security.domain.dto.AccountDto;
 import com.inflearn.security.domain.entity.Account;
 import com.inflearn.security.domain.entity.Role;

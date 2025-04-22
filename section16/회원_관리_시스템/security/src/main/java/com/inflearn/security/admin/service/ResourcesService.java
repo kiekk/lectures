@@ -1,4 +1,4 @@
-package com.inflearn.security.config.admin.service;
+package com.inflearn.security.admin.service;
 
 import com.inflearn.security.domain.entity.Resources;
 

@@ -1,5 +1,8 @@
-package com.inflearn.security.config.admin.controller;
+package com.inflearn.security.admin.controller;
 
+import com.inflearn.security.admin.repository.RoleRepository;
+import com.inflearn.security.admin.service.ResourcesService;
+import com.inflearn.security.admin.service.RoleService;
 import com.inflearn.security.domain.dto.ResourcesDto;
 import com.inflearn.security.domain.entity.Resources;
 import com.inflearn.security.domain.entity.Role;
