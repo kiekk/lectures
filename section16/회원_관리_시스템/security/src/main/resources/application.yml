@@ -16,3 +16,8 @@ spring:
 
   thymeleaf:
     cache: false
+
+logging:
+  level:
+    ROOT: INFO
+    org.springframework.security: DEBUG

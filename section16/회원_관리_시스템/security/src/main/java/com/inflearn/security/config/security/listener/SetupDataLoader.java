@@ -37,7 +37,7 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
 
     private void disableAuthorizationFilter() {
         filterChainProxy.getFilterChains()
-                .forEach(df -> df.getFilters().remove(df.getFilters().size() - 1));
+                .forEach(df -> df.getFilters().removeLast());
     }
 
     private void setupData() {

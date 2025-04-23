@@ -1,4 +1,4 @@
-package com.inflearn.security.config.admin.controller;
+package com.inflearn.security.admin.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

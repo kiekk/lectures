@@ -1,6 +1,7 @@
 package com.inflearn.security.config.security.manager;
 
-import com.inflearn.security.config.security.mapper.MapBasedUrlRoleMapper;
+import com.inflearn.security.admin.repository.ResourcesRepository;
+import com.inflearn.security.config.security.mapper.PersistentUrlRoleMapper;
 import com.inflearn.security.config.security.service.DynamicAuthorizationService;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
@@ -25,13 +26,20 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class CustomDynamicAuthorizationManager implements AuthorizationManager<RequestAuthorizationContext> {
     private List<RequestMatcherEntry<AuthorizationManager<RequestAuthorizationContext>>> mappings;
-    private static final AuthorizationDecision ACCESS = new AuthorizationDecision(true);
+    private static final AuthorizationDecision DENY = new AuthorizationDecision(false);
     private final HandlerMappingIntrospector handlerMappingIntrospector;
+    private final ResourcesRepository resourcesRepository;
+    private DynamicAuthorizationService dynamicAuthorizationService;
 
     @PostConstruct
     public void mapping() {
-        // Map 방식의 URL Role Mapper를 사용하여 URL과 권한을 매핑합니다.
-        DynamicAuthorizationService dynamicAuthorizationService = new DynamicAuthorizationService(new MapBasedUrlRoleMapper());
+        dynamicAuthorizationService =
+                new DynamicAuthorizationService(new PersistentUrlRoleMapper(resourcesRepository));
+
+        setMapping();
+    }
+
+    public void setMapping() {
         mappings = dynamicAuthorizationService.getUrlRoleMappings()
                 .entrySet().stream()
                 .map(entry -> new RequestMatcherEntry<>(
@@ -53,12 +61,17 @@ public class CustomDynamicAuthorizationManager implements AuthorizationManager<R
                         new RequestAuthorizationContext(request.getRequest(), matchResult.getVariables()));
             }
         }
-        return ACCESS;
+        return DENY;
     }
 
     @Override
     public void verify(Supplier<Authentication> authentication, RequestAuthorizationContext object) {
         AuthorizationManager.super.verify(authentication, object);
+    }
+
+    @Override
+    public AuthorizationResult authorize(Supplier<Authentication> authentication, RequestAuthorizationContext object) {
+        return this.check(authentication, object);
     }
 
     private AuthorizationManager<RequestAuthorizationContext> customAuthorizationManager(String role) {
@@ -69,8 +82,8 @@ public class CustomDynamicAuthorizationManager implements AuthorizationManager<R
         }
     }
 
-    @Override
-    public AuthorizationResult authorize(Supplier<Authentication> authentication, RequestAuthorizationContext object) {
-        return this.check(authentication, object);
+    public synchronized void reload() {
+        mappings.clear();
+        setMapping();
     }
 }
