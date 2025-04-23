@@ -30,7 +30,8 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
         if (alreadySetup) {
             return;
         }
-        disableAuthorizationFilter();
+        // 기본 AuthorizationFilter를 제거하는 것이기 때문에 CustomAuthorizationFilter를 사용하지 않을 거라면 해당 코드 주석
+//        disableAuthorizationFilter();
         setupData();
         alreadySetup = true;
     }
