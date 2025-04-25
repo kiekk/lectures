@@ -3,7 +3,6 @@ spring:
     url: jdbc:postgresql://localhost:5432/spring-security6
     username: postgres
     password: postgres
-
   jpa:
     hibernate:
       ddl-auto: update
@@ -13,10 +12,13 @@ spring:
         jdbc:
           lob:
             non_contextual_creation: true
-
+    defer-datasource-initialization: true
   thymeleaf:
     cache: false
-
+  sql:
+    init:
+      mode: always
+      data-locations: classpath:data.sql
 logging:
   level:
     ROOT: INFO
