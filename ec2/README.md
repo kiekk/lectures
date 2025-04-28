@@ -3,5 +3,6 @@
 - 아키텍처 구성
 ![image_1.png](image_1.png)
 
-[AWS EC2에서 Spring Boot / Redis 활용](초기_설정/초기_설정.md)
+[AWS EC2에서 Spring Boot / Redis 활용](초기_설정/README.md)
 
+[k6를 사용한 부하테스트](k6_부하테스트/README.md)
