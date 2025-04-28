@@ -73,3 +73,4 @@ $ docker compose up --build -d
 $ docker ps # 잘 띄워졌는 지 확인
 $ docker compose logs -f # 실시간 로그 확인하기
 ```
+![image_1.png](image_1.png)
