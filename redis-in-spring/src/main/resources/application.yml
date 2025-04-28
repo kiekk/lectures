@@ -36,3 +36,18 @@ spring:
     url: jdbc:mysql://${rdsAddress}:3306/mydb
     username: admin
     password: password
+
+---
+# docker 환경
+spring:
+  config:
+    activate:
+      on-profile: docker
+  datasource:
+    url: jdbc:mysql://redis-mysql:3306/mydb
+    username: root
+    password: root
+  data:
+    redis:
+      host: cache-server
+      port: 6379
