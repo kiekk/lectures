@@ -185,6 +185,36 @@
 | 다중 보안 설정 | [section13/다중_보안_설정](section13/다중_보안_설정/README.md) |
 </div>
 </details>
+<br />
+<details>
+<summary>섹션 14. 회원 인증 시스템</summary>
+<div markdown="1">
+
+| 강의       | 디렉토리 경로                                              |
+|----------|------------------------------------------------------|
+| 회원 인증 시스템 | [section14/회원_인증_시스템](section14/회원_인증_시스템/README.md) |
+</div>
+</details>
+<br />
+<details>
+<summary>섹션 15. 비동기 인증</summary>
+<div markdown="1">
+
+| 강의       | 디렉토리 경로                                        |
+|----------|------------------------------------------------|
+| 비동기 인증 | [section15/비동기_인증](section15/비동기_인증/README.md) |
+</div>
+</details>
+<br />
+<details>
+<summary>섹션 16. 회원 관리 시스템</summary>
+<div markdown="1">
+
+| 강의       | 디렉토리 경로                                              |
+|----------|------------------------------------------------------|
+| 회원 관리 시스템 | [section16/회원_관리_시스템](section16/회원_관리_시스템/README.md) |
+</div>
+</details>
 
 ---
 
