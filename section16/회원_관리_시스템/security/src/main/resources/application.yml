@@ -19,6 +19,9 @@ spring:
     init:
       mode: always
       data-locations: classpath:data.sql
+  docker:
+    compose:
+      file: classpath:compose.yml
 logging:
   level:
     ROOT: INFO
