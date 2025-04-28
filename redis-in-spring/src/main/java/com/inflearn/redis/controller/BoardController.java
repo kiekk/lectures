@@ -19,11 +19,18 @@ public class BoardController {
         this.boardService = boardService;
     }
 
-    @GetMapping
-    public List<Board> getBoards(
+    @GetMapping("redis")
+    public List<Board> getBoardsRedis(
             @RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "10") int size
     ) {
-        return boardService.getBoards(page, size);
+        return boardService.getBoardsRedis(page, size);
+    }
+
+    @GetMapping("no-redis")
+    public List<Board> getBoardsNoRedis(
+            @RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "10") int size
+    ) {
+        return boardService.getBoardsNoRedis(page, size);
     }
 
 }
