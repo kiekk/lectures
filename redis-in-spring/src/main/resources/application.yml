@@ -66,3 +66,12 @@ spring:
     redis:
       host: cache-server
       port: 6379
+---
+spring:
+  config:
+    activate:
+      on-profile: elasticache
+  data:
+    redis:
+      host: ${elasticacheAddress}
+      port: 6379
