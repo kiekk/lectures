@@ -60,8 +60,8 @@ spring:
       on-profile: prod-docker
   datasource:
     url: jdbc:mysql://${rdsAddress}:3306/mydb
-    username: root
-    password: root
+    username: admin
+    password: password
   data:
     redis:
       host: cache-server
