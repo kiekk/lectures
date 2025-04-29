@@ -72,7 +72,7 @@ $ cd {프로젝트 경로}
 # 스프링 프로젝트 경로로 들어가서 아래 명령어 실행
 $ ./gradlew clean build -x test 
 $ cd build/libs
-$ java -jar -Dspring.profiles.active=prod -DrdsAddresss={RDS 엔드포인트} {빌드된 jar 파일명}
+$ java -jar -Dspring.profiles.active=prod -DrdsAddress={RDS 엔드포인트} {빌드된 jar 파일명}
 ```
 
 ### ✅ RDS에 더미데이터 넣기
