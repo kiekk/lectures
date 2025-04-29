@@ -2,4 +2,5 @@ FROM openjdk:21-jdk
 
 COPY build/libs/*SNAPSHOT.jar app.jar
 
-ENTRYPOINT ["java", "-jar", "-Dspring.profiles.active=prod -DrdsAddress=${RDS_ADDRESS}", "/app.jar"]
+# 운영 환경에서 ${RDS_ADDRESS}에 RDS 주소로 치환해야 함.
+ENTRYPOINT ["java", "-jar", "-Dspring.profiles.active=prod-docker", "-DrdsAddress=${RDS_ADDRESS}", "/app.jar"]
