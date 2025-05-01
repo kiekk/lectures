@@ -2,3 +2,5 @@
 
 
 ### [Distributed Relational Database](distributed_relational_database/README.md)
+
+### [게시글 DB, Table 설정](database_table_setting/README.md)
