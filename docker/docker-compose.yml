@@ -1,0 +1,10 @@
+services:
+  kuke-board-mysql:
+    image: mysql:8.0.38
+    container_name: kuke-board-mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./kuke-board:/var/lib/mysql
