@@ -5,7 +5,10 @@ import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.web.client.RestClient;
+import soono.board.article.service.response.ArticlePageResponse;
 import soono.board.article.service.response.ArticleResponse;
+
+import java.util.Map;
 
 /*
 TODO: 이 테스트는 실행할 때마다 articleId를 변경해줘야 테스트가 정상적으로 동작한다.
@@ -43,6 +46,22 @@ public class ArticleApiTest {
                 .uri("/v1/articles/{articleId}", 176483745123614720L)
                 .retrieve()
                 .toBodilessEntity();
+    }
+
+    @Test
+    void readAllTest() {
+        ArticlePageResponse response = restClient.get()
+                .uri("/v1/articles?boardId={boardId}&page={page}&pageSize={pageSize}", Map.of(
+                        "boardId", 1L,
+                        "page", 1L,
+                        "pageSize", 10L
+                ))
+                .retrieve()
+                .body(ArticlePageResponse.class);
+        log.info("response.getArticleCount() = {}", response.getArticleCount());
+        for (ArticleResponse article : response.getArticles()) {
+            log.info("article = {}", article);
+        }
     }
 
     ArticleResponse create(ArticleCreateRequest request) {
