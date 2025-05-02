@@ -8,3 +8,5 @@
 ### [Snowflake](snowflake/README.md)
 
 ### [Index](index/README.md)
+
+### [Primary Key 생성 전략](primary_key_strategy/README.md)

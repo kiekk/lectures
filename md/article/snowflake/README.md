@@ -15,5 +15,4 @@
 
 ## 📂 추가로 학습할만한 자료
 - [Snowflake ID WIKI 링크](https://en.wikipedia.org/wiki/Snowflake_ID)
-- [How Snowflake IDs work
-  ](https://www.youtube.com/watch?v=aLYKd7h7vgY)
+- [How Snowflake IDs work](https://www.youtube.com/watch?v=aLYKd7h7vgY)
