@@ -11,6 +11,8 @@ import soono.board.article.service.request.ArticleUpdateRequest;
 import soono.board.article.service.response.ArticlePageResponse;
 import soono.board.article.service.response.ArticleResponse;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class ArticleService {
@@ -34,6 +36,14 @@ public class ArticleService {
         return ArticleResponse.from(articleRepository.findById(articleId).orElseThrow());
     }
 
+    public List<ArticleResponse> readAllInfiniteScroll(Long boardId, Long pageSize, Long lastArticleId) {
+        List<Article> articles = lastArticleId == null ? articleRepository.findAllInfiniteScroll(boardId, pageSize) :
+                articleRepository.findAllInfiniteScroll(boardId, pageSize, lastArticleId);
+        return articles.stream()
+                .map(ArticleResponse::from)
+                .toList();
+    }
+
     @Transactional
     public ArticleResponse create(ArticleCreateRequest request) {
         Article article = articleRepository.save(
@@ -54,4 +64,5 @@ public class ArticleService {
     public void delete(Long articleId) {
         articleRepository.deleteById(articleId);
     }
+
 }

@@ -4,10 +4,12 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.web.client.RestClient;
 import soono.board.article.service.response.ArticlePageResponse;
 import soono.board.article.service.response.ArticleResponse;
 
+import java.util.List;
 import java.util.Map;
 
 /*
@@ -60,6 +62,37 @@ public class ArticleApiTest {
                 .body(ArticlePageResponse.class);
         log.info("response.getArticleCount() = {}", response.getArticleCount());
         for (ArticleResponse article : response.getArticles()) {
+            log.info("article = {}", article);
+        }
+    }
+
+    @Test
+    void readAllInfiniteScrollTest() {
+        List<ArticleResponse> firstArticles = restClient.get()
+                .uri("/v1/articles/infinite-scroll?boardId={boardId}&pageSize={pageSize}", Map.of(
+                        "boardId", 1L,
+                        "pageSize", 10L
+                ))
+                .retrieve()
+                .body(new ParameterizedTypeReference<>() {
+                });
+        log.info("firstArticles");
+        for (ArticleResponse article : firstArticles) {
+            log.info("article = {}", article);
+        }
+
+        Long lastArticleId = firstArticles.getLast().getArticleId();
+        List<ArticleResponse> articles = restClient.get()
+                .uri("/v1/articles/infinite-scroll?boardId={boardId}&pageSize={pageSize}&lastArticleId={lastArticleId}", Map.of(
+                        "boardId", 1L,
+                        "pageSize", 10L,
+                        "lastArticleId", lastArticleId
+                ))
+                .retrieve()
+                .body(new ParameterizedTypeReference<>() {
+                });
+        log.info("articles");
+        for (ArticleResponse article : articles) {
             log.info("article = {}", article);
         }
     }
