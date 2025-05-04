@@ -4,18 +4,15 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import kuke.board.common.snowflake.Snowflake;
 import lombok.extern.slf4j.Slf4j;
-import org.hibernate.Session;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.support.TransactionTemplate;
 import soono.board.article.entity.Article;
 
-import java.util.List;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.stream.IntStream;
 
 @Slf4j
 @SpringBootTest
@@ -49,16 +46,16 @@ public class DataInitializer {
 
     void insert() {
         transactionTemplate.executeWithoutResult(status -> {
-            List<Article> articles = IntStream.rangeClosed(0, BULK_INSERT_SIZE)
-                    .mapToObj(i -> Article.create(
-                            snowflake.nextId(),
-                            "title" + i,
-                            "content" + i,
-                            1L,
-                            1L
-                    ))
-                    .toList();
-            entityManager.persist(articles);
+            for (int i = 0; i < BULK_INSERT_SIZE; i++) {
+                Article article = Article.create(
+                        snowflake.nextId(),
+                        "title" + i,
+                        "content" + i,
+                        1L,
+                        1L
+                );
+                entityManager.persist(article);
+            }
         });
     }
 
