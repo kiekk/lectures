@@ -15,6 +15,11 @@ import java.util.List;
 public class ArticleController {
     private final ArticleService articleService;
 
+    @GetMapping("/v1/articles/boards/{boardId}/count")
+    public Long count(@PathVariable("boardId") Long boardId) {
+        return articleService.count(boardId);
+    }
+
     @GetMapping("/v1/articles")
     public ArticlePageResponse readAll(@RequestParam("boardId") Long boardId,
                                        @RequestParam("page") Long page,

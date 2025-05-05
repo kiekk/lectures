@@ -97,6 +97,35 @@ public class ArticleApiTest {
         }
     }
 
+    @Test
+    void countTest() {
+        ArticleResponse response = create(new ArticleCreateRequest("hi", "content", 1L, 2L));
+
+        Long count1 = restClient.get()
+                .uri("/v1/articles/boards/{boardId}/count", Map.of(
+                        "boardId", 2L
+                ))
+                .retrieve()
+                .body(Long.class);
+        log.info("count1 = {}", count1);
+
+        // delete
+        restClient.delete()
+                .uri("/v1/articles/{articleId}", Map.of(
+                        "articleId", response.getArticleId()
+                ))
+                .retrieve()
+                .toBodilessEntity();
+
+        Long count2 = restClient.get()
+                .uri("/v1/articles/boards/{boardId}/count", Map.of(
+                        "boardId", 2L
+                ))
+                .retrieve()
+                .body(Long.class);
+        log.info("count2 = {}", count2);
+    }
+
     ArticleResponse create(ArticleCreateRequest request) {
         return restClient.post()
                 .uri("/v1/articles")

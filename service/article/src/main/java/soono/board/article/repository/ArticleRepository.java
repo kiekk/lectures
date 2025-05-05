@@ -1,6 +1,7 @@
 package soono.board.article.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import soono.board.article.entity.Article;
@@ -75,4 +76,8 @@ public interface ArticleRepository extends JpaRepository<Article, Long> {
     List<Article> findAllInfiniteScroll(@Param("boardId") Long boardId,
                                         @Param("limit") Long limit,
                                         @Param("lastArticleId") Long lastArticleId);
+
+    @Modifying
+    @Query("DELETE FROM Article a WHERE a.articleId = :articleId")
+    int deleteByArticleId(@Param("articleId") Long articleId);
 }
