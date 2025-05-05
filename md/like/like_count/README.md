@@ -56,3 +56,33 @@
 
 - 이제 좋아요의 생성/삭제에 따른 좋아요 수 갱신은
   - 단일 데이터베이스에서 하나의 트랜잭션으로 묶어서 처리가 가능하다.
+
+
+#### 동시성 문제
+- 하지만 지금은 동시성 문제가 발생할 수 있는 상황이기 때문에 높은 쓰기 트래픽이 발생하면 동시성 문제가 발생할 수 있다.
+- 트랜잭션을 사용하더라도 동시성 무넺로 인해, 구현 방법에 따라 데이터의 일관성은 여전히 깨질 수 있다.
+- 따라서 앞서 살펴본 Lock의 개념이 필요하다.
+
+#### 해결 방안
+- 해결 방안으로는 비관적 락, 낙관적 락, 비동기 순차 처리 방법이 있다.
+- Record Lock은 비관적 락에 해당한다.
+- 학습을 위해 비관적 락, 낙관적 락 방법을 구현해본다. (비동기 순차 처리는 인기글/게시글 조회 최적화에서 구현 예정)
+
+### [비관적 락](pessimistic_lock/README.md)
+
+### [낙관적 락](optimistic_lock/README.md)
+
+### [비동기 순차 처리](async_sequential_processing/README.md)
+
+
+### Table 생성
+```shell
+# 좋아요 수 테이블 생성
+create table article_like_count (
+    -> article_id bigint not null primary key,
+    -> like_count bigint not null,
+    -> version bigint not null
+    -> );
+```
+
+- script는 `service/like/src/main/resources/db/rdb-schema.sql`에 위치
