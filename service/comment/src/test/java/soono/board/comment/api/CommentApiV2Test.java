@@ -4,12 +4,52 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.web.client.RestClient;
+import soono.board.comment.service.response.CommentPageResponseV2;
 import soono.board.comment.service.response.CommentResponseV2;
+
+import java.util.List;
 
 @Slf4j
 class CommentApiV2Test {
     RestClient restClient = RestClient.create("http://localhost:9001");
+
+    @Test
+    void readAll() {
+        CommentPageResponseV2 response = restClient.get()
+                .uri("/v2/comments?articleId={articleId}&page={page}&pageSize={pageSize}", 1L, 1L, 10L)
+                .retrieve()
+                .body(CommentPageResponseV2.class);
+        log.info("response.getCommentCount() = {}", response.getCommentCount());
+        for (CommentResponseV2 comment : response.getComments()) {
+            log.info("comment.getCommentId() = {}", comment.getCommentId());
+        }
+    }
+
+    @Test
+    void readAllInfiniteScroll() {
+        List<CommentResponseV2> response1 = restClient.get()
+                .uri("/v2/comments/infinite-scroll?articleId={articleId}&lastPath={lastPath}&pageSize={pageSize}", 1L, null, 10L)
+                .retrieve()
+                .body(new ParameterizedTypeReference<>() {
+                });
+        log.info("firstPage");
+        for (CommentResponseV2 response : response1) {
+            log.info("response.getCommentId() = {}", response.getCommentId());
+        }
+
+        String lastPath = response1.getLast().getPath();
+        List<CommentResponseV2> response2 = restClient.get()
+                .uri("/v2/comments/infinite-scroll?articleId={articleId}&lastPath={lastPath}&pageSize={pageSize}", 1L, lastPath, 10L)
+                .retrieve()
+                .body(new ParameterizedTypeReference<>() {
+                });
+        log.info("secondPage");
+        for (CommentResponseV2 response : response2) {
+            log.info("response.getCommentId() = {}", response.getCommentId());
+        }
+    }
 
     @Test
     void read() {

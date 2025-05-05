@@ -8,7 +8,10 @@ import soono.board.comment.entity.CommentPath;
 import soono.board.comment.entity.CommentV2;
 import soono.board.comment.repository.CommentRepositoryV2;
 import soono.board.comment.service.request.CommentCreateRequestV2;
+import soono.board.comment.service.response.CommentPageResponseV2;
 import soono.board.comment.service.response.CommentResponseV2;
+
+import java.util.List;
 
 import static java.util.function.Predicate.not;
 
@@ -18,6 +21,23 @@ public class CommentServiceV2 {
 
     private final Snowflake snowflake = new Snowflake();
     private final CommentRepositoryV2 commentRepository;
+
+    public CommentPageResponseV2 readAll(Long articleId, Long page, Long pageSize) {
+        return CommentPageResponseV2.of(
+                commentRepository.findAll(articleId, (page - 1) * pageSize, pageSize).stream()
+                        .map(CommentResponseV2::from)
+                        .toList(),
+                commentRepository.count(articleId, PageLimitCalculator.calculatePageLimit(page, pageSize, 10L))
+        );
+    }
+
+    public List<CommentResponseV2> readAllInfiniteScroll(Long articleId, String lastPath, Long pageSize) {
+        List<CommentV2> comments = lastPath == null ? commentRepository.findAllInfiniteScroll(articleId, pageSize) :
+                commentRepository.findAllInfiniteScroll(articleId, lastPath, pageSize);
+        return comments.stream()
+                .map(CommentResponseV2::from)
+                .toList();
+    }
 
     public CommentResponseV2 read(Long commentId) {
         return CommentResponseV2.from(commentRepository.findById(commentId).orElseThrow());
