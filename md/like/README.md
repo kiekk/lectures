@@ -12,3 +12,5 @@
   - (게시글ID + 사용자ID)로 유니크 인덱스를 생성
 
 ### [좋아요 DB, Table 설계](database_table_setting/README.md)
+
+### [좋아요 수 설계](like_count/README.md)
