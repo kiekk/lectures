@@ -19,7 +19,7 @@ class ArticleViewApiTest {
         for (int i = 0; i < 10_000; i++) {
             executorService.execute(() -> {
                 restClient.post()
-                        .uri("/v1/article-views/articles/{articleId}/users/{userId}", 3L, 1L)
+                        .uri("/v1/article-views/articles/{articleId}/users/{userId}", 4L, 1L)
                         .retrieve()
                         .body(Long.class);
                 latch.countDown();
@@ -29,7 +29,7 @@ class ArticleViewApiTest {
         latch.await();
 
         Long count = restClient.get()
-                .uri("/v1/article-views/articles/{articleId}/count", 3L)
+                .uri("/v1/article-views/articles/{articleId}/count", 4L)
                 .retrieve()
                 .body(Long.class);
         log.info("count = {}", count);
