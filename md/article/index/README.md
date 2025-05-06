@@ -101,3 +101,10 @@ from (select article_id
 
 #### 하지만 offset이 커질수록 쿼리가 느려지는 문제는 동일하다.
 - 이 경우 zero offset 방식인 무한 스크롤 방식이 답이 될 수 있다.
+
+#### 참고 링크
+- [DB | Zero Offset 을 사용한 Select 성능 향상으로 이끌기](https://xeounxzxu.medium.com/db-zero-offset-%EC%9D%84-%EC%82%AC%EC%9A%A9%ED%95%9C-select-%EC%84%B1%EB%8A%A5-%ED%96%A5%EC%83%81%EC%9C%BC%EB%A1%9C-%EC%9D%B4%EB%81%8C%EA%B8%B0-7166875e2363)
+- [1. 페이징 성능 개선하기 - No Offset 사용하기](https://jojoldu.tistory.com/528)
+- [2. 페이징 성능 개선하기 - 커버링 인덱스 사용하기](https://jojoldu.tistory.com/529?category=637935)
+- [3-1. 페이징 성능 개선하기 - 검색 버튼 사용시 페이지 건수 고정하기](https://jojoldu.tistory.com/530?category=637935)
+- [3-2. 페이징 성능 개선하기 - 첫 페이지 조회 결과 cache 하기](https://jojoldu.tistory.com/531?category=637935)

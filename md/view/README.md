@@ -92,3 +92,9 @@
 ### [조회수 DB, Table 설계](database_table_setting/README.md)
 
 ### [조회수 어뷰징 방지 정책 설계](avoid_abuse_policy/README.md)
+
+
+#### 참고 링크
+- [Redis 캐시로 몰려드는 트래픽을 견디다 — 토니모리 공식몰 성능 개선기](https://tonymoly-tech.medium.com/redis-cache-tonymoly-performance-c5a5e18ae83c)
+- [\[NHN FORWARD 2021\] Redis 야무지게 사용하기](https://www.youtube.com/watch?v=92NizoBL4uA)
+- [\[우아한테크세미나\] 191121 우아한레디스 by 강대명님](https://www.youtube.com/watch?v=mPB2CZiAkKM)
