@@ -4,8 +4,10 @@ import kuke.board.common.snowflake.Snowflake;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import soono.board.comment.entity.ArticleCommentCount;
 import soono.board.comment.entity.CommentPath;
 import soono.board.comment.entity.CommentV2;
+import soono.board.comment.repository.ArticleCommentCountRepository;
 import soono.board.comment.repository.CommentRepositoryV2;
 import soono.board.comment.service.request.CommentCreateRequestV2;
 import soono.board.comment.service.response.CommentPageResponseV2;
@@ -21,6 +23,13 @@ public class CommentServiceV2 {
 
     private final Snowflake snowflake = new Snowflake();
     private final CommentRepositoryV2 commentRepository;
+    private final ArticleCommentCountRepository articleCommentCountRepository;
+
+    public Long count(Long articleId) {
+        return articleCommentCountRepository.findById(articleId)
+                .map(ArticleCommentCount::getCommentCount)
+                .orElse(0L);
+    }
 
     public CommentPageResponseV2 readAll(Long articleId, Long page, Long pageSize) {
         return CommentPageResponseV2.of(
@@ -59,6 +68,13 @@ public class CommentServiceV2 {
                         )
                 )
         );
+
+        int result = articleCommentCountRepository.increase(request.getArticleId());
+        if (result == 0) {
+            articleCommentCountRepository.save(
+                    ArticleCommentCount.init(request.getArticleId(), 1L)
+            );
+        }
         return CommentResponseV2.from(comment);
     }
 
@@ -94,7 +110,11 @@ public class CommentServiceV2 {
     }
 
     private void delete(CommentV2 comment) {
-        commentRepository.delete(comment);
+        int deleteCount = commentRepository.deleteByCommentId(comment.getCommentId());
+        if (deleteCount == 0) {
+            throw new IllegalStateException("삭제된 댓글입니다.");
+        }
+        articleCommentCountRepository.decrease(comment.getArticleId());
         if (!comment.isRoot()) {
             commentRepository.findByPath(comment.getCommentPath().getParentPath())
                     .filter(CommentV2::getDeleted)
