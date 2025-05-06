@@ -90,3 +90,5 @@
 
 
 ### [조회수 DB, Table 설계](database_table_setting/README.md)
+
+### [조회수 어뷰징 방지 정책 설계](avoid_abuse_policy/README.md)
