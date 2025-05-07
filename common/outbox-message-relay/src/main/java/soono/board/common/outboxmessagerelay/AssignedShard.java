@@ -1,11 +1,13 @@
 package soono.board.common.outboxmessagerelay;
 
 import lombok.Getter;
+import lombok.ToString;
 
 import java.util.List;
 import java.util.stream.LongStream;
 
 @Getter
+@ToString
 public class AssignedShard {
     private List<Long> shards;
 

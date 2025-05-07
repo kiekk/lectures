@@ -3,6 +3,9 @@ package soono.board.view.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
+import soono.board.common.event.EventType;
+import soono.board.common.event.payload.ArticleViewedEventPayload;
+import soono.board.common.outboxmessagerelay.OutboxEventPublisher;
 import soono.board.view.entity.ArticleViewCount;
 import soono.board.view.repository.ArticleViewCountBackUpRepository;
 
@@ -10,6 +13,7 @@ import soono.board.view.repository.ArticleViewCountBackUpRepository;
 @RequiredArgsConstructor
 public class ArticleViewCountBackUpProcessor {
     private final ArticleViewCountBackUpRepository articleViewCountBackUpRepository;
+    private final OutboxEventPublisher outboxEventPublisher;
 
     @Transactional
     public void backUp(Long articleId, Long viewCount) {
@@ -23,5 +27,15 @@ public class ArticleViewCountBackUpProcessor {
                                     ArticleViewCount.init(articleId, viewCount)
                             ));
         }
+
+        // 이벤트 발행
+        outboxEventPublisher.publish(
+                EventType.ARTICLE_VIEWED,
+                ArticleViewedEventPayload.builder()
+                        .articleId(articleId)
+                        .articleViewCount(viewCount)
+                        .build(),
+                articleId
+        );
     }
 }

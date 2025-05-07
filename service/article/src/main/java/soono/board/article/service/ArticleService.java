@@ -1,6 +1,5 @@
 package soono.board.article.service;
 
-import soono.board.common.snowflake.Snowflake;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,6 +11,12 @@ import soono.board.article.service.request.ArticleCreateRequest;
 import soono.board.article.service.request.ArticleUpdateRequest;
 import soono.board.article.service.response.ArticlePageResponse;
 import soono.board.article.service.response.ArticleResponse;
+import soono.board.common.event.EventType;
+import soono.board.common.event.payload.ArticleCreatedEventPayload;
+import soono.board.common.event.payload.ArticleDeletedEventPayload;
+import soono.board.common.event.payload.ArticleUpdatedEventPayload;
+import soono.board.common.outboxmessagerelay.OutboxEventPublisher;
+import soono.board.common.snowflake.Snowflake;
 
 import java.util.List;
 
@@ -22,6 +27,7 @@ public class ArticleService {
     private final Snowflake snowflake = new Snowflake();
     private final ArticleRepository articleRepository;
     private final BoardArticleCountRepository boardArticleCountRepository;
+    private final OutboxEventPublisher outboxEventPublisher;
 
     public ArticlePageResponse readAll(Long boardId, Long page, Long pageSize) {
         return ArticlePageResponse.of(
@@ -60,6 +66,21 @@ public class ArticleService {
             );
         }
 
+        // 이벤트 발행
+        outboxEventPublisher.publish(
+                EventType.ARTICLE_CREATED,
+                ArticleCreatedEventPayload.builder()
+                        .articleId(article.getArticleId())
+                        .title(article.getTitle())
+                        .content(article.getContent())
+                        .boardId(article.getBoardId())
+                        .writerId(article.getWriterId())
+                        .createdAt(article.getCreatedAt())
+                        .modifiedAt(article.getModifiedAt())
+                        .boardArticleCount(count(article.getBoardId()))
+                        .build(),
+                article.getBoardId()
+        );
         return ArticleResponse.from(article);
     }
 
@@ -67,6 +88,21 @@ public class ArticleService {
     public ArticleResponse update(Long articleId, ArticleUpdateRequest request) {
         Article article = articleRepository.findById(articleId).orElseThrow();
         article.update(request.getTitle(), request.getContent());
+
+        // 이벤트 발행
+        outboxEventPublisher.publish(
+                EventType.ARTICLE_UPDATED,
+                ArticleUpdatedEventPayload.builder()
+                        .articleId(article.getArticleId())
+                        .title(article.getTitle())
+                        .content(article.getContent())
+                        .boardId(article.getBoardId())
+                        .writerId(article.getWriterId())
+                        .createdAt(article.getCreatedAt())
+                        .modifiedAt(article.getModifiedAt())
+                        .build(),
+                article.getBoardId()
+        );
         return ArticleResponse.from(article);
     }
 
@@ -78,6 +114,22 @@ public class ArticleService {
         if (deleteCount == 0) {
             throw new IllegalStateException("삭제된 게시글입니다.");
         }
+
+        // 이벤트 발행
+        outboxEventPublisher.publish(
+                EventType.ARTICLE_DELETED,
+                ArticleDeletedEventPayload.builder()
+                        .articleId(article.getArticleId())
+                        .title(article.getTitle())
+                        .content(article.getContent())
+                        .boardId(article.getBoardId())
+                        .writerId(article.getWriterId())
+                        .createdAt(article.getCreatedAt())
+                        .modifiedAt(article.getModifiedAt())
+                        .boardArticleCount(count(article.getBoardId()))
+                        .build(),
+                article.getBoardId()
+        );
         boardArticleCountRepository.decrease(article.getBoardId());
     }
 
