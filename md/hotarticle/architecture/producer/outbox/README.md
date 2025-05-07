@@ -14,6 +14,12 @@ mysql> create table outbox
     -> );
 ```
 
+- 각 database 별로 생성한다.
+  - article
+  - article_like
+  - article_view
+  - comment
+
 - shard key의 존재
   - 우리는 샤딩이 고려된 분산 데이터베이스를 사용하고 있다.
   - 트랜잭션을 각 샤드에서 단일 트랜잭션으로 빠르고 안전하게 수행될 수 있다.
@@ -22,7 +28,7 @@ mysql> create table outbox
 
 2. 인덱스 생성
 ```shell
-mysql> create index idx_shard_key_created_aton outbox(shard_key asc, created_at asc);
+mysql> create index idx_shard_key_created_at on outbox(shard_key asc, created_at asc);
 ```
 
 - script는 `service/outbox-message-relay/src/main/resources/db/rdb-schema.sql`에 위치
