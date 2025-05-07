@@ -1,8 +1,8 @@
 package soono.board.hotarticle.service;
 
-import kuke.board.common.event.Event;
-import kuke.board.common.event.EventPayload;
-import kuke.board.common.event.EventType;
+import soono.board.common.event.Event;
+import soono.board.common.event.EventPayload;
+import soono.board.common.event.EventType;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

@@ -1,7 +1,7 @@
 package soono.board.hotarticle.service.eventhandler;
 
-import kuke.board.common.event.Event;
-import kuke.board.common.event.EventPayload;
+import soono.board.common.event.Event;
+import soono.board.common.event.EventPayload;
 
 public interface EventHandler<T extends EventPayload> {
     void handle(Event<T> event);

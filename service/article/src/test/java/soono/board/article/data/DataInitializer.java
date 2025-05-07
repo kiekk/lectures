@@ -2,7 +2,7 @@ package soono.board.article.data;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
-import kuke.board.common.snowflake.Snowflake;
+import soono.board.common.snowflake.Snowflake;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

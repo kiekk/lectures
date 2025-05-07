@@ -1,7 +1,7 @@
 package soono.board.hotarticle.service;
 
-import kuke.board.common.event.Event;
-import kuke.board.common.event.EventPayload;
+import soono.board.common.event.Event;
+import soono.board.common.event.EventPayload;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;

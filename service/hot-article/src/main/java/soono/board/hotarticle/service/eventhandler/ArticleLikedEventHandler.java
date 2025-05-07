@@ -1,8 +1,8 @@
 package soono.board.hotarticle.service.eventhandler;
 
-import kuke.board.common.event.Event;
-import kuke.board.common.event.EventType;
-import kuke.board.common.event.payload.ArticleLikedEventPayload;
+import soono.board.common.event.Event;
+import soono.board.common.event.EventType;
+import soono.board.common.event.payload.ArticleLikedEventPayload;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import soono.board.hotarticle.repository.ArticleLikeCountRepository;

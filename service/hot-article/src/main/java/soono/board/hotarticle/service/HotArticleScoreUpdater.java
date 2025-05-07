@@ -1,7 +1,7 @@
 package soono.board.hotarticle.service;
 
-import kuke.board.common.event.Event;
-import kuke.board.common.event.EventPayload;
+import soono.board.common.event.Event;
+import soono.board.common.event.EventPayload;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import soono.board.hotarticle.repository.ArticleCreatedTimeRepository;
