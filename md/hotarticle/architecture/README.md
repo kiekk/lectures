@@ -8,3 +8,5 @@
 - 최근 7일 인기글 내역 조회
 
 #### [인기글 Consumer 설계](consumer/README.md)
+
+#### [인기글 Producer 설계](producer/README.md)
