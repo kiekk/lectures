@@ -2,6 +2,7 @@ package soono.board.hotarticle.client;
 
 import jakarta.annotation.PostConstruct;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -12,16 +13,13 @@ import java.time.LocalDateTime;
 
 @Slf4j
 @Component
+@RequiredArgsConstructor
 public class ArticleClient {
-    private final UrlBasedViewResolver urlBasedViewResolver;
+
     private RestClient restClient;
 
-    @Value("${endpoints.soono-board-article-service.url")
+    @Value("${endpoints.soono-board-article-service.url}")
     public String articleServiceUrl;
-
-    public ArticleClient(UrlBasedViewResolver urlBasedViewResolver) {
-        this.urlBasedViewResolver = urlBasedViewResolver;
-    }
 
     @PostConstruct
     void initRestClient() {

@@ -19,7 +19,7 @@ import java.util.concurrent.TimeUnit;
 public class MessageRelayCoordinator {
     private final StringRedisTemplate redisTemplate;
 
-    @Value("${spring.application.name")
+    @Value("${spring.application.name}")
     public String applicationName;
 
     private final String KEY_FORMAT = "message-relay-coordinator::app-list::%s";
@@ -36,7 +36,9 @@ public class MessageRelayCoordinator {
     }
 
     private List<String> findAppIds() {
-        return redisTemplate.opsForZSet().reverseRange(generateKey(), 0, -1).stream().toList();
+        return redisTemplate.opsForZSet().reverseRange(generateKey(), 0, -1).stream()
+                .sorted()
+                .toList();
     }
 
     @Scheduled(fixedDelay = PING_INTERVAL_SECONDS, timeUnit = TimeUnit.SECONDS)

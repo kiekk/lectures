@@ -1,11 +1,11 @@
 package soono.board.hotarticle.service;
 
-import soono.board.common.event.Event;
-import soono.board.common.event.EventPayload;
-import soono.board.common.event.EventType;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import soono.board.common.event.Event;
+import soono.board.common.event.EventPayload;
+import soono.board.common.event.EventType;
 import soono.board.hotarticle.client.ArticleClient;
 import soono.board.hotarticle.repository.HotArticleListRepository;
 import soono.board.hotarticle.service.eventhandler.EventHandler;
@@ -22,7 +22,6 @@ public class HotArticleService {
     private final ArticleClient articleClient;
     private final List<EventHandler<EventPayload>> eventHandlers;
     private final HotArticleScoreUpdater hotArticleScoreUpdater;
-    private final HotArticleScoreCalculator hotArticleScoreCalculator;
     private final HotArticleListRepository hotArticleListRepository;
 
     public void handleEvent(Event<EventPayload> event) {

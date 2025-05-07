@@ -13,8 +13,10 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
 import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
 
 @EnableAsync
 @Configuration
@@ -26,7 +28,7 @@ public class MessageRelayConfig {
 
     @Bean
     public KafkaTemplate<String, String> messageRelayKafkaTemplate() {
-        HashMap<String, Object> configProps = new HashMap<>();
+        Map<String, Object> configProps = new HashMap<>();
         configProps.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
         configProps.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
         configProps.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
@@ -34,7 +36,7 @@ public class MessageRelayConfig {
         return new KafkaTemplate<>(new DefaultKafkaProducerFactory<>(configProps));
     }
 
-    @Bean
+    @Bean(name = "messageRelayPublishEventExecutor" )
     public Executor messageRelayPublishEventExecutor() {
         ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
         executor.setCorePoolSize(20);
@@ -44,8 +46,8 @@ public class MessageRelayConfig {
         return executor;
     }
 
-    @Bean
-    public Executor messageRelayPublishPendingEventExecutor() {
+    @Bean(name = "messageRelayPublishPendingEventExecutor")
+    public ScheduledExecutorService messageRelayPublishPendingEventExecutor() {
         return Executors.newSingleThreadScheduledExecutor();
     }
 }

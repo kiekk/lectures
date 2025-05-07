@@ -30,10 +30,10 @@ $ docker exec -it kuke-board-kafka bash
 ```shell
 $ cd /opt/kafka/bin/
 
-$ ./kafka-topics.sh --bootstrap-server localhost:9092 --create --topic kuke-board-article --replication-factor 1 --partitions 3
-$ ./kafka-topics.sh --bootstrap-server localhost:9092 --create --topic kuke-board-comment --replication-factor 1 --partitions 3
-$ ./kafka-topics.sh --bootstrap-server localhost:9092 --create --topic kuke-board-like --replication-factor 1 --partitions 3
-$ ./kafka-topics.sh --bootstrap-server localhost:9092 --create --topic kuke-board-view --replication-factor 1 --partitions 3
+$ ./kafka-topics.sh --bootstrap-server localhost:9092 --create --topic soono-board-article --replication-factor 1 --partitions 3
+$ ./kafka-topics.sh --bootstrap-server localhost:9092 --create --topic soono-board-comment --replication-factor 1 --partitions 3
+$ ./kafka-topics.sh --bootstrap-server localhost:9092 --create --topic soono-board-like --replication-factor 1 --partitions 3
+$ ./kafka-topics.sh --bootstrap-server localhost:9092 --create --topic soono-board-view --replication-factor 1 --partitions 3
 ```
 
 4. kafka topic 확인
