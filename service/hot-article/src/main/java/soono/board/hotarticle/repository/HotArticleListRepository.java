@@ -12,7 +12,6 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
-import java.util.Objects;
 
 @Slf4j
 @Repository
@@ -44,6 +43,10 @@ public class HotArticleListRepository {
             conn.expire(key, ttl.toSeconds());
             return null;
         });
+    }
+
+    public void remove(Long articleId, LocalDateTime time) {
+        redisTemplate.opsForZSet().remove(generateKey(time), String.valueOf(articleId));
     }
 
     private String generateKey(LocalDateTime time) {
