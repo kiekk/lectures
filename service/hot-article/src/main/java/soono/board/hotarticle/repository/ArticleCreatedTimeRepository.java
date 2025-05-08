@@ -20,7 +20,7 @@ public class ArticleCreatedTimeRepository {
     public void createOrUpdate(Long articleId, LocalDateTime createdAt, Duration ttl) {
         redisTemplate.opsForValue().set(
                 generateKey(articleId),
-                String.valueOf(createdAt.toInstant(ZoneOffset.UTC)),
+                String.valueOf(createdAt.toInstant(ZoneOffset.UTC).toEpochMilli()),
                 ttl
         );
 
