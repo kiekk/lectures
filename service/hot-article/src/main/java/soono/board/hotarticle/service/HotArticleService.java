@@ -20,7 +20,7 @@ public class HotArticleService {
     // redis
     // 게시글 원본 정보를 ArticleClient에서 조회 가능
     private final ArticleClient articleClient;
-    private final List<EventHandler<EventPayload>> eventHandlers;
+    private final List<EventHandler> eventHandlers;
     private final HotArticleScoreUpdater hotArticleScoreUpdater;
     private final HotArticleListRepository hotArticleListRepository;
 
@@ -45,7 +45,7 @@ public class HotArticleService {
                 .toList();
     }
 
-    private EventHandler<EventPayload> findEventHandler(Event<EventPayload> event) {
+    private EventHandler findEventHandler(Event<EventPayload> event) {
         return eventHandlers.stream()
                 .filter(eventHandler -> eventHandler.supports(event))
                 .findFirst()
