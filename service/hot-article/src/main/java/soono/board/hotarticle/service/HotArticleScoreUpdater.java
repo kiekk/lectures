@@ -1,14 +1,15 @@
 package soono.board.hotarticle.service;
 
-import soono.board.common.event.Event;
-import soono.board.common.event.EventPayload;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
+import soono.board.common.event.Event;
+import soono.board.common.event.EventPayload;
 import soono.board.hotarticle.repository.ArticleCreatedTimeRepository;
 import soono.board.hotarticle.repository.HotArticleListRepository;
 import soono.board.hotarticle.service.eventhandler.EventHandler;
 
 import java.time.Duration;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Component
@@ -43,6 +44,6 @@ public class HotArticleScoreUpdater {
     }
 
     private boolean isArticleCreatedToday(LocalDateTime createdTime) {
-        return createdTime != null && createdTime.toLocalDate().isEqual(LocalDateTime.now().toLocalDate());
+        return createdTime != null && createdTime.toLocalDate().isEqual(LocalDate.now());
     }
 }
