@@ -1,5 +1,7 @@
 package soono.board.common.event;
 
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 import soono.board.common.event.payload.*;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -31,6 +33,7 @@ public enum EventType {
         }
     }
 
+    @NoArgsConstructor(access = AccessLevel.PRIVATE)
     public static class Topic {
         public static final String SOONO_BOARD_ARTICLE = "soono-board-article";
         public static final String SOONO_BOARD_COMMENT = "soono-board-comment";
