@@ -6,7 +6,7 @@ import soono.board.common.event.payload.ArticleUnlikedEventPayload;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import soono.board.hotarticle.repository.ArticleLikeCountRepository;
-import soono.board.hotarticle.utils.TimeCalculatorUtil;
+import soono.board.hotarticle.utils.TimeCalculatorUtils;
 
 @Component
 @RequiredArgsConstructor
@@ -20,7 +20,7 @@ public class ArticleUnlikedEventHandler implements EventHandler<ArticleUnlikedEv
         articleLikeCountRepository.createOrUpdate(
                 payload.getArticleId(),
                 payload.getArticleLikeCount(),
-                TimeCalculatorUtil.calculateDurationToMidnight()
+                TimeCalculatorUtils.calculateDurationToMidnight()
         );
     }
 

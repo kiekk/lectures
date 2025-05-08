@@ -6,7 +6,7 @@ import soono.board.common.event.payload.CommentCreatedEventPayload;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import soono.board.hotarticle.repository.ArticleCommentCountRepository;
-import soono.board.hotarticle.utils.TimeCalculatorUtil;
+import soono.board.hotarticle.utils.TimeCalculatorUtils;
 
 @Component
 @RequiredArgsConstructor
@@ -20,7 +20,7 @@ public class CommentCreatedEventHandler implements EventHandler<CommentCreatedEv
         articleCommentCountRepository.createOrUpdate(
                 payload.getArticleId(),
                 payload.getArticleCommentCount(),
-                TimeCalculatorUtil.calculateDurationToMidnight()
+                TimeCalculatorUtils.calculateDurationToMidnight()
         );
     }
 

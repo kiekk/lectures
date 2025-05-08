@@ -6,7 +6,7 @@ import soono.board.common.event.payload.ArticleCreatedEventPayload;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import soono.board.hotarticle.repository.ArticleCreatedTimeRepository;
-import soono.board.hotarticle.utils.TimeCalculatorUtil;
+import soono.board.hotarticle.utils.TimeCalculatorUtils;
 
 @Component
 @RequiredArgsConstructor
@@ -21,7 +21,7 @@ public class ArticleCreatedEventHandler implements EventHandler<ArticleCreatedEv
         articleCreatedTimeRepository.createOrUpdate(
                 payload.getArticleId(),
                 payload.getCreatedAt(),
-                TimeCalculatorUtil.calculateDurationToMidnight()
+                TimeCalculatorUtils.calculateDurationToMidnight()
         );
     }
 

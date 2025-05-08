@@ -1,10 +1,13 @@
 package soono.board.hotarticle.utils;
 
+import lombok.NoArgsConstructor;
+
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
-public class TimeCalculatorUtil {
+@NoArgsConstructor(access = lombok.AccessLevel.PRIVATE)
+public class TimeCalculatorUtils {
 
     public static Duration calculateDurationToMidnight() {
         LocalDateTime now = LocalDateTime.now();

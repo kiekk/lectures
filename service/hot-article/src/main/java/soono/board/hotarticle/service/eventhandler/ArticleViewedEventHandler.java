@@ -6,7 +6,7 @@ import soono.board.common.event.payload.ArticleViewedEventPayload;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import soono.board.hotarticle.repository.ArticleViewCountRepository;
-import soono.board.hotarticle.utils.TimeCalculatorUtil;
+import soono.board.hotarticle.utils.TimeCalculatorUtils;
 
 @Component
 @RequiredArgsConstructor
@@ -20,7 +20,7 @@ public class ArticleViewedEventHandler implements EventHandler<ArticleViewedEven
         articleViewCountRepository.createOrUpdate(
                 payload.getArticleId(),
                 payload.getArticleViewCount(),
-                TimeCalculatorUtil.calculateDurationToMidnight()
+                TimeCalculatorUtils.calculateDurationToMidnight()
         );
     }
 
