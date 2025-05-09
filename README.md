@@ -29,3 +29,26 @@
 - IDE: `IntelliJ`
 
 ---
+
+## 📝 더 나아가기
+- [ ] `request` 객체 유효성 검증 로직 추가해보기
+- [ ] 서비스 수준에서 `CQRS` 패턴 적용해보기
+  - `article`, `comment`, `like`, `view` 서비스에서 `command` 작업과 `query` 작업을 분리해보기
+  - ex: `article-query-service`, `article-command-service`
+- [ ]`article-read`, `hot-article` 서비스에서 `consumer`와 `controller`를 분리해보기
+  - `consumer(쓰기)`와 `controller(읽기)`가 같은 서비스 안에 존재한다.
+- [ ] 인증 기능 추가해보기
+  - 서비스 자체 로그인/회원가입
+  - OAuth Google, Kakao, Naver...
+- [ ] 여러 개의 DB를 구축하여 샤딩 구현해보기
+- [ ] Dockerfile로 이미지를 생성 후 이미지로 배포해보기
+- [ ] Spring Cloud 적용해보기
+  - config
+  - eureka
+  - zuul
+  - ribbon
+  - turbine
+  - hystrix
+  - feign
+- [ ] k6로 부하 테스트 해보기 
+- [ ] 모니터링 환경 구축해보기
