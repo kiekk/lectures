@@ -1,8 +1,8 @@
-package soono.board.hotarticle.service.eventhandler;
+package soono.board.hotarticle.service.event.handler;
 
 import soono.board.common.event.Event;
 import soono.board.common.event.EventType;
-import soono.board.common.event.payload.CommentDeletedEventPayload;
+import soono.board.common.event.payload.CommentCreatedEventPayload;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import soono.board.hotarticle.repository.ArticleCommentCountRepository;
@@ -10,13 +10,13 @@ import soono.board.hotarticle.utils.TimeCalculatorUtils;
 
 @Component
 @RequiredArgsConstructor
-public class CommentDeletedEventHandler implements EventHandler<CommentDeletedEventPayload> {
+public class CommentCreatedEventHandler implements EventHandler<CommentCreatedEventPayload> {
 
     private final ArticleCommentCountRepository articleCommentCountRepository;
 
     @Override
-    public void handle(Event<CommentDeletedEventPayload> event) {
-        CommentDeletedEventPayload payload = event.getPayload();
+    public void handle(Event<CommentCreatedEventPayload> event) {
+        CommentCreatedEventPayload payload = event.getPayload();
         articleCommentCountRepository.createOrUpdate(
                 payload.getArticleId(),
                 payload.getArticleCommentCount(),
@@ -25,12 +25,12 @@ public class CommentDeletedEventHandler implements EventHandler<CommentDeletedEv
     }
 
     @Override
-    public boolean supports(Event<CommentDeletedEventPayload> event) {
-        return EventType.COMMENT_DELETED == event.getType();
+    public boolean supports(Event<CommentCreatedEventPayload> event) {
+        return EventType.COMMENT_CREATED == event.getType();
     }
 
     @Override
-    public Long findArticleId(Event<CommentDeletedEventPayload> event) {
+    public Long findArticleId(Event<CommentCreatedEventPayload> event) {
         return event.getPayload().getArticleId();
     }
 }

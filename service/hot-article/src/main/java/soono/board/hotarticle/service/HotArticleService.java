@@ -8,7 +8,7 @@ import soono.board.common.event.EventPayload;
 import soono.board.common.event.EventType;
 import soono.board.hotarticle.client.ArticleClient;
 import soono.board.hotarticle.repository.HotArticleListRepository;
-import soono.board.hotarticle.service.eventhandler.EventHandler;
+import soono.board.hotarticle.service.event.handler.EventHandler;
 import soono.board.hotarticle.service.response.HotArticleResponse;
 
 import java.util.List;

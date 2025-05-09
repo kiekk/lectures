@@ -6,7 +6,7 @@ import soono.board.common.event.Event;
 import soono.board.common.event.EventPayload;
 import soono.board.hotarticle.repository.ArticleCreatedTimeRepository;
 import soono.board.hotarticle.repository.HotArticleListRepository;
-import soono.board.hotarticle.service.eventhandler.EventHandler;
+import soono.board.hotarticle.service.event.handler.EventHandler;
 
 import java.time.Duration;
 import java.time.LocalDate;

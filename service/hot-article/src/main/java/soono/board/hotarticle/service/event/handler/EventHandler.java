@@ -1,4 +1,4 @@
-package soono.board.hotarticle.service.eventhandler;
+package soono.board.hotarticle.service.event.handler;
 
 import soono.board.common.event.Event;
 import soono.board.common.event.EventPayload;
