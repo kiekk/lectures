@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestClient;
+import soono.board.articleread.cache.OptimizedCacheable;
 
 @Slf4j
 @Component
@@ -22,7 +23,8 @@ public class ViewClient {
         this.restClient = RestClient.create(viewServiceUrl);
     }
 
-    @Cacheable(key = "#articleId", value = "articleViewCount")
+//    @Cacheable(key = "#articleId", value = "articleViewCount")
+    @OptimizedCacheable(type = "articleViewCount", ttlSeconds = 1)
     public Long count(Long articleId) {
         log.info("[ViewClient.read] articleId={}", articleId);
         try {
