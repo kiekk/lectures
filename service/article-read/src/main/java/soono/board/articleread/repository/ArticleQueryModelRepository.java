@@ -6,7 +6,12 @@ import org.springframework.stereotype.Repository;
 import soono.board.common.dataserializer.DataSerializer;
 
 import java.time.Duration;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 @Repository
 @RequiredArgsConstructor
@@ -15,6 +20,14 @@ public class ArticleQueryModelRepository {
 
     // article-read::article::{articleId}
     private static final String KEY_FORMAT = "article-read::article::%s";
+
+    public Map<Long, ArticleQueryModel> readAll(List<Long> articleIds) {
+        List<String> keyList = articleIds.stream().map(this::generateKey).toList();
+        return redisTemplate.opsForValue().multiGet(keyList).stream()
+                .filter(Objects::nonNull)
+                .map(json -> DataSerializer.deserialize(json, ArticleQueryModel.class))
+                .collect(Collectors.toMap(ArticleQueryModel::getArticleId, Function.identity()));
+    }
 
     public void create(ArticleQueryModel articleQueryModel, Duration ttl) {
         redisTemplate.opsForValue().set(generateKey(articleQueryModel), DataSerializer.serialize(articleQueryModel), ttl);
