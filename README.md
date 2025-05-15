@@ -21,6 +21,7 @@
 | 강의               | 디렉토리 경로                                          |
 |------------------|--------------------------------------------------|
 | 서블릿 방식 - Servlet | [section02/servlet](section02/servlet/README.md) |
+| 모델 1 방식 - JSP    | [section02/jsp](section02/jsp/README.md)         |
 
 </div>
 </details>
