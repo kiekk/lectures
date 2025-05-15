@@ -22,6 +22,7 @@
 |------------------|--------------------------------------------------|
 | 서블릿 방식 - Servlet | [section02/servlet](section02/servlet/README.md) |
 | 모델 1 방식 - JSP    | [section02/jsp](section02/jsp/README.md)         |
+| 모델 2 방식 - MVC    | [section02/mvc](section02/mvc/README.md)         |
 
 </div>
 </details>
