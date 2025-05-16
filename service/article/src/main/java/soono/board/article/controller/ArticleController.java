@@ -1,7 +1,12 @@
 package soono.board.article.controller;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+import soono.board.article.controller.request.ApiArticleCreateRequest;
+import soono.board.article.controller.request.ApiArticleReadAllInfiniteScrollRequest;
+import soono.board.article.controller.request.ApiArticleReadAllRequest;
+import soono.board.article.controller.request.ApiArticleUpdateRequest;
 import soono.board.article.service.ArticleService;
 import soono.board.article.service.request.ArticleCreateRequest;
 import soono.board.article.service.request.ArticleUpdateRequest;
@@ -21,17 +26,13 @@ public class ArticleController {
     }
 
     @GetMapping("/v1/articles")
-    public ArticlePageResponse readAll(@RequestParam("boardId") Long boardId,
-                                       @RequestParam("page") Long page,
-                                       @RequestParam("pageSize") Long pageSize) {
-        return articleService.readAll(boardId, page, pageSize);
+    public ArticlePageResponse readAll(@Valid ApiArticleReadAllRequest request) {
+        return articleService.readAll(request.toServiceRequest());
     }
 
     @GetMapping("/v1/articles/infinite-scroll")
-    public List<ArticleResponse> readAllInfiniteScroll(@RequestParam("boardId") Long boardId,
-                                                       @RequestParam("pageSize") Long pageSize,
-                                                       @RequestParam(value = "lastArticleId", required = false) Long lastArticleId) {
-        return articleService.readAllInfiniteScroll(boardId, pageSize, lastArticleId);
+    public List<ArticleResponse> readAllInfiniteScroll(@Valid ApiArticleReadAllInfiniteScrollRequest request) {
+        return articleService.readAllInfiniteScroll(request.toServiceRequest());
     }
 
     @GetMapping("/v1/articles/{articleId}")
@@ -40,13 +41,13 @@ public class ArticleController {
     }
 
     @PostMapping("/v1/articles")
-    public ArticleResponse create(@RequestBody ArticleCreateRequest request) {
-        return articleService.create(request);
+    public ArticleResponse create(@RequestBody @Valid ApiArticleCreateRequest request) {
+        return articleService.create(request.toServiceRequest());
     }
 
     @PutMapping("/v1/articles/{articleId}")
-    public ArticleResponse update(@PathVariable("articleId") Long articleId, @RequestBody ArticleUpdateRequest request) {
-        return articleService.update(articleId, request);
+    public ArticleResponse update(@PathVariable("articleId") Long articleId, @RequestBody @Valid ApiArticleUpdateRequest request) {
+        return articleService.update(articleId, request.toServiceRequest());
     }
 
     @DeleteMapping("/v1/articles/{articleId}")

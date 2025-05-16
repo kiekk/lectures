@@ -8,6 +8,8 @@ import soono.board.article.entity.BoardArticleCount;
 import soono.board.article.repository.ArticleRepository;
 import soono.board.article.repository.BoardArticleCountRepository;
 import soono.board.article.service.request.ArticleCreateRequest;
+import soono.board.article.service.request.ArticleReadAllInfiniteScrollRequest;
+import soono.board.article.service.request.ArticleReadAllRequest;
 import soono.board.article.service.request.ArticleUpdateRequest;
 import soono.board.article.service.response.ArticlePageResponse;
 import soono.board.article.service.response.ArticleResponse;
@@ -29,14 +31,14 @@ public class ArticleService {
     private final BoardArticleCountRepository boardArticleCountRepository;
     private final OutboxEventPublisher outboxEventPublisher;
 
-    public ArticlePageResponse readAll(Long boardId, Long page, Long pageSize) {
+    public ArticlePageResponse readAll(ArticleReadAllRequest request) {
         return ArticlePageResponse.of(
-                articleRepository.findAll(boardId, (page - 1) * pageSize, pageSize).stream()
+                articleRepository.findAll(request.getBoardId(), request.getOffset(), request.getPageSize()).stream()
                         .map(ArticleResponse::from)
                         .toList(),
                 articleRepository.count(
-                        boardId,
-                        PageLimitCalculator.calculatePageLimit(page, pageSize, 10L)
+                        request.getBoardId(),
+                        request.getLimit()
                 )
         );
     }
@@ -45,9 +47,9 @@ public class ArticleService {
         return ArticleResponse.from(articleRepository.findById(articleId).orElseThrow());
     }
 
-    public List<ArticleResponse> readAllInfiniteScroll(Long boardId, Long pageSize, Long lastArticleId) {
-        List<Article> articles = lastArticleId == null ? articleRepository.findAllInfiniteScroll(boardId, pageSize) :
-                articleRepository.findAllInfiniteScroll(boardId, pageSize, lastArticleId);
+    public List<ArticleResponse> readAllInfiniteScroll(ArticleReadAllInfiniteScrollRequest request) {
+        List<Article> articles = request.isFirstPage() ? articleRepository.findAllInfiniteScroll(request.getBoardId(), request.getPageSize()) :
+                articleRepository.findAllInfiniteScroll(request.getBoardId(), request.getPageSize(), request.getLastArticleId());
         return articles.stream()
                 .map(ArticleResponse::from)
                 .toList();
