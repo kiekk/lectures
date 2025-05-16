@@ -18,6 +18,7 @@
 - [섹션 5. 조회수](md/view/README.md)
 - [섹션 6. 인기글](md/hotarticle/README.md)
 - [섹션 7. 게시글 조회 최적화](md/articleread/README.md)
+- [번외. jpa show_sql 성능 최적화](md/jpa/README.md)
 
 ---
 
