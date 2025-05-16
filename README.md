@@ -26,6 +26,17 @@
 
 </div>
 </details>
+<br/>
+<details>
+<summary>섹션 3. 프론트 컨트롤러 패턴</summary>
+<div markdown="1">
+
+| 강의             | 디렉토리 경로                                                            |
+|----------------|--------------------------------------------------------------------|
+| 프론트 컨트롤러 패턴 이해 | [section03/front-controller](section03/front-controller/README.md) |
+
+</div>
+</details>
 
 ---
 
@@ -34,6 +45,7 @@
 - Java: `21`
 - Spring Boot: `3.4.5`
 - Build Tool: `Gradle 8.13`
+- Tomcat: `11.0.7`
 - IDE: `IntelliJ`
 
 ---
