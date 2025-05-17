@@ -34,7 +34,18 @@
 | 강의             | 디렉토리 경로                                                            |
 |----------------|--------------------------------------------------------------------|
 | 프론트 컨트롤러 패턴 이해 | [section03/front-controller](section03/front-controller/README.md) |
-| 스프링 MVC 간단 예제  | [section03/spring-mvc](section03/spring-mvc)             |
+| 스프링 MVC 간단 예제  | [section03/spring-mvc](section03/spring-mvc)                       |
+
+</div>
+</details>
+<br/>
+<details>
+<summary>섹션 4. 서블릿 이해</summary>
+<div markdown="1">
+
+| 강의           | 디렉토리 경로                                          |
+|--------------|--------------------------------------------------|
+| 서블릿(Servlet) | [section04/servlet](section04/servlet/README.md) |
 
 </div>
 </details>
