@@ -34,6 +34,7 @@
 | 강의             | 디렉토리 경로                                                            |
 |----------------|--------------------------------------------------------------------|
 | 프론트 컨트롤러 패턴 이해 | [section03/front-controller](section03/front-controller/README.md) |
+| 스프링 MVC 간단 예제  | [section03/spring-mvc](section03/spring-mvc)             |
 
 </div>
 </details>
