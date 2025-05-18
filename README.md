@@ -43,10 +43,11 @@
 <summary>섹션 4. 서블릿 이해</summary>
 <div markdown="1">
 
-| 강의                 | 디렉토리 경로                                                                |
-|--------------------|------------------------------------------------------------------------|
-| 서블릿(Servlet)       | [section04/servlet](section04/servlet/README.md)                       |
-| HttpServletRequest | [section04/httpServletRequest](section04/httpServletRequest/README.md) |
+| 강의                    | 디렉토리 경로                                                                          |
+|-----------------------|----------------------------------------------------------------------------------|
+| 서블릿(Servlet)          | [section04/servlet](section04/servlet/README.md)                                 |
+| HttpServletRequest    | [section04/httpServletRequest](section04/httpServletRequest/README.md)           |
+| HttpServletRequest 기본 | [section04/httpServletRequestBasic](section04/httpServletRequestBasic/README.md) |
 
 </div>
 </details>
