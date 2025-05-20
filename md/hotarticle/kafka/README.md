@@ -59,3 +59,8 @@
 - [\[데브원영\] 아파치 카프카 for beginners](https://www.inflearn.com/course/%EC%95%84%ED%8C%8C%EC%B9%98-%EC%B9%B4%ED%94%84%EC%B9%B4-%EC%9E%85%EB%AC%B8/dashboard)
 - [카프카 완벽 가이드 - 코어편](https://www.inflearn.com/course/%EC%B9%B4%ED%94%84%EC%B9%B4-%EC%99%84%EB%B2%BD%EA%B0%80%EC%9D%B4%EB%93%9C-%EC%BD%94%EC%96%B4/dashboard)
 - [실전 카프카 개발부터 운영까지](https://product.kyobobook.co.kr/detail/S000001932756)
+- [Apache Kafka의 새로운 협의 프로토콜인 KRaft에 대해(1)](https://devocean.sk.com/blog/techBoardDetail.do?ID=165711&boardType=techBlog)
+- [Apache Kafka의 새로운 협의 프로토콜인 KRaft에 대해(2)](https://devocean.sk.com/blog/techBoardDetail.do?ID=165737&boardType=techBlog&searchData=&searchDataMain=&page=&subIndex=&searchText=Kafka&techType=&searchDataSub=&comment=)
+- [Raft 알고리즘을 이용해 고가용 프로그램을 만들어보자!!](https://devocean.sk.com/blog/techBoardDetail.do?ID=167472&boardType=techBlog)
+- [Kafka KRaft 모드 (with Docker) - 동물원을 탈출한 Kafka](https://medium.com/mo-zza/kafka-kraft-%EB%AA%A8%EB%93%9C-with-docker-%EB%8F%99%EB%AC%BC%EC%9B%90%EC%9D%84-%ED%83%88%EC%B6%9C%ED%95%9C-kafka-8b5e7c7632fa)
+- [뗏목 타고 합의 알고리즘 이해하기: The Raft Consensus Algorithm](https://www.youtube.com/watch?v=aywjlaKxQp4)
