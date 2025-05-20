@@ -32,7 +32,7 @@
 ---
 
 ## 📝 더 나아가기
-- [ ] `request` 객체 유효성 검증 로직 추가해보기
+- [x] `request` 객체 유효성 검증 로직 추가해보기
 - [ ] 서비스 수준에서 `CQRS` 패턴 적용해보기
   - `article`, `comment`, `like`, `view` 서비스에서 `command` 작업과 `query` 작업을 분리해보기
   - ex: `article-query-service`, `article-command-service`
