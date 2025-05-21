@@ -54,6 +54,17 @@
 
 </div>
 </details>
+<br/>
+<details>
+<summary>섹션 5. 스프링 웹 MVC 초기화</summary>
+<div markdown="1">
+
+| 강의                            | 디렉토리 경로                                                              |
+|-------------------------------|----------------------------------------------------------------------|
+| 서블릿 컨테이너 및 스프링 컨테이너 (1) ~ (2) | [section05/servlet-container](section05/servlet-container/README.md) |
+
+</div>
+</details>
 
 ---
 
