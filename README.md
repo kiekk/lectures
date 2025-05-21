@@ -66,6 +66,19 @@
 
 </div>
 </details>
+<br/>
+<details>
+<summary>섹션 6. 스프링 웹 MVC 기본</summary>
+<div markdown="1">
+
+| 강의                | 디렉토리 경로                                                    |
+|-------------------|------------------------------------------------------------|
+| 아키텍처 이해 (1) ~ (2) | [section06/architecture](section06/architecture/README.md) |
+
+
+
+</div>
+</details>
 
 ---
 
