@@ -49,6 +49,7 @@
 | HttpServletRequest       | [section04/httpServletRequest](section04/httpServletRequest/README.md)               |
 | HttpServletRequest 기본    | [section04/httpServletRequestBasic](section04/httpServletRequestBasic/README.md)     |
 | HttpServletRequest 요청 처리 | [section04/httpServletRequestProcess](section04/httpServletRequestProcess/README.md) |
+| HttpServletResponse      | [section04/httpServletResponse](section04/httpServletResponse/README.md)             |
 
 </div>
 </details>
