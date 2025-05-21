@@ -62,6 +62,7 @@
 | 강의                            | 디렉토리 경로                                                              |
 |-------------------------------|----------------------------------------------------------------------|
 | 서블릿 컨테이너 및 스프링 컨테이너 (1) ~ (2) | [section05/servlet-container](section05/servlet-container/README.md) |
+| 초기화 클래스들                      | [section05/init-classes](section05/init-classes/README.md)           |
 
 </div>
 </details>
