@@ -71,12 +71,11 @@
 <summary>섹션 6. 스프링 웹 MVC 기본</summary>
 <div markdown="1">
 
-| 강의                   | 디렉토리 경로                                                              |
-|----------------------|----------------------------------------------------------------------|
-| 아키텍처 이해 (1) ~ (2)    | [section06/architecture](section06/architecture/README.md)           |
-| DispatcherServlet 개요 | [section06/dispatcherServlet](section06/dispatcherServlet/README.md) |
-
-
+| 강의                            | 디렉토리 경로                                                                            |
+|-------------------------------|------------------------------------------------------------------------------------|
+| 아키텍처 이해 (1) ~ (2)             | [section06/architecture](section06/architecture/README.md)                         |
+| DispatcherServlet 개요          | [section06/dispatcherServlet](section06/dispatcherServlet/README.md)               |
+| DispatcherServlet 초기화 및 요청 처리 | [section06/dispatcherServletProcess](section06/dispatcherServletProcess/README.md) |
 
 </div>
 </details>
