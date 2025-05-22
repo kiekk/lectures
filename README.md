@@ -84,9 +84,10 @@
 <summary>섹션 7. 스프링 웹 MVC 활용 - HandlerMapping</summary>
 <div markdown="1">
 
-| 강의                | 디렉토리 경로                                                        |
-|-------------------|----------------------------------------------------------------|
-| HandlerMapping 이해 | [section07/handlerMapping](section07/handlerMapping/README.md) |
+| 강의                        | 디렉토리 경로                                                        |
+|---------------------------|----------------------------------------------------------------|
+| HandlerMapping 이해         | [section07/handlerMapping](section07/handlerMapping/README.md) |
+| @RequestMapping (1) ~ (2) | [section07/requestMapping](section07/requestMapping/README.md) |
 
 </div>
 </details>
