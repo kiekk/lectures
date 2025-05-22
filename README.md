@@ -103,6 +103,7 @@
 | Method Arguments        | [section08/methodArguments](section08/methodArguments/README.md)           |
 | 메서드 기본 매개변수             | [section08/methodBasicArguments](section08/methodBasicArguments/README.md) |
 | @RequestParam (1) ~ (2) | [section08/requestParam](section08/requestParam/README.md)                 |
+| @PathVariable           | [section08/pathVariable](section08/pathVariable/README.md)                 |
 
 </div>
 </details>
