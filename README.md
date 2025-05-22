@@ -92,6 +92,17 @@
 
 </div>
 </details>
+<br/>
+<details>
+<summary>섹션 8. 스프링 웹 MVC 활용 - HandlerAdapter</summary>
+<div markdown="1">
+
+| 강의                | 디렉토리 경로                                                        |
+|-------------------|----------------------------------------------------------------|
+| HandlerAdapter 이해 | [section08/handlerAdapter](section08/handlerAdapter/README.md) |
+
+</div>
+</details>
 
 ---
 
