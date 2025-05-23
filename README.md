@@ -106,6 +106,7 @@
 | @PathVariable                      | [section08/pathVariable](section08/pathVariable/README.md)                 |
 | @ModelAttribute (1) ~ (3)          | [section08/modelAttribute](section08/modelAttribute/README.md)             |
 | HttpEntity_RequestEntity (1) ~ (2) | [section08/requestEntity](section08/requestEntity/README.md)               |
+| @RequestBody                       | [section08/requestBody](section08/requestBody/README.md)                   |
 
 </div>
 </details>
