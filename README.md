@@ -107,6 +107,7 @@
 | @ModelAttribute (1) ~ (3)          | [section08/modelAttribute](section08/modelAttribute/README.md)             |
 | HttpEntity_RequestEntity (1) ~ (2) | [section08/requestEntity](section08/requestEntity/README.md)               |
 | @RequestBody                       | [section08/requestBody](section08/requestBody/README.md)                   |
+| HttpMessageConverter (1) ~ (2)     | [section08/httpMessageConverter](section08/httpMessageConverter/README.md) |
 
 </div>
 </details>
