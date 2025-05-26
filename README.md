@@ -109,6 +109,7 @@
 | @RequestBody                                      | [section08/requestBody](section08/requestBody/README.md)                                                               |
 | HttpMessageConverter (1) ~ (2)                    | [section08/httpMessageConverter](section08/httpMessageConverter/README.md)                                             |
 | @RequestHeader & @RequestAttribute & @CookieValue | [section08/requestHeader&requestAttribute&cookieValue](section08/requestHeader&requestAttribute&cookieValue/README.md) |
+| Model                                             | [section08/model](section08/model/README.md)                                                                           |
 
 </div>
 </details>
