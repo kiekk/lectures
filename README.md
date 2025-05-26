@@ -111,6 +111,7 @@
 | @RequestHeader & @RequestAttribute & @CookieValue | [section08/requestHeader&requestAttribute&cookieValue](section08/requestHeader&requestAttribute&cookieValue/README.md) |
 | Model                                             | [section08/model](section08/model/README.md)                                                                           |
 | @SessionAttributes (1) ~ (2)                      | [section08/sessionAttributes](section08/sessionAttributes/README.md)                                                   |
+| @SessionAttribute                                 | [section08/sessionAttribute](section08/sessionAttribute/README.md)                                                     |
 
 </div>
 </details>
