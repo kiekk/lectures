@@ -134,6 +134,7 @@
 | Formatter                               | [section09/formatter](section09/formatter/README.md)                                                         |
 | FormattingConversionService             | [section09/formattingConversionService](section09/formattingConversionService/README.md)                     |
 | Formatter 스프링 적용                        | [section09/formatterSpring](section09/formatterSpring/README.md)                                             |
+| 어노테이션 기반 포매팅 (1) ~ (2)                  | [section09/annotationFormatting](section09/annotationFormatting/README.md)                                   |
 
 </div>
 </details>
