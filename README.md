@@ -131,6 +131,7 @@
 | ConversionService                       | [section09/conversionService](section09/conversionService/README.md)                                         |
 | Converter 스프링 적용                        | [section09/converterSpring](section09/converterSpring/README.md)                                             |
 | 바인딩과 타입 변환 관계 (1) ~ (2)                 | [section09/binding](section09/binding/README.md)                                                             |
+| Formatter                               | [section09/formatter](section09/formatter/README.md)                                                         |
 
 </div>
 </details>
