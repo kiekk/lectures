@@ -123,10 +123,11 @@
 <summary>섹션 9. 타입 변환 (Type Conversion)</summary>
 <div markdown="1">
 
-| 강의        | 디렉토리 경로                                              |
-|-----------|------------------------------------------------------|
-| 개요        | [section09/intro](section09/intro/README.md)         |
-| Converter | [section09/converter](section09/converter/README.md) |
+| 강의                                      | 디렉토리 경로                                                                                                      |
+|-----------------------------------------|--------------------------------------------------------------------------------------------------------------|
+| 개요                                      | [section09/intro](section09/intro/README.md)                                                                 |
+| Converter                               | [section09/converter](section09/converter/README.md)                                                         |
+| ConverterFactory & ConditionalConverter | [section09/converterFactory&conditionalConverter](section09/converterFactory&conditionalConverter/README.md) |
 
 </div>
 </details>
