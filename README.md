@@ -118,6 +118,17 @@
 
 </div>
 </details>
+<br/>
+<details>
+<summary>섹션 9. 타입 변환 (Type Conversion)</summary>
+<div markdown="1">
+
+| 강의 | 디렉토리 경로                                      |
+|----|----------------------------------------------|
+| 개요 | [section09/intro](section09/intro/README.md) |
+
+</div>
+</details>
 
 ---
 
