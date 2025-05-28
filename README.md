@@ -138,6 +138,17 @@
 
 </div>
 </details>
+<br/>
+<details>
+<summary>섹션 10. 검증 (Validation)</summary>
+<div markdown="1">
+
+| 강의 | 디렉토리 경로                                      |
+|----|----------------------------------------------|
+| 개요 | [section10/intro](section10/intro/README.md) |
+
+</div>
+</details>
 
 ---
 
