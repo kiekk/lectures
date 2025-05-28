@@ -143,9 +143,10 @@
 <summary>섹션 10. 검증 (Validation)</summary>
 <div markdown="1">
 
-| 강의 | 디렉토리 경로                                      |
-|----|----------------------------------------------|
-| 개요 | [section10/intro](section10/intro/README.md) |
+| 강의                                                   | 디렉토리 경로                                                                            |
+|------------------------------------------------------|------------------------------------------------------------------------------------|
+| 개요                                                   | [section10/intro](section10/intro/README.md)                                       |
+| BindingResult 기본 (1) ~ (2)                           | [section10/bindingResult](section10/bindingResult/README.md)                       |
 
 </div>
 </details>
