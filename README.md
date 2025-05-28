@@ -147,6 +147,7 @@
 |------------------------------------------------------|------------------------------------------------------------------------------------|
 | 개요                                                   | [section10/intro](section10/intro/README.md)                                       |
 | BindingResult 기본 (1) ~ (2)                           | [section10/bindingResult](section10/bindingResult/README.md)                       |
+| BindingResult 사용자 정의 오류 추가 - FieldError, ObjectError | [section10/bindingResultCustomError](section10/bindingResultCustomError/README.md) |
 
 </div>
 </details>
