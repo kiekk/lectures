@@ -151,6 +151,7 @@
 | BindingResult 입력 값 보존하기                              | [section10/bindingResultInput](section10/bindingResultInput/README.md)             |
 | BindingResult 와 MessageSource 연동 (1)                 | [section10/messageSource1](section10/messageSource1/README.md)                     |
 | BindingResult 와 MessageSource 연동 (2) ~ (3)           | [section10/messageSource2](section10/messageSource2/README.md)                     |
+| Validator (1) ~ (2)                                  | [section10/validator](section10/validator/README.md)                               |
 
 </div>
 </details>
