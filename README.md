@@ -153,6 +153,7 @@
 | BindingResult 와 MessageSource 연동 (2) ~ (3)           | [section10/messageSource2](section10/messageSource2/README.md)                     |
 | Validator (1) ~ (2)                                  | [section10/validator](section10/validator/README.md)                               |
 | Bean Validation 개요                                   | [section10/beanValidation](section10/beanValidation/README.md)                     |
+| Java Bean Validation + Spring 통합 (1) ~ (3)           | [section10/springBeanValidation](section10/springBeanValidation/README.md)         |
 
 </div>
 </details>
