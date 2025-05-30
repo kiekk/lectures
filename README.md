@@ -138,6 +138,17 @@
 
 </div>
 </details>
+<br/>
+<details>
+<summary>섹션 10. 검증 (Validation)</summary>
+<div markdown="1">
+
+| 강의                               | 디렉토리 경로                                                      |
+|----------------------------------|--------------------------------------------------------------|
+| Bean Validation MessageSource 연동 | [section10/messageSource](section10/messageSource/README.md) |
+
+</div>
+</details>
 
 ---
 
