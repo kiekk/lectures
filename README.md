@@ -155,10 +155,11 @@
 <summary>섹션 11. Return Values</summary>
 <div markdown="1">
 
-| 강의               | 디렉토리 경로                                                    |
-|------------------|------------------------------------------------------------|
-| Return Values 개요 | [section11/returnValues](section11/returnValues/README.md) |
-| @ResponseBody    | [section11/responseBody](section11/responseBody/README.md) |
+| 강의                | 디렉토리 경로                                                        |
+|-------------------|----------------------------------------------------------------|
+| Return Values 개요  | [section11/returnValues](section11/returnValues/README.md)     |
+| @ResponseBody     | [section11/responseBody](section11/responseBody/README.md)     |
+| ResponseEntity<T> | [section11/responseEntity](section11/responseEntity/README.md) |
 
 </div>
 </details>
