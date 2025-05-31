@@ -143,9 +143,10 @@
 <summary>섹션 10. 검증 (Validation)</summary>
 <div markdown="1">
 
-| 강의                               | 디렉토리 경로                                                      |
-|----------------------------------|--------------------------------------------------------------|
-| Bean Validation MessageSource 연동 | [section10/messageSource](section10/messageSource/README.md) |
+| 강의                               | 디렉토리 경로                                                                                |
+|----------------------------------|----------------------------------------------------------------------------------------|
+| Bean Validation MessageSource 연동 | [section10/messageSource](section10/messageSource/README.md)                           |
+| 커스텀 검증 어노테이션 구현하기                | [section10/customValidationAnnotation](section10/customValidationAnnotation/README.md) |
 
 </div>
 </details>
