@@ -158,6 +158,7 @@
 | 강의               | 디렉토리 경로                                                    |
 |------------------|------------------------------------------------------------|
 | Return Values 개요 | [section11/returnValues](section11/returnValues/README.md) |
+| @ResponseBody    | [section11/responseBody](section11/responseBody/README.md) |
 
 </div>
 </details>
