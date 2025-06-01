@@ -163,6 +163,17 @@
 
 </div>
 </details>
+<br/>
+<details>
+<summary>섹션 12. View_ViewResolver</summary>
+<div markdown="1">
+
+| 강의                | 디렉토리 경로                                                    |
+|-------------------|------------------------------------------------------------|
+| View_ViewResolver | [section12/viewResolver](section12/viewResolver/README.md) |
+
+</div>
+</details>
 
 ---
 
