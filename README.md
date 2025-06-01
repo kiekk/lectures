@@ -171,6 +171,7 @@
 | 강의                | 디렉토리 경로                                                    |
 |-------------------|------------------------------------------------------------|
 | View_ViewResolver | [section12/viewResolver](section12/viewResolver/README.md) |
+| Thymeleaf         | [section12/thymeleaf](section12/thymeleaf/README.md)       |
 
 </div>
 </details>
