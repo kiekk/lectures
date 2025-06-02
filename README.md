@@ -143,17 +143,44 @@
 <summary>섹션 10. 검증 (Validation)</summary>
 <div markdown="1">
 
-| 강의                                                   | 디렉토리 경로                                                                            |
-|------------------------------------------------------|------------------------------------------------------------------------------------|
-| 개요                                                   | [section10/intro](section10/intro/README.md)                                       |
-| BindingResult 기본 (1) ~ (2)                           | [section10/bindingResult](section10/bindingResult/README.md)                       |
-| BindingResult 사용자 정의 오류 추가 - FieldError, ObjectError | [section10/bindingResultCustomError](section10/bindingResultCustomError/README.md) |
-| BindingResult 입력 값 보존하기                              | [section10/bindingResultInput](section10/bindingResultInput/README.md)             |
-| BindingResult 와 MessageSource 연동 (1)                 | [section10/messageSource1](section10/messageSource1/README.md)                     |
-| BindingResult 와 MessageSource 연동 (2) ~ (3)           | [section10/messageSource2](section10/messageSource2/README.md)                     |
-| Validator (1) ~ (2)                                  | [section10/validator](section10/validator/README.md)                               |
-| Bean Validation 개요                                   | [section10/beanValidation](section10/beanValidation/README.md)                     |
-| Java Bean Validation + Spring 통합 (1) ~ (3)           | [section10/springBeanValidation](section10/springBeanValidation/README.md)         |
+| 강의                                                   | 디렉토리 경로                                                                                |
+|------------------------------------------------------|----------------------------------------------------------------------------------------|
+| 개요                                                   | [section10/intro](section10/intro/README.md)                                           |
+| BindingResult 기본 (1) ~ (2)                           | [section10/bindingResult](section10/bindingResult/README.md)                           |
+| BindingResult 사용자 정의 오류 추가 - FieldError, ObjectError | [section10/bindingResultCustomError](section10/bindingResultCustomError/README.md)     |
+| BindingResult 입력 값 보존하기                              | [section10/bindingResultInput](section10/bindingResultInput/README.md)                 |
+| BindingResult 와 MessageSource 연동 (1)                 | [section10/messageSource1](section10/messageSource1/README.md)                         |
+| BindingResult 와 MessageSource 연동 (2) ~ (3)           | [section10/messageSource2](section10/messageSource2/README.md)                         |
+| Validator (1) ~ (2)                                  | [section10/validator](section10/validator/README.md)                                   |
+| Bean Validation 개요                                   | [section10/beanValidation](section10/beanValidation/README.md)                         |
+| Java Bean Validation + Spring 통합 (1) ~ (3)           | [section10/springBeanValidation](section10/springBeanValidation/README.md)             |
+| Bean Validation MessageSource 연동                     | [section10/messageSource](section10/messageSource/README.md)                           |
+| 커스텀 검증 어노테이션 구현하기                                    | [section10/customValidationAnnotation](section10/customValidationAnnotation/README.md) |
+
+</div>
+</details>
+<br/>
+<details>
+<summary>섹션 11. Return Values</summary>
+<div markdown="1">
+
+| 강의                | 디렉토리 경로                                                        |
+|-------------------|----------------------------------------------------------------|
+| Return Values 개요  | [section11/returnValues](section11/returnValues/README.md)     |
+| @ResponseBody     | [section11/responseBody](section11/responseBody/README.md)     |
+| ResponseEntity<T> | [section11/responseEntity](section11/responseEntity/README.md) |
+
+</div>
+</details>
+<br/>
+<details>
+<summary>섹션 12. View_ViewResolver</summary>
+<div markdown="1">
+
+| 강의                | 디렉토리 경로                                                    |
+|-------------------|------------------------------------------------------------|
+| View_ViewResolver | [section12/viewResolver](section12/viewResolver/README.md) |
+| Thymeleaf         | [section12/thymeleaf](section12/thymeleaf/README.md)       |
 
 </div>
 </details>
