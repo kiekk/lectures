@@ -193,6 +193,7 @@
 |-------------------------|----------------------------------------------------------------------|
 | 자바 리플렉션 이해              | [section13/reflection](section13/reflection/README.md)               |
 | 자바 리플렉션 실전 예제 (1) ~ (2) | [section13/reflectionExample](section13/reflectionExample/README.md) |
+| 핸들러 메서드 호출 원리 (1) ~ (2) | [section13/handlerMethod](section13/handlerMethod/README.md)         |
 
 </div>
 </details>
