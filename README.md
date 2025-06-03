@@ -189,9 +189,10 @@
 <summary>섹션 13. 스프링 웹 MVC 핸들러 메서드 실행 구조</summary>
 <div markdown="1">
 
-| 강의         | 디렉토리 경로                                                |
-|------------|--------------------------------------------------------|
-| 자바 리플렉션 이해 | [section13/reflection](section13/reflection/README.md) |
+| 강의                      | 디렉토리 경로                                                              |
+|-------------------------|----------------------------------------------------------------------|
+| 자바 리플렉션 이해              | [section13/reflection](section13/reflection/README.md)               |
+| 자바 리플렉션 실전 예제 (1) ~ (2) | [section13/reflectionExample](section13/reflectionExample/README.md) |
 
 </div>
 </details>
