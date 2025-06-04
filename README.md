@@ -203,9 +203,10 @@
 <summary>섹션 14. 스프링 웹 MVC 공통 기능</summary>
 <div markdown="1">
 
-| 강의                          | 디렉토리 경로                                                  |
-|-----------------------------|----------------------------------------------------------|
-| 인터셉터(Interceptor) (1) ~ (3) | [section14/interceptor](section14/interceptor/README.md) |
+| 강의                          | 디렉토리 경로                                                            |
+|-----------------------------|--------------------------------------------------------------------|
+| 인터셉터(Interceptor) (1) ~ (3) | [section14/interceptor](section14/interceptor/README.md)           |
+| @ControllerAdvice (1) ~ (2) | [section14/controllerAdvice](section14/controllerAdvice/README.md) |
 
 </div>
 </details>
