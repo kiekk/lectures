@@ -215,9 +215,10 @@
 <summary>섹션 15. 예외 처리</summary>
 <div markdown="1">
 
-| 강의        | 디렉토리 경로                                                                            |
-|-----------|------------------------------------------------------------------------------------|
-| 서블릿 예외 처리 | [section15/servletExceptionHandling](section15/servletExceptionHandling/README.md) |
+| 강의                       | 디렉토리 경로                                                                            |
+|--------------------------|------------------------------------------------------------------------------------|
+| 서블릿 예외 처리                | [section15/servletExceptionHandling](section15/servletExceptionHandling/README.md) |
+| WAS 표준 오류 정책 - ErrorPage | [section15/wasErrorPage](section15/wasErrorPage/README.md)                         |
 
 </div>
 </details>
