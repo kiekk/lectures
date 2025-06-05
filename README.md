@@ -221,6 +221,7 @@
 | WAS 표준 오류 정책 - ErrorPage           | [section15/wasErrorPage](section15/wasErrorPage/README.md)                             |
 | 스프링의 기본 오류 처리 BasicErrorController | [section15/springBasicErrorController](section15/springBasicErrorController/README.md) |
 | 스프링의 통합 예외 전략 개요                   | [section15/springIntegrationError](section15/springIntegrationError/README.md)         |
+| HandlerExceptionResolver (1) ~ (2) | [section15/handlerExceptionResolver](section15/handlerExceptionResolver/README.md)     |
 
 </div>
 </details>
