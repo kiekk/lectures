@@ -228,10 +228,11 @@
 <summary>섹션 16. Multipart</summary>
 <div markdown="1">
 
-| 강의               | 디렉토리 경로                                                |
-|------------------|--------------------------------------------------------|
-| 개요               | [section16/intro](section16/intro/README.md)           |
-| 파일 업로드 (1) ~ (3) | [section16/fileUpload](section16/fileUpload/README.md) |
+| 강의                             | 디렉토리 경로                                                  |
+|--------------------------------|----------------------------------------------------------|
+| 개요                             | [section16/intro](section16/intro/README.md)             |
+| 파일 업로드 (1) ~ (3)               | [section16/fileUpload](section16/fileUpload/README.md)   |
+| @RequestPart - Json & 파일업로드 처리 | [section16/requestPart](section16/requestPart/README.md) |
 
 </div>
 </details>
