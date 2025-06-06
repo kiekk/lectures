@@ -215,9 +215,10 @@
 <summary>섹션 15. 예외 처리</summary>
 <div markdown="1">
 
-| 강의                               | 디렉토리 경로                                                                                |
-|----------------------------------|----------------------------------------------------------------------------------------|
-| HandlerExceptionResolver 기본 구현체들 | [section15/handlerExceptionImplements](section15/handlerExceptionImplements/README.md) |
+| 강의                                                              | 디렉토리 경로                                                                                                                                |
+|-----------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------|
+| HandlerExceptionResolver 기본 구현체들                                | [section15/handlerExceptionImplements](section15/handlerExceptionImplements/README.md)                                                 |
+| ExceptionHandlerExceptionResolver & @ExceptionHandler (1) ~ (2) | [section15/exceptionHandlerExceptionResolver&ExceptionHandler](section15/exceptionHandlerExceptionResolver&ExceptionHandler/README.md) |
 
 </div>
 </details>
