@@ -219,6 +219,7 @@
 |-----------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------|
 | HandlerExceptionResolver 기본 구현체들                                | [section15/handlerExceptionImplements](section15/handlerExceptionImplements/README.md)                                                 |
 | ExceptionHandlerExceptionResolver & @ExceptionHandler (1) ~ (2) | [section15/exceptionHandlerExceptionResolver&ExceptionHandler](section15/exceptionHandlerExceptionResolver&ExceptionHandler/README.md) |
+| ExceptionHandlerExceptionResolver & @ControllerAdvice           | [section15/exceptionHandlerExceptionResolver&ControllerAdvice](section15/exceptionHandlerExceptionResolver&ControllerAdvice/README.md) |
 
 </div>
 </details>
