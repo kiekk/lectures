@@ -236,6 +236,17 @@
 
 </div>
 </details>
+<br/>
+<details>
+<summary>섹션 17. Rest Clients</summary>
+<div markdown="1">
+
+| 강의                   | 디렉토리 경로                                                |
+|----------------------|--------------------------------------------------------|
+| RestClient (1) ~ (2) | [section17/restClient](section17/restClient/README.md) |
+
+</div>
+</details>
 
 ---
 
