@@ -215,13 +215,42 @@
 <summary>섹션 15. 예외 처리</summary>
 <div markdown="1">
 
-| 강의                                 | 디렉토리 경로                                                                                |
-|------------------------------------|----------------------------------------------------------------------------------------|
-| 서블릿 예외 처리                          | [section15/servletExceptionHandling](section15/servletExceptionHandling/README.md)     |
-| WAS 표준 오류 정책 - ErrorPage           | [section15/wasErrorPage](section15/wasErrorPage/README.md)                             |
-| 스프링의 기본 오류 처리 BasicErrorController | [section15/springBasicErrorController](section15/springBasicErrorController/README.md) |
-| 스프링의 통합 예외 전략 개요                   | [section15/springIntegrationError](section15/springIntegrationError/README.md)         |
-| HandlerExceptionResolver (1) ~ (2) | [section15/handlerExceptionResolver](section15/handlerExceptionResolver/README.md)     |
+| 강의                                                              | 디렉토리 경로                                                                                                                                |
+|-----------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------|
+| 서블릿 예외 처리                                                       | [section15/servletExceptionHandling](section15/servletExceptionHandling/README.md)                                                     |
+| WAS 표준 오류 정책 - ErrorPage                                        | [section15/wasErrorPage](section15/wasErrorPage/README.md)                                                                             |
+| 스프링의 기본 오류 처리 BasicErrorController                              | [section15/springBasicErrorController](section15/springBasicErrorController/README.md)                                                 |
+| 스프링의 통합 예외 전략 개요                                                | [section15/springIntegrationError](section15/springIntegrationError/README.md)                                                         |
+| HandlerExceptionResolver (1) ~ (2)                              | [section15/handlerExceptionResolver](section15/handlerExceptionResolver/README.md)                                                     |
+| HandlerExceptionResolver 기본 구현체들                                | [section15/handlerExceptionImplements](section15/handlerExceptionImplements/README.md)                                                 |
+| ExceptionHandlerExceptionResolver & @ExceptionHandler (1) ~ (2) | [section15/exceptionHandlerExceptionResolver&ExceptionHandler](section15/exceptionHandlerExceptionResolver&ExceptionHandler/README.md) |
+| ExceptionHandlerExceptionResolver & @ControllerAdvice           | [section15/exceptionHandlerExceptionResolver&ControllerAdvice](section15/exceptionHandlerExceptionResolver&ControllerAdvice/README.md) |
+
+</div>
+</details>
+<br/>
+<details>
+<summary>섹션 16. Multipart</summary>
+<div markdown="1">
+
+| 강의                             | 디렉토리 경로                                                  |
+|--------------------------------|----------------------------------------------------------|
+| 개요                             | [section16/intro](section16/intro/README.md)             |
+| 파일 업로드 (1) ~ (3)               | [section16/fileUpload](section16/fileUpload/README.md)   |
+| @RequestPart - Json & 파일업로드 처리 | [section16/requestPart](section16/requestPart/README.md) |
+
+</div>
+</details>
+<br/>
+<details>
+<summary>섹션 17. Rest Clients</summary>
+<div markdown="1">
+
+| 강의                      | 디렉토리 경로                                                                                  |
+|-------------------------|------------------------------------------------------------------------------------------|
+| RestClient (1) ~ (2)    | [section17/restClient](section17/restClient/README.md)                                   |
+| RestClient - 오류 처리      | [section17/restClientExceptionHandling](section17/restClientExceptionHandling/README.md) |
+| HttpInterface (1) ~ (2) | [section17/httpInterface](section17/httpInterface/README.md)                             |
 
 </div>
 </details>
