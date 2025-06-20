@@ -114,9 +114,10 @@ lectures/
 
 ## 📋 문서 목록
 
-| No | 제목                              | 디렉토리                                                           | 링크                                              | 비고 |
-|----|---------------------------------|----------------------------------------------------------------|-------------------------------------------------|----|
-| 01 | @RequestBody 에서는 Setter 가 필요 없다 | [request-body-no-need-setter](etc/request-body-no-need-setter) | https://jojoldu.tistory.com/407?category=635883 |    |
+| No | 제목                                       | 디렉토리                                                           | 링크                                              | 비고 |
+|----|------------------------------------------|----------------------------------------------------------------|-------------------------------------------------|----|
+| 01 | @RequestBody 에서는 Setter 가 필요 없다          | [request-body-no-need-setter](etc/request-body-no-need-setter) | https://jojoldu.tistory.com/407?category=635883 |    |
+| 02 | Spring Boot 에서 JSP 사용시 jar 패키징이 가능한지 테스트 | [spring-boot-jsp-jar-test](etc/spring-boot-jsp-jar-test)       |                                                 |    |
 
 </div>
 </details>
