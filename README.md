@@ -81,11 +81,12 @@ lectures/
 
 ## 📋 강의 목록
 
-| No | 제목                    | 디렉토리                                                     | 링크                                                                                                     | 비고 |
-|----|-----------------------|----------------------------------------------------------|--------------------------------------------------------------------------------------------------------|----|
-| 01 | 모던 자바 (자바8) 못다한 이야기   | [modern-java-with-kevin](youtube/modern-java-with-kevin) | [youtube](https://www.youtube.com/watch?v=mu9XfJofm8U&list=PLRIMoAKN8c6O8_VHOyBOhzBCeN7ShyJ27&index=2) |    |
-| 02 | Dan Vega Security     | [dan-vega-security](youtube/dan-vega-security)           | [youtube](https://www.youtube.com/@DanVega/videos)                                                     |    |
-| 03 | Dan Vega Security JWT | [dan-vega-security](youtube/dan-vega-security-jwt)       | [youtube](https://www.youtube.com/@DanVega/videos)                                                     |    |
+| No | 제목                                         | 디렉토리                                                                                         | 링크                                                                                                     | 비고 |
+|----|--------------------------------------------|----------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------|----|
+| 01 | 모던 자바 (자바8) 못다한 이야기                        | [modern-java-with-kevin](youtube/modern-java-with-kevin)                                     | [youtube](https://www.youtube.com/watch?v=mu9XfJofm8U&list=PLRIMoAKN8c6O8_VHOyBOhzBCeN7ShyJ27&index=2) |    |
+| 02 | Dan Vega Security                          | [dan-vega-security](youtube/dan-vega-security)                                               | [youtube](https://www.youtube.com/@DanVega/videos)                                                     |    |
+| 03 | Dan Vega Security JWT                      | [dan-vega-security](youtube/dan-vega-security-jwt)                                           | [youtube](https://www.youtube.com/@DanVega/videos)                                                     |    |
+| 04 | 토비의 스프링 부트 1 - 스프링 부트 앱에 초기화 코드를 넣는 방법 3가지 | [toby-spring-boot-inject-initializer-code](youtube/toby-spring-boot-inject-initializer-code) | [youtube](https://www.youtube.com/watch?v=f017PD5BIEc)                                                 |    |
 
 </div>
 </details>
