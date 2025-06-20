@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+{{#with user }}
+    id: {{id}} <br/>
+    name: {{name}} <br/>
+    age: {{age}} <br/>
+    {{#with user.detail}}
+        address: {{address}} <br/>
+        mobile: {{mobile}} <br/>
+        email: {{email}} <br/>
+    {{/with}}
+{{/with}}
+
+
+<h5>#with - alias 사용</h5>
+{{#with user as | u |}}
+    id: {{id}} <br/>
+    name: {{name}} <br/>
+    age: {{age}} <br/>
+    <br/>
+    u.id: {{u.id}} <br/>
+    u.name: {{u.name}} <br/>
+    u.age: {{u.age}} <br/>
+    <br/>
+    {{#with user.detail as | detail |}}
+        address: {{address}} <br/>
+        mobile: {{mobile}} <br/>
+        email: {{email}} <br/>
+        <br/>
+        detail.address: {{detail.address}} <br/>
+        detail.mobile: {{detail.mobile}} <br/>
+        detail.email: {{detail.email}} <br/>
+    {{/with}}
+{{/with}}
+
+<br />
+
+<h5>#with - else 사용 (user2)</h5>
+{{#with user2}}
+    id: {{id}} <br/>
+    name: {{name}} <br/>
+    age: {{age}} <br/>
+    <br/>
+    {{#with user2.detail }}
+        address: {{address}} <br/>
+        mobile: {{mobile}} <br/>
+        email: {{email}} <br/>
+    {{else}}
+        user2.detail is empty
+    {{/with}}
+{{/with}}
+</body>
+</html>

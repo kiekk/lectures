@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<h5>user - #unless </h5>
+{{#if user}}
+    id: {{user.id}} <br/>
+    name: {{user.name}} <br/>
+    {{#unless user.age}}
+        age is empty <br />
+    {{else}}
+        age: {{user.age}} <br/>
+    {{/unless}}
+    {{#unless user.active}}
+        active is false <br />
+    {{else}}
+        active: {{user.active}} <br/>
+    {{/unless}}
+    {{#if user.detail}}
+        address: {{user.detail.address}} <br/>
+        mobile: {{user.detail.mobile}} <br/>
+        email: {{user.detail.email}} <br/>
+    {{/if}}
+{{/if}}
+
+<h5>user2 - #if </h5>
+{{#if user2}}
+    id: {{user2.id}} <br/>
+    name: {{user2.name}} <br/>
+    {{#unless user2.age}}
+        age is empty <br />
+    {{else}}
+        age: {{user2.age}} <br/>
+    {{/unless}}
+    {{#unless user2.active}}
+        active is false <br />
+    {{else}}
+        active: {{user2.active}} <br/>
+    {{/unless}}
+    {{#unless user2.detail}}
+        user2.detail is empty <br />
+    {{else}}
+        address: {{user2.detail.address}} <br/>
+        mobile: {{user2.detail.mobile}} <br/>
+        email: {{user2.detail.email}} <br/>
+    {{/unless}}
+{{/if}}
+</body>
+</html>

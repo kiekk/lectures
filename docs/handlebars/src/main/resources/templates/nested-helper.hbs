@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<h4>compare 1, 2</h4>
+{{#if compareBoolean 1 2}}
+    첫 번째 숫자가 더 큽니다. (1)
+{{^}}
+    두 번째 숫자가 더 큽니다. (2)
+{{/if}}
+
+<h4>compare 5, 3</h4>
+{{#if (compareBoolean 5 3)}}
+    첫 번째 숫자가 더 큽니다. (5)
+{{^}}
+    두 번째 숫자가 더 큽니다. (3)
+{{/if}}
+
+<h4>(compare 6, 4) and (compare 8, 6)</h4>
+{{#if (compareBoolean 6 4) and (compareBoolean 8 6)}}
+    첫 번째 숫자가 더 큽니다. (6, 8)
+{{^}}
+    두 번째 숫자가 더 큽니다. (4, 6)
+{{/if}}
+
+<h4>compare 6, 4 and compare 8, 6</h4>
+{{#if compareBoolean 6 4 and compareBoolean 8 6}}
+    첫 번째 숫자가 더 큽니다. (6, 8)
+{{^}}
+    두 번째 숫자가 더 큽니다. (4, 6)
+{{/if}}
+</body>
+</html>

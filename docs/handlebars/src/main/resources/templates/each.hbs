@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+{{#each userList}}
+    {{#if @first}}
+        <bold>First Element!!!!!</bold> <br/>
+    {{/if}}
+    {{#if @last}}
+        <bold>Last Element!!!!!</bold> <br/>
+    {{/if}}
+    @index: {{@index}} <br />
+    @key: {{@key}} <br />
+    id: {{this.id}} <br/>
+    name: {{this.name}} <br/>
+    age: {{this.age}} <br/>
+    active: {{this.active}} <br/>
+    {{#if this.detail}}
+        address: {{this.detail.address}} <br/>
+        mobile: {{this.detail.mobile}} <br/>
+        email: {{this.detail.email}}
+    {{/if}}
+    <br/>
+    <br/>
+    <h5>object - index</h5>
+    {{#each this.detail}}
+        @index: {{@index}} <br />
+    {{/each}}
+    <h5>object - key</h5>
+    {{#each this.detail}}
+        @key: {{@key}} <br />
+    {{/each}}
+    <br />
+{{/each}}
+
+{{#each userList2}}
+{{else}}
+    userList2 is empty
+{{/each}}
+</body>
+</html>
