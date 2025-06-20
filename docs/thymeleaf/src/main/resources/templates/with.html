@@ -1,0 +1,21 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+
+<h5>th:with</h5>
+<div th:each="user : ${userList}">
+    <th:block th:with="userId=${user.id}, userName=${user.name}, userMobile=${user.mobile}">
+        id : <span th:text="${userId}"></span><br />
+        name: <span th:text="${userName}"></span><br />
+        mobile: <span th:text="${userMobile}"></span>
+    </th:block>
+</div>
+</body>
+</html>

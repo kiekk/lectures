@@ -1,0 +1,16 @@
+<!doctype html>
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
+<body>
+
+<header th:fragment="headerFragment(title)">
+    <h1 th:replace="${title}"></h1>
+</header>
+
+<header th:fragment="headerFragment2(title, subTitle)">
+    <h1 th:replace="${title}"></h1>
+    <h2 th:replace="${subTitle}"></h2>
+</header>
+
+</body>
+</html>

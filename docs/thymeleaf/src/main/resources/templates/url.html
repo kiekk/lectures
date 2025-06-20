@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<a href="https://naver.com">네이버</a>
+<a th:href="@{https://naver.com}">네이버</a>
+<a th:href="${textUrl}">text.html</a>
+<a th:href="@{with}">with.html</a>
+<a th:href="@{with/{id}(id=${textUrl})}">parameter test</a>
+<a th:href="@{with(id=${textUrl})}">query string test</a>
+</body>
+</html>

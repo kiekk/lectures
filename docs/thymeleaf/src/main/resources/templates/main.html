@@ -1,0 +1,40 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+
+
+<div th:if="${user.name eq 'test'}">
+    <span th:text="${user.id}"></span> <br/>
+    <span th:text="${user.name}"></span> <br/>
+    <span th:text="${user.mobile}"></span> <br/>
+</div>
+<div th:unless="${user.name eq 'test'}">
+    <span>user name is not test</span>
+</div>
+
+<div th:if="${user2.name eq 'test'}">
+    <span th:text="${user2.id}"></span> <br/>
+    <span th:text="${user2.name}"></span> <br/>
+    <span th:text="${user2.mobile}"></span> <br/>
+</div>
+<div th:unless="${user2.name eq 'test'}">
+    <span>user2 name is not test</span>
+</div>
+
+<h5>if 문 default 표현식, no-operation 사용</h5>
+<div>
+    <span th:text="${user3.id}"></span> <br/>
+    <span th:text="${user3.name}"></span> <br/>
+    <span th:text="${user3.mobile}"></span> <br/>
+    <span th:text="${user3.mobile ?: 'user3 mobile is null'}">null data</span> <br/>
+    <span th:text="${user3.mobile ?: '_'}">null data</span> <br/>
+</div>
+</body>
+</html>
