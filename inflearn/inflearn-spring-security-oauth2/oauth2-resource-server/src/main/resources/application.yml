@@ -1,0 +1,13 @@
+server:
+  port: 8081
+
+spring:
+  security:
+    oauth2:
+      resource-server:
+        opaquetoken:
+          introspection-uri: 'introspection-uri'
+          client-id: 'client-id'
+          client-secret: 'client-secret'
+
+
