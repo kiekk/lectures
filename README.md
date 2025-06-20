@@ -71,6 +71,7 @@ lectures/
 |----|------------------------------------------------------|-------------------------------------------------------------------------------------------------|-------|----|
 | 01 | 10개 프로젝트로 완성하는 백엔드 개발(Java/Spring) 초격차 패키지 Online)   | [fastcampus-10-projects-backend-web](fastcampus/fastcampus-10-projects-backend-web)             | ⏸️ 보류 |    |
 | 02 | 백엔드 개발자를 위한 한 번에 끝내는 대용량 데이터 & 트래픽 처리 초격차 패키지 Online | [fastcampus-big-data-and-traffic-handling](fastcampus/fastcampus-big-data-and-traffic-handling) | ⏸️ 보류 |    |
+| 03 | 한 번에 끝내는 CI/CD Docker부터 GitOps까지                     | [fastcampus-aws-devops](fastcampus/fastcampus-aws-devops)                                       | ⏸️ 보류 |    |
 
 </div>
 </details>
