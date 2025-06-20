@@ -130,6 +130,7 @@ lectures/
 | 03 | Spring ResponseEntity와 @ResponseBody 차이          | [spring-response-entity-and-response-body](etc/spring-response-entity-and-response-body) |                                                 |    |
 | 04 | Spring에서 Bean 설계 시 항상 무상태(stateless)로 설계해야 하는 이유 | [spring-bean-stateless-test](etc/spring-bean-stateless-test)                             |                                                 |    |
 | 05 | Toby's Spring Reading Club                       | [toby-spring-reading-club](etc/toby-spring-reading-club)                                 |                                                 |    |
+| 06 | Spring Boot Dev-Tools Auto Restart 동작 확인         | [spring-boot-dev-tools](etc/spring-boot-dev-tools)                                       |                                                 |    |
 
 </div>
 </details>
@@ -143,9 +144,9 @@ lectures/
 
 | 구분      | 전체 | Inflearn | FastCampus | Youtube |
 |---------|----|----------|------------|---------|
-| 총 강의    | 30 | 29       | 1          | 0       |
-| 완료(✅)   | 28 | 28       | 0          | 0       |
+| 총 강의    | 39 | 29       | 3          | 7       |
+| 완료(✅)   | 28 | 28       | 0          | 7       |
 | 진행중(🔄) | 0  | 0        | 0          | 0       |
-| 보류(⏸️)  | 2  | 1        | 1          | 0       |
+| 보류(⏸️)  | 4  | 1        | 3          | 0       |
 
 ---
