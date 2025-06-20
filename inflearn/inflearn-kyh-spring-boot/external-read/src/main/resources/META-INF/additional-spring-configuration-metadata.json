@@ -1,0 +1,32 @@
+{
+  "hints": [
+    {
+      "name": "my.datasource.username",
+      "values": [
+        {
+          "value": "local_user"
+        },
+        {
+          "value": "dev_user"
+        },
+        {
+          "value": "prod_user"
+        }
+      ]
+    },
+    {
+      "name": "my.datasource.password",
+      "values": [
+        {
+          "value": "local_pw"
+        },
+        {
+          "value": "dev_pw"
+        },
+        {
+          "value": "prod_pw"
+        }
+      ]
+    }
+  ]
+}
