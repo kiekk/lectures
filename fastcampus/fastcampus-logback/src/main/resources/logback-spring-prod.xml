@@ -1,0 +1,156 @@
+<included>
+    <include resource="org/springframework/boot/logging/logback/console-appender.xml"/>
+
+    <!-- 로그 변수 파일 경로  -->
+    <property resource="logback-variables.properties" />
+
+    <!-- 아래 방법으로도 변수 사용 가능 -->
+<!--    <property name="LOG_DIR" value="logs"/>-->
+<!--    <property name="LOG_PATTERN" value="[%-5level] %d{yyyy-MM-dd HH:mm:ss} [%thread] [%logger{0}:%line] - %msg%n"/>-->
+
+    <appender name="REQUEST1" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!-- 로그 파일 경로 -->
+        <file>${LOG_DIR}/request1.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <!-- 로그 파일 이름 패턴 -->
+            <fileNamePattern>logs/archive/request1.%d{yyyy-MM-dd}_%i.log</fileNamePattern>
+            <!-- 로그 파일 최대 크기 -->
+            <maxFileSize>1KB</maxFileSize>
+            <!-- 로그 파일 최대 보관 주기 (단위: 일) -->
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>
+                [REQUEST1] ${LOG_PATTERN}
+            </pattern>
+            <!-- 로그 파일 최상단에 패턴 출력 여부 -->
+            <outputPatternAsHeader>true</outputPatternAsHeader>
+        </encoder>
+    </appender>
+
+    <appender name="REQUEST2" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!-- 로그 파일 경로 -->
+        <file>${LOG_DIR}/request2.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <!-- 로그 파일 이름 패턴 -->
+            <fileNamePattern>logs/archive/request2.%d{yyyy-MM-dd}_%i.log</fileNamePattern>
+            <!-- 로그 파일 최대 크기 -->
+            <maxFileSize>1KB</maxFileSize>
+            <!-- 로그 파일 최대 보관 주기 (단위: 일) -->
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>
+                [REQUEST2] ${LOG_PATTERN}
+            </pattern>
+            <!-- 로그 파일 최상단에 패턴 출력 여부 -->
+            <outputPatternAsHeader>true</outputPatternAsHeader>
+        </encoder>
+    </appender>
+
+    <appender name="MDC" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!-- 로그 파일 경로 -->
+        <file>${LOG_DIR}/mdc.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <!-- 로그 파일 이름 패턴 -->
+            <fileNamePattern>logs/archive/mdc.%d{yyyy-MM-dd}_%i.log</fileNamePattern>
+            <!-- 로그 파일 최대 크기 -->
+            <maxFileSize>1KB</maxFileSize>
+            <!-- 로그 파일 최대 보관 주기 (단위: 일) -->
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <!-- %X 를 사용하면 MDC 안에 있는 key로 조회 가능 -->
+            <pattern>
+                [MDC] %X{job}%n
+            </pattern>
+            <!-- 로그 파일 최상단에 패턴 출력 여부 -->
+            <outputPatternAsHeader>true</outputPatternAsHeader>
+        </encoder>
+    </appender>
+
+    <appender name="ERROR" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!-- 로그 파일 경로 -->
+        <file>${LOG_DIR}/error.log</file>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>ERROR</level>
+            <!-- 해당 Level 의 log 만 기록 -->
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <!-- 로그 파일 이름 패턴 -->
+            <fileNamePattern>logs/archive/error.%d{yyyy-MM-dd}_%i.log</fileNamePattern>
+            <!-- 로그 파일 최대 크기 -->
+            <maxFileSize>1KB</maxFileSize>
+            <!-- 로그 파일 최대 보관 주기 (단위: 일) -->
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <!-- %X 를 사용하면 MDC 안에 있는 key로 조회 가능 -->
+            <pattern>
+                [ERROR] ${LOG_PATTERN}
+            </pattern>
+            <!-- 로그 파일 최상단에 패턴 출력 여부 -->
+            <outputPatternAsHeader>true</outputPatternAsHeader>
+        </encoder>
+    </appender>
+
+    <appender name="WARN" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!-- 로그 파일 경로 -->
+        <file>${LOG_DIR}/warn.log</file>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>WARN</level>
+            <!-- 해당 Level 의 log 만 기록 -->
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <!-- 로그 파일 이름 패턴 -->
+            <fileNamePattern>logs/archive/warn.%d{yyyy-MM-dd}_%i.log</fileNamePattern>
+            <!-- 로그 파일 최대 크기 -->
+            <maxFileSize>1KB</maxFileSize>
+            <!-- 로그 파일 최대 보관 주기 (단위: 일) -->
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <!-- %X 를 사용하면 MDC 안에 있는 key로 조회 가능 -->
+            <pattern>
+                [WARN] ${LOG_PATTERN}
+            </pattern>
+            <!-- 로그 파일 최상단에 패턴 출력 여부 -->
+            <outputPatternAsHeader>true</outputPatternAsHeader>
+        </encoder>
+    </appender>
+
+    <appender name="QUERY" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!-- 로그 파일 경로 -->
+        <file>${LOG_DIR}/query.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <!-- 로그 파일 이름 패턴 -->
+            <fileNamePattern>logs/archive/query.%d{yyyy-MM-dd}_%i.log</fileNamePattern>
+            <!-- 로그 파일 최대 크기 -->
+            <maxFileSize>1KB</maxFileSize>
+            <!-- 로그 파일 최대 보관 주기 (단위: 일) -->
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>
+                [QUERY] ${LOG_PATTERN}
+            </pattern>
+            <!-- 로그 파일 최상단에 패턴 출력 여부 -->
+            <outputPatternAsHeader>true</outputPatternAsHeader>
+        </encoder>
+    </appender>
+
+    <root level="INFO">
+    </root>
+
+    <logger name="SQL_LOG1" level="INFO" additivity="false">
+        <appender-ref ref="QUERY"/>
+    </logger>
+
+    <logger name="SQL_LOG2" level="INFO" additivity="false">
+        <appender-ref ref="QUERY"/>
+    </logger>
+</included>
