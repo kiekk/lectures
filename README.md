@@ -9,6 +9,8 @@ lectures/
 ├── inflearn/ # Inflearn 강의 정리
 ├── fascampus/ # FastCampus 강의 정리
 ├── youtube/ # YouTube 영상 강의 정리
+├── docs/ # 공식 문서 정리
+├── etc/ # 기타 등등 (커뮤니티 코멘트, 블로그 포스트 등)
 ```
 
 ## 🗂️ 강의 목록
@@ -99,6 +101,21 @@ lectures/
 | 02 | <img src="docs/handlebars/logo.webp" width="200"/>     | handlebars      | [handlebars](docs/handlebars)           | https://handlebarsjs.com/                   |    |
 | 03 | <img src="docs/thymeleaf/logo.png" width="200"/>       | thymeleaf       | [thymeleaf](docs/thymeleaf)             | https://www.thymeleaf.org/                  |    |
 | 04 | <img src="docs/lucy-xss-filter/logo.jpg" width="200"/> | lucy-xss-filter | [lucy-xss-filter](docs/lucy-xss-filter) | https://naver.github.io/lucy-xss-filter/kr/ |    |
+
+</div>
+</details>
+<br/>
+<details>
+<summary>Etc</summary>
+<div markdown="1">
+
+이 디렉토리는 커뮤니티 코멘트, 블로그 포스트 등을 기반으로 학습한 내용을 정리한 공간입니다. 디렉토리에는 실습 코드, 요약 노트, 참고 링크 등을 포함하고 있습니다.
+
+## 📋 문서 목록
+
+| No | 제목                              | 디렉토리                                                           | 링크                                              | 비고 |
+|----|---------------------------------|----------------------------------------------------------------|-------------------------------------------------|----|
+| 01 | @RequestBody 에서는 Setter 가 필요 없다 | [request-body-no-need-setter](etc/request-body-no-need-setter) | https://jojoldu.tistory.com/407?category=635883 |    |
 
 </div>
 </details>
