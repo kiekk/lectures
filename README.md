@@ -84,6 +84,7 @@ lectures/
 | No | 제목                  | 디렉토리                                                     | 링크                                                                                                     | 비고 |
 |----|---------------------|----------------------------------------------------------|--------------------------------------------------------------------------------------------------------|----|
 | 01 | 모던 자바 (자바8) 못다한 이야기 | [modern-java-with-kevin](youtube/modern-java-with-kevin) | [youtube](https://www.youtube.com/watch?v=mu9XfJofm8U&list=PLRIMoAKN8c6O8_VHOyBOhzBCeN7ShyJ27&index=2) |    |
+| 02 | Dan Vega Security   | [dan-vega-security](youtube/dan-vega-security)           | [youtube](https://www.youtube.com/@DanVega/videos)                                                     |    |
 
 </div>
 </details>
