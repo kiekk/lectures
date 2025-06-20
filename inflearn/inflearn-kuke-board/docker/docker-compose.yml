@@ -1,0 +1,22 @@
+services:
+  kuke-board-mysql:
+    image: mysql:8.0.38
+    container_name: kuke-board-mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./kuke-board:/var/lib/mysql
+  kuke-board-redis:
+    image: redis:7.4
+    container_name: kuke-board-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - ./kuke-redis:/data
+  kuke-board-kafka:
+    image: apache/kafka:3.8.0
+    container_name: kuke-board-kafka
+    ports:
+      - "9092:9092"
