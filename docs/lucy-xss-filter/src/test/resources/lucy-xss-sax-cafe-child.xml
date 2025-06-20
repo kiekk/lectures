@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<config xmlns="http://www.nhncorp.com/lucy-xss" extends="lucy-xss-superset-sax.xml">
+
+    <elementRule>
+        <element name="embed" disable="false">
+            <listener>com.example.studyluxyxssfilter.listener.EmbedListener
+            </listener>
+        </element>
+        <element name="object" disable="false">
+            <listener>com.example.studyluxyxssfilter.listener.ObjectListener
+            </listener>
+        </element>
+        <element name="img" disable="false">
+            <attributes>
+                <ref name="movietype"/>
+            </attributes>
+            <listener>com.example.studyluxyxssfilter.listener.ImgListener
+            </listener>
+        </element>
+
+        <element name="table" override="true" endTag="false">
+            <attributes>
+                <ref name="height" />
+                <ref name="class"/>
+            </attributes>
+        </element>
+
+        <element name="p">
+            <elements>
+                <ref name="table" />
+            </elements>
+        </element>
+
+        <element name="ul">
+            <elements>
+                <ref name="a"/>
+            </elements>
+        </element>
+
+        <element name="a">
+            <attributes>
+                <ref name="style"></ref>
+            </attributes>
+            <listener>com.example.studyluxyxssfilter.listener.ATagListener</listener>
+        </element>
+
+    </elementRule>
+
+    <attributeRule>
+        <attribute name="movietype"/>
+    </attributeRule>
+
+</config>
