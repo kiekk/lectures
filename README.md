@@ -50,6 +50,7 @@ lectures/
 | 25 | <img src="https://cdn.inflearn.com/public/courses/329974/cover/fe5d2e63-04c3-472e-9bd5-9b26857629a8/329974-eng.png?f=avif" width="200"/>                                                                                            | 토비의 스프링 부트 - 이해와 원리                                | 토비          | [inflearn-toby-spring-boot](inflearn/inflearn-toby-spring-boot)                                                                                       | ✅ 완료  |    |
 | 26 | <img src="https://cdn.inflearn.com/public/courses/327744/cover/de286689-c862-424e-b99d-8407918be912/327744-eng.png?f=avif" width="200"/>                                                                                            | 스프링 배치                                             | 정수원         | [inflearn-spring-batch](inflearn/inflearn-spring-batch)                                                                                               | ✅ 완료  |    |
 | 27 | <img src="https://cdn.inflearn.com/public/courses/334365/cover/ef04bc2b-b006-4152-bfa2-704dbed57aa0/334365.png?f=avif" width="200"/>                                                                                                | 스프링부트로 직접 만들면서 배우는 대규모 시스템 설계 - 게시판                | 쿠케          | [inflearn-kuke-board](inflearn/inflearn-kuke-board)                                                                                                   | ✅ 완료  |    |
+| 28 | <img src="https://cdn.inflearn.com/public/files/courses/336964/cover/01jrag4tv09tfazwzs4xpmxxe2?f=avif" width="200"/>                                                                                                               | 스프링 웹 MVC 완전정복                                     | 정수원         | [inflearn-spring-mvc](inflearn/inflearn-spring-mvc)                                                                                                   | ✅ 완료  |    |
 
 </div>
 </details>
@@ -92,8 +93,8 @@ lectures/
 
 | 구분      | 전체 | Inflearn | FastCampus | Youtube |
 |---------|----|----------|------------|---------|
-| 총 강의    | 27 | 27       | 0          | 0       |
-| 완료(✅)   | 26 | 26       | 0          | 0       |
+| 총 강의    | 28 | 28       | 0          | 0       |
+| 완료(✅)   | 27 | 27       | 0          | 0       |
 | 진행중(🔄) | 0  | 0        | 0          | 0       |
 | 보류(⏸️)  | 1  | 1        | 0          | 0       |
 
