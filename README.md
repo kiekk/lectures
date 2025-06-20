@@ -23,8 +23,9 @@ lectures/
 
 | No | 썸네일                                                                                                                                      | 강의명                 | 강사명 | 디렉토리                                                            | 상태   | 비고 |
 |----|------------------------------------------------------------------------------------------------------------------------------------------|---------------------|-----|-----------------------------------------------------------------|------|----|
-| 01 | <img src="https://cdn.inflearn.com/public/courses/329974/cover/fe5d2e63-04c3-472e-9bd5-9b26857629a8/329974-eng.png?f=avif" width="200"/> | 토비의 스프링 부트 - 이해와 원리 | 토비  | [inflearn-toby-spring-boot](inflearn/inflearn-toby-spring-boot) | ✅ 완료 |    |
-| 02 | <img src="https://cdn.inflearn.com/public/courses/327744/cover/de286689-c862-424e-b99d-8407918be912/327744-eng.png?f=avif" width="200"/> | 스프링 배치              | 정수원 | [inflearn-spring-batch](inflearn/inflearn-spring-batch)         | ✅ 완료 |    |
+| 01 | <img src="https://cdn.inflearn.com/public/courses/330459/cover/00d1bd8e-3b9d-4c62-b801-fea717c942fa/330459-eng.png?f=avif" width="200"/> | 스프링 부트 - 핵심 원리와 활용  | 김영한 | [inflearn-kyh-spring-boot](inflearn/inflearn-kyh-spring-boot)   | ✅ 완료 |    |
+| 02 | <img src="https://cdn.inflearn.com/public/courses/329974/cover/fe5d2e63-04c3-472e-9bd5-9b26857629a8/329974-eng.png?f=avif" width="200"/> | 토비의 스프링 부트 - 이해와 원리 | 토비  | [inflearn-toby-spring-boot](inflearn/inflearn-toby-spring-boot) | ✅ 완료 |    |
+| 03 | <img src="https://cdn.inflearn.com/public/courses/327744/cover/de286689-c862-424e-b99d-8407918be912/327744-eng.png?f=avif" width="200"/> | 스프링 배치              | 정수원 | [inflearn-spring-batch](inflearn/inflearn-spring-batch)         | ✅ 완료 |    |
 
 </div>
 </details>
@@ -67,8 +68,8 @@ lectures/
 
 | 구분      | 전체 | Inflearn | FastCampus | Youtube |
 |---------|----|----------|------------|---------|
-| 총 강의    | 2  | 2        | 0          | 0       |
-| 완료(✅)   | 2  | 2        | 0          | 0       |
+| 총 강의    | 3  | 3        | 0          | 0       |
+| 완료(✅)   | 3  | 3        | 0          | 0       |
 | 진행중(🔄) | 0  | 0        | 0          | 0       |
 | 보류(⏸️)  | 0  | 0        | 0          | 0       |
 
