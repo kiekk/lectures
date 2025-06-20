@@ -93,11 +93,12 @@ lectures/
 
 ## 📋 문서 목록
 
-| No | 썸네일                                                | 공식문서       | 디렉토리                          | 링크                         | 비고 |
-|----|----------------------------------------------------|------------|-------------------------------|----------------------------|----|
-| 01 | <img src="docs/htmx/logo.webp" width="200"/>       | htmx       | [htmx](docs/htmx)             | https://htmx.org/          |    |
-| 02 | <img src="docs/handlebars/logo.webp" width="200"/> | handlebars | [handlebars](docs/handlebars) | https://handlebarsjs.com/  |    |
-| 03 | <img src="docs/thymeleaf/logo.png" width="200"/>   | thymeleaf  | [thymeleaf](docs/thymeleaf)   | https://www.thymeleaf.org/ |    |
+| No | 썸네일                                                    | 공식문서            | 디렉토리                                    | 링크                                          | 비고 |
+|----|--------------------------------------------------------|-----------------|-----------------------------------------|---------------------------------------------|----|
+| 01 | <img src="docs/htmx/logo.webp" width="200"/>           | htmx            | [htmx](docs/htmx)                       | https://htmx.org/                           |    |
+| 02 | <img src="docs/handlebars/logo.webp" width="200"/>     | handlebars      | [handlebars](docs/handlebars)           | https://handlebarsjs.com/                   |    |
+| 03 | <img src="docs/thymeleaf/logo.png" width="200"/>       | thymeleaf       | [thymeleaf](docs/thymeleaf)             | https://www.thymeleaf.org/                  |    |
+| 04 | <img src="docs/lucy-xss-filter/logo.jpg" width="200"/> | lucy-xss-filter | [lucy-xss-filter](docs/lucy-xss-filter) | https://naver.github.io/lucy-xss-filter/kr/ |    |
 
 </div>
 </details>
