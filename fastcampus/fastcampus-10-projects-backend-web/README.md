@@ -4,14 +4,14 @@
 
 ### 학습 Repository 링크
 
-* [Part 1. 나만의 MVC 프레임워크 만들기](https://github.com/kiekk/fastcampus-10-projects-backend-web/tree/master/part1)
-* [Part 2. 게시판 서비스](https://github.com/kiekk/fastcampus-10-projects-backend-web/tree/master/part2)
-* [Part 3. 게시판 서비스 고도화](https://github.com/kiekk/fastcampus-10-projects-backend-web/tree/master/part2)
-* [Part 4. 어드민 서비스](https://github.com/kiekk/fastcampus-project-board-admin)
-* [Part 5. PT 이용권 관리 서비스](https://github.com/kiekk/fastcampus-10-projects-backend-web/tree/master/part5)
+* [Part 1. 나만의 MVC 프레임워크 만들기](part1/README.md)
+* [Part 2. 게시판 서비스](part2/README.md)
+* [Part 3. 게시판 서비스 고도화](part2/README.md)
+* [Part 4. 어드민 서비스](../fastcampus-project-board-admin/README.md)
+* [Part 5. PT 이용권 관리 서비스](part5/README.md)
 * Part 6. IT 서비스 회사에서 사용하는 진짜 프로젝트 맛보기
-  * [Multi Module](https://github.com/kiekk/fastcampus-multimodule)
-  * [Feign Client](https://github.com/kiekk/fastcampus-feign-client)
-  * [Logback](https://github.com/kiekk/fastcampus-logback)
-  * [Github Action](https://github.com/kiekk/fastcampus-github-action)
-* [Part 7. 약국 길찾기 서비스](https://github.com/kiekk/fastcampus-10-projects-backend-web/tree/master/part7)
+  * [Multi Module](../fastcampus-multimodule)
+  * [Feign Client](../fastcampus-feign-client)
+  * [Logback](../fastcampus-logback)
+  * [Github Action](../fastcampus-github-action)
+* [Part 7. 약국 길찾기 서비스](part7)
