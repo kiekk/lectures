@@ -1,0 +1,28 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/spring-security6
+    username: postgres
+    password: postgres
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        format_sql: true
+        jdbc:
+          lob:
+            non_contextual_creation: true
+    defer-datasource-initialization: true
+  thymeleaf:
+    cache: false
+  sql:
+    init:
+      mode: always
+      data-locations: classpath:data.sql
+  docker:
+    compose:
+      file: classpath:compose.yml
+logging:
+  level:
+    ROOT: INFO
+    org.springframework.security: DEBUG
