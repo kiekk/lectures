@@ -1,0 +1,8 @@
+rootProject.name = 'part1'
+include 'mvc-practice'
+include 'oop-practice'
+include 'was-practice'
+include 'servlet-practice'
+include 'jdbc-practice'
+include 'di-practice'
+
