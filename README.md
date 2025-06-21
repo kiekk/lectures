@@ -123,14 +123,14 @@ lectures/
 
 ## 📋 문서 목록
 
-| No | 제목                                               | 디렉토리                                                                                     | 링크                                              | 비고 |
-|----|--------------------------------------------------|------------------------------------------------------------------------------------------|-------------------------------------------------|----|
-| 01 | @RequestBody 에서는 Setter 가 필요 없다                  | [request-body-no-need-setter](etc/request-body-no-need-setter)                           | https://jojoldu.tistory.com/407?category=635883 |    |
-| 02 | Spring Boot 에서 JSP 사용시 jar 패키징이 가능한지 테스트         | [spring-boot-jsp-jar-test](etc/spring-boot-jsp-jar-test)                                 |                                                 |    |
-| 03 | Spring ResponseEntity와 @ResponseBody 차이          | [spring-response-entity-and-response-body](etc/spring-response-entity-and-response-body) |                                                 |    |
-| 04 | Spring에서 Bean 설계 시 항상 무상태(stateless)로 설계해야 하는 이유 | [spring-bean-stateless-test](etc/spring-bean-stateless-test)                             |                                                 |    |
-| 05 | Toby's Spring Reading Club                       | [toby-spring-reading-club](etc/toby-spring-reading-club)                                 |                                                 |    |
-| 06 | Spring Boot Dev-Tools Auto Restart 동작 확인         | [spring-boot-dev-tools](etc/spring-boot-dev-tools)                                       |                                                 |    |
+| No | 제목                                               | 디렉토리                                                                                     | 링크                                              |
+|----|--------------------------------------------------|------------------------------------------------------------------------------------------|-------------------------------------------------|
+| 01 | @RequestBody 에서는 Setter 가 필요 없다                  | [request-body-no-need-setter](etc/request-body-no-need-setter)                           | https://jojoldu.tistory.com/407?category=635883 |
+| 02 | Spring Boot 에서 JSP 사용시 jar 패키징이 가능한지 테스트         | [spring-boot-jsp-jar-test](etc/spring-boot-jsp-jar-test)                                 |                                                 |
+| 03 | Spring ResponseEntity와 @ResponseBody 차이          | [spring-response-entity-and-response-body](etc/spring-response-entity-and-response-body) |                                                 |
+| 04 | Spring에서 Bean 설계 시 항상 무상태(stateless)로 설계해야 하는 이유 | [spring-bean-stateless-test](etc/spring-bean-stateless-test)                             |                                                 |
+| 05 | Toby's Spring Reading Club                       | [toby-spring-reading-club](etc/toby-spring-reading-club)                                 |                                                 |
+| 06 | Spring Boot Dev-Tools Auto Restart 동작 확인         | [spring-boot-dev-tools](etc/spring-boot-dev-tools)                                       |                                                 |
 
 </div>
 </details>
