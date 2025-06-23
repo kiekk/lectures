@@ -55,6 +55,7 @@ lectures/
 | 28 | <img src="https://cdn.inflearn.com/public/files/courses/336964/cover/01jrag4tv09tfazwzs4xpmxxe2?f=avif" width="200"/>                                                                                                               | 스프링 웹 MVC 완전정복                                     | 정수원         | [inflearn-spring-mvc](inflearn/inflearn-spring-mvc)                                                                                                   | ✅ 완료   |
 | 29 | <img src="https://cdn.inflearn.com/public/courses/332726/cover/b0615cb4-9620-4448-b7b3-6d0b00ee204a/332726.png?f=avif" width="200"/>                                                                                                | 개발자를 위한 쉬운 도커                                      | 데브위키        | [inflearn-easydocker-leafy](inflearn/inflearn-easydocker-leafy)                                                                                       | ✅ 완료   |
 | 30 | <img src="https://cdn.inflearn.com/public/course-325633-cover/ececd36d-e3c5-49de-ac84-6bd44b8bb706?f=avif" width="200"/>                                                                                                            | 모던 자바스크립트(ES6+) 심화                                 | 김영보         | [inflearn-modern-javascript-deep](inflearn/inflearn-modern-javascript-deep)                                                                           | 🔄 진행중 |
+| 31 | <img src="https://cdn.inflearn.com/public/files/courses/324190/cover/01jsbj8qtrz3f8apm3gvbrbqqb?f=avif" width="200"/>                                                                                                               | 초급자를 위한 [대세는 쿠버네티스]                                | 일프로         | [1pro-kubernetes-for-beginner](inflearn/1pro-kubernetes-for-beginner)                                                                                 | 🔄 진행중 |
 
 </div>
 </details>
@@ -145,9 +146,9 @@ lectures/
 
 | 구분      | 전체 | Inflearn | FastCampus | Youtube |
 |---------|----|----------|------------|---------|
-| 총 강의    | 40 | 30       | 3          | 7       |
+| 총 강의    | 41 | 31       | 3          | 7       |
 | 완료(✅)   | 35 | 28       | 0          | 7       |
-| 진행중(🔄) | 1  | 1        | 0          | 0       |
+| 진행중(🔄) | 2  | 2        | 0          | 0       |
 | 보류(⏸️)  | 4  | 1        | 3          | 0       |
 
 ---
