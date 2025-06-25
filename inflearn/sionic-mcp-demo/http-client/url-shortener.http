@@ -1,0 +1,73 @@
+### URL 단축 서비스 테스트
+
+###
+
+# URL 단축 요청 - Google
+POST http://localhost:8080/api/shorten
+Content-Type: application/json
+
+{
+  "originalUrl": "https://www.google.com"
+}
+
+###
+
+# URL 단축 요청 - GitHub
+POST http://localhost:8080/api/shorten
+Content-Type: application/json
+
+{
+  "originalUrl": "https://github.com"
+}
+
+###
+
+# URL 단축 요청 - 긴 URL 예시
+POST http://localhost:8080/api/shorten
+Content-Type: application/json
+
+{
+  "originalUrl": "https://www.example.com/very/long/path/with/many/parameters?param1=value1&param2=value2&param3=value3"
+}
+
+###
+
+# 잘못된 URL 형식 테스트
+POST http://localhost:8080/api/shorten
+Content-Type: application/json
+
+{
+  "originalUrl": "invalid-url"
+}
+
+###
+
+# 단축 URL 조회 (shortKey는 실제 생성된 값으로 변경 필요)
+GET http://localhost:8080/api/shorten/a1b2c3
+
+###
+
+# 존재하지 않는 단축 URL 조회
+GET http://localhost:8080/api/shorten/notfound
+
+###
+
+# 리다이렉트 테스트 (shortKey는 실제 생성된 값으로 변경 필요)
+GET http://localhost:8080/api/redirect/a1b2c3
+
+###
+
+# 존재하지 않는 키로 리다이렉트 테스트
+GET http://localhost:8080/api/redirect/notfound
+
+###
+
+# 빈 URL 테스트
+POST http://localhost:8080/api/shorten
+Content-Type: application/json
+
+{
+  "originalUrl": ""
+}
+
+###
