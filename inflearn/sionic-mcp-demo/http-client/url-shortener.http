@@ -1,5 +1,9 @@
 ### URL 단축 서비스 테스트
 
+# 환경 설정
+# Local (In-Memory): ./gradlew bootRun --args='--spring.profiles.active=local'
+# PostgreSQL: ./gradlew bootRun --args='--spring.profiles.active=local_postgres'
+
 ###
 
 # URL 단축 요청 - Google

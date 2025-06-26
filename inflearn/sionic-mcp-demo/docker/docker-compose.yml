@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: urlshortener-postgres
+    environment:
+      POSTGRES_DB: urlshortener
+      POSTGRES_USER: urlshortener_user
+      POSTGRES_PASSWORD: urlshortener_password
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - urlshortener-network
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
+
+networks:
+  urlshortener-network:
+    driver: bridge

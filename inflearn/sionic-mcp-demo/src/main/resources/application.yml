@@ -3,6 +3,11 @@ server:
 
 app:
   base-url: http://localhost:8080
+  storage-type: in-memory  # default storage type
+
+spring:
+  profiles:
+    default: local
 
 logging:
   level:
@@ -10,3 +15,44 @@ logging:
     org.springframework.web: DEBUG
   pattern:
     console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
+
+---
+# Local environment (in-memory storage)
+spring:
+  config:
+    activate:
+      on-profile: local
+
+app:
+  storage-type: in-memory
+
+logging:
+  level:
+    com.example.urlshortener: INFO
+
+---
+# Local PostgreSQL environment
+spring:
+  config:
+    activate:
+      on-profile: local_postgres
+  
+  datasource:
+    url: jdbc:postgresql://localhost:5432/urlshortener
+    username: urlshortener_user
+    password: urlshortener_password
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      maximum-pool-size: 10
+      minimum-idle: 5
+      connection-timeout: 20000
+      idle-timeout: 600000
+      max-lifetime: 1800000
+
+app:
+  storage-type: postgres
+
+logging:
+  level:
+    com.example.urlshortener: INFO
+    org.jetbrains.exposed: DEBUG
