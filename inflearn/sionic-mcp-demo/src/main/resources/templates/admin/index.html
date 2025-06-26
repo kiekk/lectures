@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>URL 단축기 관리자</title>
+    <link rel="stylesheet" href="/static/css/admin.css">
+</head>
+<body>
+    <div id="app">
+        <header class="header">
+            <h1>🔗 URL 단축기 관리자</h1>
+            <div class="stats">
+                총 <span id="total-count">0</span>개의 URL이 등록되었습니다
+            </div>
+        </header>
+
+        <main class="main-content">
+            <!-- URL 입력 폼 -->
+            <section class="form-section">
+                <div class="form-container">
+                    <h2>새 URL 단축하기</h2>
+                    <form id="url-form" class="url-form">
+                        <div class="form-group">
+                            <label for="url-input">긴 URL을 입력하세요:</label>
+                            <input 
+                                type="url" 
+                                id="url-input" 
+                                placeholder="https://example.com/very/long/url" 
+                                required
+                                class="url-input"
+                            >
+                        </div>
+                        <button type="submit" id="submit-btn" class="submit-btn">
+                            단축하기
+                        </button>
+                    </form>
+                    <div id="message" class="message"></div>
+                </div>
+            </section>
+
+            <!-- URL 목록 -->
+            <section class="list-section">
+                <div class="list-container">
+                    <h2>단축 URL 목록</h2>
+                    <div id="loading" class="loading" style="display: none;">
+                        로딩 중...
+                    </div>
+                    <div id="url-list" class="url-list">
+                        <!-- 동적으로 생성될 URL 항목들 -->
+                    </div>
+                    <div id="empty-message" class="empty-message" style="display: none;">
+                        📭 등록된 URL이 없습니다.
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="/static/js/admin.js"></script>
+</body>
+</html>

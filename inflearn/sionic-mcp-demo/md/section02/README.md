@@ -23,3 +23,14 @@
 - local_postgres env: exposed를 사용하여 postgresSQL db 연결
   - docker/docker-compose.yml의 postgresSQL 접속 정보 활용 
 
+### Step 3: Kotlin Multiplatform 관리자 화면 구현
+- 기능 구현:
+  - URL 입력 폼: 긴 URL 입력 필드와 '단축하기' 버튼
+  - URL 목록 표시: 단축 키, 원본 URL, 생성 시간 표시
+  - 삭제 기능: 각 URL 항목에 삭제 버튼 추가
+- 추가 API 엔드포인트:
+  - GET /api/shorten/urls: 모든 단축 URL 목록 조회
+  - DELETE /api/shorten/{shortKey}: 단축 키로 URL 삭제
+- 동작 흐름:
+  - POST, DELETE 작업 완료 후 자동으로 URL 목록 갱신
+  - 페이지 로드 시 초기 URL 목록 코드

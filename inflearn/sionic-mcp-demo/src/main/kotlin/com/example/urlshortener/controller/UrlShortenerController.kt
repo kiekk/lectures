@@ -2,6 +2,7 @@ package com.example.urlshortener.controller
 
 import com.example.urlshortener.dto.ShortenRequest
 import com.example.urlshortener.dto.ShortenResponse
+import com.example.urlshortener.dto.UrlMappingInfo
 import com.example.urlshortener.service.UrlShortenerService
 import io.github.oshai.kotlinlogging.KotlinLogging
 import org.springframework.http.ResponseEntity
@@ -13,6 +14,7 @@ private val logger = KotlinLogging.logger {}
 
 @RestController
 @RequestMapping("/api")
+@CrossOrigin(origins = ["*"])  // Kotlin Multiplatform 클라이언트를 위한 CORS 설정
 class UrlShortenerController(
     private val urlShortenerService: UrlShortenerService
 ) {
@@ -54,6 +56,32 @@ class UrlShortenerController(
         } else {
             logger.info { "리다이렉트 실패: $shortKey (존재하지 않음)" }
             RedirectView("/error")
+        }
+    }
+
+    // 새로운 관리자 API 엔드포인트들
+    @GetMapping("/shorten/urls")
+    fun getAllUrls(): ResponseEntity<List<UrlMappingInfo>> {
+        logger.info { "모든 URL 목록 조회 요청" }
+        
+        val urls = urlShortenerService.getAllUrls()
+        
+        logger.info { "모든 URL 목록 조회 완료: ${urls.size}개" }
+        return ResponseEntity.ok(urls)
+    }
+
+    @DeleteMapping("/shorten/{shortKey}")
+    fun deleteUrl(@PathVariable shortKey: String): ResponseEntity<Void> {
+        logger.info { "URL 삭제 요청: $shortKey" }
+        
+        val deleted = urlShortenerService.deleteUrl(shortKey)
+        
+        return if (deleted) {
+            logger.info { "URL 삭제 완료: $shortKey" }
+            ResponseEntity.noContent().build()
+        } else {
+            logger.info { "URL 삭제 실패: $shortKey (존재하지 않음)" }
+            ResponseEntity.notFound().build()
         }
     }
 }

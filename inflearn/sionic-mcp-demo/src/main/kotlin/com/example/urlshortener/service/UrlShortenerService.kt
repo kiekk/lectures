@@ -1,10 +1,12 @@
 package com.example.urlshortener.service
 
 import com.example.urlshortener.dto.ShortenResponse
+import com.example.urlshortener.dto.UrlMappingInfo
 import com.example.urlshortener.repository.UrlRepository
 import io.github.oshai.kotlinlogging.KotlinLogging
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service
+import java.time.Instant
 import kotlin.random.Random
 
 private val logger = KotlinLogging.logger {}
@@ -15,22 +17,28 @@ class UrlShortenerService(
     @Value("\${app.base-url:http://localhost:8080}") private val baseUrl: String
 ) {
 
+    companion object {
+        private const val CHARSET = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+        private const val SHORT_KEY_LENGTH = 6
+    }
+
     fun shortenUrl(originalUrl: String): ShortenResponse {
         logger.info { "URL 단축 서비스 시작: $originalUrl" }
+
+        val shortKey = generateUniqueShortKey()
+        val createdAt = Instant.now()
         
-        // 랜덤 6자리 키 생성 (문자로 시작, 문자와 숫자 조합)
-        val shortKey = generateShortKey()
-        logger.info { "생성된 단축 키: $shortKey" }
-        
-        // 저장소에 저장
-        urlRepository.save(shortKey, originalUrl)
-        logger.info { "URL 매핑 저장 완료: $shortKey -> $originalUrl" }
+        urlRepository.save(shortKey, originalUrl, createdAt)
         
         val shortUrl = "$baseUrl/api/redirect/$shortKey"
+        
+        logger.info { "URL 매핑 저장 완료: $shortKey -> $originalUrl" }
+        
         return ShortenResponse(
             shortKey = shortKey,
             shortUrl = shortUrl,
-            originalUrl = originalUrl
+            originalUrl = originalUrl,
+            createdAt = createdAt
         )
     }
 
@@ -42,32 +50,48 @@ class UrlShortenerService(
         if (originalUrl != null) {
             logger.info { "원본 URL 조회 성공: $shortKey -> $originalUrl" }
         } else {
-            logger.info { "원본 URL 조회 실패: $shortKey (키가 존재하지 않음)" }
+            logger.info { "원본 URL 조회 실패: $shortKey (존재하지 않음)" }
         }
         
         return originalUrl
     }
 
-    private fun generateShortKey(): String {
-        val letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
-        val alphanumeric = letters + "0123456789"
+    fun getAllUrls(): List<UrlMappingInfo> {
+        logger.info { "모든 URL 목록 조회 시작" }
         
-        // 첫 번째 문자는 반드시 문자
-        val firstChar = letters[Random.nextInt(letters.length)]
+        val urls = urlRepository.getAllMappingsWithInfo()
         
-        // 나머지 5자리는 문자와 숫자 조합
-        val remainingChars = (1..5).map { 
-            alphanumeric[Random.nextInt(alphanumeric.length)] 
-        }.joinToString("")
+        logger.info { "모든 URL 목록 조회 완료: ${urls.size}개" }
+        return urls
+    }
+
+    fun deleteUrl(shortKey: String): Boolean {
+        logger.info { "URL 삭제 시작: $shortKey" }
         
-        val shortKey = firstChar + remainingChars
+        val deleted = urlRepository.deleteByShortKey(shortKey)
         
-        // 중복 키 체크 및 재생성
-        return if (urlRepository.existsByShortKey(shortKey)) {
-            logger.info { "중복 키 발견, 재생성: $shortKey" }
-            generateShortKey() // 재귀적으로 다시 생성
+        if (deleted) {
+            logger.info { "URL 삭제 성공: $shortKey" }
         } else {
-            shortKey
+            logger.info { "URL 삭제 실패: $shortKey (존재하지 않음)" }
         }
+        
+        return deleted
+    }
+
+    private fun generateUniqueShortKey(): String {
+        var shortKey: String
+        do {
+            shortKey = generateRandomString()
+        } while (urlRepository.existsByShortKey(shortKey))
+        
+        logger.info { "생성된 단축 키: $shortKey" }
+        return shortKey
+    }
+
+    private fun generateRandomString(): String {
+        return (1..SHORT_KEY_LENGTH)
+            .map { CHARSET[Random.nextInt(CHARSET.length)] }
+            .joinToString("")
     }
 }
