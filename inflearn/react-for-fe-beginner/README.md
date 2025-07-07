@@ -13,7 +13,7 @@
 ## 📚 목차
 
 - [섹션 2. Chapter 01 React 소개](section02/README.md)
-- 섹션 3. Chapter 02 JSX
+- [섹션 3. Chapter 02 JSX](section03/README.md)
 - 섹션 4. Chapter 03 컴포넌트
 - 섹션 5. Chapter 04 LifeCycle과 Hooks
 - 섹션 6. Chapter 05 이벤트 핸들링
