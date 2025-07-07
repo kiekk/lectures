@@ -17,7 +17,7 @@
 - [섹션 4. Chapter 03 컴포넌트](section04/README.md)
 - [섹션 5. Chapter 04 LifeCycle과 Hooks](section05/README.md)
 - 섹션 6. Chapter 05 이벤트 핸들링
-- 섹션 7. Chapter 06 React 환경 설정
+- [섹션 7. Chapter 06 React 환경 설정](section07/README.md)
 - 섹션 8. Chapter 07 React 메모장 만들기
 - 섹션 9. Chapter 08 React 심화 프로젝트 소개
 - 섹션 10. Chapter 09 SurveyPie 설계
