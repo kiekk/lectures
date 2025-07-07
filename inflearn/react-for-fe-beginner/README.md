@@ -15,7 +15,7 @@
 - [섹션 2. Chapter 01 React 소개](section02/README.md)
 - [섹션 3. Chapter 02 JSX](section03/README.md)
 - [섹션 4. Chapter 03 컴포넌트](section04/README.md)
-- 섹션 5. Chapter 04 LifeCycle과 Hooks
+- [섹션 5. Chapter 04 LifeCycle과 Hooks](section05/README.md)
 - 섹션 6. Chapter 05 이벤트 핸들링
 - 섹션 7. Chapter 06 React 환경 설정
 - 섹션 8. Chapter 07 React 메모장 만들기
