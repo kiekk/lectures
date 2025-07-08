@@ -19,10 +19,23 @@ function App() {
     },
   ]);
 
+  const [selectMemoIndex, setSelectMemoIndex] = useState(0);
+
+  const setMemo = (newMemo) => {
+    // 불변성 유지를 위해 새로운 배열을 생성
+    const newMemos = [...memos];
+    newMemos[selectMemoIndex] = newMemo;
+    setMemos([...newMemos]);
+  };
+
   return (
     <div className="App">
-      <SideBar memos={memos} />
-      <MemoContainer />
+      <SideBar
+        memos={memos}
+        selectedMemoIndex={selectMemoIndex}
+        setSelectedMemoIndex={setSelectMemoIndex}
+      />
+      <MemoContainer memo={memos[selectMemoIndex]} setMemo={setMemo} />
     </div>
   );
 }
