@@ -1,3 +1,5 @@
+import './index.css';
+
 function SideBarFooter({ onClick }) {
   return (
     <div className="SideBarFooter">
