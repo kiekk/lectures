@@ -4,13 +4,14 @@ import lombok.Getter;
 import lombok.ToString;
 
 import java.util.Objects;
+import java.util.regex.Pattern;
 
 import static org.springframework.util.Assert.state;
 
 @Getter
 @ToString
 public class Member {
-    private String email;
+    private Email email;
 
     private String nickname;
 
@@ -24,7 +25,7 @@ public class Member {
 
     public static Member create(MemberCreateRequest createRequest, PasswordEncoder passwordEncoder) {
         Member member = new Member();
-        member.email = Objects.requireNonNull(createRequest.email());
+        member.email = new Email(createRequest.email());
         member.nickname = Objects.requireNonNull(createRequest.nickname());
         member.passwordHash = Objects.requireNonNull(passwordEncoder.encode(createRequest.password()));
         member.status = MemberStatus.PENDING;

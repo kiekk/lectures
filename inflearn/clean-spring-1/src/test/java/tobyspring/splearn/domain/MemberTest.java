@@ -4,8 +4,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.assertj.core.api.Assertions.*;
 
 class MemberTest {
     Member member;
@@ -109,5 +108,16 @@ class MemberTest {
         member.activate();
 
         assertThat(member.isActive()).isTrue();
+    }
+
+    @Test
+    void invalidEmail() {
+        assertThatThrownBy(() -> Member.create(new MemberCreateRequest("invalid-email", "soono", "secret"), passwordEncoder))
+                .isInstanceOf(IllegalArgumentException.class);
+    }
+
+    @Test
+    void validEmail() {
+        Member.create(new MemberCreateRequest("valid.email@splearn.app", "soono", "secret"), passwordEncoder);
     }
 }
