@@ -24,7 +24,7 @@ class MemberTest {
                 return encode(password).equals(passwordHash);
             }
         };
-        member = Member.create("soono@splearn.app", "soono", "secret", passwordEncoder);
+        member = Member.create(new MemberCreateRequest("soono@splearn.app", "soono", "secret"), passwordEncoder);
     }
 
     @Test
@@ -35,7 +35,7 @@ class MemberTest {
     @Test
     @Disabled("널 체크는 lombok의 @NonNull로 대체")
     void constructorNullCheck() {
-        assertThatThrownBy(() -> Member.create(null, "soono", "secret", passwordEncoder))
+        assertThatThrownBy(() -> Member.create(new MemberCreateRequest(null, "soono", "secret"), passwordEncoder))
                 .isInstanceOf(Exception.class);
     }
 
@@ -100,5 +100,14 @@ class MemberTest {
 
         assertThat(member.verifyPassword("secret", passwordEncoder)).isFalse();
         assertThat(member.verifyPassword("newSecret", passwordEncoder)).isTrue();
+    }
+
+    @Test
+    void shouldBeActive() {
+        assertThat(member.isActive()).isFalse();
+
+        member.activate();
+
+        assertThat(member.isActive()).isTrue();
     }
 }
