@@ -4,7 +4,6 @@ import lombok.Getter;
 import lombok.ToString;
 
 import java.util.Objects;
-import java.util.regex.Pattern;
 
 import static org.springframework.util.Assert.state;
 
@@ -23,11 +22,11 @@ public class Member {
         // private constructor`
     }
 
-    public static Member create(MemberCreateRequest createRequest, PasswordEncoder passwordEncoder) {
+    public static Member register(MemberRegisterRequest registerRequest, PasswordEncoder passwordEncoder) {
         Member member = new Member();
-        member.email = new Email(createRequest.email());
-        member.nickname = Objects.requireNonNull(createRequest.nickname());
-        member.passwordHash = Objects.requireNonNull(passwordEncoder.encode(createRequest.password()));
+        member.email = new Email(registerRequest.email());
+        member.nickname = Objects.requireNonNull(registerRequest.nickname());
+        member.passwordHash = Objects.requireNonNull(passwordEncoder.encode(registerRequest.password()));
         member.status = MemberStatus.PENDING;
         return member;
     }
