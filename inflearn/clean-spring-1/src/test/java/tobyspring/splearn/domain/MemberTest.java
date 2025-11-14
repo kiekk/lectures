@@ -4,7 +4,10 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static tobyspring.splearn.domain.MemberFixture.createMemberRegisterRequest;
+import static tobyspring.splearn.domain.MemberFixture.createPasswordEncoder;
 
 class MemberTest {
     Member member;
@@ -12,18 +15,8 @@ class MemberTest {
 
     @BeforeEach
     void setUp() {
-        this.passwordEncoder = new PasswordEncoder() {
-            @Override
-            public String encode(String password) {
-                return password.toUpperCase();
-            }
-
-            @Override
-            public boolean matches(String password, String passwordHash) {
-                return encode(password).equals(passwordHash);
-            }
-        };
-        member = Member.register(new MemberRegisterRequest("soono@splearn.app", "soono", "secret"), passwordEncoder);
+        this.passwordEncoder = createPasswordEncoder();
+        member = Member.register(createMemberRegisterRequest(), passwordEncoder);
     }
 
     @Test
@@ -34,7 +27,7 @@ class MemberTest {
     @Test
     @Disabled("널 체크는 lombok의 @NonNull로 대체")
     void constructorNullCheck() {
-        assertThatThrownBy(() -> Member.register(new MemberRegisterRequest(null, "soono", "secret"), passwordEncoder))
+        assertThatThrownBy(() -> Member.register(createMemberRegisterRequest(null), passwordEncoder))
                 .isInstanceOf(Exception.class);
     }
 
@@ -112,12 +105,12 @@ class MemberTest {
 
     @Test
     void invalidEmail() {
-        assertThatThrownBy(() -> Member.register(new MemberRegisterRequest("invalid-email", "soono", "secret"), passwordEncoder))
+        assertThatThrownBy(() -> Member.register(createMemberRegisterRequest("invalid-email"), passwordEncoder))
                 .isInstanceOf(IllegalArgumentException.class);
     }
 
     @Test
     void validEmail() {
-        Member.register(new MemberRegisterRequest("valid.email@splearn.app", "soono", "secret"), passwordEncoder);
+        Member.register(createMemberRegisterRequest(), passwordEncoder);
     }
 }
