@@ -6,7 +6,7 @@ public class MemberFixture {
     }
 
     public static MemberRegisterRequest createMemberRegisterRequest(String mail) {
-        return new MemberRegisterRequest(mail, "soono", "secret");
+        return new MemberRegisterRequest(mail, "soono", "secret1234");
     }
 
     public static PasswordEncoder createPasswordEncoder() {
