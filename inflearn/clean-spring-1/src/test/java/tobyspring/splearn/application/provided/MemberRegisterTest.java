@@ -20,7 +20,7 @@ import static tobyspring.splearn.domain.MemberStatus.PENDING;
 @Import(SplearnTestConfiguration.class)
 // junit-platform.properties 로 대체 가능
 //@TestConstructor(autowireMode = TestConstructor.AutowireMode.ALL)
-public record MemberRegisterTest(
+record MemberRegisterTest(
         MemberRegister memberRegister,
         MemberRepository memberRepository
 ) {
@@ -48,10 +48,10 @@ public record MemberRegisterTest(
 
     @Test
     void memberRegisterRequestFail() {
-        extracted(new MemberRegisterRequest("soono@splearn.app", "soon", "soon1234"));
-        extracted(new MemberRegisterRequest("soono@splearn.app", "soon___________________", "soon1234"));
-        extracted(new MemberRegisterRequest("soono@splearn.app", "soono", "soon123"));
-        extracted(new MemberRegisterRequest("soonosplearn", "soono", "soon1234"));
+        checkValidation(new MemberRegisterRequest("soono@splearn.app", "soon", "soon1234"));
+        checkValidation(new MemberRegisterRequest("soono@splearn.app", "soon___________________", "soon1234"));
+        checkValidation(new MemberRegisterRequest("soono@splearn.app", "soono", "soon123"));
+        checkValidation(new MemberRegisterRequest("soonosplearn", "soono", "soon1234"));
     }
 
     @Test
@@ -63,7 +63,7 @@ public record MemberRegisterTest(
         assertThat(activatedMember.getStatus()).isEqualTo(MemberStatus.ACTIVE);
     }
 
-    private void extracted(MemberRegisterRequest registerRequest) {
+    private void checkValidation(MemberRegisterRequest registerRequest) {
         assertThatThrownBy(() -> memberRegister.register(registerRequest))
                 .isInstanceOf(ConstraintViolationException.class);
     }
