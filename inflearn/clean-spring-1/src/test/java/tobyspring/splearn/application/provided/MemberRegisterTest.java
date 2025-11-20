@@ -1,6 +1,5 @@
 package tobyspring.splearn.application.provided;
 
-import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -10,6 +9,7 @@ import tobyspring.splearn.SplearnTestConfiguration;
 import tobyspring.splearn.application.required.MemberRepository;
 import tobyspring.splearn.domain.DuplicateEmailException;
 import tobyspring.splearn.domain.MemberRegisterRequest;
+import tobyspring.splearn.domain.MemberStatus;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -52,6 +52,15 @@ public record MemberRegisterTest(
         extracted(new MemberRegisterRequest("soono@splearn.app", "soon___________________", "soon1234"));
         extracted(new MemberRegisterRequest("soono@splearn.app", "soono", "soon123"));
         extracted(new MemberRegisterRequest("soonosplearn", "soono", "soon1234"));
+    }
+
+    @Test
+    void activate() {
+        var member = memberRegister.register(createMemberRegisterRequest());
+
+        var activatedMember = memberRegister.activate(member.getId());
+
+        assertThat(activatedMember.getStatus()).isEqualTo(MemberStatus.ACTIVE);
     }
 
     private void extracted(MemberRegisterRequest registerRequest) {

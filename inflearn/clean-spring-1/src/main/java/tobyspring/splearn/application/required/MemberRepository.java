@@ -15,4 +15,6 @@ public interface MemberRepository extends Repository<Member, Long> {
     Optional<Member> findByEmail(Email email);
 
     void deleteAll();
+
+    Optional<Member> findById(Long memberId);
 }
