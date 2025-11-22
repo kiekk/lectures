@@ -5,6 +5,7 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import org.hibernate.annotations.Comment;
 import org.hibernate.annotations.NaturalId;
 import org.hibernate.annotations.NaturalIdCache;
 
@@ -12,6 +13,9 @@ import java.util.Objects;
 
 import static org.springframework.util.Assert.state;
 
+@Table(name = "member", uniqueConstraints =
+@UniqueConstraint(name = "UK_MEMBER_EMAIL_ADDRESS", columnNames = "email_address")
+)
 @Entity
 @Getter
 @ToString
@@ -26,11 +30,17 @@ public class Member {
     @NaturalId
     private Email email;
 
+    @Comment("닉네임")
+    @Column(length = 100, nullable = false)
     private String nickname;
 
+    @Comment("비밀번호 해시")
+    @Column(length = 200, nullable = false)
     private String passwordHash;
 
+    @Comment("회원 상태")
     @Enumerated(EnumType.STRING)
+    @Column(length = 50, nullable = false)
     private MemberStatus status;
 
     public static Member register(MemberRegisterRequest registerRequest, PasswordEncoder passwordEncoder) {
