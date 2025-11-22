@@ -15,9 +15,9 @@ import static org.springframework.util.Assert.state;
 
 @Entity
 @Getter
-@ToString
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @NaturalIdCache
+@ToString(callSuper = true)
 public class Member extends AbstractEntity {
     @NaturalId
     private Email email;
