@@ -1,4 +1,4 @@
-package tobyspring.splearn.domain;
+package tobyspring.splearn.domain.shard;
 
 import org.junit.jupiter.api.Test;
 

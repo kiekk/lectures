@@ -1,4 +1,4 @@
-package tobyspring.splearn.application.provided;
+package tobyspring.splearn.application.member.provided;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -7,7 +7,7 @@ import tobyspring.splearn.SplearnTestConfiguration;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static tobyspring.splearn.domain.MemberFixture.createMemberRegisterRequest;
+import static tobyspring.splearn.domain.member.MemberFixture.createMemberRegisterRequest;
 
 @SpringBootTest
 @Import(SplearnTestConfiguration.class)

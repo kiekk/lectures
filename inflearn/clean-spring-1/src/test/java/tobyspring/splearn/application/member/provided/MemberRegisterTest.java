@@ -1,20 +1,21 @@
-package tobyspring.splearn.application.provided;
+package tobyspring.splearn.application.member.provided;
 
 import jakarta.validation.ConstraintViolationException;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Import;
 import tobyspring.splearn.SplearnTestConfiguration;
-import tobyspring.splearn.application.required.MemberRepository;
-import tobyspring.splearn.domain.DuplicateEmailException;
-import tobyspring.splearn.domain.MemberRegisterRequest;
-import tobyspring.splearn.domain.MemberStatus;
+import tobyspring.splearn.application.member.required.MemberRepository;
+import tobyspring.splearn.domain.member.DuplicateEmailException;
+import tobyspring.splearn.domain.member.MemberRegisterRequest;
+import tobyspring.splearn.domain.member.MemberStatus;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static tobyspring.splearn.domain.MemberFixture.createMemberRegisterRequest;
-import static tobyspring.splearn.domain.MemberStatus.PENDING;
+import static tobyspring.splearn.domain.member.MemberFixture.createMemberRegisterRequest;
+import static tobyspring.splearn.domain.member.MemberStatus.PENDING;
 
 @SpringBootTest
 @Import(SplearnTestConfiguration.class)
