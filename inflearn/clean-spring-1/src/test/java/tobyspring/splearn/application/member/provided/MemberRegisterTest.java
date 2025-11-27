@@ -1,16 +1,13 @@
 package tobyspring.splearn.application.member.provided;
 
 import jakarta.validation.ConstraintViolationException;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Import;
 import tobyspring.splearn.SplearnTestConfiguration;
 import tobyspring.splearn.application.member.required.MemberRepository;
-import tobyspring.splearn.domain.member.DuplicateEmailException;
-import tobyspring.splearn.domain.member.MemberRegisterRequest;
-import tobyspring.splearn.domain.member.MemberStatus;
+import tobyspring.splearn.domain.member.*;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -62,6 +59,33 @@ record MemberRegisterTest(
         var activatedMember = memberRegister.activate(member.getId());
 
         assertThat(activatedMember.getStatus()).isEqualTo(MemberStatus.ACTIVE);
+    }
+
+    @Test
+    void deactivate() {
+        var member = memberRegister.register(createMemberRegisterRequest());
+
+        memberRegister.activate(member.getId());
+
+        Member deactivatedMember = memberRegister.deactivate(member.getId());
+
+        assertThat(deactivatedMember.getStatus()).isEqualTo(MemberStatus.DEACTIVATED);
+        assertThat(deactivatedMember.getDetail().getDeactivatedAt()).isNotNull();
+    }
+
+    @Test
+    void updateInfo() {
+        var member = memberRegister.register(createMemberRegisterRequest());
+
+        memberRegister.activate(member.getId());
+
+        MemberInfoUpdateRequest memberInfoUpdateRequest = new MemberInfoUpdateRequest("Soono", "soooo", "Hello!!!");
+        var updatedMember = memberRegister.updateInfo(member.getId(),
+                memberInfoUpdateRequest);
+
+        assertThat(updatedMember.getNickname()).isEqualTo(memberInfoUpdateRequest.nickname());
+        assertThat(updatedMember.getDetail().getProfile().address()).isEqualTo(memberInfoUpdateRequest.profileAddress());
+        assertThat(updatedMember.getDetail().getIntroduction()).isEqualTo(memberInfoUpdateRequest.introduction());
     }
 
     private void checkValidation(MemberRegisterRequest registerRequest) {

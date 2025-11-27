@@ -1,6 +1,5 @@
 package tobyspring.splearn.domain.member;
 
-import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -19,7 +18,6 @@ import java.util.Objects;
 @NaturalIdCache
 @ToString(callSuper = true)
 public class MemberDetail extends AbstractEntity {
-    @Embedded
     private Profile profile;
     private String introduction;
     private LocalDateTime registeredAt;
