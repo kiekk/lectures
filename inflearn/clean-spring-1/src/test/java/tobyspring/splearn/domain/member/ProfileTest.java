@@ -10,12 +10,11 @@ class ProfileTest {
     @Test
     void profile() {
         assertDoesNotThrow(() -> new Profile("test"));
+        assertDoesNotThrow(() -> new Profile(""));
     }
 
     @Test
     void profileFail() {
-        assertThatThrownBy(() -> new Profile(""))
-                .isInstanceOf(IllegalArgumentException.class);
         assertThatThrownBy(() -> new Profile("testteteststetset"))
                 .isInstanceOf(IllegalArgumentException.class);
         assertThatThrownBy(() -> new Profile("A"))

@@ -75,7 +75,7 @@ record MemberRegisterTest(
 
     @Test
     void updateInfo() {
-        var member = memberRegister.register(createMemberRegisterRequest());
+        var member = registerMember();
 
         memberRegister.activate(member.getId());
 
@@ -88,9 +88,29 @@ record MemberRegisterTest(
         assertThat(updatedMember.getDetail().getIntroduction()).isEqualTo(memberInfoUpdateRequest.introduction());
     }
 
+    @Test
+    void updateInfoFail() {
+        var member = registerMember();
+        memberRegister.activate(member.getId());
+        memberRegister.updateInfo(member.getId(), new MemberInfoUpdateRequest("Soooo", "soooo", "Hello!!!"));
+
+        var member2 = registerMember("soono2@splearn.app");
+        memberRegister.activate(member2.getId());
+        assertThatThrownBy(() -> memberRegister.updateInfo(member2.getId(), new MemberInfoUpdateRequest("Sooooo", "soooo", "Hello!!!")))
+                .isInstanceOf(DuplicateProfileException.class);
+    }
+
     private void checkValidation(MemberRegisterRequest registerRequest) {
         assertThatThrownBy(() -> memberRegister.register(registerRequest))
                 .isInstanceOf(ConstraintViolationException.class);
+    }
+
+    private Member registerMember() {
+        return memberRegister.register(MemberFixture.createMemberRegisterRequest());
+    }
+
+    private Member registerMember(String email) {
+        return memberRegister.register(MemberFixture.createMemberRegisterRequest(email));
     }
 
 }

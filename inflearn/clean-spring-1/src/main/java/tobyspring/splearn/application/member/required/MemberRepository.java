@@ -1,6 +1,8 @@
 package tobyspring.splearn.application.member.required;
 
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.Repository;
+import tobyspring.splearn.domain.member.Profile;
 import tobyspring.splearn.domain.shard.Email;
 import tobyspring.splearn.domain.member.Member;
 
@@ -17,4 +19,7 @@ public interface MemberRepository extends Repository<Member, Long> {
     void deleteAll();
 
     Optional<Member> findById(Long memberId);
+
+    @Query("SELECT m FROM Member m WHERE m.detail.profile = :profile")
+    Optional<Member> findByProfile(Profile profile);
 }
