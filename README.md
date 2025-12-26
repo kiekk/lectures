@@ -58,7 +58,7 @@ lectures/
 | 31 | <img src="https://cdn.inflearn.com/public/files/courses/324190/cover/01jsbj8qtrz3f8apm3gvbrbqqb?f=avif" width="200"/>                                                                                                               | 초급자를 위한 [대세는 쿠버네티스]                                                | 일프로         | [1pro-kubernetes-for-beginner](inflearn/1pro-kubernetes-for-beginner)                                                                                 | 🔄 진행중 |
 | 32 | <img src="https://cdn.inflearn.com/public/files/courses/336732/cover/01jqn0fg6k2x8bn0qfarc42pjw?f=avif" width="200"/>                                                                                                               | [Sionic MCP 시리즈 1] Model Context Protocol 을 이용하여 IntelliJ 와 코딩해보자! | Sionic AI   | [sionic-mcp-demo](inflearn/sionic-mcp-demo)                                                                                                           | ✅ 완료   |
 | 33 | <img src="https://cdn.inflearn.com/public/courses/331070/cover/da9f7e3d-ea61-49c0-a59d-26952dc8db1b/331070.png?f=avif" width="200"/>                                                                                                | 실무 중심! FE 입문자를 위한 React                                            | IT Share    | [react-for-fe-beginner](inflearn/react-for-fe-beginner)                                                                                               | 🔄 진행중 |
-| 34 | <img src="https://cdn.inflearn.com/public/files/courses/336073/cover/01jxenn0g2x8x74qp6gfyvwpan?f=avif" width="200"/>                                                                                                               | 토비의 클린 스프링 - 도메인 모델 패턴과 헥사고날 아키텍처 Part 1                           | 토비          | [clean-spring-1](inflearn/clean-spring-1)                                                                                                             | 🔄 진행중 |
+| 34 | <img src="https://cdn.inflearn.com/public/files/courses/336073/cover/01jxenn0g2x8x74qp6gfyvwpan?f=avif" width="200"/>                                                                                                               | 토비의 클린 스프링 - 도메인 모델 패턴과 헥사고날 아키텍처 Part 1                           | 토비          | [clean-spring-1](inflearn/clean-spring-1)                                                                                                             | ✅ 완료   |
 
 </div>
 </details>
@@ -150,8 +150,8 @@ lectures/
 | 구분      | 전체 | Inflearn | FastCampus | Youtube |
 |---------|----|----------|------------|---------|
 | 총 강의    | 44 | 34       | 3          | 7       |
-| 완료(✅)   | 36 | 29       | 0          | 7       |
-| 진행중(🔄) | 4  | 4        | 0          | 0       |
+| 완료(✅)   | 37 | 30       | 0          | 7       |
+| 진행중(🔄) | 3  | 3        | 0          | 0       |
 | 보류(⏸️)  | 4  | 1        | 3          | 0       |
 
 ---
