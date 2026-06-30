@@ -5,3 +5,8 @@ spring:
     password: 1234
   thymeleaf:
     cache: false
+
+PSP:
+  toss:
+    secretKey: test_gsk_docs_OaPz8L5KdmQXkzRz3y47BMw6
+    url: https://api.tosspayments.com/v1/payments/confirm
