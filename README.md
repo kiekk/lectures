@@ -60,6 +60,7 @@ lectures/
 | 33 | <img src="https://cdn.inflearn.com/public/courses/331070/cover/da9f7e3d-ea61-49c0-a59d-26952dc8db1b/331070.png?f=avif" width="200"/>                                                                                                | 실무 중심! FE 입문자를 위한 React                                            | IT Share    | [react-for-fe-beginner](inflearn/react-for-fe-beginner)                                                                                               | 🔄 진행중 |
 | 34 | <img src="https://cdn.inflearn.com/public/files/courses/336073/cover/01jxenn0g2x8x74qp6gfyvwpan?f=avif" width="200"/>                                                                                                               | 토비의 클린 스프링 - 도메인 모델 패턴과 헥사고날 아키텍처 Part 1                           | 토비          | [clean-spring-1](inflearn/clean-spring-1)                                                                                                             | ✅ 완료   |
 | 35 | <img src="https://cdn.inflearn.com/public/files/courses/335221/cover/01jvkam9fbyatet8vfy9xk93q7?f=avif&w=736" width="200"/>                                                                                                         | Spring Boot TDD - 입문부터 실전까지 정확하게                                   | 이규원         | [spring-boot-tdd-start](inflearn/spring-boot-tdd-start)                                                                                               | 🔄 진행중 |
+| 36 | <img src="https://cdn.inflearn.com/public/courses/333243/cover/274f2018-cf6e-44c2-a3e3-bad8eb6540ec/333243.png?w=736&f=avif" width="200"/>                                                                                          | 견고한 결제 시스템 구축                                                     | 여정민         | [inflearn-payment-system-robust](inflearn/inflearn-payment-system-robust)                                                                             | 🔄 진행중 |
 
 </div>
 </details>
@@ -150,9 +151,9 @@ lectures/
 
 | 구분      | 전체 | Inflearn | FastCampus | Youtube |
 |---------|----|----------|------------|---------|
-| 총 강의    | 45 | 35       | 3          | 7       |
+| 총 강의    | 46 | 36       | 3          | 7       |
 | 완료(✅)   | 37 | 30       | 0          | 7       |
-| 진행중(🔄) | 4  | 4        | 0          | 0       |
+| 진행중(🔄) | 5  | 5        | 0          | 0       |
 | 보류(⏸️)  | 4  | 1        | 3          | 0       |
 
 ---
